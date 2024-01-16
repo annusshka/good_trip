@@ -1,0 +1,1 @@
+export 'view/event_screen.dart';
