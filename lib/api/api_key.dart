@@ -1,1 +1,0 @@
-const tripKey = '5ae2e3f221c38a28845f05b60b1bfaa52158781133156a65f638aa0a';

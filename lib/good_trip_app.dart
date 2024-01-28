@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/routes/routes.dart';
-import 'package:good_trip/theme/theme.dart';
+import 'package:good_trip/core/theme/routes/routes.dart';
+import 'package:good_trip/core/theme/theme.dart';
 
 class GoodTripApp extends StatelessWidget {
   const GoodTripApp({super.key});

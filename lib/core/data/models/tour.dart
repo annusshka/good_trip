@@ -1,6 +1,6 @@
 import 'dart:math';
 
-class Event {
+class Tour {
   final String id;
   final String name;
   final String? image;
@@ -8,8 +8,9 @@ class Event {
   final Point coordinates;
   final String? description;
   final List<String> kinds;
+  late bool isLiked = false;
 
-  Event({required this.id, required this.name, this.image,
+  Tour({required this.id, required this.name, this.image,
     this.date, required this.coordinates,
-    this.description, required this.kinds});
+    this.description, required this.kinds, this.isLiked = false});
 }

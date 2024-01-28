@@ -1,1 +1,0 @@
-export 'view/event_list_screen.dart';
