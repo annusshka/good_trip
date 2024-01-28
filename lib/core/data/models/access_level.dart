@@ -1,0 +1,4 @@
+enum AccessLevel {
+  user,
+  localguide,
+}
