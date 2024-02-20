@@ -21,17 +21,17 @@ class AccountScreen extends StatelessWidget {
             shrinkWrap: true,
             children: const [
               ProfileSettingsList(
-                title: 'Account',
-                elementList: ['Personal information', 'Change password',
-                  'Switch to localguide'],
+                title: 'Аккаунт',
+                elementList: ['Персональная информация', 'Изменить пароль',
+                  'Стать экскурсоводом'],
               ),
               ProfileSettingsList(
-                title: 'Support',
-                elementList: ['Contact support', 'Privacy policy'],
+                title: 'Поддержка',
+                elementList: ['Связаться с поддержкой', 'Privacy policy'],
               ),
               ProfileSettingsList(
-                title: 'Other',
-                elementList: ['Log out'],
+                title: 'Другое',
+                elementList: ['Выйти'],
               ),
             ],
           ),

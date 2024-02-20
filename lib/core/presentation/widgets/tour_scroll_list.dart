@@ -52,7 +52,7 @@ class _TourScrollListState extends State<TourScrollList> {
             separatorBuilder: (BuildContext context, _) => const SizedBox(width: 10,),
             itemBuilder: (context, i) {
               final tour = widget.tourList[i];
-              return TourScrollElement(tour: tour, icon: widget.icon,);
+              return TourScrollElement(tour: tour, imageIcon: widget.icon,);
             },
           ),
         ),

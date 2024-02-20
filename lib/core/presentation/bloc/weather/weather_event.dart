@@ -12,7 +12,7 @@ class WeatherRequested extends WeatherEvent {
   const WeatherRequested({this.city = "", this.lat = "", this.lon = ""});
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [city, lat, lon];
 }
 
 class WeatherCurrentPositionRequested extends WeatherEvent {

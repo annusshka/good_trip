@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/theme/theme.dart';
 
 class TourDescription extends StatefulWidget {
   const TourDescription({super.key, required this.desc});
@@ -30,21 +31,19 @@ class _TourDescriptionState extends State<TourDescription> {
         isOpenText
             ? Text(desc,
                 textAlign: TextAlign.left,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 14,
-                    fontFamily: 'Gilroy',
                     fontWeight: FontWeight.w400,
-                    color: Color.fromARGB(100, 105, 105, 116)),
+                    color: colors.darkGray),
                 softWrap: true,
               )
             : Text(
               desc,
               textAlign: TextAlign.left,
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 14,
-                  fontFamily: 'Gilroy',
                   fontWeight: FontWeight.w400,
-                  color: Color.fromARGB(100, 105, 105, 116)),
+                  color: colors.darkGray),
               softWrap: true,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,

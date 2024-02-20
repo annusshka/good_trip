@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-import '../../theme/theme.dart';
+import '../../../theme/theme.dart';
 
 class NavBarSelectedIcon extends StatelessWidget {
   final IconData icon;

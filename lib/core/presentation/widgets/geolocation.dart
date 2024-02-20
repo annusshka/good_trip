@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../data/models/models.dart';
 
 class Geolocation extends StatefulWidget {
-  final Weather weather;
-  const Geolocation({super.key, required this.weather});
+  final LocationInfo locationInfo;
+  const Geolocation({super.key, required this.locationInfo});
 
   @override
   State<Geolocation> createState() => _GeolocationState();
@@ -21,7 +21,7 @@ class _GeolocationState extends State<Geolocation> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.weather.cityName,
+        Text(widget.locationInfo.cityName,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         Row(
@@ -29,7 +29,7 @@ class _GeolocationState extends State<Geolocation> {
             SizedBox.fromSize(
               size: const Size.square(24),
               child: Image.network(
-                "http://openweathermap.org/img/wn/${widget.weather.iconCode}@2x.png",
+                "http://openweathermap.org/img/wn/${widget.locationInfo.weatherIconCode}@2x.png",
                 scale: 2,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
@@ -38,7 +38,7 @@ class _GeolocationState extends State<Geolocation> {
                   },
               ),
             ),
-            Text('${widget.weather.temperature.toString()}°C',
+            Text('${widget.locationInfo.temperature.toString()}°C',
               style: Theme.of(context).textTheme.bodySmall,),
           ],
         ),

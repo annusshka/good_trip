@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118972197028",
+    "project_id": "good-trip-4b1aa",
+    "storage_bucket": "good-trip-4b1aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118972197028:android:1b8b06615ebcfed4911e31",
+        "android_client_info": {
+          "package_name": "com.example.good_trip"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7hNMObiyqq0--EXEnoxGjRdNnE207Uec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

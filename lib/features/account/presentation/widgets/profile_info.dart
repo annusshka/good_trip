@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/data/models/access_level.dart';
 import 'package:good_trip/core/data/models/account.dart';
 
 class ProfileInfo extends StatelessWidget {
@@ -36,7 +37,8 @@ class ProfileInfo extends StatelessWidget {
           child: ListTile(
             title: Text('${account.name} ${account.surname}',
               style: Theme.of(context).textTheme.bodyLarge,),
-            subtitle: Text('${account.accessLevel}',
+            subtitle: Text(account.accessLevel == AccessLevel.localguide
+                ? 'Гид' : 'Экскурсант',
               style: Theme.of(context).textTheme.bodyMedium,),
           ),
         ),

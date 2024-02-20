@@ -1,87 +1,163 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/data/repositories/event/event.dart';
-import 'package:good_trip/core/presentation/bloc/weather_state.dart';
+import 'package:good_trip/core/presentation/bloc/tour/tour_event.dart';
+import 'package:good_trip/core/presentation/bloc/weather/weather_event.dart';
+import 'package:good_trip/core/presentation/bloc/weather/weather_state.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 
-import '../../../core/data/models/models.dart';
-import '../../../core/presentation/bloc/weather_event.dart';
-import '../../../core/presentation/bloc/weather_bloc.dart';
+import '../../../core/presentation/bloc/tour/tour_bloc.dart';
+import '../../../core/presentation/bloc/tour/tour_state.dart';
+import '../../../core/presentation/bloc/weather/weather_bloc.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-
-  List<Tour>? eventList;
-  List<Tour>? audioGuideList;
-
-  @override
-  void initState() {
-    _loadEventList();
-    _loadEventLikedList();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      lazy: false,
-      create: (context) => WeatherBloc()..add(const WeatherCurrentPositionRequested()),
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: BlocBuilder<WeatherBloc, WeatherState>(
-              builder: (context, state) {
-                if (state is WeatherLoadSuccess) {
-                  return Geolocation(weather: state.weather,);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<WeatherBloc>(
+          lazy: false,
+          create: (context) => WeatherBloc()..add(const WeatherCurrentPositionRequested()),
+        ),
+        BlocProvider<TourBloc>(
+          lazy: false,
+          create: (context) => TourBloc(),
+        ),
+      ],
+      child: BlocListener<WeatherBloc, WeatherState>(
+        listener: (context, state) {
+          if (state is WeatherLoadSuccess) {
+            BlocProvider.of<TourBloc>(context)
+                .add(TourRequested(city: state.weather.cityName,
+                lon: state.weather.lon, lat: state.weather.lat));
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            title: BlocBuilder<WeatherBloc, WeatherState>(
+                builder: (context, state) {
+                  if (state is WeatherLoadSuccess) {
+                    return Geolocation(locationInfo: state.weather,);
+                  } else {
+                    return const Center();
+                  }
                 }
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search_rounded, size: 24, color: Colors.black,),
+                onPressed: () {
+                  showSearch(
+                      context: context,
+                      delegate: MySearchDelegate((query) =>
+                      BlocProvider.of<WeatherBloc>(context)
+                        ..add(WeatherRequested(city: query)))
+                  );
+                },
+              ),
+            ],
+          ),
+          body: BlocBuilder<TourBloc, TourState>(
+            builder: (context, state) {
+              if (state is TourLoadSuccess && state.tourList.isNotEmpty) {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        TourScrollList(
+                            tourList: state.tourList,
+                            title: 'Популярные места'
+                        ),
+                        TourScrollList(
+                          tourList: state.tourList,
+                          title: 'Аудиоэкскурсия',
+                          icon: Icons.headphones_rounded,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
                 return const Center(child: CircularProgressIndicator(),);
               }
-              ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search_rounded, size: 24, color: Colors.black,),
-              onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: MySearchDelegate((query) =>
-                        BlocProvider.of<WeatherBloc>(context)
-                            ..add(WeatherRequested(city: query))));
-                },
-            ),
-          ],
+            }
+          ),
         ),
-        body: (eventList == null)
-            ? const Center(child: CircularProgressIndicator(),)
-            : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    TourScrollList(tourList: eventList!,
-                        title: 'Популярные места'),
-                    TourScrollList(tourList: eventList!,
-                      title: 'Аудиоэкскурсия', icon: Icons.headphones_rounded,),
-                  ],
-                ),
-              ),
-            ),
       ),
     );
+    /*
+    return BlocProvider(
+      lazy: false,
+      create: (context) => TourBloc()..add(const CurrentPositionRequested()),
+      //create: (context) => TourBloc()..add(const HomePageRequested()),
+      child: BlocBuilder<TourBloc, TourState>(
+        builder: (context, state) {
+          if (state.isLoading || state.tourList.isEmpty) {
+            return const Center(child: CircularProgressIndicator(),);
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                title: Geolocation(locationInfo: state.locationInfo,),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.search_rounded, size: 24, color: Colors.black,),
+                    onPressed: () {
+                      showSearch(
+                          context: context,
+                          delegate: MySearchDelegate((query) =>
+                          BlocProvider.of<TourBloc>(context)
+                            ..add(WeatherRequested(city: query)))
+                      );
+                    },
+                  ),
+                ],
+              ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      TourScrollList(
+                          tourList: state.tourList,
+                          title: 'Популярные места'
+                      ),
+                      TourScrollList(
+                        tourList: state.tourList,
+                        title: 'Аудиоэкскурсия',
+                        icon: Icons.headphones_rounded,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              /*
+              body: (eventList == null)
+                  ? const Center(child: CircularProgressIndicator(),)
+                  : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      TourScrollList(tourList: eventList!,
+                          title: 'Популярные места'),
+                      TourScrollList(tourList: eventList!,
+                        title: 'Аудиоэкскурсия', icon: Icons.headphones_rounded,),
+                    ],
+                  ),
+                ),
+              ),*/
+            );
+          }
+        }
+      ),
+    );
+
+     */
   }
-
-  Future<void> _loadEventList() async{
-    eventList = await EventRepository().getTripEventList();
-    setState(() {});
-  }
-
-  Future<void> _loadEventLikedList() async{}
-
-  void search() {}
 }

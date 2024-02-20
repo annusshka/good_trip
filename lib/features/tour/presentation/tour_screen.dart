@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/data/repositories/event/event.dart';
+import 'package:good_trip/core/data/repositories/service/service.dart';
 import 'package:good_trip/core/presentation/widgets/tour_scroll_list.dart';
 
 import 'widgets/widgets.dart';
@@ -19,7 +19,8 @@ class _TourScreenState extends State<TourScreen> {
   List<Tour>? eventLikedList = [];
 
   Future<void> _loadEventList() async{
-    eventLikedList = await EventRepository().getTripEventList();
+    // Если метод не static, то вызывается через TourService()
+    eventLikedList = await TourService.getTourList(lon: '38.364285', lat: '59.855685', limit: 10);
     setState(() {});
   }
 
@@ -30,8 +31,7 @@ class _TourScreenState extends State<TourScreen> {
   }
 
   void _tapLike() {
-    bool like = event!.isLiked;
-    event!.isLiked = !like;
+    event!.isLiked = !event!.isLiked;
   }
 
   @override
@@ -51,27 +51,32 @@ class _TourScreenState extends State<TourScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.only(top: 40, bottom:10, left:10, right:10),
+          padding: const EdgeInsets.only(
+              top: 40, bottom:10,
+              left:10, right:10),
           child: Column(
             children: [
               SizedBox(
-                height: 200,
-                width: 355,
+                height: height * 0.25,
+                //width: width,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20), // Image border
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.network(event!.image as String,
+                      Image.network(event?.image ?? '',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: Colors.grey,
                             alignment: Alignment.center,
-                            child: const Icon(Icons.camera_alt, size: 50,),
+                            child: Icon(Icons.camera_alt, size: height * 0.1,),
                           );
                         },
                       ),
@@ -124,12 +129,12 @@ class _TourScreenState extends State<TourScreen> {
                       subtitleText: '8:30 PM - 10:00 PM',
                       icon: Icons.calendar_today_rounded,
                     ),
-                    const TourTile(
-                      titleText: 'Some place',
-                      subtitleText: 'Some place2',
+                    TourTile(
+                      titleText: '${event?.address[2] ?? ''}, ${event?.address[3] ?? ''}',
+                      subtitleText: '${event?.address[0] ?? ''}, ${event?.address[1] ?? ''}',
                       icon: Icons.location_on_outlined,
                     ),
-                    TourDescription(desc: event?.description ?? '...'),
+                    TourDescription(desc: event?.description ?? 'Неизвестно'),
                     Visibility(
                       visible: eventLikedList!.isNotEmpty,
                       child: TourScrollList(
