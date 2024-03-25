@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/data/repositories/service/service.dart';
-import 'package:good_trip/core/presentation/widgets/tour_scroll_list.dart';
 
+import '../../../core/domain/models/models.dart';
+import '../../../core/domain/service/service.dart';
+import '../../../core/presentation/widgets/widgets.dart';
 import 'widgets/widgets.dart';
 
 class TourScreen extends StatefulWidget {
@@ -19,8 +19,8 @@ class _TourScreenState extends State<TourScreen> {
   List<Tour>? eventLikedList = [];
 
   Future<void> _loadEventList() async{
-    // Если метод не static, то вызывается через TourService()
-    eventLikedList = await TourService.getTourList(lon: '38.364285', lat: '59.855685', limit: 10);
+    eventLikedList = await TourService
+        .getTourList(lon: '38.364285', lat: '59.855685', limit: 10);
     setState(() {});
   }
 

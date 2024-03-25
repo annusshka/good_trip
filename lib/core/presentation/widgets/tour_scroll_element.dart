@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/data/models/models.dart';
 
+import '../../domain/models/models.dart';
 
 class TourScrollElement extends StatefulWidget {
   const TourScrollElement({

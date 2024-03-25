@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:dio/dio.dart';
-import 'package:good_trip/core/data/models/models.dart';
 
-import '../api/api_key.dart';
+import '../../data/api/api_key.dart';
+import '../models/tour.dart';
 
 class TourService{
 

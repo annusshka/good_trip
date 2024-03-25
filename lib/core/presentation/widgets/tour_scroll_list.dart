@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 
-import '../../data/models/models.dart';
+import '../../domain/models/models.dart';
 
 class TourScrollList extends StatefulWidget {
   const TourScrollList({super.key,

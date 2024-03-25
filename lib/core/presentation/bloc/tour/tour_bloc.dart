@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/tour/tour_state.dart';
 
-import '../../../data/models/models.dart';
-import '../../../data/repositories/service/service.dart';
+import '../../../domain/models/tour.dart';
+import '../../../domain/service/service.dart';
 import 'tour_event.dart';
 
 class TourBloc extends Bloc<TourEvent, TourState> {

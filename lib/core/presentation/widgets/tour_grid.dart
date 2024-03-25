@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/presentation/widgets/tour_scroll_element.dart';
 
-import '../../data/models/models.dart';
+import '../../domain/models/models.dart';
 
 class TourGrid extends StatelessWidget {
   final List<Tour> tourList;

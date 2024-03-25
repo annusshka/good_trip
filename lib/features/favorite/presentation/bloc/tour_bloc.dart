@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/data/repositories/service/service.dart';
+import 'package:good_trip/core/domain/models/models.dart';
 
+import '../../../../core/domain/service/service.dart';
 import 'tour_event.dart';
 import 'tour_state.dart';
 
