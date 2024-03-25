@@ -1,15 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
-import 'package:good_trip/core/presentation/bloc/auth/auth_state.dart';
 import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_element.dart';
 import 'package:good_trip/features/account/presentation/account_screen.dart';
 import 'package:good_trip/features/favorite/presentation/favorite_screen.dart';
 import 'package:good_trip/features/home/presentation/home_screen.dart';
-import 'package:good_trip/features/sign_in/presentation/sign_in_screen.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
+import '../../bloc/nav_bar/navigation_bloc.dart';
+import '../../bloc/nav_bar/navigation_event.dart';
+import '../../bloc/nav_bar/navigation_state.dart';
+
+final screens = [const HomeScreen(), const FavoriteScreen(),
+  const AccountScreen()];
+
+class AppNavigationBar extends StatelessWidget {
+  const AppNavigationBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<NavigationBloc, NavigationState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+          body: Center(child: screens.elementAt(state.tabIndex)),
+          bottomNavigationBar: NavigationBar(
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+            height: 70,
+            elevation: 0,
+            selectedIndex: state.tabIndex,
+            indicatorColor: Colors.transparent,
+            onDestinationSelected: (index) {
+              BlocProvider.of<NavigationBloc>(context)
+                  .add(TabChange(tabIndex: index));
+            },
+            destinations: const [
+              NavBarElement(icon: Iconsax.home_1_copy),
+              NavBarElement(icon: Iconsax.heart_copy),
+              NavBarElement(icon: Iconsax.profile_circle_copy),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+/*
 class AppNavigationBar extends StatelessWidget {
   const AppNavigationBar({super.key});
 
@@ -19,8 +55,7 @@ class AppNavigationBar extends StatelessWidget {
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is UnAuthenticated) {
-          // Navigate to the sign in screen when the user Signs Out
+        if (state is AuthUnauthenticatedState) {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const SignIn()),
                 (route) => false,
@@ -42,39 +77,6 @@ class AppNavigationBar extends StatelessWidget {
                   NavBarElement(icon: Iconsax.home_1_copy),
                   NavBarElement(icon: Iconsax.heart_copy),
                   NavBarElement(icon: Iconsax.profile_circle_copy),
-                  /*
-                  NavigationDestination(
-                    icon: Icon(
-                      Iconsax.home_1_copy,
-                      color: colors.lightGrayNavBar,
-                      size: 24,
-                    ),
-                    selectedIcon:
-                    const NavBarSelectedIcon(icon: Iconsax.home_1_copy),
-                    label: 'Home',
-                  ),
-                  NavigationDestination(
-                    icon: Icon(
-                      Iconsax.heart_copy,
-                      color: colors.lightGrayNavBar,
-                      size: 24,
-                    ),
-                    selectedIcon:
-                    const NavBarSelectedIcon(icon: Iconsax.heart_copy),
-                    label: 'Favorite List',
-                  ),
-                  NavigationDestination(
-                    icon: Icon(
-                      Iconsax.profile_circle_copy,
-                      color: colors.lightGrayNavBar,
-                      size: 24,
-                    ),
-                    selectedIcon:
-                    const NavBarSelectedIcon(icon: Iconsax.profile_circle_copy),
-                    label: 'Account',
-                  ),
-
-                   */
                 ],
               ),
         ),
@@ -89,3 +91,4 @@ class NavigationController extends GetxController {
   final screens = [const HomeScreen(), const FavoriteScreen(),
     const AccountScreen()];
 }
+*/
