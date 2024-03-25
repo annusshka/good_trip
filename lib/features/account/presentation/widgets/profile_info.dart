@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/data/models/access_level.dart';
-import 'package:good_trip/core/data/models/account.dart';
+
+import '../../../../core/domain/models/models.dart';
 
 class ProfileInfo extends StatelessWidget {
   final Account account;

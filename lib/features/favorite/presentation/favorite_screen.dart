@@ -12,8 +12,8 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      //lazy: false,
-      create: (context) => TourBloc()..add(const TourRequested(lon: '38.364285', lat: '59.855685')),
+      create: (context) => TourBloc()
+        ..add(const TourRequested(lon: '38.364285', lat: '59.855685')),
       child: BlocBuilder<TourBloc, TourState>(
         builder: (context, state) {
           if (state is TourListLoadedSuccess) {

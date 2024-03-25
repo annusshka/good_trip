@@ -8,6 +8,7 @@ import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import '../../../core/presentation/bloc/tour/tour_bloc.dart';
 import '../../../core/presentation/bloc/tour/tour_state.dart';
 import '../../../core/presentation/bloc/weather/weather_bloc.dart';
+import 'widgets/geolocation.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,7 +19,8 @@ class HomeScreen extends StatelessWidget {
       providers: [
         BlocProvider<WeatherBloc>(
           lazy: false,
-          create: (context) => WeatherBloc()..add(const WeatherCurrentPositionRequested()),
+          create: (context) => WeatherBloc()
+            ..add(const WeatherCurrentPositionRequested()),
         ),
         BlocProvider<TourBloc>(
           lazy: false,
@@ -48,7 +50,11 @@ class HomeScreen extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.search_rounded, size: 24, color: Colors.black,),
+                icon: const Icon(
+                  Icons.search_rounded,
+                  size: 24,
+                  color: Colors.black,
+                ),
                 onPressed: () {
                   showSearch(
                       context: context,
@@ -89,75 +95,5 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-    /*
-    return BlocProvider(
-      lazy: false,
-      create: (context) => TourBloc()..add(const CurrentPositionRequested()),
-      //create: (context) => TourBloc()..add(const HomePageRequested()),
-      child: BlocBuilder<TourBloc, TourState>(
-        builder: (context, state) {
-          if (state.isLoading || state.tourList.isEmpty) {
-            return const Center(child: CircularProgressIndicator(),);
-          } else {
-            return Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                title: Geolocation(locationInfo: state.locationInfo,),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.search_rounded, size: 24, color: Colors.black,),
-                    onPressed: () {
-                      showSearch(
-                          context: context,
-                          delegate: MySearchDelegate((query) =>
-                          BlocProvider.of<TourBloc>(context)
-                            ..add(WeatherRequested(city: query)))
-                      );
-                    },
-                  ),
-                ],
-              ),
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      TourScrollList(
-                          tourList: state.tourList,
-                          title: 'Популярные места'
-                      ),
-                      TourScrollList(
-                        tourList: state.tourList,
-                        title: 'Аудиоэкскурсия',
-                        icon: Icons.headphones_rounded,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              /*
-              body: (eventList == null)
-                  ? const Center(child: CircularProgressIndicator(),)
-                  : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      TourScrollList(tourList: eventList!,
-                          title: 'Популярные места'),
-                      TourScrollList(tourList: eventList!,
-                        title: 'Аудиоэкскурсия', icon: Icons.headphones_rounded,),
-                    ],
-                  ),
-                ),
-              ),*/
-            );
-          }
-        }
-      ),
-    );
-
-     */
   }
 }

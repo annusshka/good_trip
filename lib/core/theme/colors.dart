@@ -9,7 +9,7 @@ class AppColors {
   final lightGray2 = const Color.fromARGB(100, 226, 226, 234);
   final lightGray = const Color.fromARGB(100, 181, 181, 190);
   final gray = const Color.fromARGB(100, 105, 105, 116);
-  //final gray = const Color(0xFF696974);
+  final darkGray2 = const Color.fromARGB(100, 0, 0, 20);
   final darkGray = const Color.fromARGB(100, 23, 23, 37);
   final pink_ = const Color.fromARGB(255, 255, 158, 162);
 

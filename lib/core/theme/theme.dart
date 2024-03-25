@@ -22,7 +22,7 @@ final mainTheme = ThemeData(
     bodySmall: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w400, //regular
-        color: colors.gray,
+        color: colors.darkGray,
     ),
     titleLarge: const TextStyle(
       fontSize: 26,
@@ -32,12 +32,12 @@ final mainTheme = ThemeData(
     titleMedium: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w500,
-      color: colors.darkGray,
+      color: colors.darkGray2,
     ),
     titleSmall: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
-        color: colors.lightGray,
+        color: colors.gray,
     ),
     labelLarge: const TextStyle(
         fontSize: 20,
@@ -52,7 +52,7 @@ final mainTheme = ThemeData(
     labelSmall: TextStyle(
       fontSize: 10,
       fontWeight: FontWeight.w500,
-      color: colors.gray,
+      color: colors.darkGray,
     ),
   ),
 );

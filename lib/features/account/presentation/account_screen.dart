@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_info.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_settings_list.dart';
+
+import '../../../core/domain/models/models.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -15,7 +16,7 @@ class AccountScreen extends StatelessWidget {
         children: [
           ProfileInfo(
               account: Account(name: 'Ann', surname: 'Telegina',
-                  accessLevel: AccessLevel.user)
+                  accessLevel: AccessLevel.user, email: '', phone: '')
           ),
           ListView(
             shrinkWrap: true,

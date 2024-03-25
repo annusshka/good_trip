@@ -18,7 +18,6 @@ class ProfileSettingsList extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, i) {
             return ListTile(
-              //contentPadding: const EdgeInsets.only(right: 40),
               contentPadding: const EdgeInsets.all(0),
               title: Text(elementList[i],
                 style: Theme.of(context).textTheme.bodySmall,
