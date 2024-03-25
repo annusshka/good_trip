@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../../data/models/models.dart';
+import '../../../domain/models/models.dart';
+import '../../../domain/service/service.dart';
 import 'weather_event.dart';
-import '../../../data/repositories/service/weather_service.dart';
 import 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
@@ -39,7 +39,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      add(const WeatherRequested(lon: '38.364285', lat: '59.855685'));
+      add(const WeatherDefaultRequested());
       return Future.error('Location services are disabled.');
     }
 
@@ -47,21 +47,24 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        add(const WeatherRequested(lon: '38.364285', lat: '59.855685'));
+        add(const WeatherDefaultRequested());
         return Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      add(const WeatherRequested(lon: '38.364285', lat: '59.855685'));
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      add(const WeatherDefaultRequested());
+      return Future.error('Location permissions are permanently denied, '
+          'we cannot request permissions.');
     }
 
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high
+    );
     add(WeatherRequested(
         lat: position.latitude.toString(),
-        lon: position.longitude.toString()));
+        lon: position.longitude.toString()
+    ));
   }
 
   void _weatherCurrentPositionRequested(Emitter<WeatherState> emit) async {
