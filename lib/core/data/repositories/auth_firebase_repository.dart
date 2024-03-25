@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+/*import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository{
   final _firebaseAuth = FirebaseAuth.instance;
@@ -41,7 +41,8 @@ class AuthRepository{
       throw Exception(e);
     }
   }
-
+}
+*/
   /*
   Future<void> signInWithGoogle() async {
     try {
@@ -62,5 +63,3 @@ class AuthRepository{
   }
 
    */
-
-}
