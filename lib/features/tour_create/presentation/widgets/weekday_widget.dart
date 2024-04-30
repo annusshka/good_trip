@@ -3,31 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:good_trip/core/theme/theme.dart';
 
 List<DayInWeek> _days = [
-  DayInWeek(
-    "Пн",
-    dayKey: 'Пн',
-  ),
+  DayInWeek("Пн", dayKey: 'Пн',),
   DayInWeek("Вт", dayKey: 'Вт'),
-  DayInWeek(
-    "Ср",
-    dayKey: 'Ср',
-  ),
-  DayInWeek(
-    "Чт",
-    dayKey: 'Чт',
-  ),
-  DayInWeek(
-    "Пт",
-    dayKey: 'Пт',
-  ),
-  DayInWeek(
-    "Сб",
-    dayKey: 'Сб',
-  ),
-  DayInWeek(
-    "Вс",
-    dayKey: 'Вс',
-  ),
+  DayInWeek("Ср", dayKey: 'Ср',),
+  DayInWeek("Чт", dayKey: 'Чт',),
+  DayInWeek("Пт", dayKey: 'Пт',),
+  DayInWeek("Сб", dayKey: 'Сб',),
+  DayInWeek("Вс", dayKey: 'Вс',),
 ];
 
 class WeekdayWidget extends StatelessWidget {
