@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/widgets/tour_grid.dart';
@@ -6,6 +7,7 @@ import 'package:good_trip/features/favorite/presentation/bloc/tour_event.dart';
 
 import 'bloc/tour_state.dart';
 
+@RoutePage()
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
 
@@ -19,6 +21,7 @@ class FavoriteScreen extends StatelessWidget {
           if (state is TourListLoadedSuccess) {
             return Scaffold(
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 title: Text('Избранное',
                   style: Theme.of(context).textTheme.titleLarge,),
               ),
