@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/features/home/presentation/home_screen.dart';
 
 class MySearchDelegate extends SearchDelegate {
   late String selectedResult;
@@ -23,16 +24,16 @@ class MySearchDelegate extends SearchDelegate {
     return IconButton(
       icon: const Icon(Icons.search_rounded, size: 24, color: Colors.black,),
       onPressed: () {
-        Navigator.pop(context);
+        selectedResult = query;
+        callback(query);
+        //Navigator.pop(context);
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return Center(
-      child: Text(selectedResult),
-    );
+    return const HomeScreen();
   }
 
   @override
@@ -68,7 +69,7 @@ class MySearchDelegate extends SearchDelegate {
           onTap: () {
             selectedResult = searchResults[index];
             callback(selectedResult);
-            Navigator.pop(context);
+            //Navigator.pop(context);
           },
         );
       },

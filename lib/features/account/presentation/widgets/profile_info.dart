@@ -3,12 +3,20 @@ import 'package:flutter/material.dart';
 import '../../../../core/domain/models/models.dart';
 
 class ProfileInfo extends StatelessWidget {
-  final Account account;
-  const ProfileInfo({super.key, required this.account});
+  final User user;
+  const ProfileInfo({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(user.fullName(),
+        style: Theme.of(context).textTheme.bodyLarge,),
+      subtitle: Text(user.role.displayTitle,
+        style: Theme.of(context).textTheme.bodyMedium,),
+    );
+    /*
+      Row(
       children: [
         SizedBox.fromSize(
           size: const Size.fromRadius(32),
@@ -35,14 +43,15 @@ class ProfileInfo extends StatelessWidget {
         ),
         Expanded(
           child: ListTile(
-            title: Text('${account.name} ${account.surname}',
+            contentPadding: EdgeInsets.zero,
+            title: Text('${user.name} ${user.surname}',
               style: Theme.of(context).textTheme.bodyLarge,),
-            subtitle: Text(account.accessLevel == AccessLevel.localguide
-                ? 'Гид' : 'Экскурсант',
+            subtitle: Text(user.role == AccessLevel.admin
+                ? 'Администратор' : 'Экскурсант',
               style: Theme.of(context).textTheme.bodyMedium,),
           ),
         ),
       ],
-    );
+    );*/
   }
 }
