@@ -15,7 +15,7 @@ class TourGrid extends StatelessWidget {
         itemCount: tourList.length,
         gridDelegate:
         const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10,
+          crossAxisCount: 2, mainAxisSpacing: 15, crossAxisSpacing: 7,
         ),
         itemBuilder: (context, index) {
           return TourScrollElement(tour: tourList[index]);

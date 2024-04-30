@@ -8,7 +8,7 @@ class Tour {
   final Point coordinates;
   final String? description;
   final List<String> kinds;
-  final List<String?> address;
+  final List<String> address;
   late bool isLiked;
 
   Tour({required this.id, required this.name, this.image = '',

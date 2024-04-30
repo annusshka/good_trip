@@ -19,8 +19,12 @@ class TourBloc extends Bloc<TourEvent, TourState> {
 
   Future<void> _requestTourList(TourRequested event, Emitter<TourState> emit) async {
     emit(TourLoadInProgress());
-    final List<Tour> tourList = await TourService.getTourList(
-        lon: event.lon, lat: event.lat, limit: 10);
-    emit(TourLoadSuccess(tourList: tourList));
+    try {
+      final List<Tour> tourList = await TourService.getTourList(
+          lon: event.lon, lat: event.lat, limit: 10);
+      emit(TourLoadSuccess(tourList: tourList));
+    } catch (e) {
+      emit(TourLoadFailure(errorMsg: e.toString()));
+    }
   }
 }

@@ -20,7 +20,9 @@ class _TourScrollListState extends State<TourScrollList> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        /*
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -43,9 +45,16 @@ class _TourScrollListState extends State<TourScrollList> {
               ],
             ),
           ],
+        ),*/
+        Expanded(
+          flex: 2,
+          child: Text(widget.title,
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
         ),
-        SizedBox(
-          height: 248,
+        const Spacer(flex: 1,),
+        Expanded(
+          flex: 15,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: widget.tourList.length,

@@ -1,26 +1,28 @@
-import 'dart:developer';
-
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/presentation/widgets/tour_photo.dart';
 
 import '../../../core/domain/models/models.dart';
 import '../../../core/domain/service/service.dart';
 import '../../../core/presentation/widgets/widgets.dart';
 import 'widgets/widgets.dart';
 
+@RoutePage()
 class TourScreen extends StatefulWidget {
-  const TourScreen({super.key});
+  const TourScreen({super.key, required this.event});
+
+  final Tour event;
 
   @override
   State<TourScreen> createState() => _TourScreenState();
 }
 
 class _TourScreenState extends State<TourScreen> {
-  Tour? event;
   List<Tour>? eventLikedList = [];
 
-  Future<void> _loadEventList() async{
-    eventLikedList = await TourService
-        .getTourList(lon: '38.364285', lat: '59.855685', limit: 10);
+  Future<void> _loadEventList() async {
+    eventLikedList = await TourService.getTourList(
+        lon: '38.364285', lat: '59.855685', limit: 10);
     setState(() {});
   }
 
@@ -31,22 +33,7 @@ class _TourScreenState extends State<TourScreen> {
   }
 
   void _tapLike() {
-    event!.isLiked = !event!.isLiked;
-  }
-
-  @override
-  void didChangeDependencies() {
-    final args = ModalRoute.of(context)?.settings.arguments;
-    if (args == null) {
-      log('You must provide args');
-      return;
-    }
-    if (args is! Tour) {
-      log("Args must be Event");
-      return;
-    }
-    event = args;
-    super.didChangeDependencies();
+    widget.event.isLiked = !widget.event.isLiked;
   }
 
   @override
@@ -57,9 +44,8 @@ class _TourScreenState extends State<TourScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.only(
-              top: 40, bottom:10,
-              left:10, right:10),
+          padding:
+              const EdgeInsets.only(top: 40, bottom: 10, left: 10, right: 10),
           child: Column(
             children: [
               SizedBox(
@@ -70,30 +56,18 @@ class _TourScreenState extends State<TourScreen> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.network(event?.image ?? '',
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.grey,
-                            alignment: Alignment.center,
-                            child: Icon(Icons.camera_alt, size: height * 0.1,),
-                          );
-                        },
+                      TourPhoto(
+                        photoUrl: widget.event.image,
+                        icon: Icons.camera_alt,
+                        size: height * 0.1,
                       ),
                       OverflowBar(
                         alignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(
-                            color: Colors.white,
-                            icon: const Icon(Icons.arrow_back_ios),
-                            iconSize: 24,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
+                          const BackIconButton(color: Colors.white, iconSize: 24),
                           IconButton(
                             icon: Icon(
-                              event!.isLiked
+                              widget.event.isLiked
                                   ? Icons.favorite
                                   : Icons.favorite_border,
                               size: 24,
@@ -112,15 +86,18 @@ class _TourScreenState extends State<TourScreen> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(event?.kinds.join(', ') ?? '...',
+                    Text(
+                      widget.event.kinds.join(', ') ?? '...',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    Text(event?.name ?? '...',
+                    Text(
+                      widget.event.name ?? '...',
                       textAlign: TextAlign.left,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
@@ -130,17 +107,18 @@ class _TourScreenState extends State<TourScreen> {
                       icon: Icons.calendar_today_rounded,
                     ),
                     TourTile(
-                      titleText: '${event?.address[2] ?? ''}, ${event?.address[3] ?? ''}',
-                      subtitleText: '${event?.address[0] ?? ''}, ${event?.address[1] ?? ''}',
+                      titleText: '${widget.event.address[2] ?? ''},'
+                          ' ${widget.event.address[3] ?? ''}',
+                      subtitleText: '${widget.event.address[0] ?? ''}, '
+                          '${widget.event.address[1] ?? ''}',
                       icon: Icons.location_on_outlined,
                     ),
-                    TourDescription(desc: event?.description ?? 'Неизвестно'),
+                    TourDescription(
+                        desc: widget.event.description ?? 'Неизвестно'),
                     Visibility(
                       visible: eventLikedList!.isNotEmpty,
                       child: TourScrollList(
-                          tourList: eventLikedList!,
-                          title: 'Вам понравилось'
-                      ),
+                          tourList: eventLikedList!, title: 'Вам понравилось'),
                     ),
                   ],
                 ),
