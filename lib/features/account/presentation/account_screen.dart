@@ -5,7 +5,6 @@ import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_info.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_settings_list.dart';
 
-import '../../../core/domain/models/models.dart';
 import '../../../core/presentation/bloc/auth/auth.dart';
 
 @RoutePage()
@@ -24,17 +23,7 @@ class AccountScreen extends StatelessWidget {
               return ProfileInfo(
                   user: state.user);
             }
-            return ProfileInfo(
-                user: User(
-                    name: 'Ann',
-                    surname: 'Telegina',
-                    role: AccessLevel.user,
-                    email: '',
-                    phone: '',
-                    id: "",
-                    password: '',
-                    accessToken: '',
-                    refreshToken: ''));
+            return const Center();
           }),
           ListView(
             shrinkWrap: true,

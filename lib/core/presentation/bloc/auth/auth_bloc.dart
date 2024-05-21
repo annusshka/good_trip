@@ -30,17 +30,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignInRequested>((event, emit) async {
       emit(AuthLoadingState());
       try {
-        //User user = await AuthService.login(email: event.user.email, password: event.user.password);
-        User user = User(
-            id: '',
-            email: event.email,
-            name: 'name',
-            surname: 'surname',
-            phone: 'phone',
-            password: event.password,
-            role: AccessLevel.user,
-            accessToken: '',
-            refreshToken: '');
+        User user = await AuthService.login(
+            email: event.email, password: event.password);
+        // User user = User(
+        //     id: 0,
+        //     email: event.email,
+        //     name: 'name',
+        //     surname: 'surname',
+        //     phone: 'phone',
+        //     password: event.password,
+        //     role: AccessLevel.USER,
+        //     accessToken: '',
+        //     refreshToken: '');
+        // if (event.email == 'admin@gmail.com' && event.password == 'admin__') {
+        //   user = User(
+        //       id: 0,
+        //       email: event.email,
+        //       name: 'adminName',
+        //       surname: 'adminSurname',
+        //       phone: 'adminPhone',
+        //       password: event.password,
+        //       role: AccessLevel.ADMIN,
+        //       accessToken: '',
+        //       refreshToken: '');
+        // }
         emit(AuthenticatedState(user: user));
       } catch (e) {
         emit(UnauthenticatedState());

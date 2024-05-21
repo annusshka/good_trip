@@ -16,8 +16,6 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
-    //final router = AutoRouterDelegate.of(context);
-
     return AnimatedSplashScreen(
       splash: const Logo(),
       splashIconSize: 300,
@@ -27,7 +25,7 @@ class SplashScreen extends StatelessWidget {
         lazy: false,
         create: (_) => AuthBloc(),
         child: WillPopScope(
-          onWillPop: () async => false,
+          onWillPop: () async => true,
           child: MaterialApp.router(
             theme: mainTheme,
             debugShowCheckedModeBanner: false,

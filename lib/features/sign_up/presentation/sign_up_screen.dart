@@ -3,7 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/domain/models/access_level.dart';
+import 'package:good_trip/core/domain/models/account/access_level.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_state.dart';
 import 'package:good_trip/core/theme/theme.dart';
 
@@ -49,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthenticatedState) {
-              AutoRouter.of(context).push(const AppNavigationRoute());
+              AutoRouter.of(context).push(const NavBarUserRoute());
             }
             if (state is AuthErrorState) {
               ScaffoldMessenger.of(context)
@@ -325,8 +325,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: _emailController.text,
         phone: _phoneController.text,
         password: _passwordController.text,
-        role: AccessLevel.user,
-        id: '',
+        role: AccessLevel.USER,
+        id: 0,
         accessToken: '',
         refreshToken: '');
     BlocProvider.of<AuthBloc>(context).add(

@@ -1,17 +1,14 @@
 enum AccessLevel {
-  user,
-  localguide,
-  admin
+  USER,
+  ADMIN
 }
 
 extension AccessLevelExtension on AccessLevel {
   String get displayTitle {
     switch (this) {
-      case AccessLevel.user:
+      case AccessLevel.USER:
         return 'Пользователь';
-      case AccessLevel.localguide:
-        return 'Экскурсовод';
-      case AccessLevel.admin:
+      case AccessLevel.ADMIN:
         return 'Админ';
     }
   }

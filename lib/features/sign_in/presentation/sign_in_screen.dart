@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/domain/models/account/access_level.dart';
 
 import '../../../core/app_router/app_router.dart';
 import '../../../core/presentation/bloc/auth/auth.dart';
@@ -36,7 +37,11 @@ class _SignInScreenState extends State<SignInScreen> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthenticatedState) {
-            AutoRouter.of(context).push(const AppNavigationRoute());
+            if (state.user.role == AccessLevel.USER) {
+              AutoRouter.of(context).push(const NavBarUserRoute());
+            } else if (state.user.role == AccessLevel.ADMIN) {
+              AutoRouter.of(context).push(const NavBarAdminRoute());
+            }
           }
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
