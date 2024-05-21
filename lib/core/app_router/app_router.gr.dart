@@ -15,16 +15,28 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AccountListRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AccountListScreen(),
+      );
+    },
     AccountRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const AccountScreen(),
       );
     },
-    AppNavigationRoute.name: (routeData) {
+    CreatedToursRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(child: const AppNavigationScreen()),
+        child: const CreatedToursScreen(),
+      );
+    },
+    CreatedToursWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const CreatedToursWrapperScreen()),
       );
     },
     FavoriteRoute.name: (routeData) {
@@ -43,6 +55,18 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: WrappedRoute(child: const HomeWrapperScreen()),
+      );
+    },
+    NavBarAdminRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const NavBarAdminScreen()),
+      );
+    },
+    NavBarUserRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const NavBarUserScreen()),
       );
     },
     SignInRoute.name: (routeData) {
@@ -69,6 +93,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const TourCreateListScreen(),
       );
     },
+    TourCreateListWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const TourCreateListWrapperScreen()),
+      );
+    },
     TourCreateRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -81,11 +111,26 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: TourScreen(
           key: args.key,
-          event: args.event,
+          tour: args.tour,
+          audioFile: args.audioFile,
         ),
       );
     },
   };
+}
+
+/// generated route for
+/// [AccountListScreen]
+class AccountListRoute extends PageRouteInfo<void> {
+  const AccountListRoute({List<PageRouteInfo>? children})
+      : super(
+          AccountListRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AccountListRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -103,15 +148,29 @@ class AccountRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AppNavigationScreen]
-class AppNavigationRoute extends PageRouteInfo<void> {
-  const AppNavigationRoute({List<PageRouteInfo>? children})
+/// [CreatedToursScreen]
+class CreatedToursRoute extends PageRouteInfo<void> {
+  const CreatedToursRoute({List<PageRouteInfo>? children})
       : super(
-          AppNavigationRoute.name,
+          CreatedToursRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'AppNavigationRoute';
+  static const String name = 'CreatedToursRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CreatedToursWrapperScreen]
+class CreatedToursWrapperRoute extends PageRouteInfo<void> {
+  const CreatedToursWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          CreatedToursWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'CreatedToursWrapperRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -154,6 +213,34 @@ class HomeWrapperRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NavBarAdminScreen]
+class NavBarAdminRoute extends PageRouteInfo<void> {
+  const NavBarAdminRoute({List<PageRouteInfo>? children})
+      : super(
+          NavBarAdminRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NavBarAdminRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NavBarUserScreen]
+class NavBarUserRoute extends PageRouteInfo<void> {
+  const NavBarUserRoute({List<PageRouteInfo>? children})
+      : super(
+          NavBarUserRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NavBarUserRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -215,6 +302,20 @@ class TourCreateListRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [TourCreateListWrapperScreen]
+class TourCreateListWrapperRoute extends PageRouteInfo<void> {
+  const TourCreateListWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          TourCreateListWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TourCreateListWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [TourCreateScreen]
 class TourCreateRoute extends PageRouteInfo<void> {
   const TourCreateRoute({List<PageRouteInfo>? children})
@@ -233,13 +334,15 @@ class TourCreateRoute extends PageRouteInfo<void> {
 class TourRoute extends PageRouteInfo<TourRouteArgs> {
   TourRoute({
     Key? key,
-    required Tour event,
+    required BaseTour tour,
+    String? audioFile,
     List<PageRouteInfo>? children,
   }) : super(
           TourRoute.name,
           args: TourRouteArgs(
             key: key,
-            event: event,
+            tour: tour,
+            audioFile: audioFile,
           ),
           initialChildren: children,
         );
@@ -252,15 +355,18 @@ class TourRoute extends PageRouteInfo<TourRouteArgs> {
 class TourRouteArgs {
   const TourRouteArgs({
     this.key,
-    required this.event,
+    required this.tour,
+    this.audioFile,
   });
 
   final Key? key;
 
-  final Tour event;
+  final BaseTour tour;
+
+  final String? audioFile;
 
   @override
   String toString() {
-    return 'TourRouteArgs{key: $key, event: $event}';
+    return 'TourRouteArgs{key: $key, tour: $tour, audioFile: $audioFile}';
   }
 }
