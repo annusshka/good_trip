@@ -62,8 +62,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         desiredAccuracy: LocationAccuracy.high
     );
     add(WeatherRequested(
-        lat: position.latitude.toString(),
-        lon: position.longitude.toString()
+        lat: position.latitude,
+        lon: position.longitude
     ));
   }
 

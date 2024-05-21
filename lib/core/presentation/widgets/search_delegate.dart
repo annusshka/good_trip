@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:good_trip/features/home/presentation/home_screen.dart';
+
+import '../../theme/theme.dart';
 
 class MySearchDelegate extends SearchDelegate {
   late String selectedResult;
@@ -13,7 +16,7 @@ class MySearchDelegate extends SearchDelegate {
       IconButton(
         icon: const Icon(Icons.close, size: 24, color: Colors.black,),
         onPressed: () {
-          Navigator.of(context).pop();
+          AutoRouter.of(context).pop();
         },
       ),
     ];
@@ -26,7 +29,8 @@ class MySearchDelegate extends SearchDelegate {
       onPressed: () {
         selectedResult = query;
         callback(query);
-        //Navigator.pop(context);
+        close(context, query);
+        //AutoRouter.of(context).pop();
       },
     );
   }
@@ -41,35 +45,37 @@ class MySearchDelegate extends SearchDelegate {
     selectedResult = query;
     callback(query);
     close(context, query);
+    //AutoRouter.of(context).pop();
   }
 
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> searchResults = ["Helsinki", "Moscow", "Berlin", "New York", "Saint Petersburg", query]
+    List<String> searchResults = ["Хельсинки", "Москва", "Берлин", "Нью-Йорк", "Санкт-Петербург", query]
         .where((element) => element.contains(query))
         .toList();
 
     return ListView.separated(
       itemCount: searchResults.length,
-      separatorBuilder: (BuildContext context, int index) => const Divider(
+      separatorBuilder: (BuildContext context, int index) => Divider(
         height: 1,
         thickness: 1,
         indent: 60,
-        color: Color.fromARGB(100, 241, 241, 245),
+        color: colors.lightGray1,
       ),
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-          leading: const Icon(
+          leading: Icon(
             Icons.search_rounded,
             size: 24,
-            color: Color.fromARGB(100, 181, 181, 190),
+            color: colors.lightGray,
           ),
           title: Text(searchResults[index]),
           onTap: () {
             selectedResult = searchResults[index];
             callback(selectedResult);
-            //Navigator.pop(context);
+            close(context, query);
+            //AutoRouter.of(context).pop();
           },
         );
       },

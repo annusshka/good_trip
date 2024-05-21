@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/presentation/bloc/audio_tour/audio_tour.dart';
-import '../../../core/presentation/bloc/tour/tour.dart';
-import '../../../core/presentation/bloc/weather/weather.dart';
+import '../../../core/presentation/bloc/tour_list/tour_list.dart';
 
 @RoutePage()
 class HomeWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -18,14 +17,9 @@ class HomeWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(providers: [
-      BlocProvider<WeatherBloc>(
+      BlocProvider<TourListBloc>(
         lazy: false,
-        create: (_) =>
-            WeatherBloc()..add(const WeatherCurrentPositionRequested()),
-      ),
-      BlocProvider<TourBloc>(
-        lazy: false,
-        create: (_) => TourBloc(),
+        create: (_) => TourListBloc(),
       ),
       BlocProvider<AudioTourBloc>(
         lazy: false,

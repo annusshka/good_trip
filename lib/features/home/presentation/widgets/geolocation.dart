@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/domain/models/models.dart';
+import '../../../../core/theme/theme.dart';
 
 class Geolocation extends StatefulWidget {
   final LocationInfo locationInfo;
@@ -35,7 +36,7 @@ class _GeolocationState extends State<Geolocation> {
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Image.asset('assets/images/temperature_512.png',
-                    color: const Color.fromARGB(100, 105, 105, 116),);
+                    color: colors.gray,);
                   },
               ),
             ),

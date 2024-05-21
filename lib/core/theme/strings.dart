@@ -16,3 +16,9 @@ const String enterPassword = 'Введите пароль';
 const String enterConfirmPassword = 'Повторите пароль';
 const String enterMin6 = 'Введите минимум 6 символов';
 const String passwordsDontMatch = "Пароли не совпадают";
+
+const String favorites = 'Избранное';
+
+const String ok = "Ок";
+const String changesSuccess = 'Изменения сохранены';
+const String changesFail = 'Возникла ошибка\nИзменения не сохранены';

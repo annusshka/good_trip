@@ -1,7 +1,7 @@
 class LocationInfo {
   final String cityName;
-  final String lon;
-  final String lat;
+  final double lon;
+  final double lat;
   final int temperature;
   final String weatherIconCode;
 
@@ -10,14 +10,14 @@ class LocationInfo {
   });
 
   LocationInfo.undefined(): this(cityName: 'Moscow',
-    lon: '37.6172999', lat: '55.755826',
+    lon: 37.6172999, lat: 55.755826,
     temperature: 0, weatherIconCode: '04n',);
 
   factory LocationInfo.fromJson(Map<dynamic, dynamic> json) {
     return LocationInfo(
         cityName: json['name'],
-        lon: json['coord']['lon'].toString(),
-        lat: json['coord']['lat'].toString(),
+        lon: json['coord']['lon'],
+        lat: json['coord']['lat'],
         temperature: double.parse(json['main']['temp'].toString()).toInt(),
         weatherIconCode: json['weather'][0]['icon'],
         //description: json['weather'][0]['main'],
