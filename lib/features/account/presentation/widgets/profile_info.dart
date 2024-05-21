@@ -10,7 +10,7 @@ class ProfileInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      title: Text(user.fullName(),
+      title: Text('${user.name} ${user.surname}',
         style: Theme.of(context).textTheme.bodyLarge,),
       subtitle: Text(user.role.displayTitle,
         style: Theme.of(context).textTheme.bodyMedium,),
