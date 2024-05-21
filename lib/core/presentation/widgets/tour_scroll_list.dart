@@ -5,11 +5,11 @@ import '../../domain/models/models.dart';
 
 class TourScrollList extends StatefulWidget {
   const TourScrollList({super.key,
-    required this.tourList, required this.title, this.icon = Icons.camera_alt});
+    required this.tourList, required this.title, this.audioPath});
 
-  final List<Tour> tourList;
+  final List<BaseTour> tourList;
   final String title;
-  final IconData icon;
+  final String? audioPath;
 
   @override
   State<TourScrollList> createState() => _TourScrollListState();
@@ -61,7 +61,7 @@ class _TourScrollListState extends State<TourScrollList> {
             separatorBuilder: (BuildContext context, _) => const SizedBox(width: 10,),
             itemBuilder: (context, i) {
               final tour = widget.tourList[i];
-              return TourScrollElement(tour: tour, imageIcon: widget.icon,);
+              return TourScrollElement(tour: tour, audioPath: widget.audioPath,);
             },
           ),
         ),

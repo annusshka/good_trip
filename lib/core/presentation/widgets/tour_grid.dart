@@ -4,7 +4,7 @@ import 'package:good_trip/core/presentation/widgets/tour_scroll_element.dart';
 import '../../domain/models/models.dart';
 
 class TourGrid extends StatelessWidget {
-  final List<Tour> tourList;
+  final List<BaseTour> tourList;
   const TourGrid({super.key, required this.tourList});
 
   @override

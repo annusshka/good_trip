@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/models/models.dart';
-
 abstract class TourState extends Equatable {
   const TourState();
 
@@ -13,19 +11,14 @@ class TourInitial extends TourState {}
 
 class TourLoadInProgress extends TourState {}
 
-class TourLoadSuccess extends TourState {
-  final List<Tour> tourList;
+class TourLoadSuccess extends TourState {}
 
-  const TourLoadSuccess({required this.tourList});
+class TourLikedSuccess extends TourState {}
 
-  @override
-  List<Object> get props => [tourList];
-}
-
-class TourLoadFailure extends TourState {
+class TourListLoadFailure extends TourState {
   final String errorMsg;
 
-  const TourLoadFailure({required this.errorMsg});
+  const TourListLoadFailure({required this.errorMsg});
 
   @override
   List<Object> get props => [errorMsg];

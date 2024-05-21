@@ -14,7 +14,7 @@ class AudioTourInitial extends AudioTourState {}
 class AudioTourLoadInProgress extends AudioTourState {}
 
 class AudioTourLoadSuccess extends AudioTourState {
-  final List<Tour> tourList;
+  final List<AudioTour> tourList;
 
   const AudioTourLoadSuccess({required this.tourList});
 

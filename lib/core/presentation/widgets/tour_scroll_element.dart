@@ -1,28 +1,22 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/tour_photo.dart';
 
 import '../../domain/models/models.dart';
+import '../bloc/tour/tour.dart';
 
-class TourScrollElement extends StatefulWidget {
+class TourScrollElement extends StatelessWidget {
   const TourScrollElement({
     super.key,
     required this.tour,
-    this.imageIcon = Icons.photo_camera,
+    this.audioPath,
   });
 
-  final Tour tour;
-  final IconData imageIcon;
-
-  @override
-  State<TourScrollElement> createState() => _TourScrollElementState();
-}
-
-class _TourScrollElementState extends State<TourScrollElement> {
-  void _tapLike() {
-    widget.tour.isLiked = !widget.tour.isLiked;
-  }
+  final BaseTour tour;
+  final String? audioPath;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +25,8 @@ class _TourScrollElementState extends State<TourScrollElement> {
       width: 150,
       child: InkWell(
         onTap: () {
-          AutoRouter.of(context).push(TourRoute(event: widget.tour));
+          AutoRouter.of(context)
+              .push(TourRoute(tour: tour, audioFile: audioPath));
         },
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,25 +41,20 @@ class _TourScrollElementState extends State<TourScrollElement> {
                     fit: StackFit.expand,
                     children: [
                       TourPhoto(
-                          photoUrl: widget.tour.image,
-                          icon: widget.imageIcon,
+                          photoUrl: tour.image,
+                          icon: audioPath == null
+                              ? Icons.photo_camera
+                              : Icons.headphones_rounded,
                           size: 50),
                       Align(
                         alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: Icon(
-                            widget.tour.isLiked
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            size: 24,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _tapLike();
-                            });
-                          },
-                        ),
+                        child: BlocBuilder<TourBloc, TourState>(
+                            builder: (context, state) {
+                          return LikeButton(
+                            iconSize: 24,
+                            tour: tour,
+                          );
+                        }),
                       ),
                     ],
                   ),
@@ -81,14 +71,14 @@ class _TourScrollElementState extends State<TourScrollElement> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.tour.kinds[0],
+                        tour.kinds[0],
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
                     Expanded(
                       flex: 4,
                       child: Text(
-                        widget.tour.name,
+                        tour.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyLarge,

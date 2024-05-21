@@ -1,20 +1,40 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/models/tour.dart';
+import '../../../domain/models/models.dart';
 
 abstract class TourEvent extends Equatable {
   const TourEvent();
 }
 
 class TourRequested extends TourEvent {
-  final String city;
-  final String lat;
-  final String lon;
-  final List<Tour> tourList;
+  final Tour tour;
 
-  const TourRequested(
-      {this.city = "", this.lat = "", this.lon = "", this.tourList = const []});
+  const TourRequested({required this.tour});
 
   @override
-  List<Object> get props => [city, lat, lon, tourList];
+  List<Object> get props => [tour];
+}
+
+class TourLikeRequested extends TourEvent {
+  final String id;
+
+  const TourLikeRequested({required this.id});
+
+  @override
+  List<Object> get props => [id];
+  // final BaseTour tour;
+  //
+  // const TourLikeRequested({required this.tour});
+  //
+  // @override
+  // List<Object> get props => [tour];
+}
+
+class TourSaveRequested extends TourEvent {
+  final AudioTour tour;
+
+  const TourSaveRequested({required this.tour});
+
+  @override
+  List<Object> get props => [tour];
 }
