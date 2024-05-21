@@ -1,11 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/presentation/widgets/empty_list.dart';
 import 'package:good_trip/core/presentation/widgets/tour_grid.dart';
-import 'package:good_trip/features/favorite/presentation/bloc/tour_bloc.dart';
-import 'package:good_trip/features/favorite/presentation/bloc/tour_event.dart';
+import 'package:good_trip/core/theme/strings.dart';
 
-import 'bloc/tour_state.dart';
+import '../../../core/presentation/bloc/tour/tour.dart';
+import 'bloc/favorite_list.dart';
 
 @RoutePage()
 class FavoriteScreen extends StatelessWidget {
@@ -13,23 +14,42 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
-      create: (context) => TourBloc()
-        ..add(const TourRequested(lon: '38.364285', lat: '59.855685')),
-      child: BlocBuilder<TourBloc, TourState>(
-        builder: (context, state) {
-          if (state is TourListLoadedSuccess) {
-            return Scaffold(
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                title: Text('Избранное',
-                  style: Theme.of(context).textTheme.titleLarge,),
-              ),
-              body: TourGrid(tourList: state.tourList,),
-            );
+      create: (context) =>
+          FavoriteListBloc()..add(const FavoriteListRequested()),
+      child: BlocListener<TourBloc, TourState>(
+        listener: (context, state) {
+          if (state is TourLikedSuccess) {
+            BlocProvider.of<FavoriteListBloc>(context)
+                .add(const FavoriteListRequested());
           }
-          return const Center(child: CircularProgressIndicator(),);
         },
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(
+              favorites,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          body: BlocBuilder<FavoriteListBloc, FavoriteListState>(
+              builder: (context, state) {
+            if (state is FavoriteListLoadedSuccess) {
+              if (state.tourList.isEmpty) {
+                return const EmptyList();
+              }
+              return TourGrid(
+                tourList: state.tourList,
+              );
+            } else if (state is FavoriteListLoadInProgress) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return const SizedBox.shrink();
+          }),
+        ),
       ),
     );
   }
