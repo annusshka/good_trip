@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:good_trip/core/domain/service/service.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:dio_interceptor_plus/dio_interceptor_plus.dart';
 import 'package:postgres/postgres.dart';
 
 import '../../data/api/api_key.dart';
@@ -161,8 +161,9 @@ class TourService {
   }
 
   Future<List<AudioTour>> getCreatedTourList({int offset = 0}) async {
-    final response = await Dio().get('$baseUrl/auth/admin/tours',
-        queryParameters: {'offset': offset});
+    dio.interceptors.add(LoggingInterceptor());
+    final response = await Dio()
+        .get('$baseUrl/auth/admin/tours', queryParameters: {'offset': offset});
     if (response.statusCode == 404) {
       throw PathNotFoundException;
     } else if (response.statusCode == 403) {
@@ -249,6 +250,7 @@ class TourService {
       final String audioPath,
       final File imageFile,
       final File audioFile) async {
+    dio.interceptors.add(LoggingInterceptor());
     final userId = await AuthService.loadUserId();
 
     String imageFileName = imageFile.path.split('/').last;
@@ -265,18 +267,18 @@ class TourService {
         isLiked: false,
         audioFile: audioFileName);
 
-    // final response = await Dio().post(
-    //   '$baseUrl/auth/tours/audio/created/$userId',
-    //   data: tour.toJson(),
-    // );
-    // if (response.statusCode == 404) {
-    //   throw PathNotFoundException;
-    // } else if (response.statusCode == 403) {
-    //   throw DioException.badResponse(
-    //       statusCode: response.statusCode!,
-    //       requestOptions: response.requestOptions,
-    //       response: response);
-    // }
+    final response = await dio.post(
+      '$baseUrl/auth/tours/audio/created/$userId',
+      data: tour.toJson(),
+    );
+    if (response.statusCode == 404) {
+      throw PathNotFoundException;
+    } else if (response.statusCode == 403) {
+      throw DioException.badResponse(
+          statusCode: response.statusCode!,
+          requestOptions: response.requestOptions,
+          response: response);
+    }
 
     // final formData = FormData.fromMap({
     //   "image":
@@ -290,18 +292,6 @@ class TourService {
     //     MultipartFile.fromFileSync(audioFile.path, filename: audioFileName)
     //   ]
     // });
-    Dio dio = Dio();
-    List<MultipartFile> imageList = [];
-    Uint8List imageData = imageFile.readAsBytesSync();
-    MultipartFile multipartFile = MultipartFile.fromBytes(
-      imageData,
-      filename: imageFileName,
-      contentType: MediaType("image", imageFileName.split('.').last),
-    );
-    imageList.add(multipartFile);
-    FormData formData = FormData.fromMap({
-      "multipartFiles": imageList,
-    });
     // FormData formData = FormData.fromMap({
     //   "image": await MultipartFile.fromFile(imageFile.path,
     //       filename: imageFileName,
@@ -318,13 +308,20 @@ class TourService {
     //     MultipartFile.fromFileSync(audioFile.path, filename: audioFileName),
     //   ),
     // ]);
-    // int tourId = response.data;
-    int tourId = 16;
-    final response2 = await dio.post(
+    final formData = FormData.fromMap({
+      "image": await MultipartFile.fromFile(
+        imagePath,
+        filename: imagePath.split('/').last,
+        contentType: MediaType("image", "jpeg"),
+      ),
+    });
+
+    int tourId = response.data;
+    final dio2 = Dio();
+    dio2.interceptors.add(LoggingInterceptor());
+    final response2 = await dio2.post(
         '$baseUrl/auth/tours/audio/created/files/image/$tourId',
         data: formData
-        //options: Options(headers: {'Content-Type': "multipart/form-data"}
-        //)
     );
 
     // options: Options(
@@ -344,11 +341,10 @@ class TourService {
     //     Uri.parse('$baseUrl/auth/tours/audio/created/files/image/$tourId'));
     // request.files.add(await http.MultipartFile.fromPath('image', imageFile.path,
     //     filename: imageFileName));
-    //
     // var response2 = await request.send();
     if (response2.statusCode == 202) {
       return;
-    } else if (response2.statusCode != null) {
+    } else {
       removeTour(tourId.toString());
       throw DioException.badResponse(
           statusCode: response2.statusCode!,

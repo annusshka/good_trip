@@ -38,93 +38,89 @@ class TourScreen extends StatelessWidget {
           ),
         ],
         child: Scaffold(
-          body: SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(10),
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            leading: const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: BackIconButton(color: Colors.white, iconSize: 24),
+            ),
+            actions: [
+              BlocBuilder<TourBloc, TourState>(builder: (context, state) {
+                return LikeButton(
+                  iconSize: 24,
+                  tour: tour,
+                );
+              }),
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).padding.top,
+                  bottom: 10,
+                  left: 10,
+                  right: 10),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: height * 0.25,
+                    height: height * 0.3,
+                    width: double.infinity,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20), // Image border
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          TourPhoto(
-                            photoUrl: tour.image,
-                            icon: audioFile == null
-                                ? Icons.camera_alt
-                                : Icons.headphones_rounded,
-                            size: height * 0.1,
-                          ),
-                          OverflowBar(
-                            alignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const BackIconButton(
-                                  color: Colors.white, iconSize: 24),
-                              BlocBuilder<TourBloc, TourState>(
-                                  builder: (context, state) {
-                                return LikeButton(
-                                  iconSize: 24,
-                                  tour: tour,
-                                );
-                              }),
-                            ],
-                          ),
-                        ],
+                      child: TourPhoto(
+                        photoUrl: tour.image,
+                        icon: audioFile == null
+                            ? Icons.camera_alt
+                            : Icons.headphones_rounded,
+                        size: height * 0.1,
                       ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tour.kinds.join(', '),
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        Text(
-                          tour.name,
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        TourTile(
-                          titleText: tour.weekdays != null
-                              ? tour.getWeekdays()
-                              : 'Любой день',
-                          subtitleText: '8:00 - 20:00',
-                          icon: Icons.calendar_today_rounded,
-                        ),
-                        TourTile(
-                          titleText: '${tour.address.street}, '
-                              '${tour.address.house}',
-                          subtitleText: '${tour.address.country}, '
-                              '${tour.address.city}',
-                          icon: Icons.location_on_outlined,
-                        ),
-                        audioFile == null
-                            ? const SizedBox.shrink()
-                            : AudioContainer(
-                                audioFile: audioFile!,
-                              ),
-                        const SizedBox(height: 15),
-                        TourDescription(desc: tour.description ?? 'Неизвестно'),
-                        BlocBuilder<TourListBloc, TourListState>(
-                            builder: (context, state) {
-                          if (state is TourListLoadSuccess &&
-                              state.tourList.isNotEmpty) {
-                            return TourScrollList(
-                                tourList: state.tourList,
-                                title: 'Вам понравилось');
-                          }
-                          return const Center();
-                        }),
-                      ],
-                    ),
+                  Text(
+                    tour.kinds.join(', '),
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
+                  Text(
+                    tour.name,
+                    textAlign: TextAlign.left,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  TourTile(
+                    titleText: tour.weekdays != null
+                        ? tour.getWeekdays()
+                        : 'Любой день',
+                    subtitleText: '8:00 - 20:00',
+                    icon: Icons.calendar_today_rounded,
+                  ),
+                  TourTile(
+                    titleText: '${tour.address.street}'
+                        ', ${tour.address.house}',
+                    subtitleText: '${tour.address.country}, '
+                        '${tour.address.city}',
+                    icon: Icons.location_on_outlined,
+                  ),
+                  audioFile == null
+                      ? const SizedBox.shrink()
+                      : AudioContainer(
+                          audioFilePath: audioFile!,
+                        ),
+                  const SizedBox(height: 15),
+                  TourDescription(desc: tour.description ?? 'Неизвестно'),
+                  BlocBuilder<TourListBloc, TourListState>(
+                      builder: (context, state) {
+                    if (state is TourListLoadSuccess &&
+                        state.tourList.isNotEmpty) {
+                      return SizedBox(
+                        height: height * 0.35,
+                        child: TourScrollList(
+                            tourList: state.tourList, title: 'Вам понравилось'),
+                      );
+                    }
+                    return const Center();
+                  }),
                 ],
               ),
             ),

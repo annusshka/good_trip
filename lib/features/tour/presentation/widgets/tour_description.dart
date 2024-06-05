@@ -50,7 +50,7 @@ class _TourDescriptionState extends State<TourDescription> {
             ),
         TextButton(
           style: ButtonStyle(
-            padding: MaterialStateProperty.all<EdgeInsets>(
+            padding: WidgetStateProperty.all<EdgeInsets>(
                 EdgeInsets.zero),
           ),
             onPressed: () {

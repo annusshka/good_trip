@@ -61,6 +61,7 @@ dependencies:
   freezed: ^2.5.2
   rxdart: ^0.27.7
   http_parser: ^4.0.2
+  dio_interceptor_plus: ^0.0.2
 
 dev_dependencies:
   flutter_test:

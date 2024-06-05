@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
+import 'package:good_trip/core/domain/models/account/access_level.dart';
 
 import '../../exception/form_exception.dart';
 import '../../exception/secure_storage_exception.dart';
@@ -146,8 +147,8 @@ class AuthService {
 
   static Future<bool> refreshToken() async {
     final refreshToken = await _storage.read(key: 'refreshToken');
-    final response =
-        await api.post('/auth/refresh', data: {'refreshToken': refreshToken});
+    final response = await api
+        .post('$baseUrl/auth/refresh', data: {'refreshToken': refreshToken});
 
     if (response.statusCode == 201) {
       accessToken = response.data;

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -8,21 +9,36 @@ import 'seekbar.dart';
 import 'widgets.dart';
 
 class AudioContainer extends StatefulWidget {
-  const AudioContainer({super.key, required this.audioFile});
+  const AudioContainer({super.key, required this.audioFilePath});
 
-  final String audioFile;
+  final String audioFilePath;
 
   @override
   _AudioContainerState createState() => _AudioContainerState();
 }
 
 class _AudioContainerState extends State<AudioContainer> {
-  File get _audioFile => File(widget.audioFile);
+  //File get _audioFile => File(widget.audioFile);
+  String get _audioFilePath => widget.audioFilePath;
   final AudioPlayer _player = AudioPlayer();
+
+  //ValueNotifier<String> get _audioLock => widget.audioLock;
+
+  void initAudio() {
+    _player.setLoopMode(LoopMode.one);
+  }
+
+  @override
+  void initState() {
+    initAudio();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    _player.setFilePath(_audioFile.path);
+    //_player.setFilePath(_audioFile.path);
+    final url = '$baseBDUrl/${widget.audioFilePath}';
+    _player.setUrl(url);
     return Column(
       children: [
         ListTile(
@@ -33,7 +49,8 @@ class _AudioContainerState extends State<AudioContainer> {
             size: 24,
           ),
           title: Text(
-            _audioFile.path.split('/').last,
+            //_audioFile.path.split('/').last,
+            _audioFilePath,
             textAlign: TextAlign.left,
             style: Theme.of(context).textTheme.titleMedium,
           ),
