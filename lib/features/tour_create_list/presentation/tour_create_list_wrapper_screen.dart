@@ -19,7 +19,7 @@ class TourCreateListWrapperScreen extends StatelessWidget implements AutoRouteWr
       BlocProvider(
           lazy: false,
           create: (_) =>
-          TourCreateListBloc()..add(const TourCreateListRequested())),
+          TourCreateListBloc()..add(const TourListCreateByActualUserRequested())),
     ], child: this);
   }
 }

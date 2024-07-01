@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:just_audio/just_audio.dart';
@@ -9,20 +7,18 @@ import 'seekbar.dart';
 import 'widgets.dart';
 
 class AudioContainer extends StatefulWidget {
-  const AudioContainer({super.key, required this.audioFilePath});
+  const AudioContainer({super.key, required this.audioFilePath, required this.audioName});
 
   final String audioFilePath;
+  final String audioName;
 
   @override
   _AudioContainerState createState() => _AudioContainerState();
 }
 
 class _AudioContainerState extends State<AudioContainer> {
-  //File get _audioFile => File(widget.audioFile);
   String get _audioFilePath => widget.audioFilePath;
   final AudioPlayer _player = AudioPlayer();
-
-  //ValueNotifier<String> get _audioLock => widget.audioLock;
 
   void initAudio() {
     _player.setLoopMode(LoopMode.one);
@@ -50,7 +46,7 @@ class _AudioContainerState extends State<AudioContainer> {
           ),
           title: Text(
             //_audioFile.path.split('/').last,
-            _audioFilePath,
+            widget.audioName,
             textAlign: TextAlign.left,
             style: Theme.of(context).textTheme.titleMedium,
           ),

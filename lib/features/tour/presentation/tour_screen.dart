@@ -105,6 +105,7 @@ class TourScreen extends StatelessWidget {
                   audioFile == null
                       ? const SizedBox.shrink()
                       : AudioContainer(
+                          audioName: tour.name,
                           audioFilePath: audioFile!,
                         ),
                   const SizedBox(height: 15),

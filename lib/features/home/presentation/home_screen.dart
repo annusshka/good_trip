@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          //backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
           title:
               BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {

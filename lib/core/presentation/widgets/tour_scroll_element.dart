@@ -71,7 +71,7 @@ class TourScrollElement extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        tour.kinds[0],
+                        tour.kinds[0] ?? 'Культура',
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),

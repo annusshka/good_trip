@@ -20,13 +20,13 @@ class TourCreateListScreen extends StatelessWidget {
     return BlocListener<TourCreateBloc, TourCreateState>(
       listener: (BuildContext context, TourCreateState state) {
         if (state is TourCreatedSuccess || state is TourRemovedSuccess) {
-          BlocProvider.of<TourCreateListBloc>(context).add(const TourCreateListRequested());
+          BlocProvider.of<TourCreateListBloc>(context).add(const TourListCreateByActualUserRequested());
         }
       },
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          //backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
           title: Text(
             'Мои экскурсии',

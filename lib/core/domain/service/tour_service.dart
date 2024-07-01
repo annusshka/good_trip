@@ -202,6 +202,26 @@ class TourService {
     return tours;
   }
 
+  Future<List<AudioTour>> getCreatedTourListByAdmin({int offset = 0}) async {
+    final response = await Dio().get('$baseUrl/auth/admin/tours',
+        queryParameters: {'offset': offset});
+    if (response.statusCode == 404) {
+      throw PathNotFoundException;
+    } else if (response.statusCode == 403) {
+      throw DioException.badResponse(
+          statusCode: response.statusCode!,
+          requestOptions: response.requestOptions,
+          response: response);
+    }
+    final data = response.data as List<dynamic>;
+
+    List<AudioTour> tours = [];
+    for (Map<String, dynamic> actData in data) {
+      tours.add(AudioTour.fromJson(actData));
+    }
+    return tours;
+  }
+
   Future<void> likeTour(String id) async {
     final userId = await AuthService.loadUserId();
 

@@ -4,7 +4,6 @@ import 'package:good_trip/core/theme/colors.dart';
 const colors = AppColors();
 
 final mainTheme = ThemeData(
-  //primarySwatch: Colors.pink,
   colorScheme: ColorScheme.fromSeed(seedColor: colors.pink_),
   useMaterial3: true,
   fontFamily: 'Gilroy',

@@ -25,6 +25,7 @@ class NavBarAdminScreen extends StatelessWidget implements AutoRouteWrapper {
         return Scaffold(
           body: child,
           bottomNavigationBar: NavigationBar(
+            backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             height: 70,
             elevation: 0,

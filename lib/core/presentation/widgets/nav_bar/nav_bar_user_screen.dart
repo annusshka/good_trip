@@ -30,6 +30,7 @@ class NavBarUserScreen extends StatelessWidget implements AutoRouteWrapper {
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
             height: 70,
             elevation: 0,
+            backgroundColor: Colors.transparent,
             selectedIndex: tabsRouter.activeIndex,
             indicatorColor: Colors.transparent,
             onDestinationSelected: (index) => _openPage(index, tabsRouter),
