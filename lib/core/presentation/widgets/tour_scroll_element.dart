@@ -2,21 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/tour_photo.dart';
-
-import '../../domain/models/models.dart';
-import '../bloc/tour/tour.dart';
 
 class TourScrollElement extends StatelessWidget {
   const TourScrollElement({
     super.key,
     required this.tour,
-    this.audioPath,
   });
 
-  final BaseTour tour;
-  final String? audioPath;
+  final ITour tour;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +22,12 @@ class TourScrollElement extends StatelessWidget {
       width: 150,
       child: InkWell(
         onTap: () {
-          AutoRouter.of(context)
-              .push(TourRoute(tour: tour, audioFile: audioPath));
+          context.router.push(TourRoute(tour: tour,),);
+          // AutoRouter.of(context).push(
+          //   TourRoute(
+          //     tour: tour,
+          //   ),
+          // );
         },
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +43,7 @@ class TourScrollElement extends StatelessWidget {
                     children: [
                       TourPhoto(
                           photoUrl: tour.image,
-                          icon: audioPath == null
+                          icon: tour is Tour
                               ? Icons.photo_camera
                               : Icons.headphones_rounded,
                           size: 50),

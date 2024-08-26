@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
-
-import '../../domain/models/models.dart';
 
 class TourScrollList extends StatefulWidget {
   const TourScrollList({super.key,
-    required this.tourList, required this.title, this.audioPath});
+    required this.tourList, required this.title});
 
-  final List<BaseTour> tourList;
+  final List<ITour> tourList;
   final String title;
-  final String? audioPath;
 
   @override
   State<TourScrollList> createState() => _TourScrollListState();
@@ -61,7 +59,7 @@ class _TourScrollListState extends State<TourScrollList> {
             separatorBuilder: (BuildContext context, _) => const SizedBox(width: 10,),
             itemBuilder: (context, i) {
               final tour = widget.tourList[i];
-              return TourScrollElement(tour: tour, audioPath: widget.audioPath,);
+              return TourScrollElement(tour: tour);
             },
           ),
         ),

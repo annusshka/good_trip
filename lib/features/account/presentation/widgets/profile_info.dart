@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
 
 class ProfileInfo extends StatelessWidget {
   final User user;

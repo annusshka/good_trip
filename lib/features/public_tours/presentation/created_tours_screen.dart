@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/presentation/bloc/tour_create_list/tour_create_list.dart';
-import '../../../core/presentation/widgets/widgets.dart';
-import '../../tour_create/presentation/bloc/tour_create.dart';
+import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
 @RoutePage()
 class CreatedToursScreen extends StatelessWidget {
@@ -33,17 +32,6 @@ class CreatedToursScreen extends StatelessWidget {
                   .titleLarge,
             ),
           ),
-          /*AppBar(
-            backgroundColor: colors.pink_,
-            automaticallyImplyLeading: false,
-            title: Text(
-              'Экскурсии пользователей',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.merge(TextStyle(color: colors.white)),
-            ),
-          ),*/
           body: BlocBuilder<TourCreateListBloc, TourCreateListState>(
               builder: (context, state) {
             if (state is TourCreateListLoadedSuccess) {

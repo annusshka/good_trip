@@ -2,12 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/domain/models/account/access_level.dart';
-
-import '../../../core/app_router/app_router.dart';
-import '../../../core/presentation/bloc/auth/auth.dart';
-import '../../../core/presentation/widgets/widgets.dart';
-import '../../../core/theme/theme.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_event.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_state.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/theme.dart';
 
 @RoutePage()
 class SignInScreen extends StatefulWidget {

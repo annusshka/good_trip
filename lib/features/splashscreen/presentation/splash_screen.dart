@@ -4,6 +4,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/data/repository/auth/i_auth_repository.dart';
+import 'package:good_trip/di/configure_dependencies.dart';
 
 import '../../../core/presentation/bloc/auth/auth.dart';
 import '../../../core/presentation/widgets/widgets.dart';
@@ -23,7 +25,7 @@ class SplashScreen extends StatelessWidget {
       duration: 5,
       nextScreen: BlocProvider<AuthBloc>(
         lazy: false,
-        create: (_) => AuthBloc(),
+        create: (context) => AuthBloc(authRepository: getIt.get<IAuthRepository>(),),
         child: WillPopScope(
           onWillPop: () async => true,
           child: MaterialApp.router(

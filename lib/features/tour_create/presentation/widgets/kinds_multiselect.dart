@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:multiselect/multiselect.dart';
 
-import '../../../../core/domain/models/models.dart';
 import '../../../../core/theme/theme.dart';
 
 class KindsMultiSelect extends StatefulWidget {
@@ -18,7 +18,7 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
 
   List<String> get dropdownItems {
     List<String> menuItems = [];
-    for (TourType value in TourType.values) {
+    for (final TourType value in TourType.values) {
       menuItems.add(value.displayText);
     }
     return menuItems;
@@ -28,8 +28,10 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
   Widget build(BuildContext context) {
     return DropDownMultiSelect(
       decoration: getDecoration("Категория"),
-      selected_values_style: Theme.of(context).textTheme.bodyLarge?.merge(
-          TextStyle(color: colors.darkGray, overflow: TextOverflow.ellipsis)),
+      selectedValuesStyle: Theme.of(context)
+          .textTheme
+          .bodyLarge
+          ?.copyWith(color: colors.darkGray, overflow: TextOverflow.ellipsis),
       onChanged: (List<String> x) {
         setState(() {
           selected = x;

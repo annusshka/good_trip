@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/theme/theme.dart';
 import 'package:good_trip/features/home/presentation/home_screen.dart';
-
-import '../../theme/theme.dart';
 
 class MySearchDelegate extends SearchDelegate {
   late String selectedResult;
@@ -47,7 +46,6 @@ class MySearchDelegate extends SearchDelegate {
     close(context, query);
     //AutoRouter.of(context).pop();
   }
-
 
   @override
   Widget buildSuggestions(BuildContext context) {

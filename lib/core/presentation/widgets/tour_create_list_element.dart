@@ -2,18 +2,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/tour_photo.dart';
-
-import '../../../features/tour_create/presentation/bloc/tour_create.dart';
-import '../../theme/theme.dart';
-import '../../../features/tour/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/features/tour/presentation/widgets/widgets.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
 class TourCreateListElement extends StatelessWidget {
   const TourCreateListElement(
       {super.key, required this.tour, required this.iconSize});
 
-  final AudioTour tour;
+  final ITour tour;
   final double iconSize;
 
   @override
@@ -27,7 +26,11 @@ class TourCreateListElement extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(10))),
       child: InkWell(
         onTap: () {
-          context.pushRoute(TourRoute(tour: tour, audioFile: tour.audioFile));
+          context.router.navigate(
+            TourRoute(
+              tour: tour,
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),

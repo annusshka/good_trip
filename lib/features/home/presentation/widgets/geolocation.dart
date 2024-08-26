@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/domain/models/models.dart';
-import '../../../../core/theme/theme.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/theme/theme.dart';
 
 class Geolocation extends StatefulWidget {
   final LocationInfo locationInfo;

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
-
-import '../../../domain/models/models.dart';
-import '../../../theme/theme.dart';
+import 'package:good_trip/core/theme/theme.dart';
 
 class LikeButton extends StatelessWidget {
   const LikeButton({super.key, required this.iconSize, required this.tour});
 
-  final BaseTour tour;
+  final ITour tour;
   final double iconSize;
 
   @override

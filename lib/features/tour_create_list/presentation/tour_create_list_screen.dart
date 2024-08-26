@@ -2,11 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-
-import '../../../core/presentation/bloc/tour_create_list/tour_create_list.dart';
-import '../../../core/presentation/widgets/widgets.dart';
-import '../../../core/theme/theme.dart';
-import '../../tour_create/presentation/bloc/tour_create.dart';
+import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
 @RoutePage()
 class TourCreateListScreen extends StatelessWidget {
@@ -20,7 +19,9 @@ class TourCreateListScreen extends StatelessWidget {
     return BlocListener<TourCreateBloc, TourCreateState>(
       listener: (BuildContext context, TourCreateState state) {
         if (state is TourCreatedSuccess || state is TourRemovedSuccess) {
-          BlocProvider.of<TourCreateListBloc>(context).add(const TourListCreateByActualUserRequested());
+          BlocProvider.of<TourCreateListBloc>(context).add(
+            const TourListCreateByActualUserRequested(),
+          );
         }
       },
       child: Scaffold(
@@ -38,12 +39,6 @@ class TourCreateListScreen extends StatelessWidget {
           if (state is TourCreateListLoadedSuccess) {
             if (state.tourList.isEmpty) {
               return const EmptyList();
-              /*return Center(
-                child: Text(
-                  "Здесь пока пусто",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              );*/
             }
             return ListView.separated(
               scrollDirection: Axis.vertical,

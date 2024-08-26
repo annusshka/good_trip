@@ -1,9 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/presentation/bloc/audio_tour/audio_tour.dart';
-import '../../../core/presentation/bloc/tour_list/tour_list.dart';
+import 'package:good_trip/core/data/repository/repository.dart';
+import 'package:good_trip/core/presentation/bloc/audio_tour/audio_tour.dart';
+import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
+import 'package:good_trip/di/configure_dependencies.dart';
 
 @RoutePage()
 class HomeWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -16,15 +17,22 @@ class HomeWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider<TourListBloc>(
-        lazy: false,
-        create: (_) => TourListBloc(),
-      ),
-      BlocProvider<AudioTourBloc>(
-        lazy: false,
-        create: (_) => AudioTourBloc(),
-      ),
-    ], child: this);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TourListBloc>(
+          lazy: false,
+          create: (_) => TourListBloc(
+            tourRepository: getIt.get<IApiTourRepository>(),
+          ),
+        ),
+        BlocProvider<AudioTourBloc>(
+          lazy: false,
+          create: (_) => AudioTourBloc(
+            tourRepository: getIt.get<ITourRepository>(),
+          ),
+        ),
+      ],
+      child: this,
+    );
   }
 }

@@ -16,8 +16,8 @@ class TourPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      photoUrl != null && photoUrl!.contains("goodTrip") ?
-      "$baseBDUrl/${photoUrl!}" : photoUrl ?? '',
+      photoUrl != null && photoUrl!.contains('goodTrip') ?
+      '$baseBDUrl/${photoUrl!}' : photoUrl ?? '',
       fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) {
         return Container(

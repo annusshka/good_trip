@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AccountListScreen(),
       );
     },
+    AccountListWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const AccountListWrapperScreen()),
+      );
+    },
     AccountRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -43,6 +49,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const FavoriteScreen(),
+      );
+    },
+    FavoriteWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const FavoriteWrapperScreen()),
       );
     },
     HomeRoute.name: (routeData) {
@@ -112,8 +124,13 @@ abstract class _$AppRouter extends RootStackRouter {
         child: TourScreen(
           key: args.key,
           tour: args.tour,
-          audioFile: args.audioFile,
         ),
+      );
+    },
+    TourWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const TourWrapperScreen()),
       );
     },
   };
@@ -129,6 +146,20 @@ class AccountListRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AccountListRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AccountListWrapperScreen]
+class AccountListWrapperRoute extends PageRouteInfo<void> {
+  const AccountListWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          AccountListWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AccountListWrapperRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -185,6 +216,20 @@ class FavoriteRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'FavoriteRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FavoriteWrapperScreen]
+class FavoriteWrapperRoute extends PageRouteInfo<void> {
+  const FavoriteWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          FavoriteWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FavoriteWrapperRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -334,15 +379,13 @@ class TourCreateRoute extends PageRouteInfo<void> {
 class TourRoute extends PageRouteInfo<TourRouteArgs> {
   TourRoute({
     Key? key,
-    required BaseTour tour,
-    String? audioFile,
+    required ITour tour,
     List<PageRouteInfo>? children,
   }) : super(
           TourRoute.name,
           args: TourRouteArgs(
             key: key,
             tour: tour,
-            audioFile: audioFile,
           ),
           initialChildren: children,
         );
@@ -356,17 +399,28 @@ class TourRouteArgs {
   const TourRouteArgs({
     this.key,
     required this.tour,
-    this.audioFile,
   });
 
   final Key? key;
 
-  final BaseTour tour;
-
-  final String? audioFile;
+  final ITour tour;
 
   @override
   String toString() {
-    return 'TourRouteArgs{key: $key, tour: $tour, audioFile: $audioFile}';
+    return 'TourRouteArgs{key: $key, tour: $tour}';
   }
+}
+
+/// generated route for
+/// [TourWrapperScreen]
+class TourWrapperRoute extends PageRouteInfo<void> {
+  const TourWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          TourWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TourWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

@@ -15,41 +15,37 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return BlocProvider(
-      create: (context) =>
-          FavoriteListBloc()..add(const FavoriteListRequested()),
-      child: BlocListener<TourBloc, TourState>(
-        listener: (context, state) {
-          if (state is TourLikedSuccess) {
-            BlocProvider.of<FavoriteListBloc>(context)
-                .add(const FavoriteListRequested());
-          }
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Text(
-              favorites,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+    return BlocListener<TourBloc, TourState>(
+      listener: (context, state) {
+        if (state is TourLikedSuccess) {
+          BlocProvider.of<FavoriteListBloc>(context)
+              .add(const FavoriteListRequested());
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(
+            favorites,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
-          body: BlocBuilder<FavoriteListBloc, FavoriteListState>(
-              builder: (context, state) {
-            if (state is FavoriteListLoadedSuccess) {
-              if (state.tourList.isEmpty) {
-                return const EmptyList();
-              }
-              return TourGrid(
-                tourList: state.tourList,
-              );
-            } else if (state is FavoriteListLoadInProgress) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return const SizedBox.shrink();
-          }),
         ),
+        body: BlocBuilder<FavoriteListBloc, FavoriteListState>(
+            builder: (context, state) {
+          if (state is FavoriteListLoadedSuccess) {
+            if (state.tourList.isEmpty) {
+              return const EmptyList();
+            }
+            return TourGrid(
+              tourList: state.tourList,
+            );
+          } else if (state is FavoriteListLoadInProgress) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return const SizedBox.shrink();
+        }),
       ),
     );
   }

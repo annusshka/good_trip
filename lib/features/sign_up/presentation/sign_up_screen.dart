@@ -3,14 +3,12 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/domain/models/account/access_level.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_event.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_state.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/theme.dart';
-
-import '../../../core/domain/models/user.dart';
-import '../../../core/presentation/bloc/auth/auth_bloc.dart';
-import '../../../core/presentation/bloc/auth/auth_event.dart';
-import '../../../core/presentation/widgets/logo.dart';
 
 @RoutePage()
 class SignUpScreen extends StatefulWidget {
@@ -222,9 +220,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      _toggleVisibility();
-                                    },
+                                    onTap: _toggleVisibility,
                                     child: Icon(
                                       _showPassword
                                           ? Icons.visibility_outlined
@@ -320,15 +316,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     //if (_formKey.currentState!.validate()) {
     // If email is valid adding new event [SignUpRequested].
     User user = User(
-        name: _nameController.text,
-        surname: _surnameController.text,
-        email: _emailController.text,
-        phone: _phoneController.text,
-        password: _passwordController.text,
-        role: AccessLevel.USER,
-        id: 0,
-        accessToken: '',
-        refreshToken: '');
+      name: _nameController.text,
+      surname: _surnameController.text,
+      email: _emailController.text,
+      phone: _phoneController.text,
+      password: _passwordController.text,
+      role: AccessLevel.USER,
+      id: 0,
+    );
     BlocProvider.of<AuthBloc>(context).add(
       SignUpRequested(user),
     );

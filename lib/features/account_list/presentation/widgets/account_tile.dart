@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/features/account_list/presentation/bloc/account_list.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-
-import '../../../../core/domain/models/models.dart';
-import '../../../../core/theme/theme.dart';
-import '../bloc/account_list.dart';
 
 class AccountTile extends StatelessWidget {
   const AccountTile({super.key, required this.account});

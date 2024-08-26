@@ -2,15 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
+import 'package:good_trip/core/data/service/service.dart';
 
-import '../../../domain/models/models.dart';
-import '../../../domain/service/service.dart';
 import 'weather_event.dart';
 import 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
+  final IWeatherRepository weatherRepository;
 
-  WeatherBloc() : super(WeatherInitial()) {
+  WeatherBloc({required this.weatherRepository}) : super(WeatherInitial()) {
     on<WeatherEvent>((event, emit) async {
         if (event is WeatherCurrentPositionRequested) {
           _weatherCurrentPositionRequested(emit);
@@ -25,7 +27,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       WeatherRequested event, Emitter<WeatherState> emit) async {
     emit(WeatherLoadInProgress());
     try {
-      final LocationInfo weather = await WeatherService.fetchCurrentWeather(
+      final LocationInfo weather = await weatherRepository.fetchCurrentWeather(
           query: event.city, lon: event.lon, lat: event.lat);
       emit(WeatherLoadSuccess(weather: weather));
     } catch (_) {
@@ -33,7 +35,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     }
   }
 
-  _getCurrentPosition() async {
+  Future<void> _getCurrentPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 

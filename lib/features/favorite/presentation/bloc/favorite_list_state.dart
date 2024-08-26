@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../core/domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
 
 abstract class FavoriteListState extends Equatable {
   const FavoriteListState();
@@ -14,7 +13,7 @@ class FavoriteListInitial extends FavoriteListState {}
 class FavoriteListLoadInProgress extends FavoriteListState {}
 
 class FavoriteListLoadedSuccess extends FavoriteListState {
-  final List<BaseTour> tourList;
+  final List<ITour> tourList;
 
   const FavoriteListLoadedSuccess({required this.tourList});
 

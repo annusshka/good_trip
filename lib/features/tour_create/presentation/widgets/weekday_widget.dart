@@ -1,6 +1,6 @@
 import 'package:day_picker/day_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/theme/theme.dart';
 
 class WeekdayWidget extends StatelessWidget {

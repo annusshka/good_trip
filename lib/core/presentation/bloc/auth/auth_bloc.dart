@@ -1,16 +1,20 @@
 import 'package:bloc/bloc.dart';
+import 'package:good_trip/core/data/models/auth/auth_request.dart';
+import 'package:good_trip/core/data/models/auth/login_request.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/data/repository/repository.dart';
 
-import '../../../domain/models/models.dart';
-import '../../../domain/service/auth_service.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(AuthLoadingState()) {
+  final IAuthRepository authRepository;
+
+  AuthBloc({required this.authRepository}) : super(AuthLoadingState()) {
     on<LogOutRequested>((event, emit) async {
       emit(AuthLoadingState());
       try {
-        await AuthService.logout();
+        await authRepository.logout();
         emit(UnauthenticatedState());
       } catch (e) {
         emit(AuthErrorState(e.toString()));
@@ -20,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoadUserEvent>((event, emit) async {
       emit(AuthLoadingState());
       try {
-        User user = await AuthService.loadUser();
+        User user = await authRepository.loadUser();
         emit(AuthenticatedState(user: user));
       } catch (e) {
         emit(UnauthenticatedState());
@@ -30,8 +34,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignInRequested>((event, emit) async {
       emit(AuthLoadingState());
       try {
-        User user = await AuthService.login(
-            email: event.email, password: event.password);
+        User user = await authRepository.login(
+          loginRequest: LoginRequest(
+            email: event.email,
+            password: event.password,
+          ),
+        );
         // User user = User(
         //     id: 0,
         //     email: event.email,
@@ -63,12 +71,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpRequested>((event, emit) async {
       emit(AuthLoadingState());
       try {
-        User user = await AuthService.register(
+        User user = await authRepository.register(
+          authRequest: AuthRequest(
             email: event.user.email,
             password: event.user.password,
             phone: event.user.phone,
             name: event.user.name,
-            surname: event.user.surname);
+            surname: event.user.surname,
+          ),
+        );
         emit(AuthenticatedState(user: user));
       } catch (e) {
         emit(UnauthenticatedState());
