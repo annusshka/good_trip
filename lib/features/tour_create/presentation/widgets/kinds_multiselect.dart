@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:multiselect/multiselect.dart';
-
-import '../../../../core/theme/theme.dart';
 
 class KindsMultiSelect extends StatefulWidget {
   const KindsMultiSelect({super.key, required this.func});
@@ -27,11 +27,11 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
   @override
   Widget build(BuildContext context) {
     return DropDownMultiSelect(
-      decoration: getDecoration("Категория"),
-      selectedValuesStyle: Theme.of(context)
-          .textTheme
-          .bodyLarge
-          ?.copyWith(color: colors.darkGray, overflow: TextOverflow.ellipsis),
+      decoration: getDecoration('Категория'),
+      selectedValuesStyle: AppTextTheme.semiBold18.copyWith(
+        color: AppColors.darkGray,
+        overflow: TextOverflow.ellipsis,
+      ),
       onChanged: (List<String> x) {
         setState(() {
           selected = x;
@@ -40,9 +40,9 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
       },
       options: dropdownItems,
       selectedValues: selected,
-      hint: Text(
+      hint: const Text(
         'Категория',
-        style: Theme.of(context).textTheme.bodySmall,
+        style: AppTextTheme.normal16,
       ),
     );
   }
@@ -50,15 +50,15 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
   InputDecoration getDecoration(String text) {
     return InputDecoration(
       hintText: text,
-      hintStyle: Theme.of(context).textTheme.bodySmall,
+      hintStyle: AppTextTheme.normal16,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(width: 1, color: colors.lightGray2),
+        borderSide: const BorderSide(width: 1, color: AppColors.lightGrayEA),
         borderRadius: BorderRadius.circular(16),
       ),
-      counterStyle: Theme.of(context).textTheme.bodySmall,
+      counterStyle: AppTextTheme.normal16,
     );
   }
 }

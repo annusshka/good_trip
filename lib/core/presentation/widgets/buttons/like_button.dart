@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
-import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 
 class LikeButton extends StatelessWidget {
   const LikeButton({super.key, required this.iconSize, required this.tour});
@@ -16,7 +16,7 @@ class LikeButton extends StatelessWidget {
       icon: Icon(
         tour.isLiked ? Icons.favorite : Icons.favorite_border,
         size: iconSize,
-        color: colors.white,
+        color: AppColors.white,
       ),
       onPressed: () {
         tour.isLiked = !tour.isLiked;

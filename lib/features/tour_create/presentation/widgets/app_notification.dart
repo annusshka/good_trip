@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class AppNotification extends StatelessWidget {
-  const AppNotification({super.key, required this.text, this.title = "Уведомление"});
+  const AppNotification(
+      {super.key, required this.text, this.title = 'Уведомление'});
+
   final String title;
   final String text;
 
@@ -14,31 +16,30 @@ class AppNotification extends StatelessWidget {
       surfaceTintColor: Colors.transparent,
       title: Text(
         title,
-        style: Theme.of(context).textTheme.labelLarge,
+        style: AppTextTheme.semiBold20,
       ),
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
             Text(
               text,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: AppTextTheme.normal16,
             ),
           ],
         ),
       ),
       actions: <Widget>[
         TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              "Ок",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: colors.pink_,
-              ),
-            )),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'Ок',
+            style: AppTextTheme.semiBold18.copyWith(
+              color: AppColors.pink,
+            ),
+          ),
+        ),
       ],
     );
   }

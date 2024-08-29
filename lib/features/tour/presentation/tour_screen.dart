@@ -5,6 +5,8 @@ import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
 import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 import 'widgets/widgets.dart';
 
@@ -63,17 +65,18 @@ class TourScreen extends StatelessWidget {
               Text(
                 tour.kinds.join(', '),
                 textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.titleSmall,
+                style: AppTextTheme.medium14.copyWith(
+                  color: AppColors.lightGray,
+                ),
               ),
               Text(
                 tour.name,
                 textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: AppTextTheme.semiBold26,
               ),
               TourTile(
-                titleText: tour.weekdays != null
-                    ? tour.getWeekdays()
-                    : 'Любой день',
+                titleText:
+                    tour.weekdays != null ? tour.getWeekdays() : 'Любой день',
                 subtitleText: '8:00 - 20:00',
                 icon: Icons.calendar_today_rounded,
               ),
@@ -95,8 +98,7 @@ class TourScreen extends StatelessWidget {
               TourDescription(desc: tour.description ?? 'Неизвестно'),
               BlocBuilder<TourListBloc, TourListState>(
                   builder: (context, state) {
-                if (state is TourListLoadSuccess &&
-                    state.tourList.isNotEmpty) {
+                if (state is TourListLoadSuccess && state.tourList.isNotEmpty) {
                   return SizedBox(
                     height: height * 0.35,
                     child: TourScrollList(

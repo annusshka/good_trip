@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/widgets/empty_list.dart';
 import 'package:good_trip/core/presentation/widgets/tour_grid.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/core/theme/strings.dart';
 
 import '../../../core/presentation/bloc/tour/tour.dart';
@@ -25,9 +26,9 @@ class FavoriteScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
+          title: const Text(
             favorites,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: AppTextTheme.semiBold26,
           ),
         ),
         body: BlocBuilder<FavoriteListBloc, FavoriteListState>(

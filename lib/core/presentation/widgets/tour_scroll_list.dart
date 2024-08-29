@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class TourScrollList extends StatefulWidget {
   const TourScrollList({super.key,
@@ -25,7 +26,7 @@ class _TourScrollListState extends State<TourScrollList> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(widget.title,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: AppTextTheme.semiBold18,
             ),
             Row(
               children: [
@@ -47,7 +48,7 @@ class _TourScrollListState extends State<TourScrollList> {
         Expanded(
           flex: 2,
           child: Text(widget.title,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: AppTextTheme.semiBold18,
           ),
         ),
         const Spacer(flex: 1,),

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../../core/theme/theme.dart';
 
 class ImagePickerWidget extends StatefulWidget {
   const ImagePickerWidget({super.key, required this.func});
@@ -28,30 +28,27 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20), // Image border
         child: GestureDetector(
-          onTap: () {
-            _pickImageFromGallery();
-          },
+          onTap: _pickImageFromGallery,
           child: image != null
               ? Image.file(
                   image!,
                   fit: BoxFit.cover,
                 )
               : Container(
-                  color: colors.lightGray,
+                  color: AppColors.lightGray,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.file_upload_outlined,
-                        color: colors.darkGray,
+                        color: AppColors.darkGray,
                         size: 40,
                       ),
                       Text(
-                        "Загрузите фотографию",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.merge(TextStyle(color: colors.darkGray)),
+                        'Загрузите фотографию',
+                        style: AppTextTheme.semiBold18.copyWith(
+                          color: AppColors.darkGray,
+                        ),
                       ),
                     ],
                   ),

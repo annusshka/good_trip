@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -48,7 +49,7 @@ class _AudioContainerState extends State<AudioContainer> {
             //_audioFile.path.split('/').last,
             widget.audioName,
             textAlign: TextAlign.left,
-            style: Theme.of(context).textTheme.titleMedium,
+            style: AppTextTheme.medium14,
           ),
         ),
         const SizedBox(height: 10),

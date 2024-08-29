@@ -6,6 +6,8 @@ import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/tour_photo.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class TourScrollElement extends StatelessWidget {
   const TourScrollElement({
@@ -22,7 +24,11 @@ class TourScrollElement extends StatelessWidget {
       width: 150,
       child: InkWell(
         onTap: () {
-          context.router.push(TourRoute(tour: tour,),);
+          context.router.push(
+            TourRoute(
+              tour: tour,
+            ),
+          );
           // AutoRouter.of(context).push(
           //   TourRoute(
           //     tour: tour,
@@ -72,8 +78,10 @@ class TourScrollElement extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        tour.kinds[0] ?? 'Культура',
-                        style: Theme.of(context).textTheme.labelSmall,
+                        tour.kinds[0],
+                        style: AppTextTheme.medium10.copyWith(
+                          color: AppColors.lightGray,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -82,7 +90,7 @@ class TourScrollElement extends StatelessWidget {
                         tour.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: AppTextTheme.semiBold18,
                       ),
                     ),
                   ],

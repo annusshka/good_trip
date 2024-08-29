@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 
-import '../../../theme/theme.dart';
-import '../widgets.dart';
+import 'nav_bar_selected_icon.dart';
 
 class NavBarElement extends StatelessWidget {
   final IconData icon;
@@ -12,7 +12,7 @@ class NavBarElement extends StatelessWidget {
     return NavigationDestination(
       icon: Icon(
         icon,
-        color: colors.lightGrayNavBar,
+        color: AppColors.grayDF,
         size: 24,
       ),
       selectedIcon: NavBarSelectedIcon(icon: icon),

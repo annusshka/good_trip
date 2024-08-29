@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class SeekBar extends StatefulWidget {
   final Duration duration;
@@ -32,9 +33,9 @@ class _SeekBarState extends State<SeekBar> {
     super.didChangeDependencies();
 
     _sliderThemeData = SliderTheme.of(context).copyWith(
-      activeTrackColor: colors.pink_,
-      inactiveTrackColor: colors.pink_,
-      thumbColor: colors.pink_,
+      activeTrackColor: AppColors.pink,
+      inactiveTrackColor: AppColors.pink,
+      thumbColor: AppColors.pink,
       thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
       trackHeight: 2.0,
     );
@@ -46,8 +47,8 @@ class _SeekBarState extends State<SeekBar> {
       children: [
         SliderTheme(
           data: _sliderThemeData!.copyWith(
-            activeTrackColor: colors.pink_.withOpacity(0.4),
-            inactiveTrackColor: colors.lightGray,
+            activeTrackColor: AppColors.pink.withOpacity(0.4),
+            inactiveTrackColor: AppColors.lightGray,
             thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 0.0),
           ),
           child: ExcludeSemantics(
@@ -104,11 +105,12 @@ class _SeekBarState extends State<SeekBar> {
           right: 16.0,
           bottom: 0.0,
           child: Text(
-              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                  .firstMatch("$_remaining")
-                  ?.group(1) ??
-                  '$_remaining',
-              style: Theme.of(context).textTheme.titleMedium),
+            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                    .firstMatch('$_remaining')
+                    ?.group(1) ??
+                '$_remaining',
+            style: AppTextTheme.medium14,
+          ),
         ),
       ],
     );

@@ -6,6 +6,7 @@ import 'package:good_trip/core/presentation/bloc/audio_tour/audio_tour.dart';
 import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
 import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
 import 'widgets/geolocation.dart';
@@ -92,11 +93,11 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
+                    const Expanded(
                       flex: 2,
                       child: Text(
                         'Популярные места',
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: AppTextTheme.semiBold18,
                       ),
                     ),
                     const Spacer(
@@ -149,11 +150,11 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
+                    const Expanded(
                       flex: 2,
                       child: Text(
                         'Аудиоэкрскурсии',
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: AppTextTheme.semiBold18,
                       ),
                     ),
                     const Spacer(

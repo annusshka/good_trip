@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class AudioPickerWidget extends StatefulWidget {
   const AudioPickerWidget({super.key, required this.func});
@@ -26,33 +26,30 @@ class _AudioPickerWidgetState extends State<AudioPickerWidget> {
       height: height * 0.1,
       width: width,
       child: GestureDetector(
-        onTap: () {
-          handleAudioFromFiles();
-        },
+        onTap: handleAudioFromFiles,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16), // Image border
           child: audioFile != null
               ? Container(
                   decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: colors.lightGray2),
+                    border: Border.all(width: 1, color: AppColors.lightGrayEA),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.mic,
-                        color: colors.darkGray,
+                        color: AppColors.darkGray,
                         size: 30,
                       ),
                       Expanded(
                         child: Text(
                           audioFile!.path.split('/').last,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.merge(TextStyle(color: colors.darkGray)),
+                          style: AppTextTheme.semiBold18.copyWith(
+                            color: AppColors.darkGray,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -60,23 +57,20 @@ class _AudioPickerWidgetState extends State<AudioPickerWidget> {
                   ),
                 )
               : Container(
-                  color: colors.lightGray,
+                  color: AppColors.lightGray,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.mic,
-                        color: colors.darkGray,
+                        color: AppColors.darkGray,
                         size: 30,
                       ),
                       Text(
-                        "Загрузите аудиоэкскурсию",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.merge(TextStyle(
-                              color: colors.darkGray,
-                            )),
+                        'Загрузите аудиоэкскурсию',
+                        style: AppTextTheme.semiBold18.copyWith(
+                          color: AppColors.darkGray,
+                        ),
                       ),
                     ],
                   ),

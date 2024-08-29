@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
 @RoutePage()
@@ -25,11 +26,9 @@ class CreatedToursScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: Text(
+            title: const Text(
               'Экскурсии пользователей',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge,
+              style: AppTextTheme.semiBold26,
             ),
           ),
           body: BlocBuilder<TourCreateListBloc, TourCreateListState>(
