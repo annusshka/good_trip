@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class ProfileSettingsList extends StatelessWidget {
   final String title;
@@ -13,25 +14,25 @@ class ProfileSettingsList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(title, style: Theme.of(context).textTheme.bodyLarge, ),
+        Text(title, style: AppTextTheme.semiBold18, ),
         ListView.separated(
           shrinkWrap: true,
           itemBuilder: (context, i) {
             return ListTile(
               contentPadding: const EdgeInsets.all(0),
               title: Text(elementList[i],
-                style: Theme.of(context).textTheme.bodySmall,
+                style: AppTextTheme.normal16,
               ),
-              trailing: Icon(Icons.arrow_forward_ios,
+              trailing: const Icon(Icons.arrow_forward_ios,
                 size: 24,
-                color: colors.gray,
+                color: AppColors.gray,
               ),
             );
           },
-          separatorBuilder: (BuildContext context, int index) => Divider(
+          separatorBuilder: (BuildContext context, int index) => const Divider(
             height: 1,
             thickness: 1,
-            color: colors.lightGray1,
+            color: AppColors.lightGrayF5,
           ),
           itemCount: elementList.length,
         )

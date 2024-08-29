@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
+import 'package:good_trip/features/account_list/presentation/bloc/account_list.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-
-import '../../../../core/domain/models/models.dart';
-import '../../../../core/theme/theme.dart';
-import '../bloc/account_list.dart';
 
 class AccountTile extends StatelessWidget {
   const AccountTile({super.key, required this.account});
@@ -14,14 +14,14 @@ class AccountTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(
+      leading: const Icon(
         Iconsax.user_copy,
-        color: colors.pink_,
+        color: AppColors.pink,
         size: 24,
       ),
       title: Text(
         '${account.name} ${account.surname}',
-        style: Theme.of(context).textTheme.bodySmall,
+        style: AppTextTheme.normal16,
       ),
       trailing: SizedBox(
         width: MediaQuery.sizeOf(context).width * 0.3,
@@ -29,7 +29,7 @@ class AccountTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           child: Container(
             width: double.infinity,
-            color: colors.pink_,
+            color: AppColors.pink,
             child: TextButton(
               onPressed: () {
                 BlocProvider.of<AccountListBloc>(context)
@@ -37,10 +37,9 @@ class AccountTile extends StatelessWidget {
               },
               child: Text(
                 'Удалить',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.merge(TextStyle(color: colors.white)),
+                style: AppTextTheme.normal16.copyWith(
+                  color: AppColors.white,
+                ),
               ),
             ),
           ),

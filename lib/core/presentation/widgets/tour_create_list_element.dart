@@ -2,18 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/tour_photo.dart';
-
-import '../../../features/tour_create/presentation/bloc/tour_create.dart';
-import '../../theme/theme.dart';
-import '../../../features/tour/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
+import 'package:good_trip/features/tour/presentation/widgets/widgets.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
 class TourCreateListElement extends StatelessWidget {
   const TourCreateListElement(
       {super.key, required this.tour, required this.iconSize});
 
-  final AudioTour tour;
+  final ITour tour;
   final double iconSize;
 
   @override
@@ -23,11 +23,15 @@ class TourCreateListElement extends StatelessWidget {
     return Container(
       height: height * 0.5,
       decoration: BoxDecoration(
-          border: Border.all(color: colors.lightGray),
+          border: Border.all(color: AppColors.lightGray),
           borderRadius: const BorderRadius.all(Radius.circular(10))),
       child: InkWell(
         onTap: () {
-          context.pushRoute(TourRoute(tour: tour, audioFile: tour.audioFile));
+          context.router.navigate(
+            TourRoute(
+              tour: tour,
+            ),
+          );
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -52,7 +56,7 @@ class TourCreateListElement extends StatelessWidget {
                 child: Text(
                   tour.name,
                   textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: AppTextTheme.semiBold26,
                 ),
               ),
               Flexible(
@@ -61,7 +65,9 @@ class TourCreateListElement extends StatelessWidget {
                   textAlign: TextAlign.left,
                   softWrap: true,
                   maxLines: 1,
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: AppTextTheme.medium14.copyWith(
+                    color: AppColors.lightGray,
+                  ),
                 ),
               ),
               Flexible(
@@ -93,7 +99,7 @@ class TourCreateListElement extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: Container(
                         width: double.infinity,
-                        color: colors.pink_,
+                        color: AppColors.pink,
                         child: TextButton(
                           onPressed: () {
                             BlocProvider.of<TourCreateBloc>(context).add(
@@ -101,10 +107,9 @@ class TourCreateListElement extends StatelessWidget {
                           },
                           child: Text(
                             'Удалить',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.merge(TextStyle(color: colors.white)),
+                            style: AppTextTheme.medium15.copyWith(
+                              color: AppColors.white,
+                            ),
                           ),
                         ),
                       ),

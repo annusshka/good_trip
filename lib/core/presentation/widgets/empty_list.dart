@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class EmptyList extends StatelessWidget {
   const EmptyList({super.key});
@@ -9,11 +9,10 @@ class EmptyList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      color: colors.lightGray,
-      child: Text(
-        "Здесь пока пусто",
-        style:
-        Theme.of(context).textTheme.bodySmall,
+      color: AppColors.lightGray,
+      child: const Text(
+        'Здесь пока пусто',
+        style: AppTextTheme.normal16,
       ),
     );
   }

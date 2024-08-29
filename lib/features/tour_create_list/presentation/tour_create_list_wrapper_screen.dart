@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../core/presentation/bloc/tour_create_list/tour_create_list.dart';
+import 'package:good_trip/core/data/repository/repository.dart';
+import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
+import 'package:good_trip/di/configure_dependencies.dart';
 
 @RoutePage()
-class TourCreateListWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
+class TourCreateListWrapperScreen extends StatelessWidget
+    implements AutoRouteWrapper {
   const TourCreateListWrapperScreen({super.key});
 
   @override
@@ -15,11 +17,18 @@ class TourCreateListWrapperScreen extends StatelessWidget implements AutoRouteWr
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
           lazy: false,
-          create: (_) =>
-          TourCreateListBloc()..add(const TourListCreateByActualUserRequested())),
-    ], child: this);
+          create: (_) => TourCreateListBloc(
+            tourRepository: getIt.get<ITourRepository>(),
+          )..add(
+              const TourListCreateByActualUserRequested(),
+            ),
+        ),
+      ],
+      child: this,
+    );
   }
 }

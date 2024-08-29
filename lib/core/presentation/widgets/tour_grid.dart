@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/presentation/widgets/tour_scroll_element.dart';
-
-import '../../domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
 
 class TourGrid extends StatelessWidget {
-  final List<BaseTour> tourList;
+  final List<ITour> tourList;
   const TourGrid({super.key, required this.tourList});
 
   @override

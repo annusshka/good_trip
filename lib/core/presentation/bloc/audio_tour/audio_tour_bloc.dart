@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/data/repository/repository.dart';
 
-import '../../../domain/models/models.dart';
-import '../../../domain/service/service.dart';
 import 'audio_tour.dart';
 
 class AudioTourBloc extends Bloc<AudioTourEvent, AudioTourState> {
-  AudioTourBloc() : super(AudioTourInitial()) {
+  final ITourRepository tourRepository;
+
+  AudioTourBloc({required this.tourRepository}) : super(AudioTourInitial()) {
     on<AudioTourEvent>(
       (event, emit) async {
         if (event is AudioTourRequested) {
@@ -20,11 +22,15 @@ class AudioTourBloc extends Bloc<AudioTourEvent, AudioTourState> {
       AudioTourRequested event, Emitter<AudioTourState> emit) async {
     emit(AudioTourLoadInProgress());
     try {
-      final List<AudioTour> tourList = await TourService().getAudioTourList(
-          city: event.city,
-          lon: event.lon,
-          lat: event.lat,
-          offset: event.offset);
+      /// TODO: data layer for UserData
+      final userId = 1;
+      final List<AudioTour> tourList = await tourRepository.getAudioTours(
+        city: event.city,
+        lon: event.lon,
+        lat: event.lat,
+        offset: event.offset,
+        userId: userId,
+      );
       emit(AudioTourLoadSuccess(tourList: tourList));
     } catch (e) {
       emit(AudioTourLoadFailure(errorMsg: e.toString()));

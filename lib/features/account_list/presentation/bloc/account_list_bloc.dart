@@ -1,11 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/features/account_list/data/repository/i_account_list_repository.dart';
 
-import '../../../../core/domain/models/models.dart';
-import '../../domain/service/account_service.dart';
 import 'account_list.dart';
 
 class AccountListBloc extends Bloc<AccountListEvent, AccountListState> {
-  AccountListBloc() : super(AccountListInitial()) {
+  final IAccountListRepository accountListRepository;
+
+  AccountListBloc({required this.accountListRepository}) : super(AccountListInitial()) {
     on<AccountListEvent>(
       (event, emit) async {
         if (event is AccountListRequested) {
@@ -18,22 +20,22 @@ class AccountListBloc extends Bloc<AccountListEvent, AccountListState> {
     );
   }
 
-  _getAccounts(
+  Future<void> _getAccounts(
       AccountListRequested event, Emitter<AccountListState> emit) async {
     emit(AccountListLoadInProcess());
     try {
-      final List<User> accounts = await AccountService().getAccountList();
+      final List<User> accounts = await accountListRepository.getAccountList();
       emit(AccountListLoadSuccess(accounts: accounts));
     } catch (e) {
       emit(AccountListLoadFailure(errorMsg: e.toString()));
     }
   }
 
-  _removeAccount(
+  Future<void> _removeAccount(
       AccountRemoveRequested event, Emitter<AccountListState> emit) async {
     emit(AccountListLoadInProcess());
     try {
-      await AccountService().removeAccount(event.accountId);
+      await accountListRepository.removeAccount(accountId: event.accountId);
       emit(AccountRemoveSuccess());
     } catch (e) {
       emit(AccountListLoadFailure(errorMsg: e.toString()));

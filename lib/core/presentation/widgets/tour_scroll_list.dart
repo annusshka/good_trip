@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
-
-import '../../domain/models/models.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class TourScrollList extends StatefulWidget {
   const TourScrollList({super.key,
-    required this.tourList, required this.title, this.audioPath});
+    required this.tourList, required this.title});
 
-  final List<BaseTour> tourList;
+  final List<ITour> tourList;
   final String title;
-  final String? audioPath;
 
   @override
   State<TourScrollList> createState() => _TourScrollListState();
@@ -27,7 +26,7 @@ class _TourScrollListState extends State<TourScrollList> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(widget.title,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: AppTextTheme.semiBold18,
             ),
             Row(
               children: [
@@ -49,7 +48,7 @@ class _TourScrollListState extends State<TourScrollList> {
         Expanded(
           flex: 2,
           child: Text(widget.title,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: AppTextTheme.semiBold18,
           ),
         ),
         const Spacer(flex: 1,),
@@ -61,7 +60,7 @@ class _TourScrollListState extends State<TourScrollList> {
             separatorBuilder: (BuildContext context, _) => const SizedBox(width: 10,),
             itemBuilder: (context, i) {
               final tour = widget.tourList[i];
-              return TourScrollElement(tour: tour, audioPath: widget.audioPath,);
+              return TourScrollElement(tour: tour);
             },
           ),
         ),

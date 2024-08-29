@@ -2,12 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/domain/models/account/access_level.dart';
-
-import '../../../core/app_router/app_router.dart';
-import '../../../core/presentation/bloc/auth/auth.dart';
-import '../../../core/presentation/widgets/widgets.dart';
-import '../../../core/theme/theme.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_event.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_state.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 @RoutePage()
 class SignInScreen extends StatefulWidget {
@@ -33,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colors.pink_,
+      backgroundColor: AppColors.pink,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthenticatedState) {
@@ -68,25 +70,21 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(24),
                     child: Container(
-                      decoration: BoxDecoration(color: colors.white),
+                      decoration: const BoxDecoration(color: AppColors.white),
                       padding: const EdgeInsets.all(25),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               'Welcome Back',
-                              style: Theme.of(context).textTheme.labelLarge,
+                              style: AppTextTheme.semiBold20,
                             ),
                             //const SizedBox(height: 10,),
-                            Text(
+                            const Text(
                               'Please log in to your account',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400, //regular
-                                color: colors.gray,
-                              ),
+                              style: AppTextTheme.normal14,
                             ),
                             const SizedBox(
                               height: 20,
@@ -95,17 +93,16 @@ class _SignInScreenState extends State<SignInScreen> {
                               keyboardType: TextInputType.emailAddress,
                               controller: _emailController,
                               decoration: InputDecoration(
-                                hintText: "Email",
+                                hintText: 'Email',
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1, color: colors.lightGray2),
+                                  borderSide: const BorderSide(
+                                      width: 1, color: AppColors.lightGrayEA),
                                   borderRadius: BorderRadius.circular(16),
                                 ),
-                                counterStyle:
-                                    Theme.of(context).textTheme.bodySmall,
+                                counterStyle: AppTextTheme.normal16,
                               ),
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
@@ -124,25 +121,23 @@ class _SignInScreenState extends State<SignInScreen> {
                               controller: _passwordController,
                               obscureText: !_showPassword,
                               decoration: InputDecoration(
-                                hintText: "Password",
+                                hintText: 'Password',
                                 //hintStyle: ,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1, color: colors.lightGray2),
+                                  borderSide: const BorderSide(
+                                      width: 1, color: AppColors.lightGrayEA),
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    _toggleVisibility();
-                                  },
+                                  onTap: _toggleVisibility,
                                   child: Icon(
                                     _showPassword
                                         ? Icons.visibility_outlined
                                         : Icons.visibility_off_outlined,
-                                    color: colors.darkGray,
+                                    color: AppColors.darkGray,
                                   ),
                                 ),
                               ),
@@ -150,7 +145,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 return value != null && value.length < 6
-                                    ? "Enter min. 6 characters"
+                                    ? 'Enter min. 6 characters'
                                     : null;
                               },
                             ),
@@ -160,7 +155,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(16),
                               child: Container(
-                                color: colors.pink_,
+                                color: AppColors.pink,
                                 width: double.infinity,
                                 child: TextButton(
                                   onPressed: () {
@@ -171,12 +166,11 @@ class _SignInScreenState extends State<SignInScreen> {
                                       );
                                     }
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     'Sign In',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
+                                    style: AppTextTheme.semiBold15.copyWith(
+                                      color: AppColors.white,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -189,17 +183,18 @@ class _SignInScreenState extends State<SignInScreen> {
                               children: [
                                 const Text(
                                   "Don't have an account? ",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
+                                  style: AppTextTheme.normal14,
                                 ),
                                 GestureDetector(
                                   onTap: () {
                                     AutoRouter.of(context)
                                         .push(const SignUpRoute());
                                   },
-                                  child: const Text(
-                                    "Sign Up",
+                                  child: Text(
+                                    'Sign Up',
+                                    style: AppTextTheme.semiBold15.copyWith(
+                                      color: AppColors.pink,
+                                    ),
                                   ),
                                 ),
                               ],

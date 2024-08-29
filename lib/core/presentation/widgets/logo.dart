@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/strings.dart';
-
-import '../../theme/theme.dart';
 
 class Logo extends StatelessWidget {
   const Logo({super.key});
@@ -23,7 +22,7 @@ class Logo extends StatelessWidget {
           style: TextStyle(
             fontSize: MediaQuery.sizeOf(context).width * 0.15,
             fontWeight: FontWeight.w600,
-            color: colors.white,
+            color: AppColors.white,
           ),
         ),
       ],

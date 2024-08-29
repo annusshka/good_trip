@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_info.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_settings_list.dart';
 
@@ -36,9 +37,9 @@ class AccountScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    "Другое",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                  const Text(
+                    'Другое',
+                    style: AppTextTheme.semiBold18,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
@@ -52,9 +53,9 @@ class AccountScreen extends StatelessWidget {
                       },
                       child: BlocBuilder<AuthBloc, AuthState>(
                           builder: (context, state) {
-                        return Text(
+                        return const Text(
                           'Выйти',
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: AppTextTheme.normal16,
                         );
                       }),
                     ),

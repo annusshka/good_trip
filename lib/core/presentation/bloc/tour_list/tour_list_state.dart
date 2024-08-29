@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
 
 abstract class TourListState extends Equatable {
   const TourListState();

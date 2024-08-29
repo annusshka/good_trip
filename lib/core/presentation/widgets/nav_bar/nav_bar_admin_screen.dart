@@ -1,12 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/data/repository/repository.dart';
+import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
+import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
+import 'package:good_trip/di/configure_dependencies.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-import '../../../app_router/app_router.dart';
-import '../../bloc/tour/tour.dart';
-import '../../bloc/tour_create_list/tour_create_list.dart';
-import '../widgets.dart';
+import 'nav_bar_element.dart';
 
 @RoutePage()
 class NavBarAdminScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -51,9 +53,18 @@ class NavBarAdminScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<TourBloc>(lazy: false, create: (_) => TourBloc()),
+        BlocProvider<TourBloc>(
+          lazy: false,
+          create: (_) => TourBloc(
+            tourRepository: getIt.get<ITourRepository>(),
+          ),
+        ),
         BlocProvider<TourCreateListBloc>(
-            lazy: false, create: (_) => TourCreateListBloc()),
+          lazy: false,
+          create: (_) => TourCreateListBloc(
+            tourRepository: getIt.get<ITourRepository>(),
+          ),
+        ),
       ],
       child: this,
     );

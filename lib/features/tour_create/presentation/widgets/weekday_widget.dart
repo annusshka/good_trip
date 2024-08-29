@@ -1,7 +1,7 @@
 import 'package:day_picker/day_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/domain/models/models.dart';
-import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 
 class WeekdayWidget extends StatelessWidget {
   const WeekdayWidget({super.key, required this.days, required this.func});
@@ -14,12 +14,12 @@ class WeekdayWidget extends StatelessWidget {
     return SelectWeekDays(
       fontSize: 18,
       fontWeight: FontWeight.w600,
-      selectedDayTextColor: colors.darkGray,
+      selectedDayTextColor: AppColors.darkGray,
       days: days,
       border: false,
       boxDecoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: colors.pink_,
+        color: AppColors.pink,
       ),
       onSelect: (_) {
         List<Weekday> weekdays = [];

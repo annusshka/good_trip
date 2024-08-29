@@ -4,10 +4,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-
-import '../../../core/presentation/bloc/auth/auth.dart';
-import '../../../core/presentation/widgets/widgets.dart';
-import '../../../core/theme/theme.dart';
+import 'package:good_trip/core/data/repository/auth/i_auth_repository.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/di/configure_dependencies.dart';
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {
@@ -19,11 +21,11 @@ class SplashScreen extends StatelessWidget {
     return AnimatedSplashScreen(
       splash: const Logo(),
       splashIconSize: 300,
-      backgroundColor: colors.pink_,
+      backgroundColor: AppColors.pink,
       duration: 5,
       nextScreen: BlocProvider<AuthBloc>(
         lazy: false,
-        create: (_) => AuthBloc(),
+        create: (context) => AuthBloc(authRepository: getIt.get<IAuthRepository>(),),
         child: WillPopScope(
           onWillPop: () async => true,
           child: MaterialApp.router(

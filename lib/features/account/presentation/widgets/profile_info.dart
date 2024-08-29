@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/domain/models/models.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class ProfileInfo extends StatelessWidget {
   final User user;
@@ -11,9 +11,9 @@ class ProfileInfo extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       title: Text('${user.name} ${user.surname}',
-        style: Theme.of(context).textTheme.bodyLarge,),
+        style: AppTextTheme.semiBold18,),
       subtitle: Text(user.role.displayTitle,
-        style: Theme.of(context).textTheme.bodyMedium,),
+        style: AppTextTheme.medium15,),
     );
     /*
       Row(

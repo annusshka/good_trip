@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/features/home/presentation/home_screen.dart';
-
-import '../../theme/theme.dart';
 
 class MySearchDelegate extends SearchDelegate {
   late String selectedResult;
@@ -48,27 +47,26 @@ class MySearchDelegate extends SearchDelegate {
     //AutoRouter.of(context).pop();
   }
 
-
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> searchResults = ["Хельсинки", "Москва", "Берлин", "Нью-Йорк", "Санкт-Петербург", query]
+    List<String> searchResults = ['Хельсинки', 'Москва', 'Берлин', 'Нью-Йорк', 'Санкт-Петербург', query]
         .where((element) => element.contains(query))
         .toList();
 
     return ListView.separated(
       itemCount: searchResults.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(
+      separatorBuilder: (BuildContext context, int index) => const Divider(
         height: 1,
         thickness: 1,
         indent: 60,
-        color: colors.lightGray1,
+        color: AppColors.lightGrayF5,
       ),
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-          leading: Icon(
+          leading: const Icon(
             Icons.search_rounded,
             size: 24,
-            color: colors.lightGray,
+            color: AppColors.lightGray,
           ),
           title: Text(searchResults[index]),
           onTap: () {

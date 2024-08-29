@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class TourDescription extends StatefulWidget {
   const TourDescription({super.key, required this.desc});
@@ -11,7 +12,6 @@ class TourDescription extends StatefulWidget {
 }
 
 class _TourDescriptionState extends State<TourDescription> {
-
   final String desc;
   bool isOpenText;
 
@@ -24,44 +24,33 @@ class _TourDescriptionState extends State<TourDescription> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('О событии',
+        const Text(
+          'О событии',
           textAlign: TextAlign.left,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: AppTextTheme.semiBold18,
         ),
-        isOpenText
-            ? Text(desc,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: colors.darkGray),
-                softWrap: true,
-              )
-            : Text(
-              desc,
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: colors.darkGray),
-              softWrap: true,
-              maxLines: 4,
-              overflow: TextOverflow.ellipsis,
-            ),
+        Text(
+          desc,
+          textAlign: TextAlign.left,
+          style: AppTextTheme.normal14.copyWith(
+            color: AppColors.lightGray,
+          ),
+          softWrap: true,
+          maxLines: isOpenText ? null : 4,
+          overflow: isOpenText ? null : TextOverflow.ellipsis,
+        ),
         TextButton(
           style: ButtonStyle(
-            padding: WidgetStateProperty.all<EdgeInsets>(
-                EdgeInsets.zero),
+            padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
           ),
-            onPressed: () {
-              setState(() {
-                _tapReadMore();
-              });
-            },
-            child: Text(isOpenText ? 'Свернуть' : 'Развернуть',
-              textAlign: TextAlign.left,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+          onPressed: () {
+            setState(_tapReadMore);
+          },
+          child: Text(
+            isOpenText ? 'Свернуть' : 'Развернуть',
+            textAlign: TextAlign.left,
+            style: AppTextTheme.medium15,
+          ),
         ),
       ],
     );

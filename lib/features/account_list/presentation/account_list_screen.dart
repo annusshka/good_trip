@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/widgets/empty_list.dart';
-import 'package:good_trip/core/theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/account_list/presentation/widgets/account_tile.dart';
 
 import 'bloc/account_list.dart';
@@ -15,56 +16,47 @@ class AccountListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
 
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider<AccountListBloc>(
-            lazy: false,
-            create: (context) => AccountListBloc()..add(AccountListRequested()),
+    return Scaffold(
+      //backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: AppColors.pink,
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Пользователи',
+          style: AppTextTheme.semiBold26.copyWith(
+            color: AppColors.white,
           ),
-        ],
-        child: Scaffold(
-          //backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: colors.pink_,
-            automaticallyImplyLeading: false,
-            title: Text(
-              'Пользователи',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.merge(TextStyle(color: colors.white)),
-            ),
-          ),
-          body: BlocBuilder<AccountListBloc, AccountListState>(
-              builder: (context, state) {
-            if (state is AccountListLoadSuccess) {
-              if (state.accounts.isEmpty) {
-                return const EmptyList();
-              } else {
-                return ListView.separated(
-                  padding: EdgeInsets.only(top: height * 0.02),
-                  scrollDirection: Axis.vertical,
-                  itemCount: state.accounts.length,
-                  separatorBuilder: (BuildContext context, _) => SizedBox(
-                    height: height * 0.03,
-                  ),
-                  itemBuilder: (context, i) {
-                    return AccountTile(
-                      account: state.accounts[i],
-                    );
-                  },
+        ),
+      ),
+      body: BlocBuilder<AccountListBloc, AccountListState>(
+          builder: (context, state) {
+        if (state is AccountListLoadSuccess) {
+          if (state.accounts.isEmpty) {
+            return const EmptyList();
+          } else {
+            return ListView.separated(
+              padding: EdgeInsets.only(top: height * 0.02),
+              scrollDirection: Axis.vertical,
+              itemCount: state.accounts.length,
+              separatorBuilder: (BuildContext context, _) => SizedBox(
+                height: height * 0.03,
+              ),
+              itemBuilder: (context, i) {
+                return AccountTile(
+                  account: state.accounts[i],
                 );
-              }
-            } else if (state is AccountListLoadFailure) {
-              return const Center();
-            } else if (state is AccountRemoveSuccess) {
-              BlocProvider.of<AccountListBloc>(context)
-                  .add(AccountListRequested());
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
+              },
             );
-          }),
-        ));
+          }
+        } else if (state is AccountListLoadFailure) {
+          return const Center();
+        } else if (state is AccountRemoveSuccess) {
+          BlocProvider.of<AccountListBloc>(context).add(AccountListRequested());
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
+    );
   }
 }

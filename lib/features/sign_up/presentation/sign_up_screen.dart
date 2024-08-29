@@ -3,14 +3,13 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/domain/models/account/access_level.dart';
+import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_event.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_state.dart';
-import 'package:good_trip/core/theme/theme.dart';
-
-import '../../../core/domain/models/user.dart';
-import '../../../core/presentation/bloc/auth/auth_bloc.dart';
-import '../../../core/presentation/bloc/auth/auth_event.dart';
-import '../../../core/presentation/widgets/logo.dart';
+import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 @RoutePage()
 class SignUpScreen extends StatefulWidget {
@@ -43,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: colors.pink_,
+        backgroundColor: AppColors.pink,
         //resizeToAvoidBottomInset: , не меняет размер под клавиатурой
         // вручную исп viewingsets
         body: BlocConsumer<AuthBloc, AuthState>(
@@ -76,24 +75,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
                       child: Container(
-                        decoration: BoxDecoration(color: colors.white),
+                        decoration: const BoxDecoration(color: AppColors.white),
                         padding: const EdgeInsets.all(25.0),
                         child: Form(
                           key: _formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Register new account',
-                                style: Theme.of(context).textTheme.labelLarge,
+                                style: AppTextTheme.semiBold20,
                               ),
-                              Text(
+                              const Text(
                                 'Please log in to your account',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400, //regular
-                                  color: colors.gray,
-                                ),
+                                style: AppTextTheme.normal14,
                               ),
                               const SizedBox(
                                 height: 20,
@@ -102,17 +97,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 keyboardType: TextInputType.name,
                                 controller: _nameController,
                                 decoration: InputDecoration(
-                                  hintText: "Name",
+                                  hintText: 'Name',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: colors.lightGray2),
+                                    borderSide: const BorderSide(
+                                        width: 1, color: AppColors.lightGrayEA),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
-                                  counterStyle:
-                                      Theme.of(context).textTheme.bodySmall,
+                                  counterStyle: AppTextTheme.normal16,
                                 ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -129,17 +123,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 keyboardType: TextInputType.name,
                                 controller: _surnameController,
                                 decoration: InputDecoration(
-                                  hintText: "Surname",
+                                  hintText: 'Surname',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: colors.lightGray2),
+                                    borderSide: const BorderSide(
+                                        width: 1, color: AppColors.lightGrayEA),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
-                                  counterStyle:
-                                      Theme.of(context).textTheme.bodySmall,
+                                  counterStyle: AppTextTheme.normal16,
                                 ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -156,17 +149,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 keyboardType: TextInputType.emailAddress,
                                 controller: _emailController,
                                 decoration: InputDecoration(
-                                  hintText: "Email",
+                                  hintText: 'Email',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: colors.lightGray2),
+                                    borderSide: const BorderSide(
+                                        width: 1, color: AppColors.lightGrayEA),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
-                                  counterStyle:
-                                      Theme.of(context).textTheme.bodySmall,
+                                  counterStyle: AppTextTheme.normal16,
                                 ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -184,17 +176,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 keyboardType: TextInputType.phone,
                                 controller: _phoneController,
                                 decoration: InputDecoration(
-                                  hintText: "Phone",
+                                  hintText: 'Phone',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: colors.lightGray2),
+                                    borderSide: const BorderSide(
+                                        width: 1, color: AppColors.lightGrayEA),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
-                                  counterStyle:
-                                      Theme.of(context).textTheme.bodySmall,
+                                  counterStyle: AppTextTheme.normal16,
                                 ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -212,24 +203,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 controller: _passwordController,
                                 obscureText: !_showPassword,
                                 decoration: InputDecoration(
-                                  hintText: "Password",
+                                  hintText: 'Password',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1, color: colors.lightGray2),
+                                    borderSide: const BorderSide(
+                                        width: 1, color: AppColors.lightGrayEA),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      _toggleVisibility();
-                                    },
+                                    onTap: _toggleVisibility,
                                     child: Icon(
                                       _showPassword
                                           ? Icons.visibility_outlined
                                           : Icons.visibility_off_outlined,
-                                      color: colors.darkGray,
+                                      color: AppColors.darkGray,
                                     ),
                                   ),
                                 ),
@@ -237,7 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   return value != null && value.length < 6
-                                      ? "Enter min. 6 characters"
+                                      ? 'Enter min. 6 characters'
                                       : null;
                                 },
                               ),
@@ -247,7 +236,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
                                 child: Container(
-                                  color: colors.pink_,
+                                  color: AppColors.pink,
                                   width: double.infinity,
                                   child: TextButton(
                                     onPressed: () {
@@ -256,12 +245,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             context);
                                       }
                                     },
-                                    child: const Text(
+                                    child: Text(
                                       'Sign Up',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black),
+                                      style: AppTextTheme.semiBold15.copyWith(
+                                        color: AppColors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -273,10 +261,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    "Already have an account? ",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                    ),
+                                    'Already have an account? ',
+                                    style: AppTextTheme.normal14,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -290,8 +276,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             ),
                                           );*/
                                     },
-                                    child: const Text(
-                                      "Sign In",
+                                    child: Text(
+                                      'Sign In',
+                                      style: AppTextTheme.semiBold15.copyWith(
+                                        color: AppColors.pink,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -320,15 +309,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     //if (_formKey.currentState!.validate()) {
     // If email is valid adding new event [SignUpRequested].
     User user = User(
-        name: _nameController.text,
-        surname: _surnameController.text,
-        email: _emailController.text,
-        phone: _phoneController.text,
-        password: _passwordController.text,
-        role: AccessLevel.USER,
-        id: 0,
-        accessToken: '',
-        refreshToken: '');
+      name: _nameController.text,
+      surname: _surnameController.text,
+      email: _emailController.text,
+      phone: _phoneController.text,
+      password: _passwordController.text,
+      role: AccessLevel.USER,
+      id: 0,
+    );
     BlocProvider.of<AuthBloc>(context).add(
       SignUpRequested(user),
     );

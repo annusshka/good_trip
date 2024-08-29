@@ -1,10 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/repository/repository.dart';
+import 'package:good_trip/core/data/service/service.dart';
 
-import '../../../../core/domain/service/service.dart';
 import 'tour_create.dart';
 
 class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
-  TourCreateBloc() : super(TourCreateInitial()) {
+  final ITourRepository tourRepository;
+
+  TourCreateBloc({required this.tourRepository}) : super(TourCreateInitial()) {
     on<TourCreateEvent>(
       (event, emit) async {
         if (event is TourCreateRequested) {
@@ -21,16 +24,19 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
       TourCreateRequested event, Emitter<TourCreateState> emit) async {
     emit(TourCreateInProgress());
     try {
-      await TourService().saveTour(
-          event.name,
-          event.imagePath,
-          event.weekdays,
-          event.description,
-          event.kinds,
-          event.address,
-          event.audioPath,
-          event.imageFile,
-          event.audioFile);
+      ///TODO: saveTour method
+
+      // await tourRepository.saveTour(
+      //   event.name,
+      //   event.imagePath,
+      //   event.weekdays,
+      //   event.description,
+      //   event.kinds,
+      //   event.address,
+      //   event.audioPath,
+      //   event.imageFile,
+      //   event.audioFile,
+      // );
       emit(TourCreatedSuccess());
     } catch (_) {
       emit(const TourCreateFailure(errorMsg: 'Error in weather request.'));
@@ -41,7 +47,7 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
       CreatedTourRemoveRequested event, Emitter<TourCreateState> emit) async {
     emit(TourCreateInProgress());
     try {
-      await TourService().removeTour(event.tourId);
+      await tourRepository.deleteTour(id: event.tourId);
       emit(TourCreatedSuccess());
     } catch (_) {
       emit(const TourCreateFailure(errorMsg: 'Error in weather request.'));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../theme/theme.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 
 class NavBarSelectedIcon extends StatelessWidget {
   final IconData icon;
@@ -14,8 +13,8 @@ class NavBarSelectedIcon extends StatelessWidget {
         Container(
           width: 18.0,
           height: 18.0,
-          decoration: BoxDecoration(
-            color: colors.pink_,
+          decoration: const BoxDecoration(
+            color: AppColors.pink,
             shape: BoxShape.circle,
           ),
         ),

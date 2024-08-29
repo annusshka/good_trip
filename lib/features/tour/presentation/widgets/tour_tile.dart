@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
+import 'package:good_trip/core/theme/app_text_theme.dart';
 
 class TourTile extends StatelessWidget {
-  const TourTile({super.key,
-    required this.titleText, required this.subtitleText, required this.icon});
+  const TourTile(
+      {super.key,
+      required this.titleText,
+      required this.subtitleText,
+      required this.icon});
 
   final String titleText;
   final String subtitleText;
@@ -14,15 +19,20 @@ class TourTile extends StatelessWidget {
       contentPadding: const EdgeInsets.only(right: 40),
       leading: Icon(
         icon,
-        color: Colors.black, size: 24,
+        color: Colors.black,
+        size: 24,
       ),
-      title: Text(titleText,
+      title: Text(
+        titleText,
         textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: AppTextTheme.medium14,
       ),
-      subtitle: Text(subtitleText,
+      subtitle: Text(
+        subtitleText,
         textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.titleSmall,
+        style: AppTextTheme.medium14.copyWith(
+          color: AppColors.lightGray,
+        ),
       ),
     );
   }

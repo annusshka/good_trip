@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-
-import '../../../../core/domain/models/models.dart';
+import 'package:good_trip/core/data/models/address/address.dart';
+import 'package:good_trip/core/data/models/models.dart';
 
 abstract class TourCreateEvent extends Equatable {
   const TourCreateEvent();
@@ -22,16 +22,17 @@ class TourCreateRequested extends TourCreateEvent {
   final File imageFile;
   final File audioFile;
 
-  const TourCreateRequested(
-      {required this.name,
-      required this.imagePath,
-      required this.weekdays,
-      required this.description,
-      required this.kinds,
-      required this.address,
-      required this.audioPath,
-      required this.imageFile,
-      required this.audioFile});
+  const TourCreateRequested({
+    required this.name,
+    required this.imagePath,
+    required this.weekdays,
+    required this.description,
+    required this.kinds,
+    required this.address,
+    required this.audioPath,
+    required this.imageFile,
+    required this.audioFile,
+  });
 }
 
 class CreatedTourRemoveRequested extends TourCreateEvent {
