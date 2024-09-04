@@ -1,5 +1,6 @@
 export 'buttons/buttons.dart';
 export 'empty_list.dart';
+export 'fail_screen.dart';
 export 'logo.dart';
 export 'nav_bar/nav_bar.dart';
 export 'search_delegate.dart';

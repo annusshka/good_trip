@@ -15,6 +15,8 @@ import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart
 import 'package:good_trip/di/register_modules.dart' as _i593;
 import 'package:good_trip/features/account_list/data/repository/i_account_list_repository.dart'
     as _i98;
+import 'package:good_trip/features/welcome/data/repository/i_welcome_info_repository.dart'
+    as _i14;
 import 'package:injectable/injectable.dart' as _i526;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -37,6 +39,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => registerModules.accountListRepository);
     gh.singleton<_i73.IApiTourRepository>(
         () => registerModules.apiTourRepository);
+    gh.singleton<_i14.IWelcomeInfoRepository>(
+        () => registerModules.welcomeIfoRepository);
     return this;
   }
 }
