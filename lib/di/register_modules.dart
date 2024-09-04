@@ -1,17 +1,17 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/app_starter.dart';
-import 'package:good_trip/core/data/interceptor/jwt_interceptor.dart';
 import 'package:good_trip/core/data/repository/auth/impl/mock_auth_repository.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/repository/tour/impl/mock_tour_repository.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
 import 'package:good_trip/core/data/repository/weather/impl/weather_repository.dart';
 import 'package:good_trip/core/data/service/service.dart';
-import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
 import 'package:good_trip/features/account_list/data/repository/i_account_list_repository.dart';
-import 'package:good_trip/features/account_list/data/repository/impl/account_list_repository.dart';
 import 'package:good_trip/features/account_list/data/repository/impl/mock_account_list_repository.dart';
 import 'package:good_trip/features/account_list/data/service/account_list_service.dart';
+import 'package:good_trip/features/welcome/data/repository/i_welcome_info_repository.dart';
+import 'package:good_trip/features/welcome/data/repository/impl/mock_welcome_info_repository.dart';
+import 'package:good_trip/features/welcome/data/service/welcome_info_service.dart';
 import 'package:injectable/injectable.dart';
 
 Future<void> initServices() async {
@@ -75,6 +75,10 @@ abstract class RegisterModules {
     service: AccountListService(starter.dio),
   );
 
+  static final MockWelcomeInfoRepository _welcomeInfoRepository = MockWelcomeInfoRepository(
+    service: WelcomeInfoService(starter.dio),
+  );
+
   @Singleton(as: IWeatherRepository)
   WeatherRepository get weatherRepository => _weatherRepository;
 
@@ -89,6 +93,9 @@ abstract class RegisterModules {
 
   @Singleton(as: IAccountListRepository)
   MockAccountListRepository get accountListRepository => _accountListRepository;
+
+  @Singleton(as: IWelcomeInfoRepository)
+  MockWelcomeInfoRepository get welcomeIfoRepository => _welcomeInfoRepository;
   //
   // static final TourBloc _tourBloc = TourBloc(tourRepository: _tourRepository);
   //

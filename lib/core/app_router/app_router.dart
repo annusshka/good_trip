@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/app_router/tour_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_admin_screen.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/features/account/presentation/account_screen.dart';
 import 'package:good_trip/features/account_list/presentation/account_list_screen.dart';
@@ -21,6 +20,8 @@ import 'package:good_trip/features/tour/presentation/tour_wrapper_screen.dart';
 import 'package:good_trip/features/tour_create/presentation/tour_create_screen.dart';
 import 'package:good_trip/features/tour_create_list/presentation/tour_create_list_screen.dart';
 import 'package:good_trip/features/tour_create_list/presentation/tour_create_list_wrapper_screen.dart';
+import 'package:good_trip/features/welcome/welcome_screen.dart';
+import 'package:good_trip/features/welcome/welcome_wrapper_screen.dart';
 
 import 'tour_create_router.dart';
 
@@ -30,48 +31,55 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: SignInRoute.page, path: '/'),
-        AutoRoute(page: SignUpRoute.page),
-        TourRoutes.routes,
-        AutoRoute(page: TourCreateRoute.page),
         AutoRoute(
-          page: NavBarUserRoute.page,
+          page: WelcomeWrapperRoute.page,
+          path: '/',
           children: [
+            AutoRoute(page: WelcomeRoute.page, initial: true),
+            AutoRoute(page: SignInRoute.page),
+            AutoRoute(page: SignUpRoute.page),
+            TourRoutes.routes,
+            AutoRoute(page: TourCreateRoute.page),
             AutoRoute(
-              page: HomeWrapperRoute.page,
+              page: NavBarUserRoute.page,
               children: [
-                AutoRoute(page: HomeRoute.page, initial: true),
-                TourRoutes.routes,
+                AutoRoute(
+                  page: HomeWrapperRoute.page,
+                  children: [
+                    AutoRoute(page: HomeRoute.page, initial: true),
+                    TourRoutes.routes,
+                  ],
+                ),
+                AutoRoute(
+                  page: FavoriteWrapperRoute.page,
+                  children: [
+                    AutoRoute(page: FavoriteRoute.page, initial: true),
+                    TourRoutes.routes,
+                  ],
+                ),
+                TourCreateRoutes.routes,
+                AutoRoute(page: AccountRoute.page),
               ],
             ),
             AutoRoute(
-              page: FavoriteWrapperRoute.page,
+              page: NavBarAdminRoute.page,
               children: [
-                AutoRoute(page: FavoriteRoute.page, initial: true),
-                TourRoutes.routes,
+                AutoRoute(
+                  page: AccountListWrapperRoute.page,
+                  children: [
+                    AutoRoute(page: AccountListRoute.page, initial: true),
+                  ],
+                ),
+                AutoRoute(
+                  page: CreatedToursWrapperRoute.page,
+                  children: [
+                    AutoRoute(page: CreatedToursRoute.page, initial: true),
+                    TourRoutes.routes,
+                  ],
+                ),
+                AutoRoute(page: AccountRoute.page),
               ],
             ),
-            TourCreateRoutes.routes,
-            AutoRoute(page: AccountRoute.page),
-          ],
-        ),
-        AutoRoute(
-          page: NavBarAdminRoute.page,
-          children: [
-            AutoRoute(
-              page: AccountListWrapperRoute.page,
-              children: [
-                AutoRoute(page: AccountListRoute.page, initial: true),
-              ],
-            ),
-            AutoRoute(
-              page: CreatedToursWrapperRoute.page,
-              children: [
-                AutoRoute(page: CreatedToursRoute.page, initial: true),
-                TourRoutes.routes,
-              ],
-            ),
-            AutoRoute(page: AccountRoute.page),
           ],
         ),
       ];

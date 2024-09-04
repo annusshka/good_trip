@@ -12,4 +12,6 @@ abstract class Urls {
 
   static const getAccountList = '/auth/admin/users';
   static const deleteAccountByAdmin = '/auth/admin/user';
+
+  static const welcome = '/auth/welcome';
 }

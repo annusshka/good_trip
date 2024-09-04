@@ -5,7 +5,6 @@ import 'package:good_trip/core/data/models/auth/auth_request.dart';
 import 'package:good_trip/core/data/models/auth/login_request.dart';
 import 'package:good_trip/core/data/models/auth/refresh_token.dart';
 import 'package:good_trip/core/data/models/user/user_dto.dart';
-import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';
 
 part 'auth_service.g.dart';

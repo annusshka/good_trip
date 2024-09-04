@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:good_trip/core/data/models/account/access_level.dart';
 
 part 'auth_request.freezed.dart';
 part 'auth_request.g.dart';

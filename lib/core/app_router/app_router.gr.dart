@@ -133,6 +133,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const TourWrapperScreen()),
       );
     },
+    WelcomeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const WelcomeScreen(),
+      );
+    },
+    WelcomeWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const WelcomeWrapperScreen()),
+      );
+    },
   };
 }
 
@@ -421,6 +433,34 @@ class TourWrapperRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'TourWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WelcomeScreen]
+class WelcomeRoute extends PageRouteInfo<void> {
+  const WelcomeRoute({List<PageRouteInfo>? children})
+      : super(
+          WelcomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WelcomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WelcomeWrapperScreen]
+class WelcomeWrapperRoute extends PageRouteInfo<void> {
+  const WelcomeWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          WelcomeWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WelcomeWrapperRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
