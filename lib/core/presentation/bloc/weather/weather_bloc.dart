@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
-import 'package:good_trip/core/data/service/service.dart';
 
 import 'weather_event.dart';
 import 'weather_state.dart';

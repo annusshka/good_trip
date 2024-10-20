@@ -5,9 +5,6 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/di/configure_dependencies.dart';
 import 'package:good_trip/features/favorite/presentation/bloc/favorite_list.dart';
 
-import '../../../core/presentation/bloc/audio_tour/audio_tour.dart';
-import '../../../core/presentation/bloc/tour_list/tour_list.dart';
-
 @RoutePage()
 class FavoriteWrapperScreen extends StatelessWidget
     implements AutoRouteWrapper {

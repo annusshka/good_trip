@@ -40,9 +40,9 @@ class _SignInScreenState extends State<SignInScreen> {
         listener: (context, state) {
           if (state is AuthenticatedState) {
             if (state.user.role == AccessLevel.USER) {
-              context.router.push(const NavBarUserRoute());
+              context.router.replace(const NavBarUserRoute());
             } else if (state.user.role == AccessLevel.ADMIN) {
-              context.router.push(const NavBarAdminRoute());
+              context.router.replace(const NavBarAdminRoute());
             }
           }
           if (state is AuthErrorState) {
@@ -54,163 +54,159 @@ class _SignInScreenState extends State<SignInScreen> {
           if (state is AuthLoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (state is UnauthenticatedState) {
-            return Stack(children: [
-              Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(
-                    top: MediaQuery.sizeOf(context).height * 0.1,
-                  ),
-                  child: const Logo()),
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(10),
-                  reverse: true,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(24),
-                    child: Container(
-                      decoration: const BoxDecoration(color: AppColors.white),
-                      padding: const EdgeInsets.all(25),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Welcome Back',
-                              style: AppTextTheme.semiBold20,
-                            ),
-                            //const SizedBox(height: 10,),
-                            const Text(
-                              'Please log in to your account',
-                              style: AppTextTheme.normal14,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              controller: _emailController,
-                              decoration: InputDecoration(
-                                hintText: 'Email',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 1, color: AppColors.lightGrayEA),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                counterStyle: AppTextTheme.normal16,
+          return Stack(children: [
+            Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.only(
+                  top: MediaQuery.sizeOf(context).height * 0.1,
+                ),
+                child: const Logo()),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(10),
+                reverse: true,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(24),
+                  child: Container(
+                    decoration: const BoxDecoration(color: AppColors.white),
+                    padding: const EdgeInsets.all(25),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Welcome Back',
+                            style: AppTextTheme.semiBold20,
+                          ),
+                          //const SizedBox(height: 10,),
+                          const Text(
+                            'Please log in to your account',
+                            style: AppTextTheme.normal14,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              hintText: 'Email',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                return value != null &&
-                                        !EmailValidator.validate(value)
-                                    ? 'Enter a valid email'
-                                    : null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              controller: _passwordController,
-                              obscureText: !_showPassword,
-                              decoration: InputDecoration(
-                                hintText: 'Password',
-                                //hintStyle: ,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 1, color: AppColors.lightGrayEA),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                suffixIcon: GestureDetector(
-                                  onTap: _toggleVisibility,
-                                  child: Icon(
-                                    _showPassword
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                    color: AppColors.darkGray,
-                                  ),
-                                ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.lightGrayEA),
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                return value != null && value.length < 6
-                                    ? 'Enter min. 6 characters'
-                                    : null;
-                              },
+                              counterStyle: AppTextTheme.normal16,
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Container(
-                                color: AppColors.pink,
-                                width: double.infinity,
-                                child: TextButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      BlocProvider.of<AuthBloc>(context).add(
-                                        SignInRequested(
-                                          _emailController.text,
-                                          _passwordController.text,
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: Text(
-                                    'Sign In',
-                                    style: AppTextTheme.semiBold15.copyWith(
-                                      color: AppColors.white,
-                                    ),
-                                  ),
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              return value != null &&
+                                      !EmailValidator.validate(value)
+                                  ? 'Enter a valid email'
+                                  : null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            controller: _passwordController,
+                            obscureText: !_showPassword,
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              //hintStyle: ,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1, color: AppColors.lightGrayEA),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: _toggleVisibility,
+                                child: Icon(
+                                  _showPassword
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                  color: AppColors.darkGray,
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "Don't have an account? ",
-                                  style: AppTextTheme.normal14,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router
-                                        .push(const SignUpRoute());
-                                  },
-                                  child: Text(
-                                    'Sign Up',
-                                    style: AppTextTheme.semiBold15.copyWith(
-                                      color: AppColors.pink,
-                                    ),
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              return value != null && value.length < 6
+                                  ? 'Enter min. 6 characters'
+                                  : null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Container(
+                              color: AppColors.pink,
+                              width: double.infinity,
+                              child: TextButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    BlocProvider.of<AuthBloc>(context).add(
+                                      SignInRequested(
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  'Sign In',
+                                  style: AppTextTheme.semiBold15.copyWith(
+                                    color: AppColors.white,
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Don't have an account? ",
+                                style: AppTextTheme.normal14,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  context.router.replace(const SignUpRoute());
+                                },
+                                child: Text(
+                                  'Sign Up',
+                                  style: AppTextTheme.semiBold15.copyWith(
+                                    color: AppColors.pink,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
               ),
-            ]);
-          }
-          return Container();
+            ),
+          ]);
         },
       ),
     );

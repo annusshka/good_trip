@@ -1,11 +1,20 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/features/welcome/data/models/welcome_info/welcome_info.dart';
 import 'package:good_trip/features/welcome/data/repository/i_welcome_info_repository.dart';
 import 'package:good_trip/features/welcome/data/service/welcome_info_service.dart';
 
 class MockWelcomeInfoRepository extends IWelcomeInfoRepository {
   final WelcomeInfoService service;
+  final FlutterSecureStorage _storage;
 
-  MockWelcomeInfoRepository({required this.service});
+  MockWelcomeInfoRepository({
+    required this.service,
+    FlutterSecureStorage storage = const FlutterSecureStorage(
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    ),
+  }) : _storage = storage;
 
   @override
   Future<List<WelcomeInfo>?> getWelcomeInfo() async {
@@ -32,5 +41,25 @@ class MockWelcomeInfoRepository extends IWelcomeInfoRepository {
             'https://ik.imagekit.io/vqwafkkyo/goodTrip/photo/welcome12.png?updatedAt=1725398118396',
       ),
     ];
+  }
+
+  @override
+  Future<bool> checkFirstRun() async {
+    final firstRun = await _storage.read(
+      key: 'first_run',
+    );
+    if (firstRun != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  Future<void> setFirstRun() async {
+    await _storage.write(
+      key: 'first_run',
+      value: 'true',
+    );
   }
 }

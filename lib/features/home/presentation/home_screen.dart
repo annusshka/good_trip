@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/location_info.dart';
 import 'package:good_trip/core/presentation/bloc/audio_tour/audio_tour.dart';
 import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
@@ -9,6 +10,7 @@ import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
+import 'package:good_trip/features/welcome/presentation/bloc/welcome_info.dart';
 
 import 'widgets/geolocation.dart';
 
@@ -47,7 +49,7 @@ class HomeScreen extends StatelessWidget {
               const AudioTourRequested(),
             );
           }
-        })
+        }),
       ],
       child: Scaffold(
         appBar: AppBar(

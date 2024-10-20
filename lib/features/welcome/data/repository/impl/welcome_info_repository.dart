@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:good_trip/core/data/models/exception/secure_storage_exception.dart';
 import 'package:good_trip/features/welcome/data/models/welcome_info/welcome_info.dart';
 import 'package:good_trip/features/welcome/data/repository/i_welcome_info_repository.dart';
 import 'package:good_trip/features/welcome/data/service/welcome_info_service.dart';
@@ -22,5 +23,25 @@ class WelcomeInfoRepository extends IWelcomeInfoRepository {
     }
 
     return null;
+  }
+
+  @override
+  Future<bool> checkFirstRun() async {
+    final firstRun = await _storage.read(
+      key: 'first_run',
+    );
+    if (firstRun != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  Future<void> setFirstRun() async {
+    await _storage.write(
+      key: 'first_run',
+      value: 'true',
+    );
   }
 }

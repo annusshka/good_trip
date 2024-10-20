@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/theme/strings.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 import 'package:good_trip/features/tour_create/presentation/widgets/widgets.dart';
 

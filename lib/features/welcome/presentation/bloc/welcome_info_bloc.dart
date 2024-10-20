@@ -10,21 +10,56 @@ class WelcomeInfoBloc extends Bloc<WelcomeInfoEvent, WelcomeInfoState> {
       : super(WelcomeInfoInitial()) {
     on<WelcomeInfoEvent>(
       (event, emit) async {
+        if (event is CheckFirstRun) {
+          await _checkIsFirstRun(event, emit);
+        }
         if (event is WelcomeInfoRequested) {
-          await _tourCreateRequested(event, emit);
+          await _getWelcomeInfoRequested(event, emit);
+        }
+        if (event is SetFirstRun) {
+          await _setFirstRun(event, emit);
         }
       },
     );
   }
 
-  Future<void> _tourCreateRequested(
+  Future<void> _getWelcomeInfoRequested(
       WelcomeInfoRequested event, Emitter<WelcomeInfoState> emit) async {
     emit(WelcomeInfoInProgress());
     try {
       final response = await welcomeInfoRepository.getWelcomeInfo();
       emit(WelcomeInfoSuccess(welcomeInfoList: response));
     } catch (_) {
-      emit(const WelcomeInfoFailure(errorMsg: 'Error in welcome info request.'));
+      emit(
+          const WelcomeInfoFailure(errorMsg: 'Error in welcome info request.'));
+    }
+  }
+
+  Future<void> _checkIsFirstRun(
+      CheckFirstRun event, Emitter<WelcomeInfoState> emit) async {
+    emit(WelcomeInfoInProgress());
+    try {
+      final response = await welcomeInfoRepository.checkFirstRun();
+      if (response) {
+        emit(WelcomeInfoAlreadySeen());
+      } else {
+        add(const WelcomeInfoRequested());
+      }
+    } catch (_) {
+      emit(const WelcomeInfoFailure(
+          errorMsg: 'Error in check first run request.'));
+    }
+  }
+
+  Future<void> _setFirstRun(
+      SetFirstRun event, Emitter<WelcomeInfoState> emit) async {
+    emit(WelcomeInfoInProgress());
+    try {
+      await welcomeInfoRepository.setFirstRun();
+      emit(FirstRun());
+    } catch (_) {
+      emit(const WelcomeInfoFailure(
+          errorMsg: 'Error in check first run request.'));
     }
   }
 }

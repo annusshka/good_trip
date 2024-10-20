@@ -22,9 +22,6 @@ class AuthenticatedState extends AuthState {
   final User user;
 
   const AuthenticatedState({required this.user});
-
-  @override
-  List<Object> get props => [user];
 }
 
 class AuthErrorState extends AuthState {

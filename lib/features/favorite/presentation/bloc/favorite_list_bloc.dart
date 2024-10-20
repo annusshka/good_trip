@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
-import 'package:good_trip/core/data/service/service.dart';
 
 import 'favorite_list_event.dart';
 import 'favorite_list_state.dart';

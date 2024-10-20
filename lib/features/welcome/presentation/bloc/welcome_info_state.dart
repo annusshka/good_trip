@@ -18,6 +18,10 @@ class WelcomeInfoSuccess extends WelcomeInfoState {
   const WelcomeInfoSuccess({required this.welcomeInfoList});
 }
 
+class WelcomeInfoAlreadySeen extends WelcomeInfoState {}
+
+class FirstRun extends WelcomeInfoState {}
+
 class WelcomeInfoFailure extends WelcomeInfoState {
   final String errorMsg;
 

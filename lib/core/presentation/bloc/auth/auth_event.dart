@@ -3,6 +3,9 @@ import 'package:good_trip/core/data/models/models.dart';
 
 abstract class AuthEvent extends Equatable {
   const AuthEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
 class SignInRequested extends AuthEvent {
@@ -10,26 +13,13 @@ class SignInRequested extends AuthEvent {
   final String password;
 
   const SignInRequested(this.email, this.password);
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
 }
 
 class SignUpRequested extends AuthEvent {
   final User user;
   const SignUpRequested(this.user);
-
-  @override
-  List<Object?> get props => [];
 }
 
-class LogOutRequested extends AuthEvent {
-  @override
-  List<Object?> get props => [];
-}
+class LogOutRequested extends AuthEvent {}
 
-class AuthLoadUserEvent extends AuthEvent {
-  @override
-  List<Object?> get props => [];
-}
+class AuthLoadUserEvent extends AuthEvent {}

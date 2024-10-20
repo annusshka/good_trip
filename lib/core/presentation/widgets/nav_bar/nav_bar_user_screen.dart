@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
 import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
 import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_element.dart';
@@ -74,7 +75,12 @@ class NavBarUserScreen extends StatelessWidget implements AutoRouteWrapper {
             tourRepository: getIt.get<ITourRepository>(),
           ),
         ),
-        //BlocProvider<AuthBloc>(lazy: false, create: (_) => AuthBloc()),
+        BlocProvider<AuthBloc>(
+          lazy: false,
+          create: (_) => AuthBloc(
+            authRepository: getIt.get<IAuthRepository>(),
+          ),
+        ),
       ],
       child: this,
     );

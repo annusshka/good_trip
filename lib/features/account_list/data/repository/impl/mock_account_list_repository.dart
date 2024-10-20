@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:good_trip/core/data/mapper/mapper.dart';
 import 'package:good_trip/core/data/models/exception/account_list_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/auth/impl/mock_auth_repository.dart';

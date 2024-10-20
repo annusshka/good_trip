@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/presentation/bloc/auth/auth.dart';
 import 'package:good_trip/core/presentation/widgets/empty_list.dart';
 import 'package:good_trip/core/presentation/widgets/fail_screen.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -23,14 +24,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<WelcomeInfoBloc, WelcomeInfoState>(
+      body: BlocConsumer<WelcomeInfoBloc, WelcomeInfoState>(
+        listener: (context, state) {
+          if (state is WelcomeInfoAlreadySeen) {
+            BlocProvider.of<AuthBloc>(context)
+              ..add(AuthLoadUserEvent());
+            context.router.push(const SignInRoute());
+          } else if (state is FirstRun) {
+            context.router.replace(const SignInRoute());
+          }
+        },
         builder: (context, state) {
           if (state is WelcomeInfoInProgress) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }
-          if (state is WelcomeInfoSuccess) {
+          } else if (state is WelcomeInfoFailure) {
+            return const FailScreen();
+          } else if (state is WelcomeInfoSuccess) {
             final welcomeInfoList = state.welcomeInfoList;
             if (welcomeInfoList == null || welcomeInfoList.isEmpty) {
               return const EmptyList();
@@ -68,10 +79,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               child: Row(
                                 children: [
                                   const Spacer(),
-                                  GestureDetector(
+                                  InkWell(
                                     onTap: () {
-                                      context.router
-                                          .replaceAll([const HomeRoute()]);
+                                      BlocProvider.of<WelcomeInfoBloc>(context)
+                                        ..add(const SetFirstRun());
                                     },
                                     child: Container(
                                       height: 44,
@@ -117,10 +128,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               },
             );
           }
-          if (state is WelcomeInfoFailure) {
-            return const FailScreen();
-          }
-
           return const SizedBox.shrink();
         },
       ),

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:good_trip/core/data/mapper/mapper.dart';
 import 'package:good_trip/core/data/models/exception/auth_error.dart';
 import 'package:good_trip/core/data/models/exception/secure_storage_exception.dart';
 import 'package:good_trip/core/data/models/models.dart';
