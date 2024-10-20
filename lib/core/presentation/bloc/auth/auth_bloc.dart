@@ -11,81 +11,77 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;
 
   AuthBloc({required this.authRepository}) : super(AuthLoadingState()) {
-    on<LogOutRequested>((event, emit) async {
-      emit(AuthLoadingState());
-      try {
-        await authRepository.logout();
-        emit(UnauthenticatedState());
-      } catch (e) {
-        emit(AuthErrorState(e.toString()));
-      }
-    });
-
-    on<AuthLoadUserEvent>((event, emit) async {
-      emit(AuthLoadingState());
-      try {
-        User user = await authRepository.loadUser();
-        emit(AuthenticatedState(user: user));
-      } catch (e) {
-        emit(UnauthenticatedState());
-      }
-    });
-
-    on<SignInRequested>((event, emit) async {
-      emit(AuthLoadingState());
-      try {
-        User user = await authRepository.login(
-          loginRequest: LoginRequest(
-            email: event.email,
-            password: event.password,
-          ),
-        );
-        // User user = User(
-        //     id: 0,
-        //     email: event.email,
-        //     name: 'name',
-        //     surname: 'surname',
-        //     phone: 'phone',
-        //     password: event.password,
-        //     role: AccessLevel.USER,
-        //     accessToken: '',
-        //     refreshToken: '');
-        // if (event.email == 'admin@gmail.com' && event.password == 'admin__') {
-        //   user = User(
-        //       id: 0,
-        //       email: event.email,
-        //       name: 'adminName',
-        //       surname: 'adminSurname',
-        //       phone: 'adminPhone',
-        //       password: event.password,
-        //       role: AccessLevel.ADMIN,
-        //       accessToken: '',
-        //       refreshToken: '');
-        // }
-        emit(AuthenticatedState(user: user));
-      } catch (e) {
-        emit(UnauthenticatedState());
-      }
-    });
-
-    on<SignUpRequested>((event, emit) async {
-      emit(AuthLoadingState());
-      try {
-        User user = await authRepository.register(
-          authRequest: AuthRequest(
-            email: event.user.email,
-            password: event.user.password,
-            phone: event.user.phone,
-            name: event.user.name,
-            surname: event.user.surname,
-          ),
-        );
-        emit(AuthenticatedState(user: user));
-      } catch (e) {
-        emit(UnauthenticatedState());
-      }
-    });
+    on<AuthEvent>(
+      (event, emit) async {
+        if (event is LogOutRequested) {
+          await _logout(event, emit);
+        }
+        if (event is AuthLoadUserEvent) {
+          await _loadUser(event, emit);
+        }
+        if (event is SignInRequested) {
+          await _signIn(event, emit);
+        }
+        if (event is SignUpRequested) {
+          await _signUp(event, emit);
+        }
+      },
+    );
 
     add(AuthLoadUserEvent());
+  }
+
+  Future<void> _logout(LogOutRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    try {
+      await authRepository.logout();
+      emit(UnauthenticatedState());
+    } catch (e) {
+      emit(AuthErrorState(e.toString()));
+    }
+  }
+
+  Future<void> _loadUser(
+      AuthLoadUserEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    try {
+      User user = await authRepository.loadUser();
+      emit(AuthenticatedState(user: user));
+    } catch (e) {
+      emit(UnauthenticatedState());
+    }
+  }
+
+  Future<void> _signIn(SignInRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    try {
+      User user = await authRepository.login(
+        loginRequest: LoginRequest(
+          email: event.email,
+          password: event.password,
+        ),
+      );
+      emit(AuthenticatedState(user: user));
+    } catch (e) {
+      emit(UnauthenticatedState());
+    }
+  }
+
+  Future<void> _signUp(SignUpRequested event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    try {
+      User user = await authRepository.register(
+        authRequest: AuthRequest(
+          email: event.user.email,
+          password: event.user.password,
+          phone: event.user.phone,
+          name: event.user.name,
+          surname: event.user.surname,
+        ),
+      );
+      emit(AuthenticatedState(user: user));
+    } catch (e) {
+      emit(UnauthenticatedState());
+    }
   }
 }

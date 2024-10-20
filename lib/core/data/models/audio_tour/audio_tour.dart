@@ -1,4 +1,3 @@
-import 'package:good_trip/core/data/models/address/address.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -18,19 +17,20 @@ class AudioTour extends IAudioTour {
     String? url,
     required String audio,
   }) : super(
-    id: id,
-    name: name,
-    image: image,
-    address: address,
-    weekdays: weekdays,
-    description: description,
-    kinds: kinds,
-    isLiked: isLiked,
-    url: url,
-    audio: audio,
-  );
+          id: id,
+          name: name,
+          image: image,
+          address: address,
+          weekdays: weekdays,
+          description: description,
+          kinds: kinds,
+          isLiked: isLiked,
+          url: url,
+          audio: audio,
+        );
 
   Map<String, dynamic> toJson() => _$AudioTourToJson(this);
 
-  factory AudioTour.fromJson(Map<String, Object?> json) => _$AudioTourFromJson(json);
+  factory AudioTour.fromJson(Map<String, Object?> json) =>
+      _$AudioTourFromJson(json);
 }

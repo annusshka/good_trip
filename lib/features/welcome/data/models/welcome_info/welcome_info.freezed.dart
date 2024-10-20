@@ -24,8 +24,12 @@ mixin _$WelcomeInfo {
   String get subtext => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
 
+  /// Serializes this WelcomeInfo to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of WelcomeInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WelcomeInfoCopyWith<WelcomeInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$WelcomeInfoCopyWithImpl<$Res, $Val extends WelcomeInfo>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WelcomeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$WelcomeInfoImplCopyWithImpl<$Res>
       _$WelcomeInfoImpl _value, $Res Function(_$WelcomeInfoImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WelcomeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,11 +156,13 @@ class _$WelcomeInfoImpl extends _WelcomeInfo {
             (identical(other.image, image) || other.image == image));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, text, subtext, image);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WelcomeInfo
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WelcomeInfoImplCopyWith<_$WelcomeInfoImpl> get copyWith =>
@@ -182,8 +192,11 @@ abstract class _WelcomeInfo extends WelcomeInfo {
   String get subtext;
   @override
   String get image;
+
+  /// Create a copy of WelcomeInfo
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WelcomeInfoImplCopyWith<_$WelcomeInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

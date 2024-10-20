@@ -9,6 +9,7 @@ abstract class Urls {
   static const toursByAdmin = '/auth/admin/tours';
   static const likeTour = '/auth/users/likes';
   static const createTour = '/auth/tours/audio/created';
+  static const tourTypes = '/auth/tours/types';
 
   static const getAccountList = '/auth/admin/users';
   static const deleteAccountByAdmin = '/auth/admin/user';

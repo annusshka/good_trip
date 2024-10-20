@@ -22,8 +22,12 @@ Description _$DescriptionFromJson(Map<String, dynamic> json) {
 mixin _$Description {
   String? get descr => throw _privateConstructorUsedError;
 
+  /// Serializes this Description to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Description
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DescriptionCopyWith<Description> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -47,6 +51,8 @@ class _$DescriptionCopyWithImpl<$Res, $Val extends Description>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Description
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -80,6 +86,8 @@ class __$$DescriptionImplCopyWithImpl<$Res>
       _$DescriptionImpl _value, $Res Function(_$DescriptionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Description
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,11 +126,13 @@ class _$DescriptionImpl extends _Description {
             (identical(other.descr, descr) || other.descr == descr));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, descr);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Description
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DescriptionImplCopyWith<_$DescriptionImpl> get copyWith =>
@@ -145,8 +155,11 @@ abstract class _Description extends Description {
 
   @override
   String? get descr;
+
+  /// Create a copy of Description
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DescriptionImplCopyWith<_$DescriptionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

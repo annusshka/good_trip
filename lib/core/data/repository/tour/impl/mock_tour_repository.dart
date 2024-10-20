@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/data/models/tour/tour_kind.dart';
 import 'package:good_trip/core/data/repository/tour/i_tour_repository.dart';
 import 'package:good_trip/core/data/service/service.dart';
 
@@ -49,8 +50,7 @@ class MockTourRepository implements ITourRepository {
     AudioTour(
       id: '2',
       name: 'Аудио-тур №2',
-      image:
-          'goodTrip_photo_2.jpg?updatedAt=1717931856240',
+      image: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
       address: const Address(
         coordinates: [51.4, 39.12],
         country: 'Россия',
@@ -84,8 +84,7 @@ class MockTourRepository implements ITourRepository {
     AudioTour(
       id: '3',
       name: 'Аудио-тур №3',
-      image:
-          'goodTrip_photo_5.jpg?updatedAt=1717931868349',
+      image: 'goodTrip_photo_5.jpg?updatedAt=1717931868349',
       address: const Address(
         coordinates: [51.4, 39.12],
         country: 'Россия',
@@ -119,8 +118,7 @@ class MockTourRepository implements ITourRepository {
     AudioTour(
       id: '4',
       name: 'Аудио-тур №4',
-      image:
-          'goodTrip_photo_6.jpg?updatedAt=1717931879992',
+      image: 'goodTrip_photo_6.jpg?updatedAt=1717931879992',
       address: const Address(
         coordinates: [51.4, 39.12],
         country: 'Россия',
@@ -154,8 +152,7 @@ class MockTourRepository implements ITourRepository {
     AudioTour(
       id: '5',
       name: 'Аудио-тур №5',
-      image:
-          'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      image: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: [51.4, 39.12],
         country: 'Россия',
@@ -444,6 +441,27 @@ class MockTourRepository implements ITourRepository {
           if (audioTour.id == id) iTourList.remove(audioTour);
         }
       }
+    } on DioException catch (error) {
+      throw TourError(
+        name: 'GetCreatedTourList',
+        message: error.response?.data['message'],
+        errorText: error.response?.data['errorText'] ?? '',
+      );
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<List<TourKind>> getTourTypes() async {
+    try {
+      List<TourKind> menuItems = [];
+      for (final TourType value in TourType.values) {
+        final TourKind tourKind =
+            TourKind(name: value.name, nameRus: value.displayText);
+        menuItems.add(tourKind);
+      }
+      return menuItems;
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',

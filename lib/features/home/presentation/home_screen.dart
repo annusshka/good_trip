@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/models/location_info.dart';
 import 'package:good_trip/core/presentation/bloc/audio_tour/audio_tour.dart';
 import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
 import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
@@ -59,8 +60,14 @@ class HomeScreen extends StatelessWidget {
               return Geolocation(
                 locationInfo: state.weather,
               );
+            } else if (state is WeatherLoadInProgress) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             } else {
-              return const Center();
+              return Geolocation(
+                locationInfo: LocationInfo.undefined(),
+              );
             }
           }),
           actions: [

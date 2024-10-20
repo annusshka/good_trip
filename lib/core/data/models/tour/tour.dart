@@ -1,4 +1,3 @@
-import 'package:good_trip/core/data/models/address/address.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
 

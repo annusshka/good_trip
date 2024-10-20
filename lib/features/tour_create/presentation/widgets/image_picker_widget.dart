@@ -1,77 +1,58 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
-class ImagePickerWidget extends StatefulWidget {
-  const ImagePickerWidget({super.key, required this.func});
+class ImagePickerWidget extends StatelessWidget {
+  ImagePickerWidget({super.key});
 
-  final Function func;
-
-  @override
-  State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
-}
-
-class _ImagePickerWidgetState extends State<ImagePickerWidget> {
-  File? image;
+  final ImageCubit cubit = ImageCubit();
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.sizeOf(context).height;
     final double width = MediaQuery.sizeOf(context).width;
 
-    return SizedBox(
-      height: height * 0.25,
-      width: width,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20), // Image border
-        child: GestureDetector(
-          onTap: _pickImageFromGallery,
-          child: image != null
-              ? Image.file(
-                  image!,
-                  fit: BoxFit.cover,
-                )
-              : Container(
-                  color: AppColors.lightGray,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.file_upload_outlined,
-                        color: AppColors.darkGray,
-                        size: 40,
-                      ),
-                      Text(
-                        'Загрузите фотографию',
-                        style: AppTextTheme.semiBold18.copyWith(
-                          color: AppColors.darkGray,
+    return BlocBuilder<ImageCubit, ImageState>(
+        bloc: cubit,
+        builder: (context, state) {
+          final image = state.image;
+
+          return GestureDetector(
+            onTap: cubit.pickImageFromGallery,
+            child: SizedBox(
+              height: height * 0.25,
+              width: width,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: image != null
+                    ? Image.file(
+                        image,
+                        fit: BoxFit.cover,
+                      )
+                    : Container(
+                        color: AppColors.lightGray,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.file_upload_outlined,
+                              color: AppColors.white,
+                              size: 40,
+                            ),
+                            Text(
+                              'Загрузите фотографию',
+                              style: AppTextTheme.semiBold18.copyWith(
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-        ),
-      ),
-    );
-  }
-
-  void _pickImageFromGallery() async {
-    try {
-      final pickedImage =
-          await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (pickedImage != null) {
-        setState(() {
-          image = File(pickedImage.path);
+              ),
+            ),
+          );
         });
-        widget.func(image);
-      } else {
-        debugPrint("User didn't pick any image.");
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
   }
 }

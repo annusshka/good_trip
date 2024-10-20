@@ -7,8 +7,13 @@ abstract class TourCreateRoutes {
   static final routes = AutoRoute(
     page: TourCreateListWrapperRoute.page,
     children: [
-      AutoRoute(page: TourCreateListRoute.page, initial: true),
-      AutoRoute(page: TourCreateRoute.page),
+      AutoRoute(
+        page: TourCreateListRoute.page,
+        initial: true,
+      ),
+      AutoRoute(
+        page: TourCreateRoute.page,
+      ),
       TourRoutes.routes,
     ],
   );

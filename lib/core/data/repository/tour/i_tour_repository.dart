@@ -1,4 +1,5 @@
 import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/data/models/tour/tour_kind.dart';
 
 abstract class ITourRepository {
   Future<List<AudioTour>> getAudioTours({
@@ -31,4 +32,6 @@ abstract class ITourRepository {
   Future<void> deleteTour({
     required String id,
   });
+
+  Future<List<TourKind>> getTourTypes();
 }

@@ -13,8 +13,7 @@ class TourCreateListBloc
       (event, emit) async {
         if (event is TourCreateListRequested) {
           await _tourCreatedListRequested(event, emit);
-        }
-        if (event is TourListCreateByActualUserRequested) {
+        } else if (event is TourListCreateByActualUserRequested) {
           await _tourListCreatedByActualUserRequested(event, emit);
         }
       },

@@ -6,7 +6,10 @@ abstract class TourRoutes {
   static final routes = AutoRoute(
     page: TourWrapperRoute.page,
     children: [
-      AutoRoute(page: TourRoute.page, initial: true),
+      AutoRoute(
+        page: TourRoute.page,
+        initial: true,
+      ),
     ],
   );
 }

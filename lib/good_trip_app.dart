@@ -15,7 +15,7 @@ class GoodTripApp extends StatefulWidget {
 }
 
 class _GoodTripAppState extends State<GoodTripApp> {
-  final appRouter = AppRouter();
+  final appRouter = getIt.get<AppRouter>();
 
   @override
   Widget build(BuildContext context) {

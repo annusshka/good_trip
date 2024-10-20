@@ -29,11 +29,6 @@ class TourScrollElement extends StatelessWidget {
               tour: tour,
             ),
           );
-          // AutoRouter.of(context).push(
-          //   TourRoute(
-          //     tour: tour,
-          //   ),
-          // );
         },
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -117,6 +117,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const TourCreateScreen(),
       );
     },
+    TourCreateWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const TourCreateWrapperScreen()),
+      );
+    },
     TourRoute.name: (routeData) {
       final args = routeData.argsAs<TourRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -382,6 +388,20 @@ class TourCreateRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'TourCreateRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TourCreateWrapperScreen]
+class TourCreateWrapperRoute extends PageRouteInfo<void> {
+  const TourCreateWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          TourCreateWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TourCreateWrapperRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

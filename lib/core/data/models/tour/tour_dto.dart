@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:good_trip/core/data/models/address/address_dto.dart';
 import 'package:good_trip/core/data/models/enum/enum.dart';
 import 'package:json_annotation/json_annotation.dart';

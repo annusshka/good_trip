@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
 
 import 'configure_dependencies.dart';
-import 'register_modules.dart';
+import 'locator.dart';
 
 Future<GetIt> configureContainer() async {
-  configureDependencies();
+  setUpLocator();
   final container = getIt;
   await initServices();
 

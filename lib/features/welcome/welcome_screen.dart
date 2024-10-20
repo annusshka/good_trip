@@ -70,19 +70,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   const Spacer(),
                                   GestureDetector(
                                     onTap: () {
-                                      context.router.push(const HomeRoute());
+                                      context.router
+                                          .replaceAll([const HomeRoute()]);
                                     },
                                     child: Container(
                                       height: 44,
                                       width: 102,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                         color: AppColors.pink,
                                       ),
                                       child: Center(
                                         child: Text(
                                           'Начать',
-                                          style: AppTextTheme.semiBold15.copyWith(
+                                          style:
+                                              AppTextTheme.semiBold15.copyWith(
                                             color: AppColors.white,
                                           ),
                                         ),

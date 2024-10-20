@@ -18,3 +18,5 @@ class TourListCreateByActualUserRequested extends TourCreateListEvent {
 
   const TourListCreateByActualUserRequested({this.offset = 0});
 }
+
+class ShowNotificationRequested extends TourCreateListEvent {}

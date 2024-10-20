@@ -1,104 +1,84 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
 
-class AudioPickerWidget extends StatefulWidget {
-  const AudioPickerWidget({super.key, required this.func});
+class AudioPickerWidget extends StatelessWidget {
+  AudioPickerWidget({super.key});
 
-  final Function func;
-
-  @override
-  State<AudioPickerWidget> createState() => _AudioPickerWidgetState();
-}
-
-class _AudioPickerWidgetState extends State<AudioPickerWidget> {
-  File? audioFile;
+  final AudioCubit cubit = AudioCubit();
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.sizeOf(context).height;
     final double width = MediaQuery.sizeOf(context).width;
 
-    return SizedBox(
-      height: height * 0.1,
-      width: width,
-      child: GestureDetector(
-        onTap: handleAudioFromFiles,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16), // Image border
-          child: audioFile != null
-              ? Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: AppColors.lightGrayEA),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.mic,
-                        color: AppColors.darkGray,
-                        size: 30,
+    return BlocBuilder<AudioCubit, AudioState>(
+      bloc: cubit,
+      builder: (context, state) {
+        final audioFile = state.audio;
+
+        return GestureDetector(
+          onTap: cubit.handleAudioFromFiles,
+          child: SizedBox(
+            height: height * 0.1,
+            width: width,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16), // Image border
+              child: audioFile != null
+                  ? Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.lightGrayEA,
+                        ),
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                      Expanded(
-                        child: Text(
-                          audioFile!.path.split('/').last,
-                          style: AppTextTheme.semiBold18.copyWith(
-                            color: AppColors.darkGray,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.mic,
+                            color: AppColors.white,
+                            size: 30,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                          Expanded(
+                            child: Text(
+                              audioFile.path.split('/').last,
+                              style: AppTextTheme.semiBold18.copyWith(
+                                color: AppColors.white,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )
-              : Container(
-                  color: AppColors.lightGray,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Icon(
-                        Icons.mic,
-                        color: AppColors.darkGray,
-                        size: 30,
+                    )
+                  : Container(
+                      color: AppColors.lightGray,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Icon(
+                            Icons.mic,
+                            color: AppColors.white,
+                            size: 30,
+                          ),
+                          Text(
+                            'Загрузите аудиоэкскурсию',
+                            style: AppTextTheme.semiBold18.copyWith(
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Загрузите аудиоэкскурсию',
-                        style: AppTextTheme.semiBold18.copyWith(
-                          color: AppColors.darkGray,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-        ),
-      ),
+                    ),
+            ),
+          ),
+        );
+      },
     );
-  }
-
-  void handleAudioFromFiles() async {
-    try {
-      FilePickerResult? audioFileResult = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['mp3', 'wav'],
-      );
-
-      if (audioFileResult != null) {
-        final String path = audioFileResult.files.single.path!;
-
-        File pickedAudio = File(path);
-
-        setState(() {
-          audioFile = pickedAudio;
-        });
-        widget.func(audioFile);
-      }
-    } catch (error) {
-      debugPrint(error.toString());
-    }
   }
 }

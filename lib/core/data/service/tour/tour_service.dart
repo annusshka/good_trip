@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/api/urls.dart';
 import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/data/models/tour/tour_kind.dart';
 import 'package:retrofit/http.dart';
 
 part 'tour_service.g.dart';
@@ -55,4 +56,7 @@ abstract class TourService {
   Future<void> deleteTour({
     @Path('tour_id') required String tourId,
   });
+
+  @GET(Urls.tourTypes)
+  Future<List<TourKind>> getTourTypes();
 }

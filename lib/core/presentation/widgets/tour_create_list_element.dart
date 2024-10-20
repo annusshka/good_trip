@@ -103,7 +103,11 @@ class TourCreateListElement extends StatelessWidget {
                         child: TextButton(
                           onPressed: () {
                             BlocProvider.of<TourCreateBloc>(context).add(
-                                CreatedTourRemoveRequested(tourId: tour.id));
+                              CreatedTourRemoveRequested(
+                                tourId: tour.id,
+                                context: context,
+                              ),
+                            );
                           },
                           child: Text(
                             'Удалить',

@@ -40,9 +40,9 @@ class _SignInScreenState extends State<SignInScreen> {
         listener: (context, state) {
           if (state is AuthenticatedState) {
             if (state.user.role == AccessLevel.USER) {
-              AutoRouter.of(context).push(const NavBarUserRoute());
+              context.router.push(const NavBarUserRoute());
             } else if (state.user.role == AccessLevel.ADMIN) {
-              AutoRouter.of(context).push(const NavBarAdminRoute());
+              context.router.push(const NavBarAdminRoute());
             }
           }
           if (state is AuthErrorState) {
@@ -161,8 +161,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       BlocProvider.of<AuthBloc>(context).add(
-                                        SignInRequested(_emailController.text,
-                                            _passwordController.text),
+                                        SignInRequested(
+                                          _emailController.text,
+                                          _passwordController.text,
+                                        ),
                                       );
                                     }
                                   },
@@ -187,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    AutoRouter.of(context)
+                                    context.router
                                         .push(const SignUpRoute());
                                   },
                                   child: Text(

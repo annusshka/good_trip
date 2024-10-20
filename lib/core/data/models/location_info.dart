@@ -13,14 +13,24 @@ class LocationInfo {
     required this.weatherIconCode,
   });
 
-  LocationInfo.undefined()
-      : this(
-          cityName: 'Moscow',
-          lon: 37.6172999,
-          lat: 55.755826,
-          temperature: 0,
-          weatherIconCode: '04n',
-        );
+  // LocationInfo.undefined()
+  //     : this(
+  //         cityName: 'Moscow',
+  //         lon: 37.6172999,
+  //         lat: 55.755826,
+  //         temperature: 0,
+  //         weatherIconCode: '04n',
+  //       );
+
+  factory LocationInfo.undefined() {
+    return LocationInfo(
+      cityName: 'Moscow',
+      lon: 37.6172999,
+      lat: 55.755826,
+      temperature: 0,
+      weatherIconCode: '04n',
+    );
+  }
 
   factory LocationInfo.fromJson(Map<dynamic, dynamic> json) {
     return LocationInfo(

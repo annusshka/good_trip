@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'kind_state.dart';
+
+class KindCubit extends Cubit<KindState> {
+  KindCubit() : super(const KindState(kindList: []));
+
+  Future<void> selectKinds(String kind) async {
+    try {
+      List<String> kinds = List.from(state.kindList);
+      if (kinds.contains(kind)) {
+        kinds.remove(kind);
+      } else {
+        kinds.add(kind);
+      }
+      emit(KindState(kindList: kinds));
+    } catch (e) {
+      debugPrint('Error in kinds update request. ${e.toString()}');
+    }
+  }
+}
