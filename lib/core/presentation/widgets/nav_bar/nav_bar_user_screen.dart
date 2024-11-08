@@ -5,11 +5,11 @@ import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
-import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
+import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
 import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_element.dart';
 import 'package:good_trip/di/configure_dependencies.dart';
-import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
+import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 @RoutePage()
@@ -22,7 +22,7 @@ class NavBarUserScreen extends StatelessWidget implements AutoRouteWrapper {
       routes: const [
         HomeWrapperRoute(),
         FavoriteRoute(),
-        TourCreateListWrapperRoute(),
+        ExcursionCreateListWrapperRoute(),
         AccountRoute(),
       ],
       builder: (context, child) {
@@ -63,16 +63,16 @@ class NavBarUserScreen extends StatelessWidget implements AutoRouteWrapper {
             weatherRepository: getIt.get<IWeatherRepository>(),
           )..add(const WeatherCurrentPositionRequested()),
         ),
-        BlocProvider<TourBloc>(
+        BlocProvider<ExcursionBloc>(
           lazy: false,
-          create: (_) => TourBloc(
-            tourRepository: getIt.get<ITourRepository>(),
+          create: (_) => ExcursionBloc(
+            excursionRepository: getIt.get<IExcursionRepository>(),
           ),
         ),
-        BlocProvider<TourCreateBloc>(
+        BlocProvider<ExcursionCreateBloc>(
           lazy: false,
-          create: (_) => TourCreateBloc(
-            tourRepository: getIt.get<ITourRepository>(),
+          create: (_) => ExcursionCreateBloc(
+            excursionRepository: getIt.get<IExcursionRepository>(),
           ),
         ),
         BlocProvider<AuthBloc>(

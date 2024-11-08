@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/data/models/tour/tour_kind.dart';
-import 'package:good_trip/core/data/repository/tour/i_tour_repository.dart';
+import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/service/service.dart';
 
 class MockTourRepository implements ITourRepository {
@@ -10,14 +9,14 @@ class MockTourRepository implements ITourRepository {
 
   final TourService service;
 
-  static List<AudioTour> iTourList = [
-    AudioTour(
+  static List<Tour> iTourList = [
+    Tour(
       id: '1',
       name: 'Аудио-тур №1',
-      image:
+      imageUrl:
           'goodTrip_photo_%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D0%BD%D0%B0%D1%8F.jpg?updatedAt=1717931827900',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -44,15 +43,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: false,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '2',
       name: 'Аудио-тур №2',
-      image: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
+      imageUrl: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -78,15 +76,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: true,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '3',
       name: 'Аудио-тур №3',
-      image: 'goodTrip_photo_5.jpg?updatedAt=1717931868349',
+      imageUrl: 'goodTrip_photo_5.jpg?updatedAt=1717931868349',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -112,15 +109,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: false,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '4',
       name: 'Аудио-тур №4',
-      image: 'goodTrip_photo_6.jpg?updatedAt=1717931879992',
+      imageUrl: 'goodTrip_photo_6.jpg?updatedAt=1717931879992',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -146,15 +142,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: true,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '5',
       name: 'Аудио-тур №5',
-      image: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -180,15 +175,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: true,
-      audio:
-          '/goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '6',
       name: 'Аудио-тур №6',
-      image: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -214,15 +208,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: true,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '7',
       name: 'Аудио-тур №7',
-      image: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
-        coordinates: [55.45, 37.37],
+        coordinates: Point(lon: 55.45, lat: 37.37),
         country: 'Россия',
         city: 'Москва',
       ),
@@ -247,15 +240,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: true,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '8',
       name: 'Аудио-тур №8',
-      image: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -281,15 +273,14 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: true,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
-    AudioTour(
+    Tour(
       id: '9',
       name: 'Аудио-тур №9',
-      image: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
-        coordinates: [51.4, 39.12],
+        coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
         city: 'Воронеж',
         street: 'Московский пр-кт',
@@ -315,13 +306,12 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: true,
-      audio:
-          'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+      excursionList: [],
     ),
   ];
 
   @override
-  Future<List<AudioTour>> getAudioTours({
+  Future<List<Tour>> getTours({
     required int userId,
     required String city,
     required double lon,
@@ -342,7 +332,7 @@ class MockTourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getCreatedTourList({int offset = 0}) async {
+  Future<List<Tour>> getCreatedTours({int offset = 0}) async {
     try {
       return iTourList;
     } on DioException catch (error) {
@@ -357,7 +347,8 @@ class MockTourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getCreatedTourListByAdmin({int offset = 0}) async {
+  Future<List<Tour>> getCreatedToursByAdmin(
+      {int offset = 0}) async {
     try {
       return iTourList;
     } on DioException catch (error) {
@@ -372,7 +363,7 @@ class MockTourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getCreatedTourListByUserId({
+  Future<List<Tour>> getCreatedToursByUserId({
     required int userId,
     int offset = 0,
   }) async {
@@ -411,11 +402,11 @@ class MockTourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getFavoriteTourList(
+  Future<List<Tour>> getFavoriteTours(
       {required int userId, int offset = 0}) async {
     try {
-      List<AudioTour> list = [];
-      for (final AudioTour tour in iTourList) {
+      List<Tour> list = [];
+      for (final Tour tour in iTourList) {
         if (tour.isLiked) list.add(tour);
       }
       return list;
@@ -437,31 +428,10 @@ class MockTourRepository implements ITourRepository {
     try {
       final _id = int.tryParse(id);
       if (_id != null) {
-        for (final AudioTour audioTour in iTourList) {
+        for (final Tour audioTour in iTourList) {
           if (audioTour.id == id) iTourList.remove(audioTour);
         }
       }
-    } on DioException catch (error) {
-      throw TourError(
-        name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
-      );
-    } on Exception catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  @override
-  Future<List<TourKind>> getTourTypes() async {
-    try {
-      List<TourKind> menuItems = [];
-      for (final TourType value in TourType.values) {
-        final TourKind tourKind =
-            TourKind(name: value.name, nameRus: value.displayText);
-        menuItems.add(tourKind);
-      }
-      return menuItems;
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
-import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
-import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
+import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
+import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
 import 'package:good_trip/di/configure_dependencies.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -19,7 +19,7 @@ class NavBarAdminScreen extends StatelessWidget implements AutoRouteWrapper {
     return AutoTabsRouter(
       routes: const [
         AccountListRoute(),
-        CreatedToursWrapperRoute(),
+        CreatedExcursionsWrapperRoute(),
         AccountRoute(),
       ],
       builder: (context, child) {
@@ -53,16 +53,16 @@ class NavBarAdminScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<TourBloc>(
+        BlocProvider<ExcursionBloc>(
           lazy: false,
-          create: (_) => TourBloc(
-            tourRepository: getIt.get<ITourRepository>(),
+          create: (_) => ExcursionBloc(
+            excursionRepository: getIt.get<IExcursionRepository>(),
           ),
         ),
-        BlocProvider<TourCreateListBloc>(
+        BlocProvider<ExcursionCreateListBloc>(
           lazy: false,
-          create: (_) => TourCreateListBloc(
-            tourRepository: getIt.get<ITourRepository>(),
+          create: (_) => ExcursionCreateListBloc(
+            excursionRepository: getIt.get<IExcursionRepository>(),
           ),
         ),
       ],

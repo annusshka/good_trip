@@ -62,8 +62,10 @@ dev_dependencies:
   analyzer: ^6.7.0
 
 flutter_native_splash:
-  color: "FF9EA2"
-  image: assets/images/logo.png
+#  color: "FF9EA2"
+#  image: assets/images/splash.png
+  background_image_android: assets/images/splash.png
+  background_image_ios: assets/images/splash.png
 
 flutter:
   uses-material-design: true
@@ -71,6 +73,8 @@ flutter:
   assets:
     - assets/images/temperature_512.png
     - assets/images/logo.png
+    - assets/images/logo_with_name.png
+    - assets/images/splash.png
     - assets/fonts/
 
   fonts:

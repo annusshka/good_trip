@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/mapper/mapper.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/data/models/tour/tour_kind.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/service/service.dart';
 
@@ -12,7 +11,7 @@ class TourRepository implements ITourRepository {
   final TourService service;
 
   @override
-  Future<List<AudioTour>> getAudioTours({
+  Future<List<Tour>> getTours({
     required int userId,
     required String city,
     required double lon,
@@ -23,7 +22,7 @@ class TourRepository implements ITourRepository {
       //int userId = await AuthRepository().loadUserId();
       final response = await service.getToursByCity(
           userId: userId.toString(), city: city, offset: offset);
-      return mapDtoToAudioTourList(response);
+      return mapDtoToTours(response);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetAudioTourList',
@@ -36,10 +35,10 @@ class TourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getCreatedTourList({int offset = 0}) async {
+  Future<List<Tour>> getCreatedTours({int offset = 0}) async {
     try {
       final response = await service.getCreatedTours(offset: offset);
-      return mapDtoToAudioTourList(response);
+      return mapDtoToTours(response);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
@@ -52,10 +51,10 @@ class TourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getCreatedTourListByAdmin({int offset = 0}) async {
+  Future<List<Tour>> getCreatedToursByAdmin({int offset = 0}) async {
     try {
       final response = await service.getCreatedToursByAdmin(offset: offset);
-      return mapDtoToAudioTourList(response);
+      return mapDtoToTours(response);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
@@ -68,7 +67,7 @@ class TourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getCreatedTourListByUserId({
+  Future<List<Tour>> getCreatedToursByUserId({
     required int userId,
     int offset = 0,
   }) async {
@@ -78,7 +77,7 @@ class TourRepository implements ITourRepository {
         offset: offset,
         userId: userId.toString(),
       );
-      return mapDtoToAudioTourList(response);
+      return mapDtoToTours(response);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
@@ -113,14 +112,14 @@ class TourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<AudioTour>> getFavoriteTourList(
+  Future<List<Tour>> getFavoriteTours(
       {required int userId, int offset = 0}) async {
     try {
       final response = await service.getLikedToursByUser(
         userId: userId.toString(),
         offset: offset,
       );
-      return mapDtoToAudioTourList(response);
+      return mapDtoToTours(response);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetFavoriteTourList',
@@ -144,22 +143,6 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
-      );
-    } on Exception catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  @override
-  Future<List<TourKind>> getTourTypes() async {
-    try {
-      //int userId = await AuthRepository.loadUserId();
-      return await service.getTourTypes();
-    } on DioException catch (error) {
-      throw TourError(
-        name: 'GetTouTypes',
         message: error.response?.data['message'],
         errorText: error.response?.data['errorText'] ?? '',
       );

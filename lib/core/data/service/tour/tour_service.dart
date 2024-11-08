@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/api/urls.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/data/models/tour/tour_kind.dart';
 import 'package:retrofit/http.dart';
 
 part 'tour_service.g.dart';
@@ -12,25 +11,25 @@ abstract class TourService {
   factory TourService(Dio dio, {String baseUrl}) = _TourService;
 
   @GET('${Urls.toursByCity}/{user_id}')
-  Future<List<AudioTourDto>> getToursByCity({
+  Future<List<TourDto>> getToursByCity({
     @Path('user_id') required String userId,
     @Query('city') required String city,
     @Query('offset') required int offset,
   });
 
   @GET(Urls.toursByAdmin)
-  Future<List<AudioTourDto>> getCreatedTours({
+  Future<List<TourDto>> getCreatedTours({
     @Query('offset') required int offset,
   });
 
-  @GET('${Urls.audio}/{user_id}')
-  Future<List<AudioTourDto>> getCreatedToursByUser({
+  @GET('${Urls.audioTour}/{user_id}')
+  Future<List<TourDto>> getCreatedToursByUser({
     @Path('user_id') required String userId,
     @Query('offset') required int offset,
   });
 
-  @GET(Urls.audio)
-  Future<List<AudioTourDto>> getCreatedToursByAdmin({
+  @GET(Urls.audioTour)
+  Future<List<TourDto>> getCreatedToursByAdmin({
     @Query('offset') required int offset,
   });
 
@@ -41,7 +40,7 @@ abstract class TourService {
   });
 
   @GET('${Urls.likeTour}/{user_id}')
-  Future<List<AudioTourDto>> getLikedToursByUser({
+  Future<List<TourDto>> getLikedToursByUser({
     @Path('user_id') required String userId,
     @Query('offset') required int offset,
   });
@@ -52,11 +51,8 @@ abstract class TourService {
     @Body() required Tour tour,
   });
 
-  @DELETE('${Urls.audio}/{tour_id}')
+  @DELETE('${Urls.audioTour}/{tour_id}')
   Future<void> deleteTour({
     @Path('tour_id') required String tourId,
   });
-
-  @GET(Urls.tourTypes)
-  Future<List<TourKind>> getTourTypes();
 }

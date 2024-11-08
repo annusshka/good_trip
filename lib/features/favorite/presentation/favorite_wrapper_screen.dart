@@ -19,7 +19,7 @@ class FavoriteWrapperScreen extends StatelessWidget
   Widget wrappedRoute(BuildContext context) {
     return BlocProvider<FavoriteListBloc>(
       create: (_) =>
-      FavoriteListBloc(tourRepository: getIt.get<ITourRepository>())
+      FavoriteListBloc(tourRepository: getIt.get<IExcursionRepository>())
         ..add(
           const FavoriteListRequested(),
         ),

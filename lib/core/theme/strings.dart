@@ -1,4 +1,4 @@
-const String goodTrip = 'Good Trip';
+const String goodTrip = 'Unknown Place';
 
 const String registration = 'Регистрация';
 const String authorization = 'Авторизация';

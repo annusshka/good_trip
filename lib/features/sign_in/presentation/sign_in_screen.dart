@@ -34,37 +34,40 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.pink,
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthenticatedState) {
-            if (state.user.role == AccessLevel.USER) {
-              context.router.replace(const NavBarUserRoute());
-            } else if (state.user.role == AccessLevel.ADMIN) {
-              context.router.replace(const NavBarAdminRoute());
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/splash.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthenticatedState) {
+              if (state.user.role == AccessLevel.USER) {
+                context.router.replace(const NavBarUserRoute());
+              } else if (state.user.role == AccessLevel.ADMIN) {
+                context.router.replace(const NavBarAdminRoute());
+              }
             }
-          }
-          if (state is AuthErrorState) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
-          }
-        },
-        builder: (context, state) {
-          if (state is AuthLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return Stack(children: [
-            Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(
-                  top: MediaQuery.sizeOf(context).height * 0.1,
+            if (state is AuthErrorState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error),
                 ),
-                child: const Logo()),
-            Container(
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is AuthLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return Container(
               alignment: Alignment.bottomCenter,
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 reverse: true,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
@@ -188,7 +191,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  context.router.replace(const SignUpRoute());
+                                  context.router.popAndPush(const SignUpRoute());
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -205,9 +208,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
               ),
-            ),
-          ]);
-        },
+            );
+          },
+        ),
       ),
     );
   }

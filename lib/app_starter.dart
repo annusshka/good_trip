@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +8,7 @@ import 'package:good_trip/di/config_dio.dart';
 import 'package:good_trip/di/di_builder.dart';
 
 class AppStarter {
-  //String get devicePlatform => Platform.isIOS ? 'iOS' : 'android';
+  String get devicePlatform => Platform.isIOS ? 'iOS' : 'android';
 
   late final Dio dio;
 
@@ -17,7 +19,7 @@ class AppStarter {
       DeviceOrientation.portraitUp,
     ]);
 
-    dio = configDio();
+    // dio = configDio();
 
     container = await configureContainer();
 

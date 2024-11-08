@@ -8,23 +8,25 @@ class Tour extends ITour {
   Tour({
     required String id,
     required String name,
-    String? image,
+    String? imageUrl,
     required Address address,
     List<Weekday>? weekdays,
     String? description,
     required List<String> kinds,
     bool isLiked = false,
-    String? url,
+    String? deeplinkUrl,
+    required List<Excursion> excursionList,
   }) : super(
           id: id,
           name: name,
-          image: image,
+          imageUrl: imageUrl,
           address: address,
           weekdays: weekdays,
           description: description,
           kinds: kinds,
           isLiked: isLiked,
-          url: url,
+          deeplinkUrl: deeplinkUrl,
+          excursionList: excursionList,
         );
 
   Map<String, dynamic> toJson() => _$TourToJson(this);

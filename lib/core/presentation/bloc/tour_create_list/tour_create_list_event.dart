@@ -13,10 +13,10 @@ class TourCreateListRequested extends TourCreateListEvent {
   const TourCreateListRequested({this.offset = 0});
 }
 
-class TourListCreateByActualUserRequested extends TourCreateListEvent {
+class ToursCreateByActualUserRequested extends TourCreateListEvent {
   final int offset;
 
-  const TourListCreateByActualUserRequested({this.offset = 0});
+  const ToursCreateByActualUserRequested({this.offset = 0});
 }
 
 class ShowNotificationRequested extends TourCreateListEvent {}

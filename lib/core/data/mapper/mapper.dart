@@ -2,14 +2,14 @@ import 'package:good_trip/core/data/models/api_tour/api_tour_property.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 
-Tour mapApiResponseToTour(ApiTourProperty dto) {
+Excursion mapApiResponseToTour(ApiTourProperty dto) {
   Address address = mapApiResponseToAddress(dto.address, dto.point);
 
-  return Tour(
+  return Excursion(
     id: dto.xid,
     name: dto.name,
     kinds: dto.kinds.split(','),
-    image: dto.image,
+    imageUrl: dto.image,
     description: dto.info?.descr,
     address: address,
   );
@@ -28,7 +28,7 @@ Address mapApiResponseToAddress(AddressDto? dto, Point? point) {
     city: dto.city ?? '',
     street: dto.road ?? dto.street ?? '',
     house: dto.houseNumber ?? '',
-    coordinates: [point.lon, point.lat],
+    coordinates: Point(lon: point.lon, lat: point.lat),
   );
 }
 
@@ -43,7 +43,7 @@ AddressDto mapApiResponseToAddressDto(Map<String, dynamic> data) {
 
 Address mapDtoToAddress(AddressDto dto) {
   return Address(
-    coordinates: [],
+    coordinates: dto.coordinates,
     country: dto.country ?? '',
     city: dto.city ?? '',
     street: dto.street ?? '',
@@ -60,17 +60,100 @@ AddressDto mapAddressToDto(Address address) {
   );
 }
 
-Tour mapDtoToTour(TourDto dto) {
-  return Tour(
+Excursion mapDtoToExcursion(ExcursionDto dto) {
+  return Excursion(
     id: dto.id,
     name: dto.name,
-    image: dto.image,
+    imageUrl: dto.imageUrl,
     address: mapDtoToAddress(dto.address),
     weekdays: dto.weekdays,
     description: dto.description,
     kinds: dto.kinds,
     isLiked: dto.isLiked,
-    url: dto.url,
+    deeplinkUrl: dto.deeplinkUrl,
+  );
+}
+
+ExcursionDto mapExcursionToDto(Excursion tour) {
+  return ExcursionDto(
+    id: tour.id,
+    name: tour.name,
+    imageUrl: tour.imageUrl,
+    address: mapAddressToDto(tour.address as Address),
+    weekdays: tour.weekdays,
+    description: tour.description,
+    kinds: tour.kinds,
+    isLiked: tour.isLiked,
+    deeplinkUrl: tour.deeplinkUrl,
+  );
+}
+
+List<ExcursionDto> mapExcursionListToDto(
+  List<Excursion> excursionList,
+) {
+  return excursionList.map(mapExcursionToDto).toList();
+}
+
+List<Excursion> mapDtoToExcursionList(
+  List<ExcursionDto> excursionList,
+) {
+  return excursionList.map(mapDtoToExcursion).toList();
+}
+
+AudioExcursion mapDtoToAudioExcursion(AudioExcursionDto dto) {
+  return AudioExcursion(
+    id: dto.id,
+    name: dto.name,
+    imageUrl: dto.imageUrl,
+    address: mapDtoToAddress(dto.address),
+    weekdays: dto.weekdays,
+    description: dto.description,
+    kinds: dto.kinds,
+    isLiked: dto.isLiked,
+    deeplinkUrl: dto.deeplinkUrl,
+    audioUrl: dto.audioUrl,
+  );
+}
+
+AudioExcursionDto mapAudioExcursionToDto(AudioExcursion audioExcursion) {
+  return AudioExcursionDto(
+    id: audioExcursion.id,
+    name: audioExcursion.name,
+    imageUrl: audioExcursion.imageUrl,
+    address: mapAddressToDto(audioExcursion.address as Address),
+    weekdays: audioExcursion.weekdays,
+    description: audioExcursion.description,
+    kinds: audioExcursion.kinds,
+    isLiked: audioExcursion.isLiked,
+    deeplinkUrl: audioExcursion.deeplinkUrl,
+    audioUrl: audioExcursion.audioUrl,
+  );
+}
+
+List<AudioExcursionDto> mapAudioExcursionListToDto(
+  List<AudioExcursion> tourList,
+) {
+  return tourList.map(mapAudioExcursionToDto).toList();
+}
+
+List<AudioExcursion> mapDtoToAudioExcursionList(
+  List<AudioExcursionDto> tourList,
+) {
+  return tourList.map(mapDtoToAudioExcursion).toList();
+}
+
+Tour mapDtoToTour(TourDto dto) {
+  return Tour(
+    id: dto.id,
+    name: dto.name,
+    imageUrl: dto.imageUrl,
+    address: mapDtoToAddress(dto.address),
+    weekdays: dto.weekdays,
+    description: dto.description,
+    kinds: dto.kinds,
+    isLiked: dto.isLiked,
+    deeplinkUrl: dto.deeplinkUrl,
+    excursionList: dto.excursionList,
   );
 }
 
@@ -78,68 +161,27 @@ TourDto mapTourToDto(Tour tour) {
   return TourDto(
     id: tour.id,
     name: tour.name,
-    image: tour.image,
+    imageUrl: tour.imageUrl,
     address: mapAddressToDto(tour.address as Address),
     weekdays: tour.weekdays,
     description: tour.description,
     kinds: tour.kinds,
     isLiked: tour.isLiked,
-    url: tour.url,
+    deeplinkUrl: tour.deeplinkUrl,
+    excursionList: tour.excursionList,
   );
 }
 
-List<TourDto> mapTourListToDto(
+List<TourDto> mapToursToDto(
   List<Tour> tourList,
 ) {
   return tourList.map(mapTourToDto).toList();
 }
 
-List<Tour> mapDtoToTourList(
+List<Tour> mapDtoToTours(
   List<TourDto> tourList,
 ) {
   return tourList.map(mapDtoToTour).toList();
-}
-
-AudioTour mapDtoToAudioTour(AudioTourDto dto) {
-  return AudioTour(
-    id: dto.id,
-    name: dto.name,
-    image: dto.image,
-    address: mapDtoToAddress(dto.address),
-    weekdays: dto.weekdays,
-    description: dto.description,
-    kinds: dto.kinds,
-    isLiked: dto.isLiked,
-    url: dto.url,
-    audio: dto.audio,
-  );
-}
-
-AudioTourDto mapAudioTourToDto(AudioTour audioTour) {
-  return AudioTourDto(
-    id: audioTour.id,
-    name: audioTour.name,
-    image: audioTour.image,
-    address: mapAddressToDto(audioTour.address as Address),
-    weekdays: audioTour.weekdays,
-    description: audioTour.description,
-    kinds: audioTour.kinds,
-    isLiked: audioTour.isLiked,
-    url: audioTour.url,
-    audio: audioTour.audio,
-  );
-}
-
-List<AudioTourDto> mapAudioTourListToDto(
-  List<AudioTour> tourList,
-) {
-  return tourList.map(mapAudioTourToDto).toList();
-}
-
-List<AudioTour> mapDtoToAudioTourList(
-  List<AudioTourDto> tourList,
-) {
-  return tourList.map(mapDtoToAudioTour).toList();
 }
 
 User mapDtoToUser(UserDto dto) {

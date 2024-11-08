@@ -8,14 +8,13 @@ part of 'address.dart';
 
 _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
     _$AddressImpl(
-      coordinates: (json['coordinates'] as List<dynamic>?)
-              ?.map((e) => (e as num).toDouble())
-              .toList() ??
-          const [],
-      country: json['country'] as String? ?? '',
-      city: json['city'] as String? ?? '',
-      street: json['street'] as String? ?? '',
-      house: json['house'] as String? ?? '',
+      coordinates: json['coordinates'] == null
+          ? null
+          : Point.fromJson(json['coordinates'] as Map<String, dynamic>),
+      country: json['country'] as String? ?? 'Неизвестно',
+      city: json['city'] as String? ?? 'Неизвестно',
+      street: json['street'] as String?,
+      house: json['house'] as String?,
     );
 
 Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>

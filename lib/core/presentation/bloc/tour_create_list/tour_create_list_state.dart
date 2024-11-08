@@ -13,7 +13,7 @@ class TourCreateListInitial extends TourCreateListState {}
 class TourCreateListLoadInProgress extends TourCreateListState {}
 
 class TourCreateListLoadedSuccess extends TourCreateListState {
-  final List<AudioTour> tourList;
+  final List<Tour> tourList;
 
   const TourCreateListLoadedSuccess({required this.tourList});
 

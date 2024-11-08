@@ -41,32 +41,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.pink,
-      //resizeToAvoidBottomInset: , не меняет размер под клавиатурой
-      // вручную исп viewingsets
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthenticatedState) {
-            context.router.replace(const NavBarUserRoute());
-          }
-          if (state is AuthErrorState) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
-          }
-        },
-        builder: (context, state) {
-          if (state is AuthLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return Stack(children: [
-            Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.only(
-                  top: MediaQuery.sizeOf(context).height * 0.1,
-                ),
-                child: const Logo()),
-            Container(
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/splash.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        //resizeToAvoidBottomInset: , не меняет размер под клавиатурой
+        // вручную исп viewingsets
+        body: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthenticatedState) {
+              context.router.replace(const NavBarUserRoute());
+            }
+            if (state is AuthErrorState) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.error)));
+            }
+          },
+          builder: (context, state) {
+            if (state is AuthLoadingState) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return Container(
               alignment: Alignment.bottomCenter,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(10.0),
@@ -264,14 +264,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  context.router.replace(const SignInRoute());
-                                  /*
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => const SignInScreen()
-                                            ),
-                                          );*/
+                                  context.router.popAndPush(const SignInRoute());
                                 },
                                 child: Text(
                                   'Sign In',
@@ -288,9 +281,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-            ),
-          ]);
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -6,12 +6,12 @@ abstract class IApiTourRepository {
 
   IApiTourRepository({required this.service});
 
-  Future<List<Tour>> getTourList({
+  Future<List<Excursion>> getExcursionList({
     int radius = 10000,
     required double lon,
     required double lat,
     int limit = 10,
   });
 
-  Future<Tour?> getTourDetails({required String idEvent});
+  Future<Excursion?> getExcursionDetails({required String idEvent});
 }

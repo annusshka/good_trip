@@ -20,11 +20,11 @@ Address _$AddressFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Address {
-  List<double> get coordinates => throw _privateConstructorUsedError;
+  Point? get coordinates => throw _privateConstructorUsedError;
   String get country => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
-  String get street => throw _privateConstructorUsedError;
-  String get house => throw _privateConstructorUsedError;
+  String? get street => throw _privateConstructorUsedError;
+  String? get house => throw _privateConstructorUsedError;
 
   /// Serializes this Address to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,11 +41,13 @@ abstract class $AddressCopyWith<$Res> {
       _$AddressCopyWithImpl<$Res, Address>;
   @useResult
   $Res call(
-      {List<double> coordinates,
+      {Point? coordinates,
       String country,
       String city,
-      String street,
-      String house});
+      String? street,
+      String? house});
+
+  $PointCopyWith<$Res>? get coordinates;
 }
 
 /// @nodoc
@@ -63,17 +65,17 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? coordinates = null,
+    Object? coordinates = freezed,
     Object? country = null,
     Object? city = null,
-    Object? street = null,
-    Object? house = null,
+    Object? street = freezed,
+    Object? house = freezed,
   }) {
     return _then(_value.copyWith(
-      coordinates: null == coordinates
+      coordinates: freezed == coordinates
           ? _value.coordinates
           : coordinates // ignore: cast_nullable_to_non_nullable
-              as List<double>,
+              as Point?,
       country: null == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -82,15 +84,29 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      house: null == house
+              as String?,
+      house: freezed == house
           ? _value.house
           : house // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
+  }
+
+  /// Create a copy of Address
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PointCopyWith<$Res>? get coordinates {
+    if (_value.coordinates == null) {
+      return null;
+    }
+
+    return $PointCopyWith<$Res>(_value.coordinates!, (value) {
+      return _then(_value.copyWith(coordinates: value) as $Val);
+    });
   }
 }
 
@@ -102,11 +118,14 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {List<double> coordinates,
+      {Point? coordinates,
       String country,
       String city,
-      String street,
-      String house});
+      String? street,
+      String? house});
+
+  @override
+  $PointCopyWith<$Res>? get coordinates;
 }
 
 /// @nodoc
@@ -122,17 +141,17 @@ class __$$AddressImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? coordinates = null,
+    Object? coordinates = freezed,
     Object? country = null,
     Object? city = null,
-    Object? street = null,
-    Object? house = null,
+    Object? street = freezed,
+    Object? house = freezed,
   }) {
     return _then(_$AddressImpl(
-      coordinates: null == coordinates
-          ? _value._coordinates
+      coordinates: freezed == coordinates
+          ? _value.coordinates
           : coordinates // ignore: cast_nullable_to_non_nullable
-              as List<double>,
+              as Point?,
       country: null == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -141,14 +160,14 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as String,
-      street: null == street
+      street: freezed == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
-              as String,
-      house: null == house
+              as String?,
+      house: freezed == house
           ? _value.house
           : house // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -157,25 +176,17 @@ class __$$AddressImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AddressImpl implements _Address {
   const _$AddressImpl(
-      {final List<double> coordinates = const [],
-      this.country = '',
-      this.city = '',
-      this.street = '',
-      this.house = ''})
-      : _coordinates = coordinates;
+      {this.coordinates,
+      this.country = 'Неизвестно',
+      this.city = 'Неизвестно',
+      this.street,
+      this.house});
 
   factory _$AddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressImplFromJson(json);
 
-  final List<double> _coordinates;
   @override
-  @JsonKey()
-  List<double> get coordinates {
-    if (_coordinates is EqualUnmodifiableListView) return _coordinates;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_coordinates);
-  }
-
+  final Point? coordinates;
   @override
   @JsonKey()
   final String country;
@@ -183,11 +194,9 @@ class _$AddressImpl implements _Address {
   @JsonKey()
   final String city;
   @override
-  @JsonKey()
-  final String street;
+  final String? street;
   @override
-  @JsonKey()
-  final String house;
+  final String? house;
 
   @override
   String toString() {
@@ -199,8 +208,8 @@ class _$AddressImpl implements _Address {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddressImpl &&
-            const DeepCollectionEquality()
-                .equals(other._coordinates, _coordinates) &&
+            (identical(other.coordinates, coordinates) ||
+                other.coordinates == coordinates) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.street, street) || other.street == street) &&
@@ -209,13 +218,8 @@ class _$AddressImpl implements _Address {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_coordinates),
-      country,
-      city,
-      street,
-      house);
+  int get hashCode =>
+      Object.hash(runtimeType, coordinates, country, city, street, house);
 
   /// Create a copy of Address
   /// with the given fields replaced by the non-null parameter values.
@@ -235,24 +239,24 @@ class _$AddressImpl implements _Address {
 
 abstract class _Address implements Address {
   const factory _Address(
-      {final List<double> coordinates,
+      {final Point? coordinates,
       final String country,
       final String city,
-      final String street,
-      final String house}) = _$AddressImpl;
+      final String? street,
+      final String? house}) = _$AddressImpl;
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$AddressImpl.fromJson;
 
   @override
-  List<double> get coordinates;
+  Point? get coordinates;
   @override
   String get country;
   @override
   String get city;
   @override
-  String get street;
+  String? get street;
   @override
-  String get house;
+  String? get house;
 
   /// Create a copy of Address
   /// with the given fields replaced by the non-null parameter values.

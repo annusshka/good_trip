@@ -6,7 +6,7 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'audio_tour.dart';
 
 class AudioTourBloc extends Bloc<AudioTourEvent, AudioTourState> {
-  final ITourRepository tourRepository;
+  final IExcursionRepository tourRepository;
 
   AudioTourBloc({required this.tourRepository}) : super(AudioTourInitial()) {
     on<AudioTourEvent>(
@@ -24,7 +24,7 @@ class AudioTourBloc extends Bloc<AudioTourEvent, AudioTourState> {
     try {
       /// TODO: data layer for UserData
       final userId = 1;
-      final List<AudioTour> tourList = await tourRepository.getAudioTours(
+      final List<AudioExcursion> tourList = await tourRepository.getAudioExcursions(
         city: event.city,
         lon: event.lon,
         lat: event.lat,

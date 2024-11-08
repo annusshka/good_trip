@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 
 import 'app_router.dart';
-import 'tour_router.dart';
+import 'excursion_router.dart';
 
 abstract class HomeRoutes {
   static final routes = AutoRoute(
@@ -11,7 +11,7 @@ abstract class HomeRoutes {
         page: HomeRoute.page,
         initial: true,
       ),
-      TourRoutes.routes,
+      ExcursionRoutes.routes,
     ],
   );
 }

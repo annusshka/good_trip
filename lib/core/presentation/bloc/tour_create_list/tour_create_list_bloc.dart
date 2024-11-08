@@ -8,13 +8,14 @@ class TourCreateListBloc
     extends Bloc<TourCreateListEvent, TourCreateListState> {
   final ITourRepository tourRepository;
 
-  TourCreateListBloc({required this.tourRepository}) : super(TourCreateListInitial()) {
+  TourCreateListBloc({required this.tourRepository})
+      : super(TourCreateListInitial()) {
     on<TourCreateListEvent>(
       (event, emit) async {
         if (event is TourCreateListRequested) {
           await _tourCreatedListRequested(event, emit);
-        } else if (event is TourListCreateByActualUserRequested) {
-          await _tourListCreatedByActualUserRequested(event, emit);
+        } else if (event is ToursCreateByActualUserRequested) {
+          await _toursCreatedByActualUserRequested(event, emit);
         }
       },
     );
@@ -24,8 +25,8 @@ class TourCreateListBloc
       TourCreateListRequested event, Emitter<TourCreateListState> emit) async {
     emit(TourCreateListLoadInProgress());
     try {
-      final List<AudioTour> tours =
-          await tourRepository.getCreatedTourListByAdmin(offset: event.offset);
+      final List<Tour> tours =
+          await tourRepository.getCreatedToursByAdmin(offset: event.offset);
       emit(TourCreateListLoadedSuccess(tourList: tours));
     } catch (_) {
       emit(const TourCreateListLoadFailure(
@@ -33,15 +34,15 @@ class TourCreateListBloc
     }
   }
 
-  Future<void> _tourListCreatedByActualUserRequested(
-      TourListCreateByActualUserRequested event,
+  Future<void> _toursCreatedByActualUserRequested(
+      ToursCreateByActualUserRequested event,
       Emitter<TourCreateListState> emit) async {
     emit(TourCreateListLoadInProgress());
     try {
       ///TODO: add user data layer
       const userId = 1;
-      final List<AudioTour> tours =
-          await tourRepository.getCreatedTourListByUserId(
+      final List<Tour> tours =
+          await tourRepository.getCreatedToursByUserId(
         offset: event.offset,
         userId: userId,
       );

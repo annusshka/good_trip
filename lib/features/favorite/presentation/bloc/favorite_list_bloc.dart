@@ -6,7 +6,7 @@ import 'favorite_list_event.dart';
 import 'favorite_list_state.dart';
 
 class FavoriteListBloc extends Bloc<FavoriteListEvent, FavoriteListState> {
-  final ITourRepository tourRepository;
+  final IExcursionRepository tourRepository;
 
   FavoriteListBloc({required this.tourRepository})
       : super(FavoriteListInitial()) {
@@ -25,7 +25,7 @@ class FavoriteListBloc extends Bloc<FavoriteListEvent, FavoriteListState> {
     try {
       ///TODO: add user data layer
       const userId = 1;
-      final List<ITour> tours = await tourRepository.getFavoriteTourList(
+      final List<IExcursion> tours = await tourRepository.getFavoriteExcursionList(
         userId: userId,
         offset: event.offset,
       );

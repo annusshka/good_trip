@@ -1,3 +1,5 @@
+import 'point.dart';
+
 abstract class IAddress {
   IAddress({
     required this.coordinates,
@@ -7,11 +9,11 @@ abstract class IAddress {
     required this.house,
   });
 
-  final List<double> coordinates;
+  final Point? coordinates;
   final String country;
   final String city;
-  final String street;
-  final String house;
+  final String? street;
+  final String? house;
 
   Map<String, dynamic> toJson();
 }

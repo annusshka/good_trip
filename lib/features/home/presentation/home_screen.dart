@@ -2,15 +2,13 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/location_info.dart';
 import 'package:good_trip/core/presentation/bloc/audio_tour/audio_tour.dart';
-import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
+import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/features/tour_create/presentation/bloc/tour_create.dart';
-import 'package:good_trip/features/welcome/presentation/bloc/welcome_info.dart';
+import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
 
 import 'widgets/geolocation.dart';
 
@@ -25,8 +23,8 @@ class HomeScreen extends StatelessWidget {
         BlocListener<WeatherBloc, WeatherState>(
           listener: (context, state) {
             if (state is WeatherLoadSuccess) {
-              BlocProvider.of<TourListBloc>(context).add(
-                TourListRequested(
+              BlocProvider.of<ExcursionListBloc>(context).add(
+                ExcursionListRequested(
                   city: state.weather.cityName,
                   lon: state.weather.lon,
                   lat: state.weather.lat,
@@ -42,9 +40,9 @@ class HomeScreen extends StatelessWidget {
             }
           },
         ),
-        BlocListener<TourCreateBloc, TourCreateState>(
+        BlocListener<ExcursionCreateBloc, ExcursionCreateState>(
             listener: (context, state) {
-          if (state is TourCreatedSuccess) {
+          if (state is ExcursionCreatedSuccess) {
             BlocProvider.of<AudioTourBloc>(context).add(
               const AudioTourRequested(),
             );
@@ -114,32 +112,32 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 15,
-                      child: BlocBuilder<TourListBloc, TourListState>(
+                      child: BlocBuilder<ExcursionListBloc, ExcursionListState>(
                         builder: (context, state) {
-                          if (state is TourListLoadInProgress) {
+                          if (state is ExcursionListLoadInProgress) {
                             return const Center(
                                 child: CircularProgressIndicator());
                           }
-                          if (state is TourListLoadSuccess) {
-                            if (state.tourList.isEmpty) {
+                          if (state is ExcursionListLoadSuccess) {
+                            if (state.excursionList.isEmpty) {
                               return const EmptyList();
                             }
                             return ListView.separated(
                               scrollDirection: Axis.horizontal,
-                              itemCount: state.tourList.length,
+                              itemCount: state.excursionList.length,
                               separatorBuilder: (BuildContext context, _) =>
                                   const SizedBox(
                                 width: 10,
                               ),
                               itemBuilder: (context, i) {
-                                final tour = state.tourList[i];
-                                return TourScrollElement(
-                                  tour: tour,
+                                final tour = state.excursionList[i];
+                                return ExcursionScrollElement(
+                                  excursion: tour,
                                 );
                               },
                             );
                           }
-                          if (state is TourListLoadFailure) {
+                          if (state is ExcursionListLoadFailure) {
                             return const Center(
                               child: Text('Произошла ошибка при загрузке'),
                             );
@@ -191,8 +189,8 @@ class HomeScreen extends StatelessWidget {
                               ),
                               itemBuilder: (context, i) {
                                 final tour = state.tourList[i];
-                                return TourScrollElement(
-                                  tour: tour,
+                                return ExcursionScrollElement(
+                                  excursion: tour,
                                 );
                               },
                             );

@@ -9,7 +9,7 @@ part of 'tour_dto.dart';
 TourDto _$TourDtoFromJson(Map<String, dynamic> json) => TourDto(
       id: json['id'] as String,
       name: json['name'] as String,
-      image: json['image'] as String?,
+      imageUrl: json['imageUrl'] as String?,
       address: AddressDto.fromJson(json['address'] as Map<String, dynamic>),
       weekdays: (json['weekdays'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$WeekdayEnumMap, e))
@@ -17,19 +17,23 @@ TourDto _$TourDtoFromJson(Map<String, dynamic> json) => TourDto(
       description: json['description'] as String?,
       kinds: (json['kinds'] as List<dynamic>).map((e) => e as String).toList(),
       isLiked: json['isLiked'] as bool? ?? false,
-      url: json['url'] as String?,
+      deeplinkUrl: json['deeplinkUrl'] as String?,
+      excursionList: (json['excursionList'] as List<dynamic>)
+          .map((e) => Excursion.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$TourDtoToJson(TourDto instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'image': instance.image,
+      'imageUrl': instance.imageUrl,
       'address': instance.address,
       'weekdays': instance.weekdays?.map((e) => _$WeekdayEnumMap[e]!).toList(),
       'description': instance.description,
       'kinds': instance.kinds,
       'isLiked': instance.isLiked,
-      'url': instance.url,
+      'deeplinkUrl': instance.deeplinkUrl,
+      'excursionList': instance.excursionList,
     };
 
 const _$WeekdayEnumMap = {

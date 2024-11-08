@@ -21,7 +21,7 @@ class _TourService implements TourService {
   String? baseUrl;
 
   @override
-  Future<List<AudioTourDto>> getToursByCity({
+  Future<List<TourDto>> getToursByCity({
     required String userId,
     required String city,
     required int offset,
@@ -33,8 +33,8 @@ class _TourService implements TourService {
     };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<AudioTourDto>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<TourDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -51,19 +51,19 @@ class _TourService implements TourService {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => AudioTourDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => TourDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<List<AudioTourDto>> getCreatedTours({required int offset}) async {
+  Future<List<TourDto>> getCreatedTours({required int offset}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<AudioTourDto>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<TourDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -80,13 +80,13 @@ class _TourService implements TourService {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => AudioTourDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => TourDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<List<AudioTourDto>> getCreatedToursByUser({
+  Future<List<TourDto>> getCreatedToursByUser({
     required String userId,
     required int offset,
   }) async {
@@ -94,8 +94,8 @@ class _TourService implements TourService {
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<AudioTourDto>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<TourDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -112,20 +112,19 @@ class _TourService implements TourService {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => AudioTourDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => TourDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
 
   @override
-  Future<List<AudioTourDto>> getCreatedToursByAdmin(
-      {required int offset}) async {
+  Future<List<TourDto>> getCreatedToursByAdmin({required int offset}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<AudioTourDto>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<TourDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -142,7 +141,7 @@ class _TourService implements TourService {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => AudioTourDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => TourDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
@@ -178,7 +177,7 @@ class _TourService implements TourService {
   }
 
   @override
-  Future<List<AudioTourDto>> getLikedToursByUser({
+  Future<List<TourDto>> getLikedToursByUser({
     required String userId,
     required int offset,
   }) async {
@@ -186,8 +185,8 @@ class _TourService implements TourService {
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<AudioTourDto>>(Options(
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<TourDto>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -204,7 +203,7 @@ class _TourService implements TourService {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => AudioTourDto.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => TourDto.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
@@ -259,35 +258,6 @@ class _TourService implements TourService {
           _dio.options.baseUrl,
           baseUrl,
         ))));
-  }
-
-  @override
-  Future<List<TourKind>> getTourTypes() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<TourKind>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/auth/tours/types',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) => TourKind.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

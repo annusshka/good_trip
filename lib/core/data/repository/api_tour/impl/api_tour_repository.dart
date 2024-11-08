@@ -5,14 +5,13 @@ import 'package:good_trip/core/data/mapper/mapper.dart';
 import 'package:good_trip/core/data/models/api_tour/api_tour_dto.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/data/models/tour/tour.dart';
 import 'package:good_trip/core/data/repository/api_tour/i_api_tour_repository.dart';
 
 class ApiTourRepository extends IApiTourRepository {
   ApiTourRepository({required super.service});
 
   @override
-  Future<List<Tour>> getTourList({
+  Future<List<Excursion>> getExcursionList({
     int radius = 10000,
     required double lon,
     required double lat,
@@ -35,9 +34,9 @@ class ApiTourRepository extends IApiTourRepository {
       //
       // return dataList;
 
-      List<Tour> apiTourList = [];
+      List<Excursion> apiTourList = [];
       for (final ApiTourDto apiTourDto in response.features) {
-        final Tour? tour = await getTourDetails(idEvent: apiTourDto.id);
+        final Excursion? tour = await getExcursionDetails(idEvent: apiTourDto.id);
         if (tour != null) apiTourList.add(tour);
       }
       return apiTourList;
@@ -53,7 +52,7 @@ class ApiTourRepository extends IApiTourRepository {
   }
 
   @override
-  Future<Tour?> getTourDetails({required String idEvent}) async {
+  Future<Excursion?> getExcursionDetails({required String idEvent}) async {
     try {
       final response =
           await service.getTourDetails(idEvent: idEvent, apikey: tripKey);

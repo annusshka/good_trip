@@ -70,4 +70,5 @@ flutter {
 
 dependencies {
     implementation 'com.android.support:multidex:2.0.1'
+    implementation 'com.google.android.gms:play-services-location:YOUR_PLAY_SERVICES_VERSION'
 }

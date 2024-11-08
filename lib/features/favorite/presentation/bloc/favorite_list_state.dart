@@ -13,7 +13,7 @@ class FavoriteListInitial extends FavoriteListState {}
 class FavoriteListLoadInProgress extends FavoriteListState {}
 
 class FavoriteListLoadedSuccess extends FavoriteListState {
-  final List<ITour> tourList;
+  final List<IExcursion> tourList;
 
   const FavoriteListLoadedSuccess({required this.tourList});
 
