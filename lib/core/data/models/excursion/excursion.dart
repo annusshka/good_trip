@@ -1,36 +1,33 @@
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'audio_tour.g.dart';
+part 'excursion.g.dart';
 
 @JsonSerializable()
-class AudioTour extends IAudioTour {
-  AudioTour({
+class Excursion extends IExcursion {
+  Excursion({
     required String id,
     required String name,
-    String? image,
+    String? imageUrl,
     required Address address,
     List<Weekday>? weekdays,
     String? description,
     required List<String> kinds,
     bool isLiked = false,
-    String? url,
-    required String audio,
+    String? deeplinkUrl,
   }) : super(
           id: id,
           name: name,
-          image: image,
+          imageUrl: imageUrl,
           address: address,
           weekdays: weekdays,
           description: description,
           kinds: kinds,
           isLiked: isLiked,
-          url: url,
-          audio: audio,
+          deeplinkUrl: deeplinkUrl,
         );
 
-  Map<String, dynamic> toJson() => _$AudioTourToJson(this);
+  Map<String, dynamic> toJson() => _$ExcursionToJson(this);
 
-  factory AudioTour.fromJson(Map<String, Object?> json) =>
-      _$AudioTourFromJson(json);
+  factory Excursion.fromJson(Map<String, Object?> json) => _$ExcursionFromJson(json);
 }
