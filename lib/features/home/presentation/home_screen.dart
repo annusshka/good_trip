@@ -3,10 +3,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/location_info.dart';
-import 'package:good_trip/core/presentation/bloc/audio_tour/audio_tour.dart';
+import 'package:good_trip/core/presentation/bloc/audio_excursion/audio_excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
 
@@ -30,8 +31,8 @@ class HomeScreen extends StatelessWidget {
                   lat: state.weather.lat,
                 ),
               );
-              BlocProvider.of<AudioTourBloc>(context).add(
-                AudioTourRequested(
+              BlocProvider.of<AudioExcursionBloc>(context).add(
+                AudioExcursionRequested(
                   city: state.weather.cityName,
                   lon: state.weather.lon,
                   lat: state.weather.lat,
@@ -43,16 +44,17 @@ class HomeScreen extends StatelessWidget {
         BlocListener<ExcursionCreateBloc, ExcursionCreateState>(
             listener: (context, state) {
           if (state is ExcursionCreatedSuccess) {
-            BlocProvider.of<AudioTourBloc>(context).add(
-              const AudioTourRequested(),
+            BlocProvider.of<AudioExcursionBloc>(context).add(
+              const AudioExcursionRequested(),
             );
           }
         }),
       ],
       child: Scaffold(
+        backgroundColor: AppColors.white,
         appBar: AppBar(
-          elevation: 0,
-          //backgroundColor: Colors.transparent,
+          scrolledUnderElevation: 0,
+          backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
           title:
               BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
@@ -92,7 +94,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               SizedBox(
@@ -169,14 +171,14 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 15,
-                      child: BlocBuilder<AudioTourBloc, AudioTourState>(
+                      child: BlocBuilder<AudioExcursionBloc, AudioExcursionState>(
                         builder: (context, state) {
-                          if (state is AudioTourLoadInProgress) {
+                          if (state is AudioExcursionLoadInProgress) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
-                          if (state is AudioTourLoadSuccess) {
+                          if (state is AudioExcursionLoadSuccess) {
                             if (state.tourList.isEmpty) {
                               return const EmptyList();
                             }
@@ -195,7 +197,7 @@ class HomeScreen extends StatelessWidget {
                               },
                             );
                           }
-                          if (state is AudioTourLoadFailure) {
+                          if (state is AudioExcursionLoadFailure) {
                             return const Center(
                               child: Text('Произошла ошибка при загрузке'),
                             );

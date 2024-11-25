@@ -1,16 +1,12 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:good_trip/di/config_dio.dart';
 import 'package:good_trip/di/di_builder.dart';
 
 class AppStarter {
   String get devicePlatform => Platform.isIOS ? 'iOS' : 'android';
-
-  late final Dio dio;
 
   late GetIt container;
 
@@ -18,8 +14,6 @@ class AppStarter {
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-
-    // dio = configDio();
 
     container = await configureContainer();
 

@@ -109,7 +109,7 @@ class _SeekBarState extends State<SeekBar> {
                     .firstMatch('$_remaining')
                     ?.group(1) ??
                 '$_remaining',
-            style: AppTextTheme.medium14,
+            style: AppTextTheme.medium14.copyWith(color: AppColors.lightGray,),
           ),
         ),
       ],

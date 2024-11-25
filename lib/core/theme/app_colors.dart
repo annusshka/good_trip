@@ -16,4 +16,5 @@ abstract class AppColors {
   static const darkGray2 = const Color(0xFF000014);
 
   static const pink = const Color(0xFFFF9EA2);
+  static const red = const Color(0xFFC06F72);
 }

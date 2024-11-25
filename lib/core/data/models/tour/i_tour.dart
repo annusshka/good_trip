@@ -23,9 +23,13 @@ abstract class ITour {
   final List<String> kinds;
   bool isLiked;
   final String? deeplinkUrl;
-  final List<Excursion> excursionList;
+  final List<AudioExcursion> excursionList;
 
-  String getWeekdays() {
-    return "${weekdays?.map((el) => el.displayTitle).join(', ')}";
-  }
+  String getWeekdays();
+
+  String getKinds();
+
+  String getAddressDetails();
+
+  String getAddressRegion();
 }

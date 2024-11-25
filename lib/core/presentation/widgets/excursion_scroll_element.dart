@@ -13,9 +13,11 @@ class ExcursionScrollElement extends StatelessWidget {
   const ExcursionScrollElement({
     super.key,
     required this.excursion,
+    this.onTapAction,
   });
 
   final IExcursion excursion;
+  final Function(IExcursion)? onTapAction;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,9 @@ class ExcursionScrollElement extends StatelessWidget {
       width: 150,
       child: InkWell(
         onTap: () {
-          context.router.push(ExcursionRoute(tour: excursion));
+          onTapAction != null
+              ? onTapAction!(excursion)
+              : context.router.push(ExcursionRoute(excursion: excursion));
         },
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,18 +43,20 @@ class ExcursionScrollElement extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       ExcursionPhoto(
-                          photoUrl: excursion.imageUrl,
-                          icon: excursion is Excursion
-                              ? Icons.photo_camera
-                              : Icons.headphones_rounded,
-                          size: 50),
-                      Align(
+                        photoUrl: excursion.imageUrl,
+                        icon: excursion is Excursion
+                            ? Icons.photo_camera
+                            : Icons.headphones_rounded,
+                        size: 50,
+                      ),
+                      Container(
                         alignment: Alignment.topRight,
+                        padding: const EdgeInsets.all(8.0),
                         child: BlocBuilder<ExcursionBloc, ExcursionState>(
                             builder: (context, state) {
                           return LikeButton(
                             iconSize: 24,
-                            tour: excursion,
+                            excursion: excursion,
                           );
                         }),
                       ),

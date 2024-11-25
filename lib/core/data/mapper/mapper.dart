@@ -153,7 +153,7 @@ Tour mapDtoToTour(TourDto dto) {
     kinds: dto.kinds,
     isLiked: dto.isLiked,
     deeplinkUrl: dto.deeplinkUrl,
-    excursionList: dto.excursionList,
+    excursionList: mapDtoToAudioExcursionList(dto.excursionList),
   );
 }
 
@@ -168,7 +168,7 @@ TourDto mapTourToDto(Tour tour) {
     kinds: tour.kinds,
     isLiked: tour.isLiked,
     deeplinkUrl: tour.deeplinkUrl,
-    excursionList: tour.excursionList,
+    excursionList: mapAudioExcursionListToDto(tour.excursionList),
   );
 }
 

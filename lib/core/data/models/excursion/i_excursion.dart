@@ -25,6 +25,21 @@ abstract class IExcursion {
   final String? deeplinkUrl;
 
   String getWeekdays() {
-    return "${weekdays?.map((el) => el.displayTitle).join(', ')}";
+    return weekdays != null
+        ? "${weekdays?.map((el) => el.displayTitle).join(', ')}"
+        : 'Любой день';
+  }
+
+  String getKinds() {
+    return kinds.join(', ');
+  }
+
+  String getAddressDetails() {
+    return (address.street != null ? '${address.street}' : '') +
+        (address.house != null ? ', ${address.house}' : '');
+  }
+
+  String getAddressRegion() {
+    return '${address.country}, ${address.city}';
   }
 }

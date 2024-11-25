@@ -66,6 +66,20 @@ abstract class AppTextTheme {
     color: AppColors.darkGray,
   );
 
+  static const TextStyle semiBold10 = TextStyle(
+    fontFamily: 'Gilroy',
+    fontWeight: FontWeight.w600,
+    fontSize: 10,
+    color: AppColors.red,
+  );
+
+  static const TextStyle semiBold12 = TextStyle(
+    fontFamily: 'Gilroy',
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
+    color: AppColors.lightGray,
+  );
+
   static const TextStyle semiBold13 = TextStyle(
     fontFamily: 'Gilroy',
     fontWeight: FontWeight.w600,
@@ -84,6 +98,12 @@ abstract class AppTextTheme {
     fontSize: 15,
     fontWeight: FontWeight.w600,
     color: Colors.black,
+  );
+
+  static const TextStyle semiBold16 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.lightGray,
   );
 
   static const TextStyle semiBold18 = TextStyle(

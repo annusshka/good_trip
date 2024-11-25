@@ -11,9 +11,9 @@ import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_
 
 class ExcursionCreateListElement extends StatelessWidget {
   const ExcursionCreateListElement(
-      {super.key, required this.tour, required this.iconSize});
+      {super.key, required this.excursion, required this.iconSize});
 
-  final IExcursion tour;
+  final IExcursion excursion;
   final double iconSize;
 
   @override
@@ -27,7 +27,7 @@ class ExcursionCreateListElement extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(10))),
       child: InkWell(
         onTap: () {
-          context.router.navigate(ExcursionRoute(tour: tour));
+          context.router.navigate(ExcursionRoute(excursion: excursion));
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -41,7 +41,7 @@ class ExcursionCreateListElement extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Center(
                     child: ExcursionPhoto(
-                      photoUrl: tour.imageUrl,
+                      photoUrl: excursion.imageUrl,
                       icon: Icons.headphones_rounded,
                       size: height * 0.1,
                     ),
@@ -51,14 +51,14 @@ class ExcursionCreateListElement extends StatelessWidget {
               Flexible(
                 flex: 2,
                 child: Text(
-                  tour.name,
+                  excursion.name,
                   textAlign: TextAlign.left,
                   style: AppTextTheme.semiBold26,
                 ),
               ),
               Flexible(
                 child: Text(
-                  tour.kinds.join(', '),
+                  excursion.getKinds(),
                   textAlign: TextAlign.left,
                   softWrap: true,
                   maxLines: 1,
@@ -70,8 +70,7 @@ class ExcursionCreateListElement extends StatelessWidget {
               Flexible(
                 flex: 2,
                 child: TourTile(
-                  titleText:
-                      tour.weekdays != null ? tour.getWeekdays() : 'Любой день',
+                  titleText: excursion.getWeekdays(),
                   subtitleText: '8:00 - 20:00',
                   icon: Icons.calendar_today_rounded,
                 ),
@@ -79,10 +78,8 @@ class ExcursionCreateListElement extends StatelessWidget {
               Flexible(
                 flex: 2,
                 child: TourTile(
-                  titleText: '${tour.address.street},'
-                      ' ${tour.address.house}',
-                  subtitleText: '${tour.address.country}, '
-                      '${tour.address.city}',
+                  titleText: excursion.getAddressDetails(),
+                  subtitleText: excursion.getAddressRegion(),
                   icon: Icons.location_on_outlined,
                 ),
               ),
@@ -101,7 +98,7 @@ class ExcursionCreateListElement extends StatelessWidget {
                           onPressed: () {
                             BlocProvider.of<ExcursionCreateBloc>(context).add(
                               CreatedExcursionRemoveRequested(
-                                tourId: tour.id,
+                                tourId: excursion.id,
                                 context: context,
                               ),
                             );

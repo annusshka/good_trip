@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:good_trip/core/data/models/models.dart';
 
 abstract class ITourRepository {
@@ -28,7 +30,27 @@ abstract class ITourRepository {
     int offset = 0,
   });
 
+  Future<void> saveTour({
+    required String name,
+    required String imagePath,
+    required List<Weekday> weekdays,
+    required String description,
+    required List<String> kinds,
+    required Address address,
+    required File? imageFile,
+    required List<IExcursion> excursionList,
+  });
+
   Future<void> deleteTour({
     required String id,
+  });
+
+  Future<int> getViewedExcursionCount({
+    required String tourId,
+  });
+
+  Future<void> viewExcursions({
+    required String tourId,
+    required int excursionCount,
   });
 }

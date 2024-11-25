@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/widgets/empty_list.dart';
 import 'package:good_trip/core/presentation/widgets/excursion_grid.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/core/theme/strings.dart';
 
@@ -24,7 +25,10 @@ class FavoriteScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
+        backgroundColor: AppColors.white,
         appBar: AppBar(
+          scrolledUnderElevation: 0,
+          backgroundColor: AppColors.white,
           automaticallyImplyLeading: false,
           title: const Text(
             favorites,

@@ -5,22 +5,29 @@ import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 
 class LikeButton extends StatelessWidget {
-  const LikeButton({super.key, required this.iconSize, required this.tour});
+  const LikeButton({
+    super.key,
+    required this.iconSize,
+    required this.excursion,
+    this.iconColor = AppColors.white,
+  });
 
-  final IExcursion tour;
+  final IExcursion excursion;
   final double iconSize;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        tour.isLiked ? Icons.favorite : Icons.favorite_border,
+    return InkWell(
+      child: Icon(
+        excursion.isLiked ? Icons.favorite : Icons.favorite_border,
         size: iconSize,
-        color: AppColors.white,
+        color: iconColor,
       ),
-      onPressed: () {
-        tour.isLiked = !tour.isLiked;
-        BlocProvider.of<ExcursionBloc>(context).add(ExcursionLikeRequested(id: tour.id));
+      onTap: () {
+        excursion.isLiked = !excursion.isLiked;
+        BlocProvider.of<ExcursionBloc>(context)
+            .add(ExcursionLikeRequested(id: excursion.id));
       },
     );
   }

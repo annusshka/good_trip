@@ -8,16 +8,19 @@ class TourDescription extends StatefulWidget {
   final String desc;
 
   @override
-  State<TourDescription> createState() => _TourDescriptionState(desc, false);
+  State<TourDescription> createState() => _TourDescriptionState();
 }
 
 class _TourDescriptionState extends State<TourDescription> {
-  final String desc;
-  bool isOpenText;
-
-  _TourDescriptionState(this.desc, this.isOpenText);
+  late bool isOpenText;
 
   void _tapReadMore() => isOpenText = !isOpenText;
+
+  @override
+  void initState() {
+    super.initState();
+    isOpenText = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +32,11 @@ class _TourDescriptionState extends State<TourDescription> {
           textAlign: TextAlign.left,
           style: AppTextTheme.semiBold18,
         ),
+        const SizedBox(height: 4.0,),
         Text(
-          desc,
+          widget.desc,
           textAlign: TextAlign.left,
-          style: AppTextTheme.normal14.copyWith(
+          style: AppTextTheme.medium14.copyWith(
             color: AppColors.lightGray,
           ),
           softWrap: true,

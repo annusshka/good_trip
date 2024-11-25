@@ -48,6 +48,9 @@ dependencies:
   firebase_messaging: ^15.1.0
   firebase_in_app_messaging: ^0.8.0+5
   onesignal_flutter: ^5.2.6
+  dotted_line: ^3.2.3
+  flutter_svg: ^2.0.15
+  modal_bottom_sheet: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -71,10 +74,9 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/temperature_512.png
-    - assets/images/logo.png
-    - assets/images/logo_with_name.png
-    - assets/images/splash.png
+    - assets/
+    - assets/svg/
+    - assets/images/
     - assets/fonts/
 
   fonts:

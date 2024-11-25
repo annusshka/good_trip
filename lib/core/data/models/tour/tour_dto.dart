@@ -1,6 +1,4 @@
-import 'package:good_trip/core/data/models/address/address_dto.dart';
-import 'package:good_trip/core/data/models/enum/enum.dart';
-import 'package:good_trip/core/data/models/excursion/excursion.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tour_dto.g.dart';
@@ -16,7 +14,7 @@ class TourDto {
   final List<String> kinds;
   final bool isLiked;
   final String? deeplinkUrl;
-  final List<Excursion> excursionList;
+  final List<AudioExcursionDto> excursionList;
 
   TourDto({
     required this.id,

@@ -19,7 +19,7 @@ TourDto _$TourDtoFromJson(Map<String, dynamic> json) => TourDto(
       isLiked: json['isLiked'] as bool? ?? false,
       deeplinkUrl: json['deeplinkUrl'] as String?,
       excursionList: (json['excursionList'] as List<dynamic>)
-          .map((e) => Excursion.fromJson(e as Map<String, dynamic>))
+          .map((e) => AudioExcursionDto.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

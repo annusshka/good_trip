@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 
 class NavBarSelectedIcon extends StatelessWidget {
-  final IconData icon;
   const NavBarSelectedIcon({super.key, required this.icon});
+
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/di/configure_dependencies.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -26,6 +27,7 @@ class NavBarAdminScreen extends StatelessWidget implements AutoRouteWrapper {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           body: child,
+          backgroundColor: AppColors.white,
           bottomNavigationBar: NavigationBar(
             backgroundColor: Colors.transparent,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,

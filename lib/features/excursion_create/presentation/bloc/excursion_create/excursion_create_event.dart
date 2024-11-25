@@ -13,25 +13,25 @@ abstract class ExcursionCreateEvent extends Equatable {
 
 class ExcursionCreateRequested extends ExcursionCreateEvent {
   final String name;
-  // final String imagePath;
-  // final List<Weekday> weekdays;
+  final String imagePath;
+  final List<Weekday> weekdays;
   final String description;
-  // final List<String> kinds;
+  final List<String> kinds;
   final Address address;
-  // final String audioPath;
-  // final File? imageFile;
-  // final File? audioFile;
+  final String audioPath;
+  final File? imageFile;
+  final File? audioFile;
 
   const ExcursionCreateRequested({
     required this.name,
-    // required this.imagePath,
-    // required this.weekdays,
+    required this.imagePath,
+    required this.weekdays,
     required this.description,
-    // required this.kinds,
+    required this.kinds,
     required this.address,
-    // required this.audioPath,
-    // required this.imageFile,
-    // required this.audioFile,
+    required this.audioPath,
+    required this.imageFile,
+    required this.audioFile,
   });
 }
 

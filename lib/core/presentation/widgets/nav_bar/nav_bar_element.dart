@@ -4,8 +4,9 @@ import 'package:good_trip/core/theme/app_colors.dart';
 import 'nav_bar_selected_icon.dart';
 
 class NavBarElement extends StatelessWidget {
-  final IconData icon;
   const NavBarElement({super.key, required this.icon});
+
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {

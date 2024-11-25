@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/data/mapper/mapper.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -6,9 +10,17 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/service/service.dart';
 
 class TourRepository implements ITourRepository {
-  TourRepository({required this.service});
-
   final TourService service;
+  final FlutterSecureStorage _storage;
+
+  TourRepository({
+    required this.service,
+    FlutterSecureStorage storage = const FlutterSecureStorage(
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    ),
+  }) : _storage = storage;
 
   @override
   Future<List<Tour>> getTours({
@@ -149,5 +161,30 @@ class TourRepository implements ITourRepository {
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  @override
+  Future<int> getViewedExcursionCount({required String tourId}) async {
+    final count = await _storage.read(
+      key: 'tour_$tourId',
+    );
+    return int.tryParse(count ?? '0') ?? 0;
+  }
+
+  @override
+  Future<void> viewExcursions({
+    required String tourId,
+    required int excursionCount,
+  }) async {
+    await _storage.write(
+      key: 'tour_$tourId',
+      value: jsonEncode(excursionCount),
+    );
+  }
+
+  @override
+  Future<void> saveTour({required String name, required String imagePath, required List<Weekday> weekdays, required String description, required List<String> kinds, required Address address, required File? imageFile, required List<IExcursion> excursionList}) {
+    // TODO: implement saveTour
+    throw UnimplementedError();
   }
 }

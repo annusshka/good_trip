@@ -24,12 +24,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: BlocConsumer<WelcomeInfoBloc, WelcomeInfoState>(
         listener: (context, state) {
           if (state is WelcomeInfoAlreadySeen) {
             BlocProvider.of<AuthBloc>(context)
               ..add(AuthLoadUserEvent());
-            context.router.push(const SignInRoute());
+            context.router.replace(const SignInRoute());
           } else if (state is FirstRun) {
             context.router.replace(const SignInRoute());
           }

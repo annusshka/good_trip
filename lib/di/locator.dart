@@ -13,6 +13,7 @@ import 'package:good_trip/features/account_list/data/repository/i_account_list_r
 import 'package:good_trip/features/account_list/data/repository/impl/mock_account_list_repository.dart';
 import 'package:good_trip/features/account_list/data/service/account_list_service.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
+import 'package:good_trip/features/tour/presentation/bloc/viewed_excursions/viewed_excursions.dart';
 import 'package:good_trip/features/welcome/data/repository/i_welcome_info_repository.dart';
 import 'package:good_trip/features/welcome/data/repository/impl/mock_welcome_info_repository.dart';
 import 'package:good_trip/features/welcome/data/service/welcome_info_service.dart';
@@ -131,8 +132,6 @@ abstract class Locator {
     return MockWelcomeInfoRepository(service: service);
   }
 
-  static final WeekdayCubit _weekdayCubit = WeekdayCubit();
-
   @singleton
-  WeekdayCubit get weekdayCubit => _weekdayCubit;
+  WeekdayCubit get weekdayCubit => WeekdayCubit();
 }

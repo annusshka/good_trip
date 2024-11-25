@@ -26,12 +26,12 @@ class ProfileSettingsList extends StatelessWidget {
               contentPadding: const EdgeInsets.all(0),
               title: Text(
                 elementList[i],
-                style: AppTextTheme.normal16,
+                style: AppTextTheme.semiBold16,
               ),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
                 size: 24,
-                color: AppColors.gray,
+                color: AppColors.lightGray,
               ),
             );
           },

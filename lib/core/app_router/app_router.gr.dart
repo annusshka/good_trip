@@ -75,8 +75,14 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: ExcursionScreen(
           key: args.key,
-          tour: args.tour,
+          excursion: args.excursion,
         ),
+      );
+    },
+    ExcursionWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const ExcursionWrapperScreen()),
       );
     },
     FavoriteRoute.name: (routeData) {
@@ -131,6 +137,44 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SplashScreen(),
+      );
+    },
+    TourCreateExcursionRoute.name: (routeData) {
+      final args = routeData.argsAs<TourCreateExcursionRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: TourCreateExcursionScreen(
+          key: args.key,
+          name: args.name,
+          description: args.description,
+          address: args.address,
+          kinds: args.kinds,
+          weekdays: args.weekdays,
+          imagePath: args.imagePath,
+          imageFile: args.imageFile,
+        ),
+      );
+    },
+    TourCreateRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const TourCreateScreen(),
+      );
+    },
+    TourCreateWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const TourCreateWrapperScreen()),
+      );
+    },
+    TourRoute.name: (routeData) {
+      final args = routeData.argsAs<TourRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: TourScreen(
+          key: args.key,
+          tour: args.tour,
+        ),
       );
     },
     TourWrapperRoute.name: (routeData) {
@@ -285,13 +329,13 @@ class ExcursionCreateWrapperRoute extends PageRouteInfo<void> {
 class ExcursionRoute extends PageRouteInfo<ExcursionRouteArgs> {
   ExcursionRoute({
     Key? key,
-    required IExcursion tour,
+    required IExcursion excursion,
     List<PageRouteInfo>? children,
   }) : super(
           ExcursionRoute.name,
           args: ExcursionRouteArgs(
             key: key,
-            tour: tour,
+            excursion: excursion,
           ),
           initialChildren: children,
         );
@@ -305,17 +349,31 @@ class ExcursionRoute extends PageRouteInfo<ExcursionRouteArgs> {
 class ExcursionRouteArgs {
   const ExcursionRouteArgs({
     this.key,
-    required this.tour,
+    required this.excursion,
   });
 
   final Key? key;
 
-  final IExcursion tour;
+  final IExcursion excursion;
 
   @override
   String toString() {
-    return 'ExcursionRouteArgs{key: $key, tour: $tour}';
+    return 'ExcursionRouteArgs{key: $key, excursion: $excursion}';
   }
+}
+
+/// generated route for
+/// [ExcursionWrapperScreen]
+class ExcursionWrapperRoute extends PageRouteInfo<void> {
+  const ExcursionWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          ExcursionWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ExcursionWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -442,6 +500,140 @@ class SplashRoute extends PageRouteInfo<void> {
   static const String name = 'SplashRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TourCreateExcursionScreen]
+class TourCreateExcursionRoute
+    extends PageRouteInfo<TourCreateExcursionRouteArgs> {
+  TourCreateExcursionRoute({
+    Key? key,
+    required String name,
+    required String description,
+    required Address address,
+    required List<String> kinds,
+    required List<Weekday> weekdays,
+    required String imagePath,
+    required File? imageFile,
+    List<PageRouteInfo>? children,
+  }) : super(
+          TourCreateExcursionRoute.name,
+          args: TourCreateExcursionRouteArgs(
+            key: key,
+            name: name,
+            description: description,
+            address: address,
+            kinds: kinds,
+            weekdays: weekdays,
+            imagePath: imagePath,
+            imageFile: imageFile,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'TourCreateExcursionRoute';
+
+  static const PageInfo<TourCreateExcursionRouteArgs> page =
+      PageInfo<TourCreateExcursionRouteArgs>(name);
+}
+
+class TourCreateExcursionRouteArgs {
+  const TourCreateExcursionRouteArgs({
+    this.key,
+    required this.name,
+    required this.description,
+    required this.address,
+    required this.kinds,
+    required this.weekdays,
+    required this.imagePath,
+    required this.imageFile,
+  });
+
+  final Key? key;
+
+  final String name;
+
+  final String description;
+
+  final Address address;
+
+  final List<String> kinds;
+
+  final List<Weekday> weekdays;
+
+  final String imagePath;
+
+  final File? imageFile;
+
+  @override
+  String toString() {
+    return 'TourCreateExcursionRouteArgs{key: $key, name: $name, description: $description, address: $address, kinds: $kinds, weekdays: $weekdays, imagePath: $imagePath, imageFile: $imageFile}';
+  }
+}
+
+/// generated route for
+/// [TourCreateScreen]
+class TourCreateRoute extends PageRouteInfo<void> {
+  const TourCreateRoute({List<PageRouteInfo>? children})
+      : super(
+          TourCreateRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TourCreateRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TourCreateWrapperScreen]
+class TourCreateWrapperRoute extends PageRouteInfo<void> {
+  const TourCreateWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          TourCreateWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TourCreateWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TourScreen]
+class TourRoute extends PageRouteInfo<TourRouteArgs> {
+  TourRoute({
+    Key? key,
+    required ITour tour,
+    List<PageRouteInfo>? children,
+  }) : super(
+          TourRoute.name,
+          args: TourRouteArgs(
+            key: key,
+            tour: tour,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'TourRoute';
+
+  static const PageInfo<TourRouteArgs> page = PageInfo<TourRouteArgs>(name);
+}
+
+class TourRouteArgs {
+  const TourRouteArgs({
+    this.key,
+    required this.tour,
+  });
+
+  final Key? key;
+
+  final ITour tour;
+
+  @override
+  String toString() {
+    return 'TourRouteArgs{key: $key, tour: $tour}';
+  }
 }
 
 /// generated route for

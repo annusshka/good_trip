@@ -47,7 +47,7 @@ class CreatedExcursionsScreen extends StatelessWidget {
               ),
               itemBuilder: (context, i) {
                 return ExcursionCreateListElement(
-                    tour: state.excursionList[i], iconSize: height * 0.3 * 0.3);
+                    excursion: state.excursionList[i], iconSize: height * 0.3 * 0.3);
               },
             );
           }

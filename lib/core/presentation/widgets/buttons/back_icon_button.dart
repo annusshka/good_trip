@@ -13,7 +13,7 @@ class BackIconButton extends StatelessWidget {
       icon: const Icon(Icons.arrow_back_ios),
       iconSize: iconSize,
       onPressed: () {
-        AutoRouter.of(context).back();
+        AutoRouter.of(context).maybePop();
       },
     );
   }

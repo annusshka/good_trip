@@ -1,13 +1,25 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/service/service.dart';
 
 class MockTourRepository implements ITourRepository {
-  MockTourRepository({required this.service});
-
   final TourService service;
+  final FlutterSecureStorage _storage;
+
+  MockTourRepository({
+    required this.service,
+    FlutterSecureStorage storage = const FlutterSecureStorage(
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    ),
+  }) : _storage = storage;
 
   static List<Tour> iTourList = [
     Tour(
@@ -43,7 +55,76 @@ class MockTourRepository implements ITourRepository {
           'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
           'французской императрицы Жозефины.',
       isLiked: false,
-      excursionList: [],
+      excursionList: [
+        AudioExcursion(
+          id: '2',
+          name: 'Аудио-тур №2',
+          imageUrl: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
+          address: const Address(
+            coordinates: Point(lon: 51.4, lat: 39.12),
+            country: 'Россия',
+            city: 'Воронеж',
+            street: 'Московский пр-кт',
+          ),
+          kinds: [
+            TourType.archaeology.displayText,
+            TourType.amusements.displayText,
+            TourType.cultural.displayText,
+          ],
+          weekdays: [Weekday.monday, Weekday.friday],
+          description:
+              'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+              'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
+              'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
+              'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
+              'раскроете, почему Петр I выбрал для строительства флота именно наш город. А '
+              'также отыщете лечебный стул в Платоновском сквере и оцените современный '
+              'символ Воронежа — памятник котенку с улицы Лизюкова.\nДворец Ольденбургских\n'
+              'Мы погуляем по территории бывшей резиденции Ольденбургских. Я покажу '
+              'неоготический дворец в староанглийском стиле, ворота с башней и старинный '
+              'флигель. Расскажу о семье принцев Ольденбургских и их роли в общественной '
+              'жизни России, о любви багрянородной княжны Романовой и прославленного '
+              'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
+              'французской императрицы Жозефины.',
+          isLiked: false,
+          audioUrl:
+              'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+        ),
+        AudioExcursion(
+          id: '2',
+          name: 'Аудио-тур №2',
+          imageUrl: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
+          address: const Address(
+            coordinates: Point(lon: 51.4, lat: 39.12),
+            country: 'Россия',
+            city: 'Воронеж',
+            street: 'Московский пр-кт',
+          ),
+          kinds: [
+            TourType.archaeology.displayText,
+            TourType.amusements.displayText,
+            TourType.cultural.displayText,
+          ],
+          weekdays: [Weekday.monday, Weekday.friday],
+          description:
+              'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+              'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
+              'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
+              'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
+              'раскроете, почему Петр I выбрал для строительства флота именно наш город. А '
+              'также отыщете лечебный стул в Платоновском сквере и оцените современный '
+              'символ Воронежа — памятник котенку с улицы Лизюкова.\nДворец Ольденбургских\n'
+              'Мы погуляем по территории бывшей резиденции Ольденбургских. Я покажу '
+              'неоготический дворец в староанглийском стиле, ворота с башней и старинный '
+              'флигель. Расскажу о семье принцев Ольденбургских и их роли в общественной '
+              'жизни России, о любви багрянородной княжны Романовой и прославленного '
+              'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
+              'французской императрицы Жозефины.',
+          isLiked: false,
+          audioUrl:
+              'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+        ),
+      ],
     ),
     Tour(
       id: '2',
@@ -347,8 +428,7 @@ class MockTourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<Tour>> getCreatedToursByAdmin(
-      {int offset = 0}) async {
+  Future<List<Tour>> getCreatedToursByAdmin({int offset = 0}) async {
     try {
       return iTourList;
     } on DioException catch (error) {
@@ -441,5 +521,48 @@ class MockTourRepository implements ITourRepository {
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  @override
+  Future<int> getViewedExcursionCount({required String tourId}) async {
+    final count = await _storage.read(
+      key: 'tour_$tourId',
+    );
+    return int.tryParse(count ?? '0') ?? 0;
+  }
+
+  @override
+  Future<void> viewExcursions({
+    required String tourId,
+    required int excursionCount,
+  }) async {
+    await _storage.write(
+      key: 'tour_$tourId',
+      value: jsonEncode(excursionCount),
+    );
+  }
+
+  @override
+  Future<void> saveTour({
+    required String name,
+    required String imagePath,
+    required List<Weekday> weekdays,
+    required String description,
+    required List<String> kinds,
+    required Address address,
+    required File? imageFile,
+    required List<IExcursion> excursionList,
+  }) async {
+    final tour = Tour(
+      id: (iTourList.length + 1).toString(),
+      name: name,
+      imageUrl: iTourList[0].imageUrl,
+      weekdays: weekdays,
+      description: description,
+      address: address,
+      kinds: kinds,
+      excursionList: excursionList as List<AudioExcursion>,
+    );
+    iTourList.add(tour);
   }
 }

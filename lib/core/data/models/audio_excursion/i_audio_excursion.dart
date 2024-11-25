@@ -1,7 +1,6 @@
 import 'package:good_trip/core/data/models/models.dart';
 
 abstract class IAudioExcursion extends IExcursion {
-
   IAudioExcursion({
     required String id,
     required String name,
@@ -26,9 +25,4 @@ abstract class IAudioExcursion extends IExcursion {
   );
 
   final String audioUrl;
-
-  @override
-  String getWeekdays() {
-    return "${weekdays?.map((el) => el.displayTitle).join(', ')}";
-  }
 }

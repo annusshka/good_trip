@@ -3,23 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
-import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
-import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
-
-import 'widgets/tour_create_list_element.dart';
+import 'package:good_trip/features/excursion_create_list/presentation/widgets/excursion_list.dart';
+import 'package:good_trip/features/excursion_create_list/presentation/widgets/tour_list.dart';
 
 @RoutePage()
-class ExcursionCreateListScreen extends StatelessWidget {
+class ExcursionCreateListScreen extends StatefulWidget {
   const ExcursionCreateListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
-    double height = MediaQuery.sizeOf(context).height;
+  State<ExcursionCreateListScreen> createState() => _ExcursionCreateListScreenState();
+}
 
+class _ExcursionCreateListScreenState extends State<ExcursionCreateListScreen> with SingleTickerProviderStateMixin {
+
+  late final _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocListener<ExcursionCreateBloc, ExcursionCreateState>(
       listener: (BuildContext context, ExcursionCreateState state) {
         if (state is ExcursionCreatedSuccess ||
@@ -29,108 +43,46 @@ class ExcursionCreateListScreen extends StatelessWidget {
           );
         }
       },
-      child: DefaultTabController(
-        length: 2,
+      child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            //backgroundColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
-            title: const Text(
-              'Мои экскурсии',
-              style: AppTextTheme.semiBold26,
-            ),
-            bottom: TabBar(
-              indicatorColor: AppColors.pink,
-              labelStyle: AppTextTheme.medium14.copyWith(
-                color: AppColors.pink,
-              ),
-              unselectedLabelStyle: AppTextTheme.medium14.copyWith(
-                color: AppColors.gray,
-              ),
-              tabs: [
-                const Tab(
-                  text: 'Экскурсии',
-                ),
-                const Tab(
-                  text: 'Туры',
-                ),
+            flexibleSpace: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TabBar(
+                  controller: _tabController,
+                  indicatorColor: AppColors.pink,
+                  labelStyle: AppTextTheme.semiBold18.copyWith(
+                    color: AppColors.pink,
+                  ),
+                  unselectedLabelStyle: AppTextTheme.semiBold18.copyWith(
+                    color: AppColors.lightGray,
+                  ),
+                  tabs: [
+                    const Tab(
+                      text: 'Мои экскурсии',
+                    ),
+                    const Tab(
+                      text: 'Мои туры',
+                    ),
+                  ],
+                )
               ],
             ),
           ),
           body: TabBarView(
+            controller: _tabController,
             children: [
-              BlocBuilder<ExcursionCreateListBloc, ExcursionCreateListState>(
-                builder: (context, state) {
-                  if (state is ExcursionCreateListLoadedSuccess) {
-                    if (state.excursionList.isEmpty) {
-                      return const EmptyList();
-                    }
-                    return ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.05,
-                        vertical: 15.0,
-                      ),
-                      itemCount: state.excursionList.length,
-                      separatorBuilder: (BuildContext context, _) => SizedBox(
-                        height: height * 0.03,
-                      ),
-                      itemBuilder: (context, i) {
-                        return ExcursionCreateListElement(
-                          tour: state.excursionList[i],
-                          iconSize: height * 0.3 * 0.3,
-                        );
-                      },
-                    );
-                  }
-                  if (state is ExcursionCreateListLoadInProgress) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
-              BlocBuilder<TourCreateListBloc, TourCreateListState>(
-                builder: (context, state) {
-                  if (state is TourCreateListLoadedSuccess) {
-                    if (state.tourList.isEmpty) {
-                      return const EmptyList();
-                    }
-                    return ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.05,
-                        vertical: 15.0,
-                      ),
-                      itemCount: state.tourList.length,
-                      separatorBuilder: (BuildContext context, _) => SizedBox(
-                        height: height * 0.03,
-                      ),
-                      itemBuilder: (context, i) {
-                        return TourCreateListElement(
-                          tour: state.tourList[i],
-                          iconSize: height * 0.3 * 0.3,
-                        );
-                      },
-                    );
-                  }
-                  if (state is TourCreateListLoadInProgress) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+              const ExcursionList(),
+              const TourList(),
             ],
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.pink,
-            onPressed: () {
-              AutoRouter.of(context).push(const ExcursionCreateRoute());
-            },
+            onPressed: _openCreateScreen,
             child: const Icon(
               Icons.add,
               color: AppColors.white,
@@ -139,5 +91,15 @@ class ExcursionCreateListScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _openCreateScreen() {
+    final actualTab = _tabController.index;
+
+    if (actualTab == 0) {
+      AutoRouter.of(context).push(const ExcursionCreateRoute());
+    } else {
+      AutoRouter.of(context).push(const TourCreateRoute());
+    }
   }
 }

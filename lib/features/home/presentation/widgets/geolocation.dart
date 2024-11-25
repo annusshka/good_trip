@@ -45,7 +45,9 @@ class _GeolocationState extends State<Geolocation> {
             ),
             Text(
               '${widget.locationInfo.temperature.toString()}°C',
-              style: AppTextTheme.normal16,
+              style: AppTextTheme.semiBold16.copyWith(
+                color: AppColors.darkGray,
+              ),
             ),
           ],
         ),

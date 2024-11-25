@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth.dart';
+import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_info.dart';
 import 'package:good_trip/features/account/presentation/widgets/profile_settings_list.dart';
@@ -54,7 +55,7 @@ class AccountScreen extends StatelessWidget {
                         builder: (context, state) {
                           return const Text(
                             'Выйти',
-                            style: AppTextTheme.normal16,
+                            style: AppTextTheme.semiBold16,
                           );
                         },
                       ),
