@@ -9,7 +9,7 @@ import 'image_state.dart';
 class ImageCubit extends Cubit<ImageState> {
   ImageCubit() : super(const ImageState(imagePath: null, image: null));
 
-  void pickImageFromGallery() async {
+  Future<void> pickImageFromGallery() async {
     try {
       final pickedImage =
           await ImagePicker().pickImage(source: ImageSource.gallery);

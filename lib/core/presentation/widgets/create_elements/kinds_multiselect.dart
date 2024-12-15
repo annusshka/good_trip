@@ -64,7 +64,7 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
                               cubit.selectKinds(item);
                               isSelected = !isSelected;
                             });
-                            widget.onKindsSelected(state.kindList);
+                            widget.onKindsSelected(cubit.state.kindList);
                           },
                           child: Container(
                             height: double.infinity,

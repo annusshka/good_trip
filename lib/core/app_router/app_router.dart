@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:day_picker/model/day_in_week.dart';
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/app_router/routes/account_list_router.dart';
 import 'package:good_trip/core/app_router/routes/created_excursions_router.dart';

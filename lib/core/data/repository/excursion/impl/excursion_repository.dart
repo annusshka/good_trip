@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:good_trip/core/data/mapper/mapper.dart';
+import 'package:good_trip/core/data/mapper/tour_mapper.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';

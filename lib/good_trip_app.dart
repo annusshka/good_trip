@@ -6,7 +6,7 @@ import 'package:good_trip/core/presentation/bloc/auth/auth.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
 import 'package:good_trip/core/theme/strings.dart';
 import 'package:good_trip/core/theme/theme.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
+import 'package:good_trip/di/set_up_locator.dart';
 
 class GoodTripApp extends StatefulWidget {
   const GoodTripApp({super.key});

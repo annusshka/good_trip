@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:day_picker/day_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:good_trip/core/data/mapper/mapper_export.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -546,18 +548,18 @@ class MockTourRepository implements ITourRepository {
   Future<void> saveTour({
     required String name,
     required String imagePath,
-    required List<Weekday> weekdays,
+    required List<DayInWeek> weekdays,
     required String description,
     required List<String> kinds,
     required Address address,
     required File? imageFile,
-    required List<IExcursion> excursionList,
+    required List<IAudioExcursion> excursionList,
   }) async {
     final tour = Tour(
       id: (iTourList.length + 1).toString(),
       name: name,
       imageUrl: iTourList[0].imageUrl,
-      weekdays: weekdays,
+      weekdays: mapToWeekdayList(weekdays),
       description: description,
       address: address,
       kinds: kinds,

@@ -115,7 +115,7 @@ AudioExcursion mapDtoToAudioExcursion(AudioExcursionDto dto) {
   );
 }
 
-AudioExcursionDto mapAudioExcursionToDto(AudioExcursion audioExcursion) {
+AudioExcursionDto mapAudioExcursionToDto(IAudioExcursion audioExcursion) {
   return AudioExcursionDto(
     id: audioExcursion.id,
     name: audioExcursion.name,
@@ -131,7 +131,7 @@ AudioExcursionDto mapAudioExcursionToDto(AudioExcursion audioExcursion) {
 }
 
 List<AudioExcursionDto> mapAudioExcursionListToDto(
-  List<AudioExcursion> tourList,
+  List<IAudioExcursion> tourList,
 ) {
   return tourList.map(mapAudioExcursionToDto).toList();
 }
@@ -162,7 +162,7 @@ TourDto mapTourToDto(Tour tour) {
     id: tour.id,
     name: tour.name,
     imageUrl: tour.imageUrl,
-    address: mapAddressToDto(tour.address as Address),
+    address: mapAddressToDto(tour.address),
     weekdays: tour.weekdays,
     description: tour.description,
     kinds: tour.kinds,
@@ -182,40 +182,4 @@ List<Tour> mapDtoToTours(
   List<TourDto> tourList,
 ) {
   return tourList.map(mapDtoToTour).toList();
-}
-
-User mapDtoToUser(UserDto dto) {
-  return User(
-    id: dto.id,
-    name: dto.name,
-    email: dto.email,
-    surname: dto.surname,
-    phone: dto.phone,
-    password: dto.password,
-    role: dto.role,
-  );
-}
-
-UserDto mapUserToDto(User user) {
-  return UserDto(
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    surname: user.surname,
-    phone: user.phone,
-    password: user.password,
-    role: user.role,
-  );
-}
-
-List<UserDto> mapUserListToDto(
-  List<User> users,
-) {
-  return users.map(mapUserToDto).toList();
-}
-
-List<User> mapDtoToUserList(
-  List<UserDto> users,
-) {
-  return users.map(mapDtoToUser).toList();
 }

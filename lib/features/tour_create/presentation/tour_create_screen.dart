@@ -1,16 +1,14 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:day_picker/model/day_in_week.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/create_elements/create_elements.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
-import 'package:good_trip/features/tour_create/presentation/tour_create_excursion_screen.dart';
 
 @RoutePage()
 class TourCreateScreen extends StatefulWidget {
@@ -29,7 +27,7 @@ class _TourCreateScreenState extends State<TourCreateScreen> {
   final _houseController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
-  late List<Weekday> weekdays;
+  late List<DayInWeek> weekdays;
   late String? imagePath;
   late File? imageFile;
   late String? audioPath;
@@ -52,6 +50,7 @@ class _TourCreateScreenState extends State<TourCreateScreen> {
     final double height = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -356,7 +355,7 @@ class _TourCreateScreenState extends State<TourCreateScreen> {
                   height: 10,
                 ),
                 WeekdayWidget(
-                  weekDaysSelect: (List<Weekday> weekdayList) {
+                  weekDaysSelect: (List<DayInWeek> weekdayList) {
                     weekdays = weekdayList;
                   },
                 ),

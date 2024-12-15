@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
-import 'configure_dependencies.dart';
 import 'locator.dart';
+import 'set_up_locator.dart';
 
 Future<GetIt> configureContainer() async {
   setUpLocator();

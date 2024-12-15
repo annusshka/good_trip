@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
-import 'package:good_trip/core/data/mapper/mapper.dart';
+import 'package:good_trip/core/data/mapper/tour_mapper.dart';
 import 'package:good_trip/core/data/models/api_tour/api_tour_dto.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';

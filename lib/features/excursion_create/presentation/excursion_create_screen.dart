@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:day_picker/day_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -28,7 +29,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
   final _houseController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
-  late List<Weekday> weekdays;
+  late List<DayInWeek> weekdays;
   late String? imagePath;
   late File? imageFile;
   late String? audioPath;
@@ -365,7 +366,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                   height: 10,
                 ),
                 WeekdayWidget(
-                  weekDaysSelect: (List<Weekday> weekdayList) {
+                  weekDaysSelect: (List<DayInWeek> weekdayList) {
                     weekdays = weekdayList;
                   },
                 ),

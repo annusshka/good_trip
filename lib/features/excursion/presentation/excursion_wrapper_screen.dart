@@ -5,7 +5,7 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/audio_excursion/audio_excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
+import 'package:good_trip/di/set_up_locator.dart';
 
 @RoutePage()
 class ExcursionWrapperScreen extends StatelessWidget implements AutoRouteWrapper {

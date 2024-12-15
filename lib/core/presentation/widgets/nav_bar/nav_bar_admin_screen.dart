@@ -6,7 +6,7 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
+import 'package:good_trip/di/set_up_locator.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import 'nav_bar_element.dart';

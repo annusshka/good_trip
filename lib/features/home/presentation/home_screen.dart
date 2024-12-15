@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/location_info.dart';
 import 'package:good_trip/core/presentation/bloc/audio_excursion/audio_excursion.dart';
@@ -53,6 +54,9 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: AppBar(
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: AppColors.white,
+          ),
           scrolledUnderElevation: 0,
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,

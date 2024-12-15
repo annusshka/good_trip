@@ -23,7 +23,7 @@ abstract class ITour {
   final List<String> kinds;
   bool isLiked;
   final String? deeplinkUrl;
-  final List<AudioExcursion> excursionList;
+  final List<IAudioExcursion> excursionList;
 
   String getWeekdays();
 

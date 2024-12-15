@@ -5,10 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/audio_excursion/audio_excursion.dart';
 import 'package:good_trip/core/data/models/excursion/i_excursion.dart';
-import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
 import 'package:good_trip/features/tour/presentation/widgets/excursion_card.dart';
 
 import '../bloc/viewed_excursions/viewed_excursions.dart';
@@ -62,22 +60,21 @@ class ExcursionList extends StatelessWidget {
               children: [
                 Container(
                   width: 30,
+                  height: 178.0,
                   child: Column(
                     children: [
-                      if (index != 0)
-                        Expanded(
-                          child: DottedLine(
-                            direction: Axis.vertical,
-                            dashColor: actualColor2,
-                          ),
-                        )
-                      else
-                        const SizedBox(
-                          height: 75,
-                        ),
-                      const SizedBox(
-                        height: 5,
+                      SizedBox(
+                        height: 75,
+                        child: index != 0
+                            ? Expanded(
+                                child: DottedLine(
+                                  direction: Axis.vertical,
+                                  dashColor: actualColor2,
+                                ),
+                              )
+                            : null,
                       ),
+                      const Spacer(),
                       Container(
                         height: 20,
                         width: 20,
@@ -95,20 +92,18 @@ class ExcursionList extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 5,
+                      const Spacer(),
+                      SizedBox(
+                        height: 75,
+                        child: index != excursionList.length - 1
+                            ? Expanded(
+                                child: DottedLine(
+                                  direction: Axis.vertical,
+                                  dashColor: actualColor2,
+                                ),
+                              )
+                            : null,
                       ),
-                      if (index != excursionList.length - 1)
-                        Expanded(
-                          child: DottedLine(
-                            direction: Axis.vertical,
-                            dashColor: actualColor,
-                          ),
-                        )
-                      else
-                        const SizedBox(
-                          height: 75,
-                        ),
                     ],
                   ),
                 ),
@@ -128,7 +123,8 @@ class ExcursionList extends StatelessWidget {
                       AutoRouter.of(context).navigate(
                           ExcursionRoute(excursion: excursionList[index]));
                     },
-                    child: ExcursionCard(excursion: excursionList[index] as AudioExcursion),
+                    child: ExcursionCard(
+                        excursion: excursionList[index] as AudioExcursion),
                   ),
                 ),
               ],

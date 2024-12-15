@@ -47,8 +47,9 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
         );
         emit(TourCreatedSuccess());
       }
-    } catch (_) {
+    } catch (e) {
       emit(const TourCreateFailure(errorMsg: 'Error in tour create request.'));
+      debugPrint('Error in tour create request. ${e.toString()}');
     }
 
     // final WeekdayCubit weekdayCubit = getIt.get<WeekdayCubit>();

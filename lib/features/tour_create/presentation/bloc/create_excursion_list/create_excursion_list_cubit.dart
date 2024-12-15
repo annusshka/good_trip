@@ -6,8 +6,8 @@ class CreateExcursionListCubit extends Cubit<CreateExcursionListState> {
   CreateExcursionListCubit()
       : super(const CreateExcursionListState(excursionList: []));
 
-  void createExcursionList(final IExcursion newExcursion) {
-    List<IExcursion> excursionList = List.from(state.excursionList);
+  void createExcursionList(final AudioExcursion newExcursion) {
+    List<AudioExcursion> excursionList = List.from(state.excursionList);
     excursionList.add(newExcursion);
     emit(CreateExcursionListState(excursionList: excursionList,));
   }

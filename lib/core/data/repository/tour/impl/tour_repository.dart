@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:day_picker/day_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:good_trip/core/data/mapper/mapper.dart';
+import 'package:good_trip/core/data/mapper/tour_mapper.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -183,7 +184,16 @@ class TourRepository implements ITourRepository {
   }
 
   @override
-  Future<void> saveTour({required String name, required String imagePath, required List<Weekday> weekdays, required String description, required List<String> kinds, required Address address, required File? imageFile, required List<IExcursion> excursionList}) {
+  Future<void> saveTour({
+    required String name,
+    required String imagePath,
+    required List<DayInWeek> weekdays,
+    required String description,
+    required List<String> kinds,
+    required Address address,
+    required File? imageFile,
+    required List<IAudioExcursion> excursionList,
+  }) {
     // TODO: implement saveTour
     throw UnimplementedError();
   }

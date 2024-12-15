@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
@@ -10,7 +9,7 @@ import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
 import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_element.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
+import 'package:good_trip/di/set_up_locator.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 

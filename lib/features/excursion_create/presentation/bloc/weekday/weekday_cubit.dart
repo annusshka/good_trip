@@ -6,44 +6,50 @@ import 'weekday_state.dart';
 
 class WeekdayCubit extends Cubit<WeekdayState> {
   WeekdayCubit()
-      : super(WeekdayState(weekdayList: [], days: [
-          DayInWeek(
-            'Пн',
-            dayKey: Weekday.monday.name,
+      : super(
+          WeekdayState(
+            days: [
+              DayInWeek(
+                'Пн',
+                dayKey: Weekday.monday.name,
+              ),
+              DayInWeek(
+                'Вт',
+                dayKey: Weekday.tuesday.name,
+              ),
+              DayInWeek(
+                'Ср',
+                dayKey: Weekday.wednesday.name,
+              ),
+              DayInWeek(
+                'Чт',
+                dayKey: Weekday.thursday.name,
+              ),
+              DayInWeek(
+                'Пт',
+                dayKey: Weekday.friday.name,
+              ),
+              DayInWeek(
+                'Сб',
+                dayKey: Weekday.saturday.name,
+              ),
+              DayInWeek(
+                'Вс',
+                dayKey: Weekday.sunday.name,
+              ),
+            ],
           ),
-          DayInWeek(
-            'Вт',
-            dayKey: Weekday.tuesday.name,
-          ),
-          DayInWeek(
-            'Ср',
-            dayKey: Weekday.wednesday.name,
-          ),
-          DayInWeek(
-            'Чт',
-            dayKey: Weekday.thursday.name,
-          ),
-          DayInWeek(
-            'Пт',
-            dayKey: Weekday.friday.name,
-          ),
-          DayInWeek(
-            'Сб',
-            dayKey: Weekday.saturday.name,
-          ),
-          DayInWeek(
-            'Вс',
-            dayKey: Weekday.sunday.name,
-          ),
-        ]));
+        );
 
   void selectDay(final String name) {
-    DayInWeek selectedDay =
-        state.days.firstWhere((value) => value.dayName.contains(name));
-    final index = state.days.indexOf(selectedDay);
+    // DayInWeek selectedDay =
+    //     state.days.firstWhere((value) => value.dayName.contains(name));
+    // final index = state.days.indexOf(selectedDay);
+    final index = state.days.indexWhere((value) => value.dayName.contains(name));
+    DayInWeek selectedDay = state.days[index];
     selectedDay.isSelected = !selectedDay.isSelected;
     state.days.replaceRange(index, index + 1, [selectedDay]);
-    emit(WeekdayState(weekdayList: state.weekdayList, days: state.days));
+    emit(WeekdayState(days: state.days));
   }
 
   void clearWeekdays() {

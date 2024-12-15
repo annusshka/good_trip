@@ -4,30 +4,40 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tour.g.dart';
 
 @JsonSerializable()
-class Tour extends ITour {
+class Tour implements ITour {
   Tour({
-    required String id,
-    required String name,
-    String? imageUrl,
-    required Address address,
-    List<Weekday>? weekdays,
-    String? description,
-    required List<String> kinds,
-    bool isLiked = false,
-    String? deeplinkUrl,
-    required List<AudioExcursion> excursionList,
-  }) : super(
-          id: id,
-          name: name,
-          imageUrl: imageUrl,
-          address: address,
-          weekdays: weekdays,
-          description: description,
-          kinds: kinds,
-          isLiked: isLiked,
-          deeplinkUrl: deeplinkUrl,
-          excursionList: excursionList,
-        );
+    required this.id,
+    required this.name,
+    this.imageUrl,
+    required this.address,
+    this.weekdays,
+    this.description,
+    required this.kinds,
+    this.isLiked = false,
+    this.deeplinkUrl,
+    required this.excursionList,
+  });
+
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final String? imageUrl;
+  @override
+  final Address address;
+  @override
+  final List<Weekday>? weekdays;
+  @override
+  final String? description;
+  @override
+  final List<String> kinds;
+  @override
+  bool isLiked;
+  @override
+  final String? deeplinkUrl;
+  @override
+  final List<AudioExcursion> excursionList;
 
   Map<String, dynamic> toJson() => _$TourToJson(this);
 
@@ -47,8 +57,12 @@ class Tour extends ITour {
 
   @override
   String getAddressDetails() {
-    return (address.street != null ? '${address.street}' : '') +
-        (address.house != null ? ', ${address.house}' : '');
+    return (address.street != null && address.street!.isNotEmpty
+            ? '${address.street}'
+            : '') +
+        (address.house != null && address.house!.isNotEmpty
+            ? ', ${address.house}'
+            : '');
   }
 
   @override

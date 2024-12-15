@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
+import 'package:good_trip/di/set_up_locator.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
 
 @RoutePage()

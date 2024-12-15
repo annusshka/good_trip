@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:good_trip/core/data/mapper/mapper.dart';
+import 'package:good_trip/core/data/mapper/mapper_export.dart';
 import 'package:good_trip/core/data/models/exception/account_list_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/features/account_list/data/repository/i_account_list_repository.dart';

@@ -25,7 +25,7 @@ class AudioPickerWidget extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             cubit.handleAudioFromFiles();
-            onChooseAudio(state.audioPath, state.audio);
+            onChooseAudio(cubit.state.audioPath, cubit.state.audio);
           },
           child: SizedBox(
             height: height * 0.1,

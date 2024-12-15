@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:day_picker/day_picker.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
@@ -35,7 +35,7 @@ class TourCreateExcursionScreen extends StatefulWidget {
   final String imagePath;
   final File? imageFile;
   final List<String> kinds;
-  final List<Weekday> weekdays;
+  final List<DayInWeek> weekdays;
 
   @override
   State<TourCreateExcursionScreen> createState() =>
@@ -50,6 +50,7 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
     final double height = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -71,152 +72,149 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
               horizontal: 16.0,
               //vertical: 8.0,
             ),
-            child: BlocBuilder<CreateExcursionListCubit,
-                    CreateExcursionListState>(
-                bloc: cubit,
-                builder: (context2, state) {
-                  return Column(
-                    children: [
-                      ListView.builder(
-                        padding: EdgeInsets.zero,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          late final Color actualColor;
-                          late final Color actualColor2;
+            child:
+                BlocBuilder<CreateExcursionListCubit, CreateExcursionListState>(
+              bloc: cubit,
+              builder: (context2, state) {
+                return Column(
+                  children: [
+                    ListView.builder(
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        late final Color actualColor;
+                        late final Color actualColor2;
 
-                          if (index < state.excursionList.length) {
-                            actualColor = AppColors.pink;
-                          } else {
-                            actualColor = AppColors.lightGray;
-                          }
+                        if (index < state.excursionList.length) {
+                          actualColor = AppColors.pink;
+                        } else {
+                          actualColor = AppColors.lightGray;
+                        }
 
-                          if (index <= state.excursionList.length) {
-                            actualColor2 = AppColors.pink;
-                          } else {
-                            actualColor2 = AppColors.lightGray;
-                          }
+                        if (index <= state.excursionList.length) {
+                          actualColor2 = AppColors.pink;
+                        } else {
+                          actualColor2 = AppColors.lightGray;
+                        }
 
-                          return SizedBox(
-                            height: 178.0,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 30,
-                                  child: Column(
-                                    children: [
-                                      if (index != 0)
-                                        Expanded(
-                                          child: DottedLine(
-                                            direction: Axis.vertical,
-                                            dashColor: actualColor2,
-                                          ),
-                                        )
-                                      else
-                                        const SizedBox(height: 75),
-                                      const SizedBox(height: 5),
-                                      Container(
-                                        height: 20,
-                                        width: 20,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: actualColor,
+                        return SizedBox(
+                          height: 178.0,
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 30,
+                                child: Column(
+                                  children: [
+                                    if (index != 0)
+                                      Expanded(
+                                        child: DottedLine(
+                                          direction: Axis.vertical,
+                                          dashColor: actualColor2,
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            '${index + 1}',
-                                            textAlign: TextAlign.center,
-                                            style: AppTextTheme.semiBold15
-                                                .copyWith(
-                                              color: AppColors.white,
-                                            ),
+                                      )
+                                    else
+                                      const SizedBox(height: 75),
+                                    const SizedBox(height: 5),
+                                    Container(
+                                      height: 20,
+                                      width: 20,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: actualColor,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '${index + 1}',
+                                          textAlign: TextAlign.center,
+                                          style:
+                                              AppTextTheme.semiBold15.copyWith(
+                                            color: AppColors.white,
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(height: 5),
-                                      if (index != state.excursionList.length)
-                                        Expanded(
-                                          child: DottedLine(
-                                            direction: Axis.vertical,
-                                            dashColor: actualColor,
-                                          ),
-                                        )
-                                      else
-                                        const SizedBox(height: 73),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(width: 10.0),
-                                Expanded(
-                                  child: index != state.excursionList.length
-                                      ? ExcursionCard(
-                                          excursion: state.excursionList[index]
-                                              as AudioExcursion,
-                                        )
-                                      : AddExcursionCard(
-                                          onTapAction: (newExcursion) {
-                                            cubit.createExcursionList(
-                                              newExcursion,
-                                            );
-                                            context.router.maybePop();
-                                          },
+                                    ),
+                                    const SizedBox(height: 5),
+                                    if (index != state.excursionList.length)
+                                      Expanded(
+                                        child: DottedLine(
+                                          direction: Axis.vertical,
+                                          dashColor: actualColor,
                                         ),
+                                      )
+                                    else
+                                      const SizedBox(height: 73),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: state.excursionList.length + 1,
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Container(
-                          color: AppColors.pink,
-                          width: double.infinity,
-                          height: height * 0.08,
-                          child: BlocBuilder<TourCreateBloc, TourCreateState>(
-                            builder: (context1, tourCreateState) {
-                              if (state is TourCreatedSuccess) {
-                                BlocProvider.of<TourCreateListBloc>(context1)
-                                    .add(const TourCreateListRequested());
-                                context.router.maybePop();
-                                //context.router.maybePop();
-                              }
-                              return TextButton(
-                                onPressed: () {
-                                  if (state.excursionList.isNotEmpty) {
-                                    BlocProvider.of<TourCreateBloc>(context1)
-                                        .add(
-                                      TourCreateRequested(
-                                        name: widget.name,
-                                        description: widget.description,
-                                        address: widget.address,
-                                        kinds: widget.kinds,
-                                        imagePath: widget.imagePath,
-                                        imageFile: widget.imageFile,
-                                        weekdays: widget.weekdays,
-                                        excursionList: state.excursionList,
+                              ),
+                              const SizedBox(width: 10.0),
+                              Expanded(
+                                child: index != state.excursionList.length
+                                    ? ExcursionCard(
+                                        excursion: state.excursionList[index],
+                                      )
+                                    : AddExcursionCard(
+                                        onTapAction: (newExcursion) {
+                                          cubit.createExcursionList(
+                                            newExcursion as AudioExcursion,
+                                          );
+                                          context.router.maybePop();
+                                        },
                                       ),
-                                    );
-                                    context.router.back();
-                                    context.router.back();
-                                  }
-                                },
-                                child: Text(
-                                  'Создать',
-                                  style: AppTextTheme.semiBold18.copyWith(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              );
-                            },
+                              ),
+                            ],
                           ),
+                        );
+                      },
+                      itemCount: state.excursionList.length + 1,
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Container(
+                        color: AppColors.pink,
+                        width: double.infinity,
+                        height: height * 0.08,
+                        child: BlocBuilder<TourCreateBloc, TourCreateState>(
+                          builder: (context1, tourCreateState) {
+                            if (state is TourCreatedSuccess) {
+                              BlocProvider.of<TourCreateListBloc>(context1)
+                                  .add(const TourCreateListRequested());
+                              context.router.maybePop();
+                            }
+                            return TextButton(
+                              onPressed: () {
+                                if (state.excursionList.isNotEmpty) {
+                                  BlocProvider.of<TourCreateBloc>(context1).add(
+                                    TourCreateRequested(
+                                      name: widget.name,
+                                      description: widget.description,
+                                      address: widget.address,
+                                      kinds: widget.kinds,
+                                      imagePath: widget.imagePath,
+                                      imageFile: widget.imageFile,
+                                      weekdays: widget.weekdays,
+                                      excursionList: state.excursionList,
+                                    ),
+                                  );
+                                  context.router.back();
+                                  context.router.back();
+                                }
+                              },
+                              child: Text(
+                                'Создать',
+                                style: AppTextTheme.semiBold18.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
-                    ],
-                  );
-                }),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

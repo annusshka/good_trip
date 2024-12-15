@@ -512,7 +512,7 @@ class TourCreateExcursionRoute
     required String description,
     required Address address,
     required List<String> kinds,
-    required List<Weekday> weekdays,
+    required List<DayInWeek> weekdays,
     required String imagePath,
     required File? imageFile,
     List<PageRouteInfo>? children,
@@ -559,7 +559,7 @@ class TourCreateExcursionRouteArgs {
 
   final List<String> kinds;
 
-  final List<Weekday> weekdays;
+  final List<DayInWeek> weekdays;
 
   final String imagePath;
 

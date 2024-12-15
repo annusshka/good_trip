@@ -9,7 +9,7 @@ import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/theme.dart';
-import 'package:good_trip/di/configure_dependencies.dart';
+import 'package:good_trip/di/set_up_locator.dart';
 
 @RoutePage()
 class SplashScreen extends StatelessWidget {

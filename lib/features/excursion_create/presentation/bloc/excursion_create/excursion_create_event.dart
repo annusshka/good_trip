@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:day_picker/day_picker.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -14,7 +15,7 @@ abstract class ExcursionCreateEvent extends Equatable {
 class ExcursionCreateRequested extends ExcursionCreateEvent {
   final String name;
   final String imagePath;
-  final List<Weekday> weekdays;
+  final List<DayInWeek> weekdays;
   final String description;
   final List<String> kinds;
   final Address address;

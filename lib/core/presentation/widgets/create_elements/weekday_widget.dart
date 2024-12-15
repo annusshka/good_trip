@@ -1,6 +1,6 @@
+import 'package:day_picker/day_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/data/models/enum/enum.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
@@ -11,7 +11,7 @@ class WeekdayWidget extends StatelessWidget {
     required this.weekDaysSelect,
   });
 
-  final Function(List<Weekday>) weekDaysSelect;
+  final Function(List<DayInWeek>) weekDaysSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class WeekdayWidget extends StatelessWidget {
                         ),
                         onPressed: () {
                           cubit.selectDay(day.dayName);
-                          weekDaysSelect(state.weekdayList ?? []);
+                          weekDaysSelect(days);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

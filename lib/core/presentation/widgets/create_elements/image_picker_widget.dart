@@ -23,9 +23,9 @@ class ImagePickerWidget extends StatelessWidget {
         final image = state.image;
 
         return GestureDetector(
-          onTap: () {
-            cubit.pickImageFromGallery();
-            onChooseImage(state.imagePath, state.image);
+          onTap: () async {
+            await cubit.pickImageFromGallery();
+            onChooseImage(cubit.state.imagePath, cubit.state.image);
           },
           child: SizedBox(
             height: height * 0.25,
