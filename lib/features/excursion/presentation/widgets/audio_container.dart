@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
-import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -32,9 +30,8 @@ class _AudioContainerState extends State<AudioContainer> {
 
   @override
   Widget build(BuildContext context) {
-    //_player.setFilePath(_audioFile.path);
-    final url = '$baseBDUrl/${widget.audioFilePath}';
-    _player.setUrl(url);
+    _player.setUrl(widget.audioFilePath);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -56,7 +53,9 @@ class _AudioContainerState extends State<AudioContainer> {
                 margin: const EdgeInsets.all(8.0),
                 width: 24,
                 height: 24,
-                child: const CircularProgressIndicator(color: AppColors.pink,),
+                child: const CircularProgressIndicator(
+                  color: AppColors.pink,
+                ),
               );
             } else if (playing != true) {
               return GestureDetector(
@@ -99,15 +98,14 @@ class _AudioContainerState extends State<AudioContainer> {
             final duration = snapshot.data ?? Duration.zero;
 
             return StreamBuilder<PositionData>(
-              stream:
-                  Rx.combineLatest2<Duration, Duration, PositionData>(
+              stream: Rx.combineLatest2<Duration, Duration, PositionData>(
                 _player.positionStream,
                 _player.bufferedPositionStream,
                 PositionData.new,
               ),
               builder: (context, snapshot) {
-                final positionData = snapshot.data ??
-                    PositionData(Duration.zero, Duration.zero);
+                final positionData =
+                    snapshot.data ?? PositionData(Duration.zero, Duration.zero);
                 var position = positionData.position;
                 if (position > duration) {
                   position = duration;

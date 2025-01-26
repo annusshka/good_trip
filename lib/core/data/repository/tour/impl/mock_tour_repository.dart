@@ -28,7 +28,7 @@ class MockTourRepository implements ITourRepository {
       id: '1',
       name: 'Аудио-тур №1',
       imageUrl:
-          'goodTrip_photo_%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D0%BD%D0%B0%D1%8F.jpg?updatedAt=1717931827900',
+          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_%D0%B2%D0%B8%D0%B7%D0%B8%D1%82%D0%BD%D0%B0%D1%8F.jpg?updatedAt=1717931827900',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -59,9 +59,9 @@ class MockTourRepository implements ITourRepository {
       isLiked: false,
       excursionList: [
         AudioExcursion(
-          id: '2',
-          name: 'Аудио-тур №2',
-          imageUrl: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
+          id: '1',
+          name: 'Аудио-экскурсия №1',
+          imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_2.jpg?updatedAt=1717931856240',
           address: const Address(
             coordinates: Point(lon: 51.4, lat: 39.12),
             country: 'Россия',
@@ -90,12 +90,12 @@ class MockTourRepository implements ITourRepository {
               'французской императрицы Жозефины.',
           isLiked: false,
           audioUrl:
-              'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+              'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
         ),
         AudioExcursion(
           id: '2',
-          name: 'Аудио-тур №2',
-          imageUrl: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
+          name: 'Аудио-экскурсия №2',
+          imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_2.jpg?updatedAt=1717931856240',
           address: const Address(
             coordinates: Point(lon: 51.4, lat: 39.12),
             country: 'Россия',
@@ -124,14 +124,14 @@ class MockTourRepository implements ITourRepository {
               'французской императрицы Жозефины.',
           isLiked: false,
           audioUrl:
-              'goodTrip_photo_%D0%AD%D1%85%D0%BE%20%D0%BF%D0%B5%D1%82%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D1%85%20%D0%B2%D1%80%D0%B5%D0%BC%C3%AB%D0%BD.m4a?updatedAt=1717934156492',
+              'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3',
         ),
       ],
     ),
     Tour(
       id: '2',
       name: 'Аудио-тур №2',
-      imageUrl: 'goodTrip_photo_2.jpg?updatedAt=1717931856240',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_2.jpg?updatedAt=1717931856240',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -164,7 +164,7 @@ class MockTourRepository implements ITourRepository {
     Tour(
       id: '3',
       name: 'Аудио-тур №3',
-      imageUrl: 'goodTrip_photo_5.jpg?updatedAt=1717931868349',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_5.jpg?updatedAt=1717931868349',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -197,7 +197,7 @@ class MockTourRepository implements ITourRepository {
     Tour(
       id: '4',
       name: 'Аудио-тур №4',
-      imageUrl: 'goodTrip_photo_6.jpg?updatedAt=1717931879992',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_6.jpg?updatedAt=1717931879992',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -230,7 +230,7 @@ class MockTourRepository implements ITourRepository {
     Tour(
       id: '5',
       name: 'Аудио-тур №5',
-      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -263,7 +263,7 @@ class MockTourRepository implements ITourRepository {
     Tour(
       id: '6',
       name: 'Аудио-тур №6',
-      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -296,7 +296,7 @@ class MockTourRepository implements ITourRepository {
     Tour(
       id: '7',
       name: 'Аудио-тур №7',
-      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 55.45, lat: 37.37),
         country: 'Россия',
@@ -328,7 +328,7 @@ class MockTourRepository implements ITourRepository {
     Tour(
       id: '8',
       name: 'Аудио-тур №8',
-      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -361,7 +361,7 @@ class MockTourRepository implements ITourRepository {
     Tour(
       id: '9',
       name: 'Аудио-тур №9',
-      imageUrl: 'goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',

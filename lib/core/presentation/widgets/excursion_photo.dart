@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/data/api/api_key.dart';
 
 class ExcursionPhoto extends StatelessWidget {
   const ExcursionPhoto({
@@ -18,8 +17,7 @@ class ExcursionPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      photoUrl != null && photoUrl!.contains('goodTrip') ?
-      '$baseBDUrl/${photoUrl!}' : photoUrl ?? '',
+      photoUrl ?? '',
       fit: boxFit,
       errorBuilder: (context, error, stackTrace) {
         return Container(

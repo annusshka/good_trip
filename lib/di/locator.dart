@@ -1,7 +1,9 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
+import 'package:good_trip/core/audio_player/data/audio_player_handler.dart';
 import 'package:good_trip/core/data/repository/auth/impl/mock_auth_repository.dart';
 import 'package:good_trip/core/data/repository/excursion/impl/mock_excursion_repository.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -50,7 +52,6 @@ Future<void> initServices() async {
 
 @module
 abstract class Locator {
-
   @singleton
   AppRouter appRouter() {
     return AppRouter();
@@ -82,7 +83,7 @@ abstract class Locator {
   }
 
   @singleton
-  TourService tourService (Dio dio) {
+  TourService tourService(Dio dio) {
     return TourService(dio);
   }
 
@@ -133,4 +134,22 @@ abstract class Locator {
 
   @singleton
   WeekdayCubit get weekdayCubit => WeekdayCubit();
+
+  @singleton
+  AudioPlayerHandler audioPlayerHandler() {
+    return AudioPlayerHandler();
+  }
+
+  @singleton
+  @preResolve
+  Future<AudioHandler> audioHandler(AudioPlayerHandler audioPlayerHandler) async {
+    return await AudioService.init(
+      builder: () => audioPlayerHandler,
+      config: const AudioServiceConfig(
+        androidNotificationChannelId: 'com.good_trip.myapp.channel.audio',
+        androidNotificationChannelName: 'Music playback',
+        androidNotificationOngoing: true,
+      ),
+    );
+  }
 }

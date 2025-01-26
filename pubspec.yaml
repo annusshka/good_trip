@@ -51,6 +51,8 @@ dependencies:
   dotted_line: ^3.2.3
   flutter_svg: ^2.0.15
   modal_bottom_sheet: ^3.0.0
+  audio_service: ^0.18.16
+  audio_session: ^0.1.23
 
 dev_dependencies:
   flutter_test:

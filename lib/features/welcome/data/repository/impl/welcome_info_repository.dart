@@ -1,5 +1,4 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:good_trip/core/data/models/exception/secure_storage_exception.dart';
 import 'package:good_trip/features/welcome/data/models/welcome_info/welcome_info.dart';
 import 'package:good_trip/features/welcome/data/repository/i_welcome_info_repository.dart';
 import 'package:good_trip/features/welcome/data/service/welcome_info_service.dart';

@@ -7,7 +7,6 @@ import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_event.dart';
 import 'package:good_trip/core/presentation/bloc/auth/auth_state.dart';
-import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 

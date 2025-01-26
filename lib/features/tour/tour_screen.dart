@@ -113,7 +113,7 @@ class TourScreen extends StatelessWidget {
                 ),
                 ExcursionList(
                   excursionList: tour.excursionList,
-                  tourId: tour.id,
+                  tour: tour,
                 ),
               ],
               const SizedBox(height: 16.0),

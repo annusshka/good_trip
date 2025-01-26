@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:good_trip/core/data/models/auth/auth_request.dart';
-import 'package:good_trip/core/data/models/auth/login_request.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 

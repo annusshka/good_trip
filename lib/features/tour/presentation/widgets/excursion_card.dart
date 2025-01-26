@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/data/models/excursion/i_excursion.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/features/excursion/presentation/widgets/audio_container.dart';
+import 'package:good_trip/features/tour/presentation/widgets/audio_con.dart';
 
 class ExcursionCard extends StatelessWidget {
-  const ExcursionCard({super.key, required this.excursion});
+  const ExcursionCard({
+    super.key,
+    required this.excursion,
+  });
 
   final AudioExcursion excursion;
 
@@ -87,9 +89,10 @@ class ExcursionCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    AudioContainer(
-                      audioFilePath: excursion.audioUrl,
-                    ),
+                    const AudioCon(),
+                    // AudioContainer(
+                    //   audioFilePath: excursion.audioUrl,
+                    // ),
                   ],
                 ),
               ),

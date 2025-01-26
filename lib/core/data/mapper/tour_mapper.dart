@@ -1,3 +1,4 @@
+import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/models/api_tour/api_tour_property.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -64,7 +65,7 @@ Excursion mapDtoToExcursion(ExcursionDto dto) {
   return Excursion(
     id: dto.id,
     name: dto.name,
-    imageUrl: dto.imageUrl,
+    imageUrl: '$baseBDUrl/${dto.imageUrl}',
     address: mapDtoToAddress(dto.address),
     weekdays: dto.weekdays,
     description: dto.description,
@@ -78,7 +79,7 @@ ExcursionDto mapExcursionToDto(Excursion tour) {
   return ExcursionDto(
     id: tour.id,
     name: tour.name,
-    imageUrl: tour.imageUrl,
+    imageUrl: tour.imageUrl?.replaceFirst('$baseBDUrl/', ''),
     address: mapAddressToDto(tour.address as Address),
     weekdays: tour.weekdays,
     description: tour.description,
@@ -104,14 +105,14 @@ AudioExcursion mapDtoToAudioExcursion(AudioExcursionDto dto) {
   return AudioExcursion(
     id: dto.id,
     name: dto.name,
-    imageUrl: dto.imageUrl,
+    imageUrl: '$baseBDUrl/${dto.imageUrl}',
     address: mapDtoToAddress(dto.address),
     weekdays: dto.weekdays,
     description: dto.description,
     kinds: dto.kinds,
     isLiked: dto.isLiked,
     deeplinkUrl: dto.deeplinkUrl,
-    audioUrl: dto.audioUrl,
+    audioUrl: '$baseBDUrl/${dto.audioUrl}',
   );
 }
 
@@ -119,14 +120,14 @@ AudioExcursionDto mapAudioExcursionToDto(IAudioExcursion audioExcursion) {
   return AudioExcursionDto(
     id: audioExcursion.id,
     name: audioExcursion.name,
-    imageUrl: audioExcursion.imageUrl,
+    imageUrl: audioExcursion.imageUrl?.replaceFirst('$baseBDUrl/', ''),
     address: mapAddressToDto(audioExcursion.address as Address),
     weekdays: audioExcursion.weekdays,
     description: audioExcursion.description,
     kinds: audioExcursion.kinds,
     isLiked: audioExcursion.isLiked,
     deeplinkUrl: audioExcursion.deeplinkUrl,
-    audioUrl: audioExcursion.audioUrl,
+    audioUrl: audioExcursion.audioUrl.replaceFirst('$baseBDUrl/', ''),
   );
 }
 

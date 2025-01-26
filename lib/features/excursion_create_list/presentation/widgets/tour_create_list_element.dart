@@ -8,7 +8,6 @@ import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion/presentation/widgets/widgets.dart';
 import 'package:good_trip/features/excursion_create_list/presentation/bloc/excursion_create.dart';
-import 'package:good_trip/features/tour/presentation/bloc/viewed_excursions/viewed_excursions.dart';
 
 class TourCreateListElement extends StatelessWidget {
   const TourCreateListElement(

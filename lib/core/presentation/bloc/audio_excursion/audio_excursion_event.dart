@@ -11,7 +11,7 @@ class AudioExcursionRequested extends AudioExcursionEvent {
   final int offset;
 
   const AudioExcursionRequested(
-      {this.city = "Voronezh",
+      {this.city = 'Voronezh',
       this.lat = 0.0,
       this.lon = 0.0,
       this.offset = 0});
