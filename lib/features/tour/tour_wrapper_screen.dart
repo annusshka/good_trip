@@ -1,9 +1,6 @@
-import 'package:audio_service/audio_service.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/audio_player/data/audio_player_handler.dart';
-import 'package:good_trip/core/audio_player/presentation/bloc/audio_player_cubit.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/audio_excursion/audio_excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
@@ -46,15 +43,9 @@ class TourWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
           ),
         ),
         BlocProvider<ViewedExcursionsBloc>(
+          lazy: false,
           create: (_) => ViewedExcursionsBloc(
             tourRepository: getIt.get<ITourRepository>(),
-          ),
-        ),
-        BlocProvider<AudioPlayerCubit>(
-          lazy: false,
-          create: (_) => AudioPlayerCubit(
-            audioPlayerHandler: getIt.get<AudioPlayerHandler>(),
-            audioHandler: getIt.get<AudioHandler>(),
           ),
         ),
       ],

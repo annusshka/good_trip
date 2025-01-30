@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/audio_player/presentation/widgets/audio_player.dart';
+import 'package:good_trip/core/audio_player/excursion_audio/excursion_audio.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
@@ -133,26 +133,9 @@ class ExcursionScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // AudioContainer(
-                //   audioFilePath: audioTour,
-                // ),
-                // AudioPlayerContainer(
-                //   url: '$baseBDUrl/$audioTour',
-                //   activeColor: AppColors.pink,
-                //   timerTextStyle: AppTextTheme.medium14.copyWith(
-                //     color: AppColors.lightGrayEA,
-                //   ),
-                //   sliderThemeData: SliderTheme.of(context).copyWith(
-                //     activeTrackColor: AppColors.pink,
-                //     inactiveTrackColor: AppColors.lightGrayEA,
-                //     thumbColor: AppColors.pink,
-                //     thumbShape:
-                //         const RoundSliderThumbShape(enabledThumbRadius: 6.0),
-                //     trackHeight: 2.0,
-                //   ),
-                // ),
-                AudioPlayer(
-                  excursion: excursion as AudioExcursion,
+                ExcursionAudio(
+                  audioExcursion: excursion as AudioExcursion,
+                  index: 0,
                 ),
               ],
               const SizedBox(height: 15),

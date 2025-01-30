@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/audio_player/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
@@ -8,8 +9,7 @@ import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion/presentation/widgets/widgets.dart';
-
-import 'presentation/widgets/excursion_list.dart';
+import 'presentation/bloc/viewed_excursions/viewed_excursions.dart';
 
 @RoutePage()
 class TourScreen extends StatelessWidget {
@@ -111,9 +111,22 @@ class TourScreen extends StatelessWidget {
                   textAlign: TextAlign.left,
                   style: AppTextTheme.semiBold18,
                 ),
-                ExcursionList(
-                  excursionList: tour.excursionList,
-                  tour: tour,
+                BlocBuilder<ViewedExcursionsBloc, ViewedExcursionsState>(
+                  builder: (context, state) {
+                    if (state is ViewedExcursionsInitial) {
+                      BlocProvider.of<ViewedExcursionsBloc>(context).add(
+                        ViewedExcursionRequested(tourId: tour.id),
+                      );
+                    }
+                    if (state is LoadViewedExcursionsSuccess) {
+                      return ExcursionList(
+                        excursionList: tour.excursionList,
+                        tour: tour,
+                        viewedExcursionCount: state.excursionCount,
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
                 ),
               ],
               const SizedBox(height: 16.0),

@@ -85,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Text(
                               'Пожалуйста, войдите в свой аккаунт',
                               style: AppTextTheme.semiBold14.copyWith(
-                                color: AppColors.gray,
+                                color: AppColors.lightGray,
                               ),
                             ),
                             const SizedBox(
@@ -407,7 +407,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 Text(
                                   'Уже есть аккаунт? ',
                                   style: AppTextTheme.semiBold14.copyWith(
-                                    color: AppColors.gray,
+                                    color: AppColors.lightGray,
                                   ),
                                 ),
                                 GestureDetector(

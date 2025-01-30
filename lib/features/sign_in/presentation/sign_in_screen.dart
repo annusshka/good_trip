@@ -83,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             Text(
                               'Пожалуйста, войдите в свой аккаунт',
                               style: AppTextTheme.semiBold14.copyWith(
-                                color: AppColors.gray,
+                                color: AppColors.lightGray,
                               ),
                             ),
                             const SizedBox(
@@ -233,9 +233,9 @@ class _SignInScreenState extends State<SignInScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Ещё нет аккаунта? ",
+                                  'Ещё нет аккаунта? ',
                                   style: AppTextTheme.semiBold14.copyWith(
-                                    color: AppColors.gray,
+                                    color: AppColors.lightGray,
                                   ),
                                 ),
                                 GestureDetector(

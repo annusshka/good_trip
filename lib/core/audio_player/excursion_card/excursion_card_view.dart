@@ -1,12 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/excursion_card/widgets/audio_container.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 
-class ExcursionCard extends StatelessWidget {
-  const ExcursionCard({
+class ExcursionCardView extends StatelessWidget {
+  const ExcursionCardView({
     super.key,
     required this.excursion,
   });
@@ -61,39 +63,42 @@ class ExcursionCard extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Text(
+                          excursion.name,
+                          textAlign: TextAlign.left,
+                          style: AppTextTheme.semiBold15,
+                        ),
+                        Row(
                           children: [
-                            Text(
-                              excursion.name,
-                              textAlign: TextAlign.left,
-                              style: AppTextTheme.semiBold15,
-                            ),
                             Text(
                               excursion.getWeekdays(),
                               textAlign: TextAlign.left,
                               style: AppTextTheme.semiBold12,
                             ),
+                            const Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 6.0),
+                              child: InkWell(
+                                onTap: () => context.router.push(
+                                  ExcursionRoute(excursion: excursion),
+                                ),
+                                child: Text(
+                                  'Подробнее...',
+                                  textAlign: TextAlign.right,
+                                  style: AppTextTheme.semiBold12.copyWith(
+                                    color: AppColors.pink,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12.0),
-                          child: LikeButton(
-                            iconSize: 24,
-                            excursion: excursion,
-                            iconColor: AppColors.lightGray,
-                          ),
                         ),
                       ],
                     ),
                     const AudioContainer(),
-                    //const AudioCon(),
-                    // AudioContainer(
-                    //   audioFilePath: excursion.audioUrl,
-                    // ),
                   ],
                 ),
               ),

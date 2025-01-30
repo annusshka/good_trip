@@ -5,8 +5,6 @@ import 'package:day_picker/day_picker.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/audio_player/data/queue_state.dart';
-import 'package:good_trip/core/audio_player/presentation/bloc/audio_player.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
@@ -49,7 +47,6 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.sizeOf(context).height;
     final cubit = context.read<CreateExcursionListCubit>();
-    final audioCubit = context.read<AudioPlayerCubit>();
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -146,27 +143,8 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                               const SizedBox(width: 10.0),
                               Expanded(
                                 child: index != state.excursionList.length
-                                    ? BlocBuilder<AudioPlayerCubit,
-                                        AudioPlayerState>(
-                                        builder: (context, audioState) {
-                                          if (state is AudioPlayerInitial) {
-                                            audioCubit.loadTour(
-                                              excursionList:
-                                                  state.excursionList,
-                                              tourName: widget.name,
-                                            );
-                                          }
-                                          return StreamBuilder<QueueState>(
-                                            stream: audioCubit
-                                                .audioPlayerHandler.queueState,
-                                            builder: (context, snapshot) {
-                                              return ExcursionCard(
-                                                excursion:
-                                                    state.excursionList[index],
-                                              );
-                                            },
-                                          );
-                                        },
+                                    ? ExcursionCard(
+                                        excursion: state.excursionList[index],
                                       )
                                     : AddExcursionCard(
                                         onTapAction: (newExcursion) {

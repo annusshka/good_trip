@@ -3,9 +3,5 @@ class PositionData {
   final Duration bufferedPosition;
   final Duration duration;
 
-  PositionData(
-    this.position,
-    this.bufferedPosition,
-    this.duration,
-  );
+  PositionData(this.position, this.bufferedPosition, this.duration);
 }
