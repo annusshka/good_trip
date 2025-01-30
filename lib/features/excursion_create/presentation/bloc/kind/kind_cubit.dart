@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,9 +15,16 @@ class KindCubit extends Cubit<KindState> {
       } else {
         kinds.add(kind);
       }
+      Map<String, String> attributesMap = {'kinds': kinds.toString()};
+      AppMetrica.reportEventWithMap('select_kind', attributesMap);
       emit(KindState(kindList: kinds));
     } catch (e) {
       debugPrint('Error in kinds update request. ${e.toString()}');
+      AppMetrica.reportErrorWithGroup(
+        'ExcursionCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

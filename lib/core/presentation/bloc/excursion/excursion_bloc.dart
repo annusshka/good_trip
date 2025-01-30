@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -27,9 +28,15 @@ class ExcursionBloc extends Bloc<ExcursionEvent, ExcursionState> {
       /// TODO: add user data layer
       final userId = 1;
       await excursionRepository.likeTour(userId: userId, id: event.id,);
+      AppMetrica.reportEvent('excursion_like');
       emit(ExcursionLikedSuccess());
     } catch (e) {
       emit(ExcursionListLoadFailure(errorMsg: e.toString()));
+      AppMetrica.reportErrorWithGroup(
+        'Excursion level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -41,6 +48,11 @@ class ExcursionBloc extends Bloc<ExcursionEvent, ExcursionState> {
       emit(ExcursionLoadSuccess());
     } catch (e) {
       emit(ExcursionListLoadFailure(errorMsg: e.toString()));
+      AppMetrica.reportErrorWithGroup(
+        'Excursion level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

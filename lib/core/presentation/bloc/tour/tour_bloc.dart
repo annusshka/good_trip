@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -29,9 +30,16 @@ class TourBloc extends Bloc<TourEvent, TourState> {
         userId: userId,
         id: event.id,
       );
+      Map<String, String> attributesMap = {'tour_id': event.id};
+      AppMetrica.reportEventWithMap('tour_like', attributesMap);
       emit(TourLikedSuccess());
     } catch (e) {
       emit(TourListLoadFailure(errorMsg: e.toString()));
+      AppMetrica.reportErrorWithGroup(
+        'Tour level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -43,6 +51,11 @@ class TourBloc extends Bloc<TourEvent, TourState> {
       emit(TourLoadSuccess());
     } catch (e) {
       emit(TourListLoadFailure(errorMsg: e.toString()));
+      AppMetrica.reportErrorWithGroup(
+        'Tour level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

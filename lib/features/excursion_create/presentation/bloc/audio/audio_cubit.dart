@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,11 @@ class AudioCubit extends Cubit<AudioState> {
       emit(AudioState(audioPath: pickedAudio?.path, audio: pickedAudio));
     } catch (error) {
       debugPrint(error.toString());
+      AppMetrica.reportErrorWithGroup(
+        'ExcursionCreate level',
+        message: error.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

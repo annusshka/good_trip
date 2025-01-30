@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -34,6 +35,11 @@ class AudioExcursionBloc extends Bloc<AudioExcursionEvent, AudioExcursionState> 
       emit(AudioExcursionLoadSuccess(tourList: tourList));
     } catch (e) {
       emit(AudioExcursionLoadFailure(errorMsg: e.toString()));
+      AppMetrica.reportErrorWithGroup(
+        'AudioExcursion level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 
@@ -30,6 +31,11 @@ class ViewedExcursionsBloc
       emit(LoadViewedExcursionsSuccess(excursionCount: viewedExcursions));
     } catch (e) {
       emit(ViewedExcursionsLoadFailure(errorMsg: e.toString()));
+      AppMetrica.reportErrorWithGroup(
+        'Tour level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -42,9 +48,19 @@ class ViewedExcursionsBloc
           tourId: event.tourId,
           excursionCount: event.excursionCount,
         );
+        Map<String, String> attributesMap = {
+          'tour': event.tourId,
+          'view_count': event.excursionCount.toString(),
+        };
+        AppMetrica.reportEventWithMap('view_excursion', attributesMap);
         emit(LoadViewedExcursionsSuccess(excursionCount: event.excursionCount));
       } catch (e) {
         emit(ViewedExcursionsLoadFailure(errorMsg: e.toString()));
+        AppMetrica.reportErrorWithGroup(
+          'Tour level',
+          message: e.toString(),
+          errorDescription: AppMetricaErrorDescription(StackTrace.current),
+        );
       }
     }
   }

@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -45,11 +46,17 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
           imageFile: event.imageFile,
           excursionList: event.excursionList,
         );
+        AppMetrica.reportEvent('save_tour_created');
         emit(TourCreatedSuccess());
       }
     } catch (e) {
       emit(const TourCreateFailure(errorMsg: 'Error in tour create request.'));
       debugPrint('Error in tour create request. ${e.toString()}');
+      AppMetrica.reportErrorWithGroup(
+        'TourCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
 
     // final WeekdayCubit weekdayCubit = getIt.get<WeekdayCubit>();
@@ -103,11 +110,17 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
     emit(TourCreateInProgress());
     try {
       await tourRepository.deleteTour(id: event.tourId);
+      AppMetrica.reportEvent('remove_tour_created');
       emit(TourCreatedSuccess());
-      _showChangeNotification(event.context, changesSuccess);
-    } catch (_) {
+      await _showChangeNotification(event.context, changesSuccess);
+    } catch (e) {
       emit(const TourCreateFailure(errorMsg: 'Error in tour create request.'));
-      _showChangeNotification(event.context, changesFail);
+      AppMetrica.reportErrorWithGroup(
+        'TourCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
+      await _showChangeNotification(event.context, changesFail);
     }
   }
 

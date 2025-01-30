@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -57,8 +58,13 @@ class ExcursionCreateBloc extends Bloc<ExcursionCreateEvent, ExcursionCreateStat
         );
       }
       emit(ExcursionUpdateParamSuccess(tour: updatedTour));
-    } catch (_) {
+    } catch (e) {
       emit(const ExcursionCreateFailure(errorMsg: 'Error in weather request.'));
+      AppMetrica.reportErrorWithGroup(
+        'ExcursionCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -114,11 +120,17 @@ class ExcursionCreateBloc extends Bloc<ExcursionCreateEvent, ExcursionCreateStat
     emit(ExcursionCreateInProgress());
     try {
       await excursionRepository.deleteExcursion(id: event.tourId);
+      AppMetrica.reportEvent('excursion_create');
       emit(ExcursionCreatedSuccess());
       _showChangeNotification(event.context, changesSuccess);
-    } catch (_) {
+    } catch (e) {
       emit(const ExcursionCreateFailure(errorMsg: 'Error in tour create request.'));
       _showChangeNotification(event.context, changesFail);
+      AppMetrica.reportErrorWithGroup(
+        'ExcursionCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 

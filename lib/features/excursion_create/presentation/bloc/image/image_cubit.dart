@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,6 +25,11 @@ class ImageCubit extends Cubit<ImageState> {
       emit(ImageState(imagePath: pickedImage?.path, image: image));
     } catch (e) {
       debugPrint(e.toString());
+      AppMetrica.reportErrorWithGroup(
+        'ExcursionCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

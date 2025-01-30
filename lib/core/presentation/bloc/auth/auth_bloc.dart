@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc/bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -33,9 +34,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     try {
       await authRepository.logout();
+      AppMetrica.reportEvent('logout');
       emit(UnauthenticatedState());
     } catch (e) {
       emit(AuthErrorState(e.toString()));
+      AppMetrica.reportErrorWithGroup(
+        'Authenticate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -44,9 +51,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     try {
       User user = await authRepository.loadUser();
+      sendAnalytics(user);
       emit(AuthenticatedState(user: user));
     } catch (e) {
       emit(UnauthenticatedState());
+      AppMetrica.reportErrorWithGroup(
+        'Authenticate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -59,9 +72,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           password: event.password,
         ),
       );
+      sendAnalytics(user);
+      AppMetrica.reportEvent('sign in');
       emit(AuthenticatedState(user: user));
     } catch (e) {
       emit(UnauthenticatedState());
+      AppMetrica.reportErrorWithGroup(
+        'Authenticate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -77,9 +97,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           surname: event.user.surname,
         ),
       );
+      sendAnalytics(user);
+      AppMetrica.reportEvent('sign up');
       emit(AuthenticatedState(user: user));
     } catch (e) {
       emit(UnauthenticatedState());
+      AppMetrica.reportErrorWithGroup(
+        'Authenticate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
+  }
+
+  void sendAnalytics(User user) {
+    AppMetricaUserProfile userProfile = AppMetricaUserProfile([
+      AppMetricaNameAttribute.withValue('${user.name} ${user.surname}'),
+      AppMetricaStringAttribute.withValue('role', user.role.displayTitle),
+    ]);
+
+    AppMetrica.setUserProfileID(user.id.toString());
+    AppMetrica.reportUserProfile(userProfile);
   }
 }

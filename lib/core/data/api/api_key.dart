@@ -7,3 +7,5 @@ const String baseBDUrl = 'https://ik.imagekit.io/vqwafkkyo';
 //const String baseUrl = 'https://good-trip-backend.vercel.app';
 //const String baseUrl = 'http://goodtripbackend-production.up.railway.app';
 const String baseUrl = 'https://goodtripbackend.onrender.com';
+const String appMetricaKey = 'e98b972e-01d1-4867-9c2c-f6c17c89ce21';
+const String oneSignalKey = 'd97fa2b4-44b4-4c5e-8dd7-a0531cfee238';

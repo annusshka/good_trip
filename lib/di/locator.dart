@@ -1,9 +1,11 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart';
+import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/repository/auth/impl/mock_auth_repository.dart';
 import 'package:good_trip/core/data/repository/excursion/impl/mock_excursion_repository.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -43,9 +45,11 @@ Future<void> initServices() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  AppMetrica.activate(const AppMetricaConfig(appMetricaKey));
+
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 
-  OneSignal.initialize('d97fa2b4-44b4-4c5e-8dd7-a0531cfee238');
+  OneSignal.initialize(oneSignalKey);
 
   OneSignal.Notifications.requestPermission(true);
 }
@@ -142,7 +146,8 @@ abstract class Locator {
 
   @singleton
   @preResolve
-  Future<AudioHandler> audioHandler(AudioPlayerHandlerImpl audioPlayerHandler) async {
+  Future<AudioHandler> audioHandler(
+      AudioPlayerHandlerImpl audioPlayerHandler) async {
     return await AudioService.init(
       builder: () => audioPlayerHandler,
       config: const AudioServiceConfig(

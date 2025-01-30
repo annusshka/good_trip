@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final IWeatherRepository weatherRepository;
 
   WeatherBloc({required this.weatherRepository}) : super(WeatherInitial()) {
-    on<WeatherEvent>((event, emit) async {
+    on<WeatherEvent>(
+      (event, emit) async {
         if (event is WeatherCurrentPositionRequested) {
           _weatherCurrentPositionRequested(emit);
         } else if (event is WeatherRequested) {
@@ -60,12 +62,10 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     }
 
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high
+      desiredAccuracy: LocationAccuracy.high,
     );
-    add(WeatherRequested(
-        lat: position.latitude,
-        lon: position.longitude
-    ));
+    add(WeatherRequested(lat: position.latitude, lon: position.longitude));
+    AppMetrica.setLocationTracking(true);
   }
 
   void _weatherCurrentPositionRequested(Emitter<WeatherState> emit) async {
@@ -74,6 +74,11 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       _getCurrentPosition();
     } catch (e) {
       debugPrint(e.toString());
+      AppMetrica.reportErrorWithGroup(
+        'Localization level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

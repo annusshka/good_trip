@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -27,10 +28,18 @@ class TourCreateListBloc
     try {
       final List<Tour> tours =
           await tourRepository.getCreatedToursByAdmin(offset: event.offset);
+      AppMetrica.reportEvent('load_created_tours');
       emit(TourCreateListLoadedSuccess(tourList: tours));
-    } catch (_) {
-      emit(const TourCreateListLoadFailure(
-          errorMsg: 'Error in created tours request.'));
+    } catch (e) {
+      emit(
+        const TourCreateListLoadFailure(
+            errorMsg: 'Error in created tours request.'),
+      );
+      AppMetrica.reportErrorWithGroup(
+        'TourCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -41,15 +50,22 @@ class TourCreateListBloc
     try {
       ///TODO: add user data layer
       const userId = 1;
-      final List<Tour> tours =
-          await tourRepository.getCreatedToursByUserId(
+      final List<Tour> tours = await tourRepository.getCreatedToursByUserId(
         offset: event.offset,
         userId: userId,
       );
+      AppMetrica.reportEvent('create_tour');
       emit(TourCreateListLoadedSuccess(tourList: tours));
-    } catch (_) {
-      emit(const TourCreateListLoadFailure(
-          errorMsg: 'Error in created tours request.'));
+    } catch (e) {
+      emit(
+        const TourCreateListLoadFailure(
+            errorMsg: 'Error in created tours request.'),
+      );
+      AppMetrica.reportErrorWithGroup(
+        'TourCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

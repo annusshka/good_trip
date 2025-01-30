@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -27,9 +28,14 @@ class ExcursionCreateListBloc
       final List<AudioExcursion> tours =
           await excursionRepository.getCreatedExcursionListByAdmin(offset: event.offset);
       emit(ExcursionCreateListLoadedSuccess(excursionList: tours));
-    } catch (_) {
+    } catch (e) {
       emit(const ExcursionCreateListLoadFailure(
           errorMsg: 'Error in created tours request.'));
+      AppMetrica.reportErrorWithGroup(
+        'TourCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 
@@ -46,9 +52,14 @@ class ExcursionCreateListBloc
         userId: userId,
       );
       emit(ExcursionCreateListLoadedSuccess(excursionList: tours));
-    } catch (_) {
+    } catch (e) {
       emit(const ExcursionCreateListLoadFailure(
           errorMsg: 'Error in created tours request.'));
+      AppMetrica.reportErrorWithGroup(
+        'TourCreate level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }

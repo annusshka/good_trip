@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -25,14 +26,23 @@ class FavoriteListBloc extends Bloc<FavoriteListEvent, FavoriteListState> {
     try {
       ///TODO: add user data layer
       const userId = 1;
-      final List<IExcursion> tours = await tourRepository.getFavoriteExcursionList(
+      final List<IExcursion> tours =
+          await tourRepository.getFavoriteExcursionList(
         userId: userId,
         offset: event.offset,
       );
+      AppMetrica.reportEvent('favourites_open');
       emit(FavoriteListLoadedSuccess(tourList: tours));
-    } catch (_) {
-      emit(const FavoriteListLoadFailure(
-          errorMsg: 'Error in favoriteList request.'));
+    } catch (e) {
+      emit(
+        const FavoriteListLoadFailure(
+            errorMsg: 'Error in favoriteList request.'),
+      );
+      AppMetrica.reportErrorWithGroup(
+        'FavouriteList level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 }
