@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/api/urls.dart';
 import 'package:good_trip/core/data/models/auth/auth_request.dart';
+import 'package:good_trip/core/data/models/auth/auth_response.dart';
 import 'package:good_trip/core/data/models/auth/login_request.dart';
 import 'package:good_trip/core/data/models/auth/refresh_token.dart';
 import 'package:good_trip/core/data/models/user/user_dto.dart';
@@ -24,12 +25,12 @@ abstract class AuthService {
   });
 
   @POST(Urls.register)
-  Future<UserDto> register({
+  Future<AuthResponse> register({
     @Body() required AuthRequest authRequest,
   });
 
   @POST(Urls.login)
-  Future<UserDto> login({
+  Future<AuthResponse> login({
     @Body() required LoginRequest loginRequest,
   });
 }

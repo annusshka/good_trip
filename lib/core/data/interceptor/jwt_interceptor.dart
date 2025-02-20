@@ -19,13 +19,18 @@ class JwtInterceptor extends Interceptor {
   final Dio _dio;
 
   final FlutterSecureStorage _storage;
+  //
+  // Future<void> initTokens() async {
+  //   final jwt = await readUserJwt();
+  //   final refreshJwt = await readRefreshJwt();
+  // }
 
   Future<String?> readUserJwt() async {
-    return _storage.read(key: 'jwt');
+    return await _storage.read(key: 'jwt');
   }
 
   Future<String?> readRefreshJwt() async {
-    return _storage.read(key: 'refresh_jwt');
+    return await _storage.read(key: 'refresh_jwt');
   }
 
   Future<bool> hasJwt() async {

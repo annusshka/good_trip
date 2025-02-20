@@ -90,10 +90,6 @@ class ExcursionCard extends StatelessWidget {
                       ],
                     ),
                     const AudioContainer(),
-                    //const AudioCon(),
-                    // AudioContainer(
-                    //   audioFilePath: excursion.audioUrl,
-                    // ),
                   ],
                 ),
               ),

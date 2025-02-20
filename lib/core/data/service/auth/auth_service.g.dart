@@ -13,7 +13,7 @@ class _AuthService implements AuthService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://goodtripbackend.onrender.com';
+    baseUrl ??= 'https://d173-198-244-213-126.ngrok-free.app/api/v1';
   }
 
   final Dio _dio;
@@ -75,13 +75,13 @@ class _AuthService implements AuthService {
   }
 
   @override
-  Future<UserDto> register({required AuthRequest authRequest}) async {
+  Future<AuthResponse> register({required AuthRequest authRequest}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = authRequest;
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<UserDto>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<AuthResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -97,18 +97,18 @@ class _AuthService implements AuthService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserDto.fromJson(_result.data!);
+    final value = AuthResponse.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<UserDto> login({required LoginRequest loginRequest}) async {
+  Future<AuthResponse> login({required LoginRequest loginRequest}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = loginRequest;
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<UserDto>(Options(
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<AuthResponse>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -124,7 +124,7 @@ class _AuthService implements AuthService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = UserDto.fromJson(_result.data!);
+    final value = AuthResponse.fromJson(_result.data!);
     return value;
   }
 

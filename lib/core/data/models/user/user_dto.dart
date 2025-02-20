@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:good_trip/core/data/models/account/access_level.dart';
+import 'package:good_trip/core/data/models/user/access_level_dto.dart';
 
 part 'user_dto.freezed.dart';
 
@@ -16,7 +17,7 @@ class UserDto with _$UserDto {
     required String surname,
     required String phone,
     required String password,
-    required AccessLevel role,
+    required List<AccessLevelDto> roles,
   }) = _UserDto;
 
   factory UserDto.account({

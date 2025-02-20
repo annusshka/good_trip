@@ -59,7 +59,9 @@ class AuthRepository extends IAuthRepository {
   Future<User> login({required LoginRequest loginRequest}) async {
     try {
       final response = await service.login(loginRequest: loginRequest);
-      final user = mapDtoToUser(response);
+      saveUserJwt(response.token);
+      saveUserJwtR(response.refreshToken);
+      final user = mapDtoToUser(response.user);
       await saveUserId(user);
 
       return user;
@@ -76,7 +78,9 @@ class AuthRepository extends IAuthRepository {
   Future<User> register({required AuthRequest authRequest}) async {
     try {
       final response = await service.register(authRequest: authRequest);
-      final user = mapDtoToUser(response);
+      saveUserJwt(response.token);
+      saveUserJwtR(response.refreshToken);
+      final user = mapDtoToUser(response.user);
       await saveUserId(user);
       return user;
     } on DioException catch (error) {
@@ -85,7 +89,20 @@ class AuthRepository extends IAuthRepository {
         message: error.response?.data['message'],
         errorText: error.response?.data['errorText'] ?? '',
       );
+    } on Exception catch (error) {
+      throw AuthError(
+        name: 'RegisterError',
+        message: error.toString(),
+      );
     }
+  }
+
+  Future<void> saveUserJwt(String token) async {
+    await _storage.write(key: 'jwt', value: token);
+  }
+
+  Future<void> saveUserJwtR(String token) async {
+    await _storage.write(key: 'refresh_jwt', value: token);
   }
 
   @override

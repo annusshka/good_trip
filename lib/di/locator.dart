@@ -6,14 +6,17 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
+import 'package:good_trip/core/data/interceptor/jwt_interceptor.dart';
 import 'package:good_trip/core/data/repository/auth/impl/mock_auth_repository.dart';
 import 'package:good_trip/core/data/repository/excursion/impl/mock_excursion_repository.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/repository/tour/impl/mock_tour_repository.dart';
+import 'package:good_trip/core/data/repository/tour/impl/tour_repository.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
 import 'package:good_trip/core/data/repository/weather/impl/weather_repository.dart';
 import 'package:good_trip/core/data/service/service.dart';
 import 'package:good_trip/features/account_list/data/repository/i_account_list_repository.dart';
+import 'package:good_trip/features/account_list/data/repository/impl/account_list_repository.dart';
 import 'package:good_trip/features/account_list/data/repository/impl/mock_account_list_repository.dart';
 import 'package:good_trip/features/account_list/data/service/account_list_service.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
@@ -27,20 +30,6 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'config_dio.dart';
 
 Future<void> initServices() async {
-  const FlutterSecureStorage storage = FlutterSecureStorage(
-    aOptions: AndroidOptions(
-      encryptedSharedPreferences: true,
-    ),
-  );
-
-  // final jwtInterceptor = JwtInterceptor(
-  //   dio: starter.dio,
-  //   storage: storage,
-  // );
-  //
-  // starter.dio.interceptors.add(jwtInterceptor);
-  // await jwtInterceptor.initTokens();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -83,7 +72,7 @@ abstract class Locator {
 
   @singleton
   IExcursionRepository excursionRepository(ExcursionService service) {
-    return MockExcursionRepository(service: service);
+    return ExcursionRepository(service: service);
   }
 
   @singleton
@@ -93,7 +82,7 @@ abstract class Locator {
 
   @singleton
   ITourRepository tourRepository(TourService service) {
-    return MockTourRepository(service: service);
+    return TourRepository(service: service);
   }
 
   @singleton
@@ -113,7 +102,7 @@ abstract class Locator {
 
   @singleton
   IAuthRepository authRepository(AuthService service) {
-    return MockAuthRepository(service: service);
+    return AuthRepository(service: service);
   }
 
   @singleton
@@ -123,7 +112,7 @@ abstract class Locator {
 
   @singleton
   IAccountListRepository accountListRepository(AccountListService service) {
-    return MockAccountListRepository(service: service);
+    return AccountListRepository(service: service);
   }
 
   @singleton

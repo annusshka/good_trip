@@ -14,7 +14,9 @@ _$UserDtoImpl _$$UserDtoImplFromJson(Map<String, dynamic> json) =>
       surname: json['surname'] as String,
       phone: json['phone'] as String,
       password: json['password'] as String,
-      role: $enumDecode(_$AccessLevelEnumMap, json['role']),
+      roles: (json['roles'] as List<dynamic>)
+          .map((e) => AccessLevelDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
@@ -25,10 +27,5 @@ Map<String, dynamic> _$$UserDtoImplToJson(_$UserDtoImpl instance) =>
       'surname': instance.surname,
       'phone': instance.phone,
       'password': instance.password,
-      'role': _$AccessLevelEnumMap[instance.role]!,
+      'roles': instance.roles,
     };
-
-const _$AccessLevelEnumMap = {
-  AccessLevel.USER: 'USER',
-  AccessLevel.ADMIN: 'ADMIN',
-};

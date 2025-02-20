@@ -13,7 +13,7 @@ class _TourService implements TourService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://goodtripbackend.onrender.com';
+    baseUrl ??= 'https://d173-198-244-213-126.ngrok-free.app/api/v1';
   }
 
   final Dio _dio;

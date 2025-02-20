@@ -26,7 +26,7 @@ mixin _$UserDto {
   String get surname => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  AccessLevel get role => throw _privateConstructorUsedError;
+  List<AccessLevelDto> get roles => throw _privateConstructorUsedError;
 
   /// Serializes this UserDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $UserDtoCopyWith<$Res> {
       String surname,
       String phone,
       String password,
-      AccessLevel role});
+      List<AccessLevelDto> roles});
 }
 
 /// @nodoc
@@ -73,7 +73,7 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
     Object? surname = null,
     Object? phone = null,
     Object? password = null,
-    Object? role = null,
+    Object? roles = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -100,10 +100,10 @@ class _$UserDtoCopyWithImpl<$Res, $Val extends UserDto>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as AccessLevel,
+      roles: null == roles
+          ? _value.roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<AccessLevelDto>,
     ) as $Val);
   }
 }
@@ -122,7 +122,7 @@ abstract class _$$UserDtoImplCopyWith<$Res> implements $UserDtoCopyWith<$Res> {
       String surname,
       String phone,
       String password,
-      AccessLevel role});
+      List<AccessLevelDto> roles});
 }
 
 /// @nodoc
@@ -144,7 +144,7 @@ class __$$UserDtoImplCopyWithImpl<$Res>
     Object? surname = null,
     Object? phone = null,
     Object? password = null,
-    Object? role = null,
+    Object? roles = null,
   }) {
     return _then(_$UserDtoImpl(
       id: null == id
@@ -171,10 +171,10 @@ class __$$UserDtoImplCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
-              as AccessLevel,
+      roles: null == roles
+          ? _value._roles
+          : roles // ignore: cast_nullable_to_non_nullable
+              as List<AccessLevelDto>,
     ));
   }
 }
@@ -189,8 +189,9 @@ class _$UserDtoImpl extends _UserDto {
       required this.surname,
       required this.phone,
       required this.password,
-      required this.role})
-      : super._();
+      required final List<AccessLevelDto> roles})
+      : _roles = roles,
+        super._();
 
   factory _$UserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDtoImplFromJson(json);
@@ -207,12 +208,17 @@ class _$UserDtoImpl extends _UserDto {
   final String phone;
   @override
   final String password;
+  final List<AccessLevelDto> _roles;
   @override
-  final AccessLevel role;
+  List<AccessLevelDto> get roles {
+    if (_roles is EqualUnmodifiableListView) return _roles;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_roles);
+  }
 
   @override
   String toString() {
-    return 'UserDto(id: $id, email: $email, name: $name, surname: $surname, phone: $phone, password: $password, role: $role)';
+    return 'UserDto(id: $id, email: $email, name: $name, surname: $surname, phone: $phone, password: $password, roles: $roles)';
   }
 
   @override
@@ -227,13 +233,13 @@ class _$UserDtoImpl extends _UserDto {
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.password, password) ||
                 other.password == password) &&
-            (identical(other.role, role) || other.role == role));
+            const DeepCollectionEquality().equals(other._roles, _roles));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, email, name, surname, phone, password, role);
+  int get hashCode => Object.hash(runtimeType, id, email, name, surname, phone,
+      password, const DeepCollectionEquality().hash(_roles));
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
@@ -259,7 +265,7 @@ abstract class _UserDto extends UserDto {
       required final String surname,
       required final String phone,
       required final String password,
-      required final AccessLevel role}) = _$UserDtoImpl;
+      required final List<AccessLevelDto> roles}) = _$UserDtoImpl;
   const _UserDto._() : super._();
 
   factory _UserDto.fromJson(Map<String, dynamic> json) = _$UserDtoImpl.fromJson;
@@ -277,7 +283,7 @@ abstract class _UserDto extends UserDto {
   @override
   String get password;
   @override
-  AccessLevel get role;
+  List<AccessLevelDto> get roles;
 
   /// Create a copy of UserDto
   /// with the given fields replaced by the non-null parameter values.
