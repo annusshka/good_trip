@@ -6,13 +6,13 @@ class MediaLibrary {
   static const albumsRootId = 'albums';
 
   final items = <String, List<MediaItem>>{
-    AudioService.browsableRootId: const [
-      MediaItem(
-        id: albumsRootId,
-        title: 'Albums',
-        playable: false,
-      ),
-    ],
-    albumsRootId: [],
+    // AudioService.browsableRootId: const [
+    //   MediaItem(
+    //     id: albumsRootId,
+    //     title: 'Albums',
+    //     playable: false,
+    //   ),
+    // ],
+    //albumsRootId: [],
   };
 }

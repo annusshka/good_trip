@@ -109,6 +109,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: WrappedRoute(child: const HomeWrapperScreen()),
       );
     },
+    MapRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MapScreen(),
+      );
+    },
+    MapWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const MapWrapperScreen()),
+      );
+    },
     NavBarAdminRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -428,6 +440,34 @@ class HomeWrapperRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MapScreen]
+class MapRoute extends PageRouteInfo<void> {
+  const MapRoute({List<PageRouteInfo>? children})
+      : super(
+          MapRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MapRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MapWrapperScreen]
+class MapWrapperRoute extends PageRouteInfo<void> {
+  const MapWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          MapWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MapWrapperRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

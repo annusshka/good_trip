@@ -9,23 +9,8 @@ User mapDtoToUser(UserDto dto) {
     surname: dto.surname,
     phone: dto.phone,
     password: dto.password,
-    role: mapDtoToAccessLevel(dto.roles),
+    role: dto.roles.firstOrNull?.role ?? AccessLevel.USER,
   );
-}
-
-AccessLevel mapDtoToAccessLevel(List<AccessLevelDto> dto) {
-  if (dto.isNotEmpty) {
-    switch (dto[0].id) {
-      case 1:
-        return AccessLevel.USER;
-      case 2:
-        return AccessLevel.ADMIN;
-      default:
-        return AccessLevel.USER;
-    }
-  } else {
-    return AccessLevel.USER;
-  }
 }
 
 UserDto mapUserToDto(User user) {

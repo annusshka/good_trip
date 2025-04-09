@@ -14,6 +14,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:good_trip/core/app_router/app_router.dart' as _i416;
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart'
     as _i33;
+import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart'
+    as _i944;
 import 'package:good_trip/core/data/repository/repository.dart' as _i73;
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart'
     as _i658;
@@ -23,8 +25,6 @@ import 'package:good_trip/features/account_list/data/repository/i_account_list_r
     as _i98;
 import 'package:good_trip/features/account_list/data/service/account_list_service.dart'
     as _i227;
-import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart'
-    as _i413;
 import 'package:good_trip/features/welcome/data/repository/i_welcome_info_repository.dart'
     as _i14;
 import 'package:good_trip/features/welcome/data/service/welcome_info_service.dart'
@@ -43,18 +43,23 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final locator = _$Locator();
-    gh.singleton<_i413.WeekdayCubit>(() => locator.weekdayCubit);
     gh.singleton<_i416.AppRouter>(() => locator.appRouter());
     gh.singleton<_i361.Dio>(() => locator.dio());
+    gh.singleton<_i505.WeatherService>(() => locator.weatherService());
+    gh.singleton<_i505.ApiTourService>(() => locator.apiTourService());
     gh.singleton<_i33.AudioPlayerHandlerImpl>(
         () => locator.audioPlayerHandler());
-    gh.singleton<_i505.WeatherService>(
-        () => locator.weatherService(gh<_i361.Dio>()));
+    gh.singleton<_i944.AudioPlayerHandlerImpl2>(
+        () => locator.audioPlayerHandler2());
+    gh.singleton<_i658.IWeatherRepository>(
+        () => locator.weatherRepository(gh<_i505.WeatherService>()));
+    await gh.singletonAsync<_i87.AudioHandler>(
+      () => locator.audioHandler(gh<_i944.AudioPlayerHandlerImpl2>()),
+      preResolve: true,
+    );
     gh.singleton<_i505.ExcursionService>(
         () => locator.excursionService(gh<_i361.Dio>()));
     gh.singleton<_i505.TourService>(() => locator.tourService(gh<_i361.Dio>()));
-    gh.singleton<_i505.ApiTourService>(
-        () => locator.apiTourService(gh<_i361.Dio>()));
     gh.singleton<_i505.AuthService>(() => locator.authService(gh<_i361.Dio>()));
     gh.singleton<_i227.AccountListService>(
         () => locator.accountListService(gh<_i361.Dio>()));
@@ -66,18 +71,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => locator.tourRepository(gh<_i505.TourService>()));
     gh.singleton<_i73.IApiTourRepository>(
         () => locator.apiTourRepository(gh<_i505.ApiTourService>()));
-    await gh.singletonAsync<_i87.AudioHandler>(
-      () => locator.audioHandler(gh<_i33.AudioPlayerHandlerImpl>()),
-      preResolve: true,
-    );
     gh.singleton<_i98.IAccountListRepository>(
         () => locator.accountListRepository(gh<_i227.AccountListService>()));
     gh.singleton<_i73.IExcursionRepository>(
         () => locator.excursionRepository(gh<_i505.ExcursionService>()));
     gh.singleton<_i14.IWelcomeInfoRepository>(
         () => locator.welcomeInfoRepository(gh<_i188.WelcomeInfoService>()));
-    gh.singleton<_i658.IWeatherRepository>(
-        () => locator.weatherRepository(gh<_i505.WeatherService>()));
     return this;
   }
 }

@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "118972197028",
     "project_id": "good-trip-4b1aa",
-    "storage_bucket": "good-trip-4b1aa.appspot.com"
+    "storage_bucket": "good-trip-4b1aa.firebasestorage.app"
   },
   "client": [
     {

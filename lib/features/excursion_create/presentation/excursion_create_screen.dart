@@ -92,7 +92,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                   cursorErrorColor: AppColors.red,
                   cursorRadius: const Radius.circular(3.0),
                   decoration: InputDecoration(
-                    hintText: 'Страна',
+                    hintText: 'Название',
                     hintStyle: AppTextTheme.semiBold18.copyWith(
                       color: AppColors.lightGray,
                     ),

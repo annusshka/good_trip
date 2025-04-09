@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart';
+import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
 import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/interceptor/jwt_interceptor.dart';
 import 'package:good_trip/core/data/repository/auth/impl/mock_auth_repository.dart';
@@ -56,8 +57,9 @@ abstract class Locator {
   }
 
   @singleton
-  WeatherService weatherService(Dio dio) {
-    return WeatherService(dio: dio);
+  WeatherService weatherService() {
+    final weatherDio = Dio();
+    return WeatherService(dio: weatherDio);
   }
 
   @singleton
@@ -86,8 +88,9 @@ abstract class Locator {
   }
 
   @singleton
-  ApiTourService apiTourService(Dio dio) {
-    return ApiTourService(dio);
+  ApiTourService apiTourService() {
+    final apiTourDio = Dio();
+    return ApiTourService(apiTourDio);
   }
 
   @singleton
@@ -126,17 +129,19 @@ abstract class Locator {
   }
 
   @singleton
-  WeekdayCubit get weekdayCubit => WeekdayCubit();
-
-  @singleton
   AudioPlayerHandlerImpl audioPlayerHandler() {
     return AudioPlayerHandlerImpl();
   }
 
   @singleton
+  AudioPlayerHandlerImpl2 audioPlayerHandler2() {
+    return AudioPlayerHandlerImpl2();
+  }
+
+  @singleton
   @preResolve
   Future<AudioHandler> audioHandler(
-      AudioPlayerHandlerImpl audioPlayerHandler) async {
+      AudioPlayerHandlerImpl2 audioPlayerHandler) async {
     return await AudioService.init(
       builder: () => audioPlayerHandler,
       config: const AudioServiceConfig(

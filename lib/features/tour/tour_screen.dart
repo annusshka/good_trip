@@ -1,6 +1,7 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
@@ -9,6 +10,9 @@ import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion/presentation/widgets/widgets.dart';
+import 'package:good_trip/features/map/presentation/widgets/map_widget.dart';
+import 'package:latlong2/latlong.dart';
+
 import 'presentation/bloc/viewed_excursions/viewed_excursions.dart';
 
 @RoutePage()
@@ -20,6 +24,7 @@ class TourScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
+    final coord = tour.address.coordinates;
 
     return Scaffold(
       //extendBodyBehindAppBar: true,
@@ -50,8 +55,7 @@ class TourScreen extends StatelessWidget {
                     ),
                     Container(
                       alignment: Alignment.topLeft,
-                      child: const BackIconButton(
-                          color: Colors.white, iconSize: 24),
+                      child: const BackIconButton(color: Colors.white, iconSize: 24),
                     ),
                     Container(
                       alignment: Alignment.topRight,
@@ -60,16 +64,13 @@ class TourScreen extends StatelessWidget {
                         builder: (context, state) {
                           return InkWell(
                             child: Icon(
-                              tour.isLiked
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
+                              tour.isLiked ? Icons.favorite : Icons.favorite_border,
                               size: 24,
                               color: AppColors.white,
                             ),
                             onTap: () {
                               tour.isLiked = !tour.isLiked;
-                              BlocProvider.of<ExcursionBloc>(context)
-                                  .add(ExcursionLikeRequested(id: tour.id));
+                              BlocProvider.of<ExcursionBloc>(context).add(ExcursionLikeRequested(id: tour.id));
                             },
                           );
                         },
@@ -103,7 +104,37 @@ class TourScreen extends StatelessWidget {
                 subtitleText: tour.getAddressRegion(),
                 icon: Icons.location_on_outlined,
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 8.0),
+              if (coord != null) ...[
+                Container(
+                  width: double.infinity,
+                  height: 150.0,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                    child: MapWidget(
+                      latLng: LatLng(coord.lat, coord.lon),
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        AutoRouter.of(context).push(const MapRoute());
+                      },
+                      child: Text(
+                        'Смотреть на карте',
+                        textAlign: TextAlign.right,
+                        style: AppTextTheme.medium14.copyWith(
+                          color: AppColors.lightGray,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16.0),
+              ],
               TourDescription(desc: tour.description ?? 'Неизвестно'),
               if (tour.excursionList.isNotEmpty) ...[
                 const Text(
@@ -130,15 +161,11 @@ class TourScreen extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 16.0),
-              BlocBuilder<ExcursionListBloc, ExcursionListState>(
-                  builder: (context, state) {
-                if (state is ExcursionListLoadSuccess &&
-                    state.excursionList.isNotEmpty) {
+              BlocBuilder<ExcursionListBloc, ExcursionListState>(builder: (context, state) {
+                if (state is ExcursionListLoadSuccess && state.excursionList.isNotEmpty) {
                   return SizedBox(
                     height: height * 0.35,
-                    child: ExcursionScrollList(
-                        tourList: state.excursionList,
-                        title: 'Вам понравилось'),
+                    child: ExcursionScrollList(tourList: state.excursionList, title: 'Вам понравилось'),
                   );
                 }
                 return const SizedBox.shrink();

@@ -13,7 +13,7 @@ class _AuthService implements AuthService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://d173-198-244-213-126.ngrok-free.app/api/v1';
+    baseUrl ??= '192.168.0.14';
   }
 
   final Dio _dio;

@@ -54,6 +54,8 @@ dependencies:
   audio_service: ^0.18.16
   audio_session: ^0.1.23
   appmetrica_plugin: ^3.1.0
+  flutter_map: ^8.1.1
+  deepgram_speech_to_text: ^3.0.3
 
 dev_dependencies:
   flutter_test:

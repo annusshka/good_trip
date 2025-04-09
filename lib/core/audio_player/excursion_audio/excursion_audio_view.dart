@@ -2,6 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/audio_player/data/position_data.dart';
 import 'package:good_trip/core/audio_player/excursion_audio/excursion_audio_presenter.dart';
+import 'package:good_trip/core/audio_player/excursion_audio/excursion_audio_presenter2.dart';
 import 'package:good_trip/core/audio_player/excursion_card/widgets/seek_bar.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class ControlButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final presenter = context.read<ExcursionAudioPresenter>();
+    final presenter = context.read<ExcursionAudioPresenter2>();
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -80,7 +81,7 @@ class ExcursionAudioView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final presenter = context.read<ExcursionAudioPresenter>();
+    final presenter = context.read<ExcursionAudioPresenter2>();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,

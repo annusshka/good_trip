@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:118972197028:android:1b8b06615ebcfed4911e31',
     messagingSenderId: '118972197028',
     projectId: 'good-trip-4b1aa',
-    storageBucket: 'good-trip-4b1aa.appspot.com',
+    storageBucket: 'good-trip-4b1aa.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -62,7 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:118972197028:ios:f2aa84c7f86fd6d9911e31',
     messagingSenderId: '118972197028',
     projectId: 'good-trip-4b1aa',
-    storageBucket: 'good-trip-4b1aa.appspot.com',
+    storageBucket: 'good-trip-4b1aa.firebasestorage.app',
     iosBundleId: 'com.example.goodTrip',
   );
 

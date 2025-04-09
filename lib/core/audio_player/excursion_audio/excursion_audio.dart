@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart';
+import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
 import 'package:good_trip/core/audio_player/excursion_audio/excursion_audio_presenter.dart';
+import 'package:good_trip/core/audio_player/excursion_audio/excursion_audio_presenter2.dart';
 import 'package:good_trip/core/audio_player/excursion_audio/excursion_audio_view.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/di/set_up_locator.dart';
@@ -21,9 +23,9 @@ class ExcursionAudio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (BuildContext context) => ExcursionAudioPresenter(
+      create: (BuildContext context) => ExcursionAudioPresenter2(
         index: index,
-        audioPlayerHandler: getIt.get<AudioPlayerHandlerImpl>(),
+        audioPlayerHandler: getIt.get<AudioPlayerHandlerImpl2>(),
         excursion: audioExcursion,
         tourName: tourName,
       )..init(),
