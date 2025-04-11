@@ -213,7 +213,7 @@ class ExcursionRepository implements IExcursionRepository {
 
   Future<String> loadUserId() async {
     final id = await _storage.read(
-      key: 'userId',
+      key: 'user_id',
     );
     if (id != null) {
       return id;

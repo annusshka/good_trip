@@ -18,29 +18,34 @@ class MockWelcomeInfoRepository extends IWelcomeInfoRepository {
 
   @override
   Future<List<WelcomeInfo>?> getWelcomeInfo() async {
-    return await [
-      const WelcomeInfo(
-        text: 'Добро пожаловать в GoodTrip',
-        subtext: 'Откройте для себя очарование этого мира. '
-            'Познакомьтесь с культурой, ландшафтами и наследием. '
-            'Ваш идеальный путеводитель.',
-        image:
-            'https://ik.imagekit.io/vqwafkkyo/goodTrip/photo/welcome11.png?updatedAt=1725398118547',
-      ),
-      const WelcomeInfo(
-        text: 'Находите интересные места',
-        subtext: 'Мы предоставляем доступ ко множеству различных интересных '
-            'мест и аудиоэкскурсий.',
-        image:
-            'https://ik.imagekit.io/vqwafkkyo/goodTrip/photo/welcome2.jpg?updatedAt=1725395760173',
-      ),
-      const WelcomeInfo(
-        text: 'Делитесь вашими любимыми местами',
-        subtext: 'Создавайте собственные туры по вашим любимым местам города.',
-        image:
-            'https://ik.imagekit.io/vqwafkkyo/goodTrip/photo/welcome12.png?updatedAt=1725398118396',
-      ),
-    ];
+    final isFirstRun = await checkFirstRun();
+    if (isFirstRun) {
+      return await [
+        const WelcomeInfo(
+          text: 'Добро пожаловать в GoodTrip',
+          subtext: 'Откройте для себя очарование этого мира. '
+              'Познакомьтесь с культурой, ландшафтами и наследием. '
+              'Ваш идеальный путеводитель.',
+          image:
+          'https://ik.imagekit.io/vqwafkkyo/goodTrip/photo/welcome11.png?updatedAt=1725398118547',
+        ),
+        const WelcomeInfo(
+          text: 'Находите интересные места',
+          subtext: 'Мы предоставляем доступ ко множеству различных интересных '
+              'мест и аудиоэкскурсий.',
+          image:
+          'https://ik.imagekit.io/vqwafkkyo/goodTrip/photo/welcome2.jpg?updatedAt=1725395760173',
+        ),
+        const WelcomeInfo(
+          text: 'Делитесь вашими любимыми местами',
+          subtext: 'Создавайте собственные туры по вашим любимым местам города.',
+          image:
+          'https://ik.imagekit.io/vqwafkkyo/goodTrip/photo/welcome12.png?updatedAt=1725398118396',
+        ),
+      ];
+    }
+
+    return null;
   }
 
   @override
@@ -48,18 +53,15 @@ class MockWelcomeInfoRepository extends IWelcomeInfoRepository {
     final firstRun = await _storage.read(
       key: 'first_run',
     );
-    if (firstRun != null) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return bool.tryParse(firstRun ?? 'true') ?? true;
   }
 
   @override
   Future<void> setFirstRun() async {
     await _storage.write(
       key: 'first_run',
-      value: 'true',
+      value: 'false',
     );
   }
 }

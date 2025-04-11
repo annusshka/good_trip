@@ -8,14 +8,9 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:audio_service/audio_service.dart' as _i87;
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:good_trip/core/app_router/app_router.dart' as _i416;
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart'
-    as _i33;
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart'
-    as _i944;
 import 'package:good_trip/core/data/repository/repository.dart' as _i73;
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart'
     as _i658;
@@ -33,10 +28,10 @@ import 'package:injectable/injectable.dart' as _i526;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  Future<_i174.GetIt> init({
+  _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) async {
+  }) {
     final gh = _i526.GetItHelper(
       this,
       environment,
@@ -47,16 +42,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i361.Dio>(() => locator.dio());
     gh.singleton<_i505.WeatherService>(() => locator.weatherService());
     gh.singleton<_i505.ApiTourService>(() => locator.apiTourService());
-    gh.singleton<_i33.AudioPlayerHandlerImpl>(
-        () => locator.audioPlayerHandler());
-    gh.singleton<_i944.AudioPlayerHandlerImpl2>(
-        () => locator.audioPlayerHandler2());
     gh.singleton<_i658.IWeatherRepository>(
         () => locator.weatherRepository(gh<_i505.WeatherService>()));
-    await gh.singletonAsync<_i87.AudioHandler>(
-      () => locator.audioHandler(gh<_i944.AudioPlayerHandlerImpl2>()),
-      preResolve: true,
-    );
     gh.singleton<_i505.ExcursionService>(
         () => locator.excursionService(gh<_i361.Dio>()));
     gh.singleton<_i505.TourService>(() => locator.tourService(gh<_i361.Dio>()));

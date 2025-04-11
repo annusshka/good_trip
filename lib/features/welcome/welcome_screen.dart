@@ -29,9 +29,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: BlocConsumer<WelcomeInfoBloc, WelcomeInfoState>(
         listener: (context, state) {
           if (state is WelcomeInfoAlreadySeen) {
-            BlocProvider.of<AuthBloc>(context)
-              ..add(AuthLoadUserEvent());
-            context.router.replace(const SignInRoute());
+            BlocProvider.of<AuthBloc>(context)..add(AuthLoadUserEvent());
+            context.router.replace(const HomeRoute());
           } else if (state is FirstRun) {
             context.router.replace(const SignInRoute());
           }
@@ -83,22 +82,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   const Spacer(),
                                   InkWell(
                                     onTap: () {
-                                      BlocProvider.of<WelcomeInfoBloc>(context)
-                                        ..add(const SetFirstRun());
+                                      BlocProvider.of<WelcomeInfoBloc>(context)..add(const SetFirstRun());
                                     },
                                     child: Container(
                                       height: 44,
                                       width: 102,
                                       decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
+                                        borderRadius: BorderRadius.circular(10.0),
                                         color: AppColors.pink,
                                       ),
                                       child: Center(
                                         child: Text(
                                           'Начать',
-                                          style:
-                                              AppTextTheme.semiBold15.copyWith(
+                                          style: AppTextTheme.semiBold15.copyWith(
                                             color: AppColors.white,
                                           ),
                                         ),

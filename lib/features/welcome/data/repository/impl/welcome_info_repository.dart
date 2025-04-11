@@ -28,7 +28,7 @@ class WelcomeInfoRepository extends IWelcomeInfoRepository {
       key: 'first_run',
     );
 
-    return bool.tryParse(firstRun ?? 'true') ?? false;
+    return bool.tryParse(firstRun ?? 'true') ?? true;
   }
 
   @override

@@ -395,7 +395,6 @@ class MockTourRepository implements ITourRepository {
 
   @override
   Future<List<Tour>> getTours({
-    required int userId,
     required String city,
     required double lon,
     required double lat,

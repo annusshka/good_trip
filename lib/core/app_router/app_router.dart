@@ -56,6 +56,30 @@ class AppRouter extends _$AppRouter {
               page: WelcomeRoute.page,
               initial: true,
             ),
+            AutoRoute(
+              page: NavBarUserRoute.page,
+              children: [
+                HomeRoutes.routes,
+                ExcursionRoutes.routes,
+                TourRoutes.routes,
+                FavouriteRoutes.routes,
+                ExcursionCreateListRoutes.routes,
+                AutoRoute(
+                  page: AccountRoute.page,
+                ),
+                MapRoutes.routes,
+              ],
+            ),
+            AutoRoute(
+              page: NavBarAdminRoute.page,
+              children: [
+                AccountListRoutes.routes,
+                CreatedExcursionsRoutes.routes,
+                AutoRoute(
+                  page: AccountRoute.page,
+                ),
+              ],
+            ),
           ],
         ),
         AutoRoute(

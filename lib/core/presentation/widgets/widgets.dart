@@ -9,3 +9,4 @@ export 'fail_screen.dart';
 export 'logo.dart';
 export 'nav_bar/nav_bar.dart';
 export 'search_delegate.dart';
+export 'tour_scroll_element.dart';

@@ -24,7 +24,7 @@ class AuthRepository extends IAuthRepository {
   Future<User> loadUser() async {
     try {
       final id = await loadUserId();
-      if (id == null) assert(id == null, 'userId is null');
+      if (id == null) assert(id == null, 'user_id is null');
       final response = await service.getUserById(userId: id.toString());
       return mapDtoToUser(response);
     } on DioException catch (error) {
@@ -39,7 +39,7 @@ class AuthRepository extends IAuthRepository {
   @override
   Future<int?> loadUserId() async {
     final id = await _storage.read(
-      key: 'userId',
+      key: 'user_id',
     );
     if (id != null) {
       return int.tryParse(id);
@@ -50,7 +50,7 @@ class AuthRepository extends IAuthRepository {
 
   Future<void> saveUserId(User user) async {
     await _storage.write(
-      key: 'userId',
+      key: 'user_id',
       value: user.id.toString(),
     );
   }
@@ -116,6 +116,6 @@ class AuthRepository extends IAuthRepository {
   Future<void> logout() async {
     await _storage.delete(key: 'jwt');
     await _storage.delete(key: 'refresh_jwt');
-    await _storage.delete(key: 'userId');
+    await _storage.delete(key: 'user_id');
   }
 }

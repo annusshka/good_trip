@@ -5,6 +5,7 @@ import 'package:day_picker/day_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/data/mapper/tour_mapper.dart';
+import 'package:good_trip/core/data/models/exception/secure_storage_exception.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -23,18 +24,27 @@ class TourRepository implements ITourRepository {
     ),
   }) : _storage = storage;
 
+  Future<String> loadUserId() async {
+    final id = await _storage.read(
+      key: 'user_id',
+    );
+    if (id != null) {
+      return id;
+    } else {
+      throw SecureStorageNotFoundException();
+    }
+  }
+
   @override
   Future<List<Tour>> getTours({
-    required int userId,
     required String city,
     required double lon,
     required double lat,
     int offset = 0,
   }) async {
     try {
-      //int userId = await AuthRepository().loadUserId();
-      final response = await service.getToursByCity(
-          userId: userId.toString(), city: city, offset: offset);
+      String userId = await loadUserId();
+      final response = await service.getToursByCity(city: city, offset: offset, userId: userId);
       return mapDtoToTours(response);
     } on DioException catch (error) {
       throw TourError(

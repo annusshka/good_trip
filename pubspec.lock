@@ -318,14 +318,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
-  deepgram_speech_to_text:
-    dependency: "direct main"
-    description:
-      name: deepgram_speech_to_text
-      sha256: f2ca897bfc0d5466bc578d7f6094db0251d8a8c902486796ff5da0285a6c040f
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.3"
   dio:
     dependency: "direct main"
     description:
@@ -1583,14 +1575,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.1"
-  universal_file:
-    dependency: transitive
-    description:
-      name: universal_file
-      sha256: d1a957fccaad2a32023b62fe435b273ee47aaf2eb804709795e4bf4afff50960
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   universal_io:
     dependency: transitive
     description:
@@ -1655,14 +1639,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  wav:
-    dependency: transitive
-    description:
-      name: wav
-      sha256: e8f26c493017b64165098c13e6f27be22db6c3ed275544c048d97b667f5455bf
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
   web:
     dependency: transitive
     description:

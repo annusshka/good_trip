@@ -5,7 +5,6 @@ import 'package:good_trip/core/data/models/models.dart';
 
 abstract class ITourRepository {
   Future<List<Tour>> getTours({
-    required int userId,
     required String city,
     required double lon,
     required double lat,

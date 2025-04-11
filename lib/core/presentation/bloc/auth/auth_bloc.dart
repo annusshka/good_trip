@@ -10,7 +10,7 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;
 
-  AuthBloc({required this.authRepository}) : super(AuthLoadingState()) {
+  AuthBloc({required this.authRepository}) : super(UnauthenticatedState()) {
     on<AuthEvent>(
       (event, emit) async {
         if (event is LogOutRequested) {

@@ -41,9 +41,9 @@ class WelcomeInfoBloc extends Bloc<WelcomeInfoEvent, WelcomeInfoState> {
     try {
       final response = await welcomeInfoRepository.checkFirstRun();
       if (response) {
-        emit(WelcomeInfoAlreadySeen());
-      } else {
         add(const WelcomeInfoRequested());
+      } else {
+        emit(WelcomeInfoAlreadySeen());
       }
     } catch (_) {
       emit(const WelcomeInfoFailure(
