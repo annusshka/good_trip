@@ -2,31 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 
-class EmptyList extends StatelessWidget {
-  const EmptyList({super.key});
+class EmptyFavourites extends StatelessWidget {
+  const EmptyFavourites({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: AppColors.pink.withValues(alpha: 0.2),
-        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-        border: Border.all(
-          color: AppColors.pink,
-        ),
-      ),
+      color: AppColors.pink.withValues(alpha: 0.2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(
-            'В этом месте пока нет аудиоэкскурсий. Будьте первым!',
+            'Вы пока не выбрали ни одной аудиоэкскурсии',
             style: AppTextTheme.normal16.copyWith(color: AppColors.pink),
             textAlign: TextAlign.center,
           ),
           // InkWell(
           //   onTap: () {
-          //     context.router.push(const CreatedExcursionsRoute());
+          //     context.router.push(const HomeRoute());
           //   },
           //   child: Container(
           //     height: 60.0,
@@ -38,7 +32,7 @@ class EmptyList extends StatelessWidget {
           //     ),
           //     child: const Center(
           //       child: Text(
-          //         'Создать аудиоэкскурсию',
+          //         'Выбрать аудиоэкскурсию',
           //         style: AppTextTheme.normal15,
           //         textAlign: TextAlign.center,
           //       ),

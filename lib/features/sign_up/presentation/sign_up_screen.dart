@@ -62,377 +62,379 @@ class _SignUpScreenState extends State<SignUpScreen> {
             }
           },
           builder: (context, state) {
-            if (state is UnauthenticatedState) {
-              return Container(
-                alignment: Alignment.bottomCenter,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(10.0),
-                  reverse: true,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(24),
-                    child: Container(
-                      decoration: const BoxDecoration(color: AppColors.white),
-                      padding: const EdgeInsets.all(25.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Зарегистрируйте аккаунт',
-                              style: AppTextTheme.semiBold20,
+            if (state is AuthLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Container(
+              alignment: Alignment.bottomCenter,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(10.0),
+                reverse: true,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(24),
+                  child: Container(
+                    decoration: const BoxDecoration(color: AppColors.white),
+                    padding: const EdgeInsets.all(25.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Зарегистрируйте аккаунт',
+                            style: AppTextTheme.semiBold20,
+                          ),
+                          Text(
+                            'Пожалуйста, войдите в свой аккаунт',
+                            style: AppTextTheme.semiBold14.copyWith(
+                              color: AppColors.lightGray,
                             ),
-                            Text(
-                              'Пожалуйста, войдите в свой аккаунт',
-                              style: AppTextTheme.semiBold14.copyWith(
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.name,
+                            controller: _nameController,
+                            cursorColor: AppColors.gray,
+                            cursorErrorColor: AppColors.red,
+                            cursorRadius: const Radius.circular(3.0),
+                            decoration: InputDecoration(
+                              hintText: 'Имя',
+                              hintStyle: AppTextTheme.semiBold18.copyWith(
                                 color: AppColors.lightGray,
                               ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.name,
-                              controller: _nameController,
-                              cursorColor: AppColors.gray,
-                              cursorErrorColor: AppColors.red,
-                              cursorRadius: const Radius.circular(3.0),
-                              decoration: InputDecoration(
-                                hintText: 'Имя',
-                                hintStyle: AppTextTheme.semiBold18.copyWith(
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
                                   color: AppColors.lightGray,
                                 ),
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                errorStyle: AppTextTheme.semiBold10,
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              style: AppTextTheme.semiBold18.copyWith(
-                                color: AppColors.gray,
-                              ),
-                              validator: (value) {
-                                return value != null && value.length < 2
-                                    ? 'Имя должно содержать минимум 2 символа'
-                                    : null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.name,
-                              controller: _surnameController,
-                              cursorColor: AppColors.gray,
-                              cursorErrorColor: AppColors.red,
-                              cursorRadius: const Radius.circular(3.0),
-                              decoration: InputDecoration(
-                                hintText: 'Фамилия',
-                                hintStyle: AppTextTheme.semiBold18.copyWith(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
                                   color: AppColors.lightGray,
                                 ),
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                errorStyle: AppTextTheme.semiBold10,
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              style: AppTextTheme.semiBold18.copyWith(
-                                color: AppColors.gray,
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              validator: (value) {
-                                return value != null && value.length < 2
-                                    ? 'Фамилия должна содержать минимум 2 символа'
-                                    : null;
-                              },
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorStyle: AppTextTheme.semiBold10,
                             ),
-                            const SizedBox(
-                              height: 10,
+                            autovalidateMode:
+                            AutovalidateMode.onUserInteraction,
+                            style: AppTextTheme.semiBold18.copyWith(
+                              color: AppColors.gray,
                             ),
-                            TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              controller: _emailController,
-                              cursorColor: AppColors.gray,
-                              cursorErrorColor: AppColors.red,
-                              cursorRadius: const Radius.circular(3.0),
-                              decoration: InputDecoration(
-                                hintText: 'Email',
-                                hintStyle: AppTextTheme.semiBold18.copyWith(
+                            validator: (value) {
+                              return value != null && value.length < 2
+                                  ? 'Имя должно содержать минимум 2 символа'
+                                  : null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.name,
+                            controller: _surnameController,
+                            cursorColor: AppColors.gray,
+                            cursorErrorColor: AppColors.red,
+                            cursorRadius: const Radius.circular(3.0),
+                            decoration: InputDecoration(
+                              hintText: 'Фамилия',
+                              hintStyle: AppTextTheme.semiBold18.copyWith(
+                                color: AppColors.lightGray,
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
                                   color: AppColors.lightGray,
                                 ),
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                errorStyle: AppTextTheme.semiBold10,
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              style: AppTextTheme.semiBold18.copyWith(
-                                color: AppColors.gray,
-                              ),
-                              validator: (value) {
-                                return value != null &&
-                                        !EmailValidator.validate(value)
-                                    ? 'Неправильный email'
-                                    : null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              keyboardType: TextInputType.phone,
-                              controller: _phoneController,
-                              cursorColor: AppColors.gray,
-                              cursorErrorColor: AppColors.red,
-                              cursorRadius: const Radius.circular(3.0),
-                              decoration: InputDecoration(
-                                hintText: 'Телефон',
-                                hintStyle: AppTextTheme.semiBold18.copyWith(
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
                                   color: AppColors.lightGray,
                                 ),
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                errorStyle: AppTextTheme.semiBold10,
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              style: AppTextTheme.semiBold18.copyWith(
-                                color: AppColors.gray,
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              validator: (value) {
-                                return value == null
-                                    ? 'Введите номер телефона'
-                                    : null;
-                              },
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorStyle: AppTextTheme.semiBold10,
                             ),
-                            const SizedBox(
-                              height: 10,
+                            autovalidateMode:
+                            AutovalidateMode.onUserInteraction,
+                            style: AppTextTheme.semiBold18.copyWith(
+                              color: AppColors.gray,
                             ),
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              controller: _passwordController,
-                              obscureText: !_showPassword,
-                              cursorColor: AppColors.gray,
-                              cursorErrorColor: AppColors.red,
-                              cursorRadius: const Radius.circular(3.0),
-                              decoration: InputDecoration(
-                                hintText: 'Пароль',
-                                hintStyle: AppTextTheme.semiBold18.copyWith(
+                            validator: (value) {
+                              return value != null && value.length < 2
+                                  ? 'Фамилия должна содержать минимум 2 символа'
+                                  : null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: _emailController,
+                            cursorColor: AppColors.gray,
+                            cursorErrorColor: AppColors.red,
+                            cursorRadius: const Radius.circular(3.0),
+                            decoration: InputDecoration(
+                              hintText: 'Email',
+                              hintStyle: AppTextTheme.semiBold18.copyWith(
+                                color: AppColors.lightGray,
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
                                   color: AppColors.lightGray,
                                 ),
-                                suffixIcon: GestureDetector(
-                                  onTap: _toggleVisibility,
-                                  child: Icon(
-                                    _showPassword
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                    color: AppColors.darkGray,
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    width: 1.0,
-                                    color: AppColors.lightGray,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.red,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                errorStyle: AppTextTheme.semiBold10,
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              style: AppTextTheme.semiBold18.copyWith(
-                                color: AppColors.gray,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
+                                  color: AppColors.lightGray,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
                               ),
-                              validator: (value) {
-                                return value != null && value.length < 6
-                                    ? 'Введите минимум 6 символов'
-                                    : null;
-                              },
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorStyle: AppTextTheme.semiBold10,
                             ),
-                            const SizedBox(
-                              height: 20,
+                            autovalidateMode:
+                            AutovalidateMode.onUserInteraction,
+                            style: AppTextTheme.semiBold18.copyWith(
+                              color: AppColors.gray,
                             ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Container(
-                                color: AppColors.pink,
-                                width: double.infinity,
-                                child: TextButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _authenticateWithEmailAndPassword(
-                                          context);
-                                    }
-                                  },
-                                  child: Text(
-                                    'Зарегистрироваться',
-                                    style: AppTextTheme.semiBold15.copyWith(
-                                      color: AppColors.white,
-                                    ),
+                            validator: (value) {
+                              return value != null &&
+                                  !EmailValidator.validate(value)
+                                  ? 'Неправильный email'
+                                  : null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.phone,
+                            controller: _phoneController,
+                            cursorColor: AppColors.gray,
+                            cursorErrorColor: AppColors.red,
+                            cursorRadius: const Radius.circular(3.0),
+                            decoration: InputDecoration(
+                              hintText: 'Телефон',
+                              hintStyle: AppTextTheme.semiBold18.copyWith(
+                                color: AppColors.lightGray,
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
+                                  color: AppColors.lightGray,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
+                                  color: AppColors.lightGray,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorStyle: AppTextTheme.semiBold10,
+                            ),
+                            autovalidateMode:
+                            AutovalidateMode.onUserInteraction,
+                            style: AppTextTheme.semiBold18.copyWith(
+                              color: AppColors.gray,
+                            ),
+                            validator: (value) {
+                              return value == null
+                                  ? 'Введите номер телефона'
+                                  : null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            controller: _passwordController,
+                            obscureText: !_showPassword,
+                            cursorColor: AppColors.gray,
+                            cursorErrorColor: AppColors.red,
+                            cursorRadius: const Radius.circular(3.0),
+                            decoration: InputDecoration(
+                              hintText: 'Пароль',
+                              hintStyle: AppTextTheme.semiBold18.copyWith(
+                                color: AppColors.lightGray,
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: _toggleVisibility,
+                                child: Icon(
+                                  _showPassword
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                  color: AppColors.darkGray,
+                                ),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
+                                  color: AppColors.lightGray,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  width: 1.0,
+                                  color: AppColors.lightGray,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                  color: AppColors.red,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              errorStyle: AppTextTheme.semiBold10,
+                            ),
+                            autovalidateMode:
+                            AutovalidateMode.onUserInteraction,
+                            style: AppTextTheme.semiBold18.copyWith(
+                              color: AppColors.gray,
+                            ),
+                            validator: (value) {
+                              return value != null && value.length < 6
+                                  ? 'Введите минимум 6 символов'
+                                  : null;
+                            },
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Container(
+                              color: AppColors.pink,
+                              width: double.infinity,
+                              child: TextButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _authenticateWithEmailAndPassword(
+                                        context);
+                                  }
+                                },
+                                child: Text(
+                                  'Зарегистрироваться',
+                                  style: AppTextTheme.semiBold15.copyWith(
+                                    color: AppColors.white,
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Уже есть аккаунт? ',
-                                  style: AppTextTheme.semiBold14.copyWith(
-                                    color: AppColors.lightGray,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Уже есть аккаунт? ',
+                                style: AppTextTheme.semiBold14.copyWith(
+                                  color: AppColors.lightGray,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  context.router
+                                      .popAndPush(const SignInRoute());
+                                },
+                                child: Text(
+                                  'Войти',
+                                  style: AppTextTheme.semiBold15.copyWith(
+                                    color: AppColors.pink,
                                   ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router
-                                        .popAndPush(const SignInRoute());
-                                  },
-                                  child: Text(
-                                    'Войти',
-                                    style: AppTextTheme.semiBold15.copyWith(
-                                      color: AppColors.pink,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
+              ),
+            );
           },
         ),
       ),

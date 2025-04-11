@@ -14,11 +14,9 @@ class WelcomeInfoRepository extends IWelcomeInfoRepository {
 
   @override
   Future<List<WelcomeInfo>?> getWelcomeInfo() async {
-    if (await _storage.containsKey(key: 'first_run')) {
-      final firstRun = await _storage.read(key: 'first_run') as bool;
-      if (firstRun) {
-        return await service.getWelcomeInfoList();
-      }
+    final isFirstRun = await checkFirstRun();
+    if (isFirstRun) {
+      return await service.getWelcomeInfoList();
     }
 
     return null;
@@ -29,18 +27,15 @@ class WelcomeInfoRepository extends IWelcomeInfoRepository {
     final firstRun = await _storage.read(
       key: 'first_run',
     );
-    if (firstRun != null) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return bool.tryParse(firstRun ?? 'true') ?? false;
   }
 
   @override
   Future<void> setFirstRun() async {
     await _storage.write(
       key: 'first_run',
-      value: 'true',
+      value: 'false',
     );
   }
 }

@@ -23,14 +23,11 @@ class AudioExcursionBloc extends Bloc<AudioExcursionEvent, AudioExcursionState> 
       AudioExcursionRequested event, Emitter<AudioExcursionState> emit) async {
     emit(AudioExcursionLoadInProgress());
     try {
-      /// TODO: data layer for UserData
-      final userId = 1;
       final List<AudioExcursion> tourList = await excursionRepository.getAudioExcursions(
         city: event.city,
         lon: event.lon,
         lat: event.lat,
         offset: event.offset,
-        userId: userId,
       );
       emit(AudioExcursionLoadSuccess(tourList: tourList));
     } catch (e) {

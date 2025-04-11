@@ -26,9 +26,7 @@ class ExcursionScrollElement extends StatelessWidget {
       width: 150,
       child: InkWell(
         onTap: () {
-          onTapAction != null
-              ? onTapAction!(excursion)
-              : context.router.push(ExcursionRoute(excursion: excursion));
+          onTapAction != null ? onTapAction!(excursion) : context.router.push(ExcursionRoute(excursion: excursion));
         },
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,22 +42,20 @@ class ExcursionScrollElement extends StatelessWidget {
                     children: [
                       ExcursionPhoto(
                         photoUrl: excursion.imageUrl,
-                        icon: excursion is Excursion
-                            ? Icons.photo_camera
-                            : Icons.headphones_rounded,
+                        icon: excursion is Excursion ? Icons.photo_camera : Icons.headphones_rounded,
                         size: 50,
                       ),
-                      Container(
-                        alignment: Alignment.topRight,
-                        padding: const EdgeInsets.all(8.0),
-                        child: BlocBuilder<ExcursionBloc, ExcursionState>(
-                            builder: (context, state) {
-                          return LikeButton(
-                            iconSize: 24,
-                            excursion: excursion,
-                          );
-                        }),
-                      ),
+                      if (excursion is! Excursion)
+                        Container(
+                          alignment: Alignment.topRight,
+                          padding: const EdgeInsets.all(8.0),
+                          child: BlocBuilder<ExcursionBloc, ExcursionState>(builder: (context, state) {
+                            return LikeButton(
+                              iconSize: 24,
+                              excursion: excursion,
+                            );
+                          }),
+                        ),
                     ],
                   ),
                 ),

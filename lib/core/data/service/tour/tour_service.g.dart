@@ -12,9 +12,7 @@ class _TourService implements TourService {
   _TourService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= '192.168.0.14';
-  }
+  });
 
   final Dio _dio;
 
@@ -165,7 +163,7 @@ class _TourService implements TourService {
     )
         .compose(
           _dio.options,
-          '/auth/users/likes',
+          '/auth/users/tours/likes',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -193,7 +191,7 @@ class _TourService implements TourService {
     )
             .compose(
               _dio.options,
-              '/auth/users/likes/${userId}',
+              '/auth/users/tours/likes/${userId}',
               queryParameters: queryParameters,
               data: _data,
             )

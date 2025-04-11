@@ -43,12 +43,13 @@ class _GeolocationState extends State<Geolocation> {
                 },
               ),
             ),
-            Text(
-              '${widget.locationInfo.temperature.toString()}°C',
-              style: AppTextTheme.semiBold16.copyWith(
-                color: AppColors.darkGray,
+            if (widget.locationInfo.temperature != null)
+              Text(
+                '${widget.locationInfo.temperature.toString()}°C',
+                style: AppTextTheme.semiBold16.copyWith(
+                  color: AppColors.darkGray,
+                ),
               ),
-            ),
           ],
         ),
       ],

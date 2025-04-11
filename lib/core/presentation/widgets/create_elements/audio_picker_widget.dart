@@ -47,14 +47,14 @@ class AudioPickerWidget extends StatelessWidget {
                         children: [
                           const Icon(
                             Icons.mic,
-                            color: AppColors.white,
+                            color: AppColors.lightGrayEA,
                             size: 30,
                           ),
                           Expanded(
                             child: Text(
                               audioFile.path.split('/').last,
                               style: AppTextTheme.semiBold18.copyWith(
-                                color: AppColors.white,
+                                color: AppColors.gray,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),

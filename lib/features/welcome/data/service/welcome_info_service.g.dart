@@ -12,9 +12,7 @@ class _WelcomeInfoService implements WelcomeInfoService {
   _WelcomeInfoService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= '192.168.0.14';
-  }
+  });
 
   final Dio _dio;
 

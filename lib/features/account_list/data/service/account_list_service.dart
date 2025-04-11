@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/api/urls.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:retrofit/http.dart';
 
 part 'account_list_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
+@RestApi()
 abstract class AccountListService {
   factory AccountListService(Dio dio, {String baseUrl}) = _AccountListService;
 

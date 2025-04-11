@@ -45,9 +45,6 @@ class AccountScreen extends StatelessWidget {
                       onTap: () {
                         BlocProvider.of<AuthBloc>(context)
                             .add(LogOutRequested());
-                        // AutoRouter.of(context).push(const SignInRoute());
-                        // AutoRouter.of(context)
-                        //     .replaceAll([const SignInRoute()]);
                         context.router.replaceAll([const SignInRoute()]);
                       },
                       child: BlocBuilder<AuthBloc, AuthState>(

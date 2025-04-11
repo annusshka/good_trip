@@ -2,11 +2,11 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
-import 'package:good_trip/core/presentation/widgets/empty_list.dart';
 import 'package:good_trip/core/presentation/widgets/excursion_grid.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/core/theme/strings.dart';
+import 'package:good_trip/features/favorite/presentation/widgets/empty_favourites.dart';
 
 import 'bloc/favorite_list.dart';
 
@@ -39,7 +39,7 @@ class FavoriteScreen extends StatelessWidget {
             builder: (context, state) {
           if (state is FavoriteListLoadedSuccess) {
             if (state.tourList.isEmpty) {
-              return const EmptyList();
+              return const EmptyFavourites();
             }
             return ExcursionGrid(
               excursionList: state.tourList,

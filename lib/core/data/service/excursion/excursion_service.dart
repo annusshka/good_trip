@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/api/urls.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:retrofit/http.dart';
 
 part 'excursion_service.g.dart';
 
-@RestApi(baseUrl: baseUrl)
+@RestApi()
 abstract class ExcursionService {
   factory ExcursionService(Dio dio, {String baseUrl}) = _ExcursionService;
 
@@ -22,13 +21,13 @@ abstract class ExcursionService {
     @Query('offset') required int offset,
   });
 
-  @GET('${Urls.audio}/{user_id}')
+  @GET('${Urls.audioExcursion}/{user_id}')
   Future<List<AudioExcursionDto>> getCreatedExcursionsByUser({
     @Path('user_id') required String userId,
     @Query('offset') required int offset,
   });
 
-  @GET(Urls.audio)
+  @GET(Urls.audioExcursion)
   Future<List<AudioExcursionDto>> getCreatedExcursionsByAdmin({
     @Query('offset') required int offset,
   });
@@ -48,10 +47,12 @@ abstract class ExcursionService {
   @POST('${Urls.createExcursion}/{user_id}')
   Future<void> createExcursion({
     @Path('user_id') required String userId,
-    @Body() required Excursion excursion,
+    @Body() required AudioExcursion excursion,
+    @Body() required MultipartFile audioFile,
+    @Body() required MultipartFile imageFile,
   });
 
-  @DELETE('${Urls.audio}/{tour_id}')
+  @DELETE('${Urls.audioExcursion}/{tour_id}')
   Future<void> deleteExcursion({
     @Path('tour_id') required String tourId,
   });

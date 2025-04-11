@@ -1,5 +1,6 @@
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc/bloc.dart';
+import 'package:good_trip/core/data/models/exception/auth_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 
@@ -26,8 +27,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       },
     );
-
-    add(AuthLoadUserEvent());
   }
 
   Future<void> _logout(LogOutRequested event, Emitter<AuthState> emit) async {
@@ -37,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AppMetrica.reportEvent('logout');
       emit(UnauthenticatedState());
     } catch (e) {
-      emit(AuthErrorState(e.toString()));
+      emit(const AuthErrorState('Произошла ошибка'));
       AppMetrica.reportErrorWithGroup(
         'Authenticate level',
         message: e.toString(),
@@ -46,8 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> _loadUser(
-      AuthLoadUserEvent event, Emitter<AuthState> emit) async {
+  Future<void> _loadUser(AuthLoadUserEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     try {
       User user = await authRepository.loadUser();
@@ -75,8 +73,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       sendAnalytics(user);
       AppMetrica.reportEvent('sign in');
       emit(AuthenticatedState(user: user));
+    } on AuthError catch (e) {
+      final statusCode = e.statusCode;
+      if (statusCode != null) {
+        switch (statusCode) {
+          case 401:
+            return emit(
+              const AuthErrorState('Пользователя с такими данными не существует. Проверьте введенные данные'),
+            );
+          default:
+            emit(const AuthErrorState('Возникла ошибка при авторизации'));
+        }
+      } else {
+        emit(const AuthErrorState('Возникла ошибка при авторизации'));
+      }
     } catch (e) {
-      emit(UnauthenticatedState());
+      emit(const AuthErrorState('Возникла ошибка при авторизации'));
       AppMetrica.reportErrorWithGroup(
         'Authenticate level',
         message: e.toString(),
@@ -100,8 +112,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       sendAnalytics(user);
       AppMetrica.reportEvent('sign up');
       emit(AuthenticatedState(user: user));
+    } on AuthError catch (e) {
+      final statusCode = e.statusCode;
+      if (statusCode != null) {
+        switch (statusCode) {
+          case 422:
+            return emit(AuthErrorState('Пользователь с e-mail ${event.user.email} уже зарегистрирован'));
+          default:
+            emit(const AuthErrorState('Возникла ошибка при регистрации'));
+        }
+      } else {
+        emit(const AuthErrorState('Возникла ошибка при регистрации'));
+      }
     } catch (e) {
-      emit(UnauthenticatedState());
+      emit(const AuthErrorState('Возникла ошибка при регистрации'));
       AppMetrica.reportErrorWithGroup(
         'Authenticate level',
         message: e.toString(),

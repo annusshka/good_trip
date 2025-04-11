@@ -376,7 +376,6 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                 TextFormField(
                   keyboardType: TextInputType.text,
                   controller: _descriptionController,
-                  textCapitalization: TextCapitalization.words,
                   cursorColor: AppColors.gray,
                   cursorErrorColor: AppColors.red,
                   cursorRadius: const Radius.circular(3.0),

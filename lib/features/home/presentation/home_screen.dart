@@ -42,8 +42,7 @@ class HomeScreen extends StatelessWidget {
             }
           },
         ),
-        BlocListener<ExcursionCreateBloc, ExcursionCreateState>(
-            listener: (context, state) {
+        BlocListener<ExcursionCreateBloc, ExcursionCreateState>(listener: (context, state) {
           if (state is ExcursionCreatedSuccess) {
             BlocProvider.of<AudioExcursionBloc>(context).add(
               const AudioExcursionRequested(),
@@ -60,22 +59,27 @@ class HomeScreen extends StatelessWidget {
           scrolledUnderElevation: 0,
           backgroundColor: Colors.transparent,
           automaticallyImplyLeading: false,
-          title:
-              BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
-            if (state is WeatherLoadSuccess) {
-              return Geolocation(
-                locationInfo: state.weather,
-              );
-            } else if (state is WeatherLoadInProgress) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return Geolocation(
-                locationInfo: LocationInfo.undefined(),
-              );
-            }
-          }),
+          title: BlocBuilder<WeatherBloc, WeatherState>(
+            builder: (context, state) {
+              if (state is WeatherLoadSuccess) {
+                return Geolocation(
+                  locationInfo: state.weather,
+                );
+              } else if (state is WeatherLoadInProgress) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is WeatherLoadFailure){
+                return Geolocation(
+                  locationInfo: state.weather ?? LocationInfo.undefined(),
+                );
+              } else {
+                return Geolocation(
+                  locationInfo: LocationInfo.undefined(),
+                );
+              }
+            },
+          ),
           actions: [
             IconButton(
               icon: const Icon(
@@ -121,8 +125,7 @@ class HomeScreen extends StatelessWidget {
                       child: BlocBuilder<ExcursionListBloc, ExcursionListState>(
                         builder: (context, state) {
                           if (state is ExcursionListLoadInProgress) {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return const Center(child: CircularProgressIndicator());
                           }
                           if (state is ExcursionListLoadSuccess) {
                             if (state.excursionList.isEmpty) {
@@ -131,8 +134,7 @@ class HomeScreen extends StatelessWidget {
                             return ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount: state.excursionList.length,
-                              separatorBuilder: (BuildContext context, _) =>
-                                  const SizedBox(
+                              separatorBuilder: (BuildContext context, _) => const SizedBox(
                                 width: 10,
                               ),
                               itemBuilder: (context, i) {
@@ -189,8 +191,7 @@ class HomeScreen extends StatelessWidget {
                             return ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount: state.tourList.length,
-                              separatorBuilder: (BuildContext context, _) =>
-                                  const SizedBox(
+                              separatorBuilder: (BuildContext context, _) => const SizedBox(
                                 width: 10,
                               ),
                               itemBuilder: (context, i) {

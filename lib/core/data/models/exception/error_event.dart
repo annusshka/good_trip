@@ -9,8 +9,10 @@ class ErrorEvent extends IError {
     required super.name,
     this.message,
     this.errorText,
+    this.statusCode,
   });
 
   final String? message;
   final String? errorText;
+  final int? statusCode;
 }

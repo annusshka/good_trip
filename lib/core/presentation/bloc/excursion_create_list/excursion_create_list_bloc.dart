@@ -44,12 +44,9 @@ class ExcursionCreateListBloc
       Emitter<ExcursionCreateListState> emit) async {
     emit(ExcursionCreateListLoadInProgress());
     try {
-      ///TODO: add user data layer
-      const userId = 1;
       final List<AudioExcursion> tours =
           await excursionRepository.getCreatedExcursionListByUserId(
         offset: event.offset,
-        userId: userId,
       );
       emit(ExcursionCreateListLoadedSuccess(excursionList: tours));
     } catch (e) {

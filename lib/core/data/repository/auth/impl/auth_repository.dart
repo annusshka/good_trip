@@ -59,17 +59,23 @@ class AuthRepository extends IAuthRepository {
   Future<User> login({required LoginRequest loginRequest}) async {
     try {
       final response = await service.login(loginRequest: loginRequest);
-      saveUserJwt(response.token);
-      saveUserJwtR(response.refreshToken);
+      await saveUserJwt(response.token);
+      await saveUserJwtR(response.refreshToken);
       final user = mapDtoToUser(response.user);
       await saveUserId(user);
 
       return user;
     } on DioException catch (error) {
       throw AuthError(
-        name: 'LoginError',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        name: 'RegisterError',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
+        statusCode: error.response?.statusCode,
+      );
+    } on Exception catch (error) {
+      throw AuthError(
+        name: 'RegisterError',
+        message: error.toString(),
       );
     }
   }
@@ -78,16 +84,17 @@ class AuthRepository extends IAuthRepository {
   Future<User> register({required AuthRequest authRequest}) async {
     try {
       final response = await service.register(authRequest: authRequest);
-      saveUserJwt(response.token);
-      saveUserJwtR(response.refreshToken);
+      await saveUserJwt(response.token);
+      await saveUserJwtR(response.refreshToken);
       final user = mapDtoToUser(response.user);
       await saveUserId(user);
       return user;
     } on DioException catch (error) {
       throw AuthError(
         name: 'RegisterError',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
+        statusCode: error.response?.statusCode,
       );
     } on Exception catch (error) {
       throw AuthError(
@@ -107,6 +114,8 @@ class AuthRepository extends IAuthRepository {
 
   @override
   Future<void> logout() async {
-    await _storage.deleteAll();
+    await _storage.delete(key: 'jwt');
+    await _storage.delete(key: 'refresh_jwt');
+    await _storage.delete(key: 'userId');
   }
 }

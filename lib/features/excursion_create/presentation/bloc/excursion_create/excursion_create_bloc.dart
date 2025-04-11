@@ -38,7 +38,7 @@ class ExcursionCreateBloc extends Bloc<ExcursionCreateEvent, ExcursionCreateStat
           id: event.tour.id,
           name: event.name ?? audioTour.name,
           imageUrl: event.imagePath ?? audioTour.imageUrl,
-          address: (event.address ?? audioTour.address) as Address,
+          address: (event.address ?? audioTour.address),
           weekdays: event.weekdays ?? audioTour.weekdays,
           description: event.description ?? audioTour.description,
           kinds: event.kinds ?? audioTour.kinds,
@@ -68,51 +68,33 @@ class ExcursionCreateBloc extends Bloc<ExcursionCreateEvent, ExcursionCreateStat
     }
   }
 
-  Future<void> _excursionCreateRequested(
-      ExcursionCreateRequested event, Emitter<ExcursionCreateState> emit) async {
-    // final WeekdayCubit weekdayCubit = getIt.get<WeekdayCubit>();
-    // final AudioState audioState = event.context.read<AudioState>();
-    // final ImageState imageState = event.context.read<ImageState>();
-    // final KindState kindState = event.context.read<KindState>();
-    // final WeekdayState weekdayState = event.context.read<WeekdayState>();
-    //
-    // emit(TourCreateInProgress());
-    // try {
-    //   if (audioState.audio == null ||
-    //       audioState.audioPath == null ||
-    //       imageState.image == null ||
-    //       imageState.imagePath == null ||
-    //       kindState.kinds.isEmpty ||
-    //       weekdayState.days.isEmpty) {
-    //     emit(
-    //       const TourCreateFailure(
-    //           errorMsg: 'Empty param in tour create request.'),
-    //     );
-    //     _showChangeNotification(
-    //       event.context,
-    //       'Проверьте все ли поля заполнены!',
-    //     );
-    //   } else {
-    //     ///TODO: saveTour method
-    //     // await tourRepository.saveTour(
-    //     //   event.name,
-    //     //   event.imagePath,
-    //     //   event.weekdays,
-    //     //   event.description,
-    //     //   event.kinds,
-    //     //   event.address,
-    //     //   event.audioPath,
-    //     //   event.imageFile,
-    //     //   event.audioFile,
-    //     // );
-    //     emit(TourCreatedSuccess());
-    //     weekdayCubit.clearWeekdays();
-    //     _showChangeNotification(event.context, changesSuccess);
-    //   }
-    // } catch (_) {
-    //   emit(const TourCreateFailure(errorMsg: 'Error in tour create request.'));
-    //   _showChangeNotification(event.context, changesFail);
-    // }
+  Future<void> _excursionCreateRequested(ExcursionCreateRequested event, Emitter<ExcursionCreateState> emit) async {
+    emit(ExcursionCreateInProgress());
+    try {
+      if (event.audioFile == null || event.imageFile == null) {
+        emit(
+          const ExcursionCreateFailure(errorMsg: 'Empty param in tour create request.'),
+        );
+      } else {
+        final weekDays = event.weekdays.map((e) => Weekday.values.firstWhere((el) => el.name == e.dayKey)).toList();
+        final AudioExcursion audioExcursion = AudioExcursion(
+          id: '0',
+          name: event.name,
+          imageUrl: event.imagePath,
+          weekdays: weekDays,
+          description: event.description,
+          kinds: event.kinds,
+          address: event.address,
+          audioUrl: event.audioPath,
+        );
+        await excursionRepository.saveExcursion(
+          audioExcursion: audioExcursion,
+        );
+        emit(ExcursionCreatedSuccess());
+      }
+    } catch (_) {
+      emit(const ExcursionCreateFailure(errorMsg: 'Error in tour create request.'));
+    }
   }
 
   Future<void> _excursionRemoveRequested(

@@ -25,9 +25,7 @@ class ExcursionBloc extends Bloc<ExcursionEvent, ExcursionState> {
       ExcursionLikeRequested event, Emitter<ExcursionState> emit) async {
     emit(ExcursionLoadInProgress());
     try {
-      /// TODO: add user data layer
-      final userId = 1;
-      await excursionRepository.likeTour(userId: userId, id: event.id,);
+      await excursionRepository.likeTour(id: event.id,);
       AppMetrica.reportEvent('excursion_like');
       emit(ExcursionLikedSuccess());
     } catch (e) {

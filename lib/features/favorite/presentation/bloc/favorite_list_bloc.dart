@@ -24,11 +24,8 @@ class FavoriteListBloc extends Bloc<FavoriteListEvent, FavoriteListState> {
       FavoriteListRequested event, Emitter<FavoriteListState> emit) async {
     emit(FavoriteListLoadInProgress());
     try {
-      ///TODO: add user data layer
-      const userId = 1;
       final List<IExcursion> tours =
           await tourRepository.getFavoriteExcursionList(
-        userId: userId,
         offset: event.offset,
       );
       AppMetrica.reportEvent('favourites_open');

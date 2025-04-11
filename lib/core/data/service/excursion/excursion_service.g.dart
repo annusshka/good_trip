@@ -12,9 +12,7 @@ class _ExcursionService implements ExcursionService {
   _ExcursionService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= '192.168.0.14';
-  }
+  });
 
   final Dio _dio;
 
@@ -41,7 +39,7 @@ class _ExcursionService implements ExcursionService {
     )
             .compose(
               _dio.options,
-              '/auth/tours/audio/city/${userId}',
+              '/auth/excursions/audio/city/${userId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -72,7 +70,7 @@ class _ExcursionService implements ExcursionService {
     )
             .compose(
               _dio.options,
-              '/auth/admin/tours',
+              '/auth/admin/excursions',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -105,7 +103,7 @@ class _ExcursionService implements ExcursionService {
     )
             .compose(
               _dio.options,
-              '/auth/tours/audio/${userId}',
+              '/auth/excursions/audio/${userId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -136,7 +134,7 @@ class _ExcursionService implements ExcursionService {
     )
             .compose(
               _dio.options,
-              '/auth/tours/audio',
+              '/auth/excursions/audio',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -171,7 +169,7 @@ class _ExcursionService implements ExcursionService {
     )
         .compose(
           _dio.options,
-          '/auth/users/likes',
+          '/auth/users/excursions/likes',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -199,7 +197,7 @@ class _ExcursionService implements ExcursionService {
     )
             .compose(
               _dio.options,
-              '/auth/users/likes/${userId}',
+              '/auth/users/excursions/likes/${userId}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -218,7 +216,9 @@ class _ExcursionService implements ExcursionService {
   @override
   Future<void> createExcursion({
     required String userId,
-    required Excursion excursion,
+    required AudioExcursion excursion,
+    required MultipartFile audioFile,
+    required MultipartFile imageFile,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -232,7 +232,7 @@ class _ExcursionService implements ExcursionService {
     )
         .compose(
           _dio.options,
-          '/auth/tours/audio/created/${userId}',
+          '/auth/excursions/audio/created/full/${userId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -256,7 +256,7 @@ class _ExcursionService implements ExcursionService {
     )
         .compose(
           _dio.options,
-          '/auth/tours/audio/${tourId}',
+          '/auth/excursions/audio/${tourId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -281,7 +281,7 @@ class _ExcursionService implements ExcursionService {
     )
             .compose(
               _dio.options,
-              '/auth/tours/types',
+              '/auth/excursions/types',
               queryParameters: queryParameters,
               data: _data,
             )

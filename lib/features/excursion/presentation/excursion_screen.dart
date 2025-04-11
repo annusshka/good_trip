@@ -79,16 +79,17 @@ class ExcursionScreen extends StatelessWidget {
                         iconSize: 24,
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.topRight,
-                      padding: const EdgeInsets.all(8.0),
-                      child: BlocBuilder<ExcursionBloc, ExcursionState>(builder: (context, state) {
-                        return LikeButton(
-                          iconSize: 24,
-                          excursion: excursion,
-                        );
-                      }),
-                    ),
+                    if (excursion is! Excursion)
+                      Container(
+                        alignment: Alignment.topRight,
+                        padding: const EdgeInsets.all(8.0),
+                        child: BlocBuilder<ExcursionBloc, ExcursionState>(builder: (context, state) {
+                          return LikeButton(
+                            iconSize: 24,
+                            excursion: excursion,
+                          );
+                        }),
+                      ),
                   ],
                 ),
               ),

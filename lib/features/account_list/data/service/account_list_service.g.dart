@@ -12,9 +12,7 @@ class _AccountListService implements AccountListService {
   _AccountListService(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= '192.168.0.14';
-  }
+  });
 
   final Dio _dio;
 

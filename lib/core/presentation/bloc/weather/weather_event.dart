@@ -9,7 +9,11 @@ class WeatherRequested extends WeatherEvent {
   final double lat;
   final double lon;
 
-  const WeatherRequested({this.city = '', this.lat = 0.0, this.lon = 0.0});
+  const WeatherRequested({
+    this.city = 'Москва',
+    this.lon = 37.6172999,
+    this.lat = 55.755826,
+  });
 
   @override
   List<Object> get props => [city, lat, lon];
@@ -20,8 +24,7 @@ class WeatherDefaultRequested extends WeatherEvent {
   final double lat;
   final double lon;
 
-  const WeatherDefaultRequested(
-      {this.city = '', this.lat = 59.855685, this.lon = 38.364285});
+  const WeatherDefaultRequested({this.city = '', this.lat = 59.855685, this.lon = 38.364285});
 
   @override
   List<Object> get props => [city, lat, lon];
@@ -32,8 +35,7 @@ class WeatherCurrentPositionRequested extends WeatherEvent {
   final double lat;
   final double lon;
 
-  const WeatherCurrentPositionRequested(
-      {this.city = '', this.lat = 0.0, this.lon = 0.0});
+  const WeatherCurrentPositionRequested({this.city = '', this.lat = 0.0, this.lon = 0.0});
 
   @override
   List<Object> get props => [city];

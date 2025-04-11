@@ -5,5 +5,6 @@ class AuthError extends ErrorEvent {
     required super.name,
     super.message,
     super.errorText,
+    super.statusCode,
   });
 }

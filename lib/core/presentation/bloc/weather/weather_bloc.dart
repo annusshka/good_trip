@@ -24,15 +24,15 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     );
   }
 
-  Future<void> _weatherRequested(
-      WeatherRequested event, Emitter<WeatherState> emit) async {
+  Future<void> _weatherRequested(WeatherRequested event, Emitter<WeatherState> emit) async {
     emit(WeatherLoadInProgress());
     try {
-      final LocationInfo weather = await weatherRepository.fetchCurrentWeather(
-          query: event.city, lon: event.lon, lat: event.lat);
+      final LocationInfo weather =
+          await weatherRepository.fetchCurrentWeather(query: event.city, lon: event.lon, lat: event.lat);
       emit(WeatherLoadSuccess(weather: weather));
     } catch (_) {
-      emit(const WeatherLoadFailure(errorMsg: 'Error in weather request.'));
+      final actualWeather = LocationInfo(cityName: event.city, lon: event.lon, lat: event.lat);
+      emit(WeatherLoadFailure(errorMsg: 'Error in weather request.', weather: actualWeather));
     }
   }
 
@@ -43,7 +43,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       add(const WeatherDefaultRequested());
-      return Future.error('Location services are disabled.');
+      //return Future.error('Location services are disabled.');
     }
 
     permission = await Geolocator.checkPermission();
@@ -51,14 +51,13 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         add(const WeatherDefaultRequested());
-        return Future.error('Location permissions are denied');
+        //return Future.error('Location permissions are denied');
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       add(const WeatherDefaultRequested());
-      return Future.error('Location permissions are permanently denied, '
-          'we cannot request permissions.');
+      //return Future.error('Location permissions are permanently denied, we cannot request permissions.');
     }
 
     Position position = await Geolocator.getCurrentPosition(
@@ -74,6 +73,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       _getCurrentPosition();
     } catch (e) {
       debugPrint(e.toString());
+      emit(const WeatherLoadFailure(errorMsg: 'Error in weather request.'));
       AppMetrica.reportErrorWithGroup(
         'Localization level',
         message: e.toString(),

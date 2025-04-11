@@ -4,17 +4,17 @@ abstract class Urls {
   static const register ='/auth/register';
   static const login = '/auth/authentication';
 
-  static const excursionsByCity = '/auth/tours/audio/city';
-  static const audio = '/auth/tours/audio';
-  static const excursionsByAdmin = '/auth/admin/tours';
-  static const likeExcursion = '/auth/users/likes';
-  static const createExcursion = '/auth/tours/audio/created';
-  static const excursionTypes = '/auth/tours/types';
+  static const excursionsByCity = '/auth/excursions/audio/city';
+  static const audioExcursion = '/auth/excursions/audio';
+  static const createExcursion = '/auth/excursions/audio/created/full';
+  static const excursionsByAdmin = '/auth/admin/excursions';
+  static const likeExcursion = '/auth/users/excursions/likes';
+  static const excursionTypes = '/auth/excursions/types';
 
   static const toursByCity = '/auth/tours/audio/city';
   static const audioTour = '/auth/tours/audio';
   static const toursByAdmin = '/auth/admin/tours';
-  static const likeTour = '/auth/users/likes';
+  static const likeTour = '/auth/users/tours/likes';
   static const createTour = '/auth/tours/audio/created';
 
   static const getAccountList = '/auth/admin/users';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
-import 'package:good_trip/core/presentation/widgets/widgets.dart';
+import 'package:good_trip/features/excursion_create_list/presentation/widgets/empty_created_list.dart';
 import 'package:good_trip/features/excursion_create_list/presentation/widgets/tour_create_list_element.dart';
 
 class TourList extends StatelessWidget {
@@ -16,7 +16,7 @@ class TourList extends StatelessWidget {
       builder: (context, state) {
         if (state is TourCreateListLoadedSuccess) {
           if (state.tourList.isEmpty) {
-            return const EmptyList();
+            return const EmptyCreatedList(emptyText: 'Вы пока не создали ни одного аудиотура');
           }
           return ListView.separated(
             scrollDirection: Axis.vertical,
@@ -41,7 +41,7 @@ class TourList extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-        return const SizedBox.shrink();
+        return const EmptyCreatedList(emptyText: 'Вы пока не создали ни одного аудиотура');
       },
     );
   }

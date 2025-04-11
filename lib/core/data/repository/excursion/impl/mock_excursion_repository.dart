@@ -28,8 +28,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -48,8 +47,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '2',
       name: 'Аудио-экскурсия №2',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_2.jpg?updatedAt=1717931856240',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_2.jpg?updatedAt=1717931856240',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -62,8 +60,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -83,8 +80,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '3',
       name: 'Аудио-экскурсия №3',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_5.jpg?updatedAt=1717931868349',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_5.jpg?updatedAt=1717931868349',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -97,8 +93,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -118,8 +113,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '4',
       name: 'Аудио-экскурсия №4',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_6.jpg?updatedAt=1717931879992',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_6.jpg?updatedAt=1717931879992',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -132,8 +126,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -153,8 +146,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '5',
       name: 'Аудио-экскурсия №5',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -167,8 +159,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -188,8 +179,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '6',
       name: 'Аудио-экскурсия №6',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -202,8 +192,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -223,8 +212,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '7',
       name: 'Аудио-экскурсия №7',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 55.45, lat: 37.37),
         country: 'Россия',
@@ -236,8 +224,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -257,8 +244,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '8',
       name: 'Аудио-экскурсия №8',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -271,8 +257,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -292,8 +277,7 @@ class MockExcursionRepository implements IExcursionRepository {
     AudioExcursion(
       id: '9',
       name: 'Аудио-экскурсия №9',
-      imageUrl:
-          'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
+      imageUrl: 'https://ik.imagekit.io/vqwafkkyo/goodTrip_photo_3.jpg?updatedAt=1717931892355',
       address: const Address(
         coordinates: Point(lon: 51.4, lat: 39.12),
         country: 'Россия',
@@ -306,8 +290,7 @@ class MockExcursionRepository implements IExcursionRepository {
         TourType.cultural.displayText,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -328,7 +311,6 @@ class MockExcursionRepository implements IExcursionRepository {
 
   @override
   Future<List<AudioExcursion>> getAudioExcursions({
-    required int userId,
     required String city,
     required double lon,
     required double lat,
@@ -363,8 +345,7 @@ class MockExcursionRepository implements IExcursionRepository {
   }
 
   @override
-  Future<List<AudioExcursion>> getCreatedExcursionListByAdmin(
-      {int offset = 0}) async {
+  Future<List<AudioExcursion>> getCreatedExcursionListByAdmin({int offset = 0}) async {
     try {
       return iTourList;
     } on DioException catch (error) {
@@ -380,7 +361,6 @@ class MockExcursionRepository implements IExcursionRepository {
 
   @override
   Future<List<AudioExcursion>> getCreatedExcursionListByUserId({
-    required int userId,
     int offset = 0,
   }) async {
     try {
@@ -398,7 +378,6 @@ class MockExcursionRepository implements IExcursionRepository {
 
   @override
   Future<void> likeTour({
-    required int userId,
     required String id,
   }) async {
     try {
@@ -418,8 +397,7 @@ class MockExcursionRepository implements IExcursionRepository {
   }
 
   @override
-  Future<List<AudioExcursion>> getFavoriteExcursionList(
-      {required int userId, int offset = 0}) async {
+  Future<List<AudioExcursion>> getFavoriteExcursionList({int offset = 0}) async {
     try {
       List<AudioExcursion> list = [];
       for (final AudioExcursion tour in iTourList) {
@@ -464,8 +442,7 @@ class MockExcursionRepository implements IExcursionRepository {
     try {
       List<TourKind> menuItems = [];
       for (final TourType value in TourType.values) {
-        final TourKind tourKind =
-            TourKind(name: value.name, translation: value.displayText);
+        final TourKind tourKind = TourKind(name: value.name, translation: value.displayText);
         menuItems.add(tourKind);
       }
       return menuItems;
@@ -478,5 +455,13 @@ class MockExcursionRepository implements IExcursionRepository {
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  @override
+  Future<void> saveExcursion({
+    required AudioExcursion audioExcursion,
+  }) async {
+    // TODO: implement saveExcursion
+    throw UnimplementedError();
   }
 }
