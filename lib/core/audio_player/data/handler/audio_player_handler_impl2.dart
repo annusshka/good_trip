@@ -1,7 +1,5 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler2.dart';
 import 'package:good_trip/core/audio_player/data/handler/queue_state2.dart';
 import 'package:good_trip/core/audio_player/data/media_library.dart';
 import 'package:good_trip/core/audio_player/data/queue_state.dart';
@@ -13,7 +11,7 @@ import 'package:rxdart/rxdart.dart';
 /// Этот обработчик поддерживается проигрывателем just_audio.
 /// Последовательность действий проигрывателя отображается в очереди
 /// обработчика, а состояние проигрывателя отображается в состоянии обработчика.
-class AudioPlayerHandlerImpl2 extends BaseAudioHandler with SeekHandler implements AudioPlayerHandler2 {
+class AudioPlayerHandler2 extends BaseAudioHandler with SeekHandler implements AudioHandler {
   final BehaviorSubject<List<MediaItem>> loadedPlaylist = BehaviorSubject.seeded(<MediaItem>[]);
   final BehaviorSubject<String> actualAlbum = BehaviorSubject.seeded('');
   final BehaviorSubject<String> loadedAlbum = BehaviorSubject.seeded('');
@@ -27,7 +25,6 @@ class AudioPlayerHandlerImpl2 extends BaseAudioHandler with SeekHandler implemen
 
   /// Поток, сообщающий о совокупном состоянии текущей очереди и текущего
   /// мультимедийного элемента в этой очереди.
-  @override
   Stream<QueueState2> get queueState => Rx.combineLatest2<List<MediaItem>, PlaybackState, QueueState2>(
       queue,
       playbackState,

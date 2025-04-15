@@ -34,15 +34,14 @@ class MockAuthRepository extends IAuthRepository {
   @override
   Future<User> loadUser() async {
     try {
-      final id = await loadUserId();
-      if (id == null) assert(id == null, 'userId is null');
-      for (final User user in userList) {
-        if (user.id == id) return user;
-      }
-      throw AuthError(
-        name: 'LoadUserError',
-        message: 'User not found',
-        errorText: 'User not found',
+      return const User(
+        id: 1,
+        email: 'test@gmail.com',
+        name: 'user1',
+        surname: 'surname',
+        phone: '71001001010',
+        password: 'test11',
+        role: AccessLevel.USER,
       );
     } on DioException catch (error) {
       throw AuthError(

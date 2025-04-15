@@ -20,7 +20,7 @@ abstract class ITour {
   final IAddress address;
   final List<Weekday>? weekdays;
   final String? description;
-  final List<String> kinds;
+  final List<TourType> kinds;
   bool isLiked;
   final String? deeplinkUrl;
   final List<IAudioExcursion> excursionList;

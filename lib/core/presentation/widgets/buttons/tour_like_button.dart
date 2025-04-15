@@ -26,7 +26,12 @@ class TourLikeButton extends StatelessWidget {
       ),
       onTap: () {
         tour.isLiked = !tour.isLiked;
-        BlocProvider.of<TourBloc>(context).add(TourLikeRequested(id: tour.id));
+        BlocProvider.of<TourBloc>(context).add(
+          TourLikeRequested(
+            id: tour.id,
+            isLiked: tour.isLiked,
+          ),
+        );
       },
     );
   }

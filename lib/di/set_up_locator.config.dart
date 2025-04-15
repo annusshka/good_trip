@@ -8,9 +8,12 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:audio_service/audio_service.dart' as _i87;
 import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:good_trip/core/app_router/app_router.dart' as _i416;
+import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart'
+    as _i392;
 import 'package:good_trip/core/data/repository/repository.dart' as _i73;
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart'
     as _i658;
@@ -25,13 +28,14 @@ import 'package:good_trip/features/welcome/data/repository/i_welcome_info_reposi
 import 'package:good_trip/features/welcome/data/service/welcome_info_service.dart'
     as _i188;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:just_audio/just_audio.dart' as _i501;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(
       this,
       environment,
@@ -42,6 +46,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i361.Dio>(() => locator.dio());
     gh.singleton<_i505.WeatherService>(() => locator.weatherService());
     gh.singleton<_i505.ApiTourService>(() => locator.apiTourService());
+    gh.singleton<_i501.AudioPlayer>(() => locator.audioPlayer());
     gh.singleton<_i658.IWeatherRepository>(
         () => locator.weatherRepository(gh<_i505.WeatherService>()));
     gh.singleton<_i505.ExcursionService>(
@@ -52,10 +57,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => locator.accountListService(gh<_i361.Dio>()));
     gh.singleton<_i188.WelcomeInfoService>(
         () => locator.welcomeInfoService(gh<_i361.Dio>()));
+    gh.singleton<_i392.AudioPlayerHandler>(
+        () => locator.audioPlayerHandler(gh<_i501.AudioPlayer>()));
     gh.singleton<_i73.IAuthRepository>(
         () => locator.authRepository(gh<_i505.AuthService>()));
     gh.singleton<_i73.ITourRepository>(
         () => locator.tourRepository(gh<_i505.TourService>()));
+    await gh.singletonAsync<_i87.AudioHandler>(
+      () => locator.audioHandler(gh<_i392.AudioPlayerHandler>()),
+      preResolve: true,
+    );
     gh.singleton<_i73.IApiTourRepository>(
         () => locator.apiTourRepository(gh<_i505.ApiTourService>()));
     gh.singleton<_i98.IAccountListRepository>(

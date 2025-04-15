@@ -8,7 +8,7 @@ abstract class IAudioExcursion extends IExcursion {
     required Address address,
     List<Weekday>? weekdays,
     String? description,
-    required List<String> kinds,
+    required List<TourType> kinds,
     bool isLiked = false,
     String? deeplinkUrl,
     required this.audioUrl,

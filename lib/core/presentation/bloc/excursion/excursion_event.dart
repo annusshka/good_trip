@@ -16,8 +16,9 @@ class ExcursionRequested extends ExcursionEvent {
 
 class ExcursionLikeRequested extends ExcursionEvent {
   final String id;
+  final bool isLiked;
 
-  const ExcursionLikeRequested({required this.id});
+  const ExcursionLikeRequested({required this.id, required this.isLiked});
 
   @override
   List<Object> get props => [id];

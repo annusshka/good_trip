@@ -22,7 +22,6 @@ class TourCreateExcursionScreen extends StatefulWidget {
     super.key,
     required this.name,
     required this.description,
-    required this.address,
     required this.kinds,
     required this.weekdays,
     required this.imagePath,
@@ -31,10 +30,9 @@ class TourCreateExcursionScreen extends StatefulWidget {
 
   final String name;
   final String description;
-  final Address address;
   final String imagePath;
   final File? imageFile;
-  final List<String> kinds;
+  final List<TourType> kinds;
   final List<DayInWeek> weekdays;
 
   @override
@@ -181,7 +179,7 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                                     TourCreateRequested(
                                       name: widget.name,
                                       description: widget.description,
-                                      address: widget.address,
+                                      address: state.excursionList[0].address,
                                       kinds: widget.kinds,
                                       imagePath: widget.imagePath,
                                       imageFile: widget.imageFile,

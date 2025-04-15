@@ -20,7 +20,6 @@ class _TourService implements TourService {
 
   @override
   Future<List<TourDto>> getToursByCity({
-    required String userId,
     required String city,
     required int offset,
   }) async {
@@ -39,7 +38,7 @@ class _TourService implements TourService {
     )
             .compose(
               _dio.options,
-              '/auth/tours/audio/city/${userId}',
+              '/audiotours/city',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -68,7 +67,7 @@ class _TourService implements TourService {
     )
             .compose(
               _dio.options,
-              '/auth/admin/tours',
+              '/admin/tours',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -84,10 +83,7 @@ class _TourService implements TourService {
   }
 
   @override
-  Future<List<TourDto>> getCreatedToursByUser({
-    required String userId,
-    required int offset,
-  }) async {
+  Future<List<TourDto>> getCreatedToursByUser({required int offset}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
@@ -100,7 +96,7 @@ class _TourService implements TourService {
     )
             .compose(
               _dio.options,
-              '/auth/tours/audio/${userId}',
+              '/audiotours/created',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -129,7 +125,7 @@ class _TourService implements TourService {
     )
             .compose(
               _dio.options,
-              '/auth/tours/audio',
+              '/audiotours',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -146,13 +142,13 @@ class _TourService implements TourService {
 
   @override
   Future<void> likeTour({
-    required String userId,
     required String tourId,
+    required bool isLiked,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'user_id': userId,
       r'tour_id': tourId,
+      r'is_liked': isLiked,
     };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
@@ -163,7 +159,7 @@ class _TourService implements TourService {
     )
         .compose(
           _dio.options,
-          '/auth/users/tours/likes',
+          '/audiotours/like',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -175,10 +171,7 @@ class _TourService implements TourService {
   }
 
   @override
-  Future<List<TourDto>> getLikedToursByUser({
-    required String userId,
-    required int offset,
-  }) async {
+  Future<List<TourDto>> getLikedToursByUser({required int offset}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'offset': offset};
     final _headers = <String, dynamic>{};
@@ -191,7 +184,7 @@ class _TourService implements TourService {
     )
             .compose(
               _dio.options,
-              '/auth/users/tours/likes/${userId}',
+              '/audiotours/like',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -207,10 +200,7 @@ class _TourService implements TourService {
   }
 
   @override
-  Future<void> createTour({
-    required String userId,
-    required Tour tour,
-  }) async {
+  Future<void> createTour({required Tour tour}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -223,7 +213,7 @@ class _TourService implements TourService {
     )
         .compose(
           _dio.options,
-          '/auth/tours/audio/created/${userId}',
+          '/audiotours/create/full',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -247,7 +237,7 @@ class _TourService implements TourService {
     )
         .compose(
           _dio.options,
-          '/auth/tours/audio/${tourId}',
+          '/audiotours/${tourId}',
           queryParameters: queryParameters,
           data: _data,
         )

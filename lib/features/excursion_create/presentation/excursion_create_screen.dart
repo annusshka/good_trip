@@ -11,6 +11,7 @@ import 'package:good_trip/core/presentation/widgets/create_elements/create_eleme
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
+import 'package:good_trip/features/map/map_screen.dart';
 
 @RoutePage()
 class ExcursionCreateScreen extends StatefulWidget {
@@ -30,11 +31,12 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
   final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
   late List<DayInWeek> weekdays;
+  late Point point;
   late String? imagePath;
   late File? imageFile;
   late String? audioPath;
   late File? audioFile;
-  late List<String> kindList;
+  late List<TourType> kindList;
 
   @override
   void dispose() {
@@ -131,16 +133,14 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     color: AppColors.gray,
                   ),
                   validator: (value) {
-                    return value != null && value.length < 2
-                        ? 'Название должно быть длиннее'
-                        : null;
+                    return value != null && value.length < 2 ? 'Название должно быть длиннее' : null;
                   },
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 KindsMultiSelect(
-                  onKindsSelected: (List<String> kinds) {
+                  onKindsSelected: (List<TourType> kinds) {
                     kindList = kinds;
                   },
                 ),
@@ -203,9 +203,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     color: AppColors.gray,
                   ),
                   validator: (value) {
-                    return value != null && value.length < 2
-                        ? 'Введите страну'
-                        : null;
+                    return value != null && value.length < 2 ? 'Введите страну' : null;
                   },
                 ),
                 const SizedBox(
@@ -258,9 +256,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     color: AppColors.gray,
                   ),
                   validator: (value) {
-                    return value != null && value.length < 2
-                        ? 'Введите город'
-                        : null;
+                    return value != null && value.length < 2 ? 'Введите город' : null;
                   },
                 ),
                 const SizedBox(
@@ -365,6 +361,23 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                 const SizedBox(
                   height: 10,
                 ),
+                Container(
+                  width: double.infinity,
+                  height: 150.0,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                    child: MapScreen(
+                      mapPoints: [],
+                      pointSelect: (Point actualPoint) {
+                        point = actualPoint;
+                      },
+                      showAppBar: false,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 WeekdayWidget(
                   weekDaysSelect: (List<DayInWeek> weekdayList) {
                     weekdays = weekdayList;
@@ -419,9 +432,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     color: AppColors.gray,
                   ),
                   validator: (value) {
-                    return value != null &&
-                            value.length < 10 &&
-                            value.length > 2000
+                    return value != null && value.length < 10 && value.length > 2000
                         ? 'Текст должен быть больше 10 и меньше 2000 символов'
                         : null;
                   },
@@ -435,28 +446,25 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     color: AppColors.pink,
                     width: double.infinity,
                     height: height * 0.08,
-                    child:
-                        BlocBuilder<ExcursionCreateBloc, ExcursionCreateState>(
+                    child: BlocBuilder<ExcursionCreateBloc, ExcursionCreateState>(
                       builder: (context, state) {
                         if (state is ExcursionCreatedSuccess) {
-                          BlocProvider.of<ExcursionCreateListBloc>(context)
-                              .add(const ExcursionCreateListRequested());
+                          BlocProvider.of<ExcursionCreateListBloc>(context).add(const ExcursionCreateListRequested());
                         }
                         return TextButton(
                           onPressed: () {
                             final currentState = _formKey.currentState;
-                            if (currentState != null &&
-                                currentState.validate()) {
+                            if (currentState != null && currentState.validate()) {
                               BlocProvider.of<ExcursionCreateBloc>(context).add(
                                 ExcursionCreateRequested(
                                   name: _tourNameController.value.text,
-                                  description:
-                                      _descriptionController.value.text,
+                                  description: _descriptionController.value.text,
                                   address: Address(
                                     country: _countryController.value.text,
                                     city: _cityController.value.text,
                                     street: _streetController.value.text,
                                     house: _houseController.value.text,
+                                    coordinates: point,
                                   ),
                                   imagePath: imagePath ?? '',
                                   weekdays: weekdays,

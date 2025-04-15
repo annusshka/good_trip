@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart';
+import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
 import 'package:good_trip/core/audio_player/excursion_card/excursion_card_presenter.dart';
 import 'package:good_trip/core/audio_player/excursion_card/excursion_card_presenter2.dart';
@@ -23,7 +23,7 @@ class ExcursionCard extends StatelessWidget {
     return Provider(
       create: (BuildContext context) => ExcursionCardPresenter2(
         index: index,
-        audioPlayerHandler: getIt.get<AudioPlayerHandlerImpl2>(),
+        audioPlayerHandler: getIt.get<AudioPlayerHandler>(),
       )..init(),
       child: ExcursionCardView(
         excursion: audioExcursion,

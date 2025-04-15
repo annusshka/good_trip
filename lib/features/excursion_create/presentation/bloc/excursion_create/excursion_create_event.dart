@@ -17,7 +17,7 @@ class ExcursionCreateRequested extends ExcursionCreateEvent {
   final String imagePath;
   final List<DayInWeek> weekdays;
   final String description;
-  final List<String> kinds;
+  final List<TourType> kinds;
   final Address address;
   final String audioPath;
   final File? imageFile;
@@ -42,7 +42,7 @@ class ExcursionUpdateParamsRequested extends ExcursionCreateEvent {
   final String? imagePath;
   final List<Weekday>? weekdays;
   final String? description;
-  final List<String>? kinds;
+  final List<TourType>? kinds;
   final Address? address;
   final String? audioPath;
   final File? imageFile;

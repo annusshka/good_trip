@@ -31,7 +31,7 @@ class AudioExcursion implements IAudioExcursion {
   @override
   final String? description;
   @override
-  final List<String> kinds;
+  final List<TourType> kinds;
   @override
   bool isLiked;
   @override
@@ -41,29 +41,35 @@ class AudioExcursion implements IAudioExcursion {
 
   Map<String, dynamic> toJson() => _$AudioExcursionToJson(this);
 
-  factory AudioExcursion.fromJson(Map<String, Object?> json) =>
-      _$AudioExcursionFromJson(json);
+  factory AudioExcursion.fromJson(Map<String, Object?> json) => _$AudioExcursionFromJson(json);
 
   @override
   String getWeekdays() {
-    return weekdays != null
-        ? "${weekdays?.map((el) => el.displayTitle).join(', ')}"
-        : 'Любой день';
+    return weekdays != null ? "${weekdays?.map((el) => el.displayTitle).join(', ')}" : 'Любой день';
   }
 
   @override
   String getKinds() {
-    return kinds.join(', ');
+    List<String> tourTypes = [];
+    for (final TourType type in kinds) {
+      tourTypes.add(type.displayText);
+    }
+    return tourTypes.join(', ');
   }
 
   @override
   String getAddressDetails() {
-    return (address.street != null ? '${address.street}' : '') +
-        (address.house != null ? ', ${address.house}' : '');
+    final street = address.street ?? '';
+    final house = address.house ?? '';
+    if (street.isEmpty && house.isEmpty) return '${address.country}, ${address.city}';
+    if (street.isEmpty && house.isNotEmpty) return house;
+    if (street.isNotEmpty && house.isEmpty) return street;
+    return '$street, $house';
   }
 
   @override
   String getAddressRegion() {
+    if ((address.street ?? '').isEmpty && (address.house ?? '').isEmpty) return '';
     return '${address.country}, ${address.city}';
   }
 }

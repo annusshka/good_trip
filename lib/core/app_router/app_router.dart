@@ -7,7 +7,6 @@ import 'package:good_trip/core/app_router/routes/account_list_router.dart';
 import 'package:good_trip/core/app_router/routes/created_excursions_router.dart';
 import 'package:good_trip/core/app_router/routes/excursion_router.dart';
 import 'package:good_trip/core/app_router/routes/favourite_router.dart';
-import 'package:good_trip/core/app_router/routes/map_router.dart';
 import 'package:good_trip/core/app_router/routes/tour_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
@@ -25,7 +24,6 @@ import 'package:good_trip/features/favorite/presentation/favorite_wrapper_screen
 import 'package:good_trip/features/home/presentation/home_screen.dart';
 import 'package:good_trip/features/home/presentation/home_wrapper_screen.dart';
 import 'package:good_trip/features/map/map_screen.dart';
-import 'package:good_trip/features/map/map_wrapper_screen.dart';
 import 'package:good_trip/features/public_excursions/presentation/created_excursions_screen.dart';
 import 'package:good_trip/features/public_excursions/presentation/created_excursions_wrapper_screen.dart';
 import 'package:good_trip/features/sign_in/presentation/sign_in_screen.dart';
@@ -67,7 +65,9 @@ class AppRouter extends _$AppRouter {
                 AutoRoute(
                   page: AccountRoute.page,
                 ),
-                MapRoutes.routes,
+                AutoRoute(
+                  page: MapRoute.page,
+                ),
               ],
             ),
             AutoRoute(
@@ -99,7 +99,9 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               page: AccountRoute.page,
             ),
-            MapRoutes.routes,
+            AutoRoute(
+              page: MapRoute.page,
+            ),
           ],
         ),
         AutoRoute(

@@ -1,5 +1,5 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl.dart';
+import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
 import 'package:good_trip/core/audio_player/data/position_data.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -10,13 +10,15 @@ class ExcursionAudioPresenter2 {
   final int? index;
   final String? tourName;
   final AudioExcursion excursion;
-  final AudioPlayerHandlerImpl2 audioPlayerHandler;
+  final AudioPlayerHandler audioPlayerHandler;
+  final AudioPlayer audioPlayer;
 
   ExcursionAudioPresenter2({
     this.index,
     this.tourName,
     required this.excursion,
     required this.audioPlayerHandler,
+    required this.audioPlayer,
   });
 
   final BehaviorSubject<bool> isActualAudio = BehaviorSubject.seeded(false);
@@ -49,13 +51,17 @@ class ExcursionAudioPresenter2 {
 
     audioPlayerHandler.loadedPlaylist.listen((loadedPlayList) {
       mediaItem.add(loadedPlayList[0]);
+      final _actualAlbum = audioPlayerHandler.actualAlbum.valueOrNull ?? '';
+      if (_actualAlbum == (tourName ?? excursion.name)) {
+        isActualAudio.add(true);
+      }
     });
   }
 
   Future<MediaItem> excursionsToMediaItems(
       AudioExcursion excursion,
       ) async {
-    final audioDuration = await AudioPlayer().setUrl(excursion.audioUrl);
+    final audioDuration = await audioPlayer.setUrl(excursion.audioUrl);
     return MediaItem(
       id: excursion.audioUrl,
       title: excursion.name,
@@ -63,10 +69,6 @@ class ExcursionAudioPresenter2 {
       duration: audioDuration,
       artUri: Uri.tryParse(excursion.imageUrl ?? ''),
     );
-  }
-
-  bool checkIndex(int? i) {
-    return false;
   }
 
   Future<void> playNewAudio() async {

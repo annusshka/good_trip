@@ -16,8 +16,9 @@ class TourRequested extends TourEvent {
 
 class TourLikeRequested extends TourEvent {
   final String id;
+  final bool isLiked;
 
-  const TourLikeRequested({required this.id});
+  const TourLikeRequested({required this.id, required this.isLiked});
 
   @override
   List<Object> get props => [id];

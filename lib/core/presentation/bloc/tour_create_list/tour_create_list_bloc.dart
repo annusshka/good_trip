@@ -48,11 +48,8 @@ class TourCreateListBloc
       Emitter<TourCreateListState> emit) async {
     emit(TourCreateListLoadInProgress());
     try {
-      ///TODO: add user data layer
-      const userId = 1;
       final List<Tour> tours = await tourRepository.getCreatedToursByUserId(
         offset: event.offset,
-        userId: userId,
       );
       AppMetrica.reportEvent('create_tour');
       emit(TourCreateListLoadedSuccess(tourList: tours));

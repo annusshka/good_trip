@@ -8,22 +8,22 @@ part of 'address_dto.dart';
 
 _$AddressDtoImpl _$$AddressDtoImplFromJson(Map<String, dynamic> json) =>
     _$AddressDtoImpl(
-      coordinates: json['coordinates'] == null
-          ? null
-          : Point.fromJson(json['coordinates'] as Map<String, dynamic>),
+      lat: (json['lat'] as num?)?.toDouble(),
+      lon: (json['lon'] as num?)?.toDouble(),
       country: json['country'] as String?,
       city: json['city'] as String?,
       road: json['road'] as String?,
       street: json['street'] as String?,
-      houseNumber: json['houseNumber'] as String?,
+      house: json['house'] as String?,
     );
 
 Map<String, dynamic> _$$AddressDtoImplToJson(_$AddressDtoImpl instance) =>
     <String, dynamic>{
-      'coordinates': instance.coordinates,
+      'lat': instance.lat,
+      'lon': instance.lon,
       'country': instance.country,
       'city': instance.city,
       'road': instance.road,
       'street': instance.street,
-      'houseNumber': instance.houseNumber,
+      'house': instance.house,
     };

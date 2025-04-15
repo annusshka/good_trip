@@ -22,7 +22,7 @@ class ExcursionCardView extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: AppColors.lightGray.withOpacity(0.5),
+            color: AppColors.lightGray.withValues(alpha: 0.5),
             spreadRadius: 3,
             blurRadius: 8,
             offset: const Offset(3, 5), // changes position of shadow

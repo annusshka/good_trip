@@ -4,14 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
+import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion/presentation/widgets/widgets.dart';
-import 'package:good_trip/features/map/presentation/widgets/map_widget.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:good_trip/features/map/map_screen.dart';
 
 import 'presentation/bloc/viewed_excursions/viewed_excursions.dart';
 
@@ -24,7 +23,7 @@ class TourScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    final coord = tour.address.coordinates;
+    final coordList = tour.excursionList.map((excursion) => excursion.address.coordinates).toList();
 
     return Scaffold(
       //extendBodyBehindAppBar: true,
@@ -60,19 +59,28 @@ class TourScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.topRight,
                       padding: const EdgeInsets.all(8.0),
-                      child: BlocBuilder<ExcursionBloc, ExcursionState>(
+                      child: BlocBuilder<TourBloc, TourState>(
                         builder: (context, state) {
-                          return InkWell(
-                            child: Icon(
-                              tour.isLiked ? Icons.favorite : Icons.favorite_border,
-                              size: 24,
-                              color: AppColors.white,
-                            ),
-                            onTap: () {
-                              tour.isLiked = !tour.isLiked;
-                              BlocProvider.of<ExcursionBloc>(context).add(ExcursionLikeRequested(id: tour.id));
-                            },
+                          return TourLikeButton(
+                            iconSize: 24.0,
+                            tour: tour,
                           );
+                          // return InkWell(
+                          //   child: Icon(
+                          //     tour.isLiked ? Icons.favorite : Icons.favorite_border,
+                          //     size: 24,
+                          //     color: AppColors.white,
+                          //   ),
+                          //   onTap: () {
+                          //     tour.isLiked = !tour.isLiked;
+                          //     BlocProvider.of<TourBloc>(context).add(
+                          //       TourLikeRequested(
+                          //         id: tour.id,
+                          //         isLiked: tour.isLiked,
+                          //       ),
+                          //     );
+                          //   },
+                          // );
                         },
                       ),
                     ),
@@ -105,14 +113,15 @@ class TourScreen extends StatelessWidget {
                 icon: Icons.location_on_outlined,
               ),
               const SizedBox(height: 8.0),
-              if (coord != null) ...[
+              if (coordList.isNotEmpty) ...[
                 Container(
                   width: double.infinity,
                   height: 150.0,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                    child: MapWidget(
-                      latLng: LatLng(coord.lat, coord.lon),
+                    child: MapScreen(
+                      mapPoints: coordList,
+                      showAppBar: false,
                     ),
                   ),
                 ),
@@ -121,7 +130,12 @@ class TourScreen extends StatelessWidget {
                     const Spacer(),
                     InkWell(
                       onTap: () {
-                        AutoRouter.of(context).push(const MapRoute());
+                        AutoRouter.of(context).push(
+                          MapRoute(
+                            mapPoints: coordList,
+                            initialZoom: 5.0,
+                          ),
+                        );
                       },
                       child: Text(
                         'Смотреть на карте',

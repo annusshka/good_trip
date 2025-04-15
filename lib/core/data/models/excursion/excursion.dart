@@ -12,7 +12,7 @@ class Excursion extends IExcursion {
     required Address address,
     List<Weekday>? weekdays,
     String? description,
-    required List<String> kinds,
+    required List<TourType> kinds,
     bool isLiked = false,
     String? deeplinkUrl,
   }) : super(

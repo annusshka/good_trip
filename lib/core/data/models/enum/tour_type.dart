@@ -25,7 +25,8 @@ enum TourType {
   banks,
   foods,
   shops,
-  transport
+  transport,
+  historic
 }
 
 extension Extention on TourType {
@@ -85,6 +86,8 @@ extension Extention on TourType {
         return 'Магазин';
       case TourType.transport:
         return 'Транспорт';
+      case TourType.historic:
+        return 'Историческое место';
     }
   }
 
@@ -144,6 +147,8 @@ extension Extention on TourType {
         return 'shops';
       case TourType.transport:
         return 'transport';
+      case TourType.historic:
+        return 'historic';
     }
   }
 }

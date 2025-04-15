@@ -37,13 +37,12 @@ class MockTourRepository implements ITourRepository {
         house: '1',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -69,13 +68,12 @@ class MockTourRepository implements ITourRepository {
             street: 'Московский пр-кт',
           ),
           kinds: [
-            TourType.archaeology.displayText,
-            TourType.amusements.displayText,
-            TourType.cultural.displayText,
+            TourType.archaeology,
+            TourType.amusements,
+            TourType.cultural,
           ],
           weekdays: [Weekday.monday, Weekday.friday],
-          description:
-              'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+          description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
               'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
               'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
               'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -103,13 +101,12 @@ class MockTourRepository implements ITourRepository {
             street: 'Московский пр-кт',
           ),
           kinds: [
-            TourType.archaeology.displayText,
-            TourType.amusements.displayText,
-            TourType.cultural.displayText,
+            TourType.archaeology,
+            TourType.amusements,
+            TourType.cultural,
           ],
           weekdays: [Weekday.monday, Weekday.friday],
-          description:
-              'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+          description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
               'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
               'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
               'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -123,8 +120,7 @@ class MockTourRepository implements ITourRepository {
               'инженера Мосина и об образцовом хозяйстве, созданном в Рамони правнучкой '
               'французской императрицы Жозефины.',
           isLiked: false,
-          audioUrl:
-              'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3',
+          audioUrl: 'https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3',
         ),
       ],
     ),
@@ -139,13 +135,12 @@ class MockTourRepository implements ITourRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -172,13 +167,12 @@ class MockTourRepository implements ITourRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -205,13 +199,12 @@ class MockTourRepository implements ITourRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -238,13 +231,12 @@ class MockTourRepository implements ITourRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -271,13 +263,12 @@ class MockTourRepository implements ITourRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -303,13 +294,12 @@ class MockTourRepository implements ITourRepository {
         city: 'Москва',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -336,13 +326,12 @@ class MockTourRepository implements ITourRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -369,13 +358,12 @@ class MockTourRepository implements ITourRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
-      description:
-          'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
+      description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
           'достопримечательности столицы Черноземья: Адмиралтейскую площадь, проспект '
           'Революции, Благовещенский собор и комплекс Алексеево-Акатова монастыря с '
           'некрополем и старинной колокольней. Рассмотрите корабль Гото Предестинация и '
@@ -445,7 +433,6 @@ class MockTourRepository implements ITourRepository {
 
   @override
   Future<List<Tour>> getCreatedToursByUserId({
-    required int userId,
     int offset = 0,
   }) async {
     try {
@@ -463,8 +450,8 @@ class MockTourRepository implements ITourRepository {
 
   @override
   Future<void> likeTour({
-    required int userId,
     required String id,
+    required bool isLiked,
   }) async {
     try {
       final _id = int.tryParse(id);
@@ -483,8 +470,7 @@ class MockTourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<Tour>> getFavoriteTours(
-      {required int userId, int offset = 0}) async {
+  Future<List<Tour>> getFavoriteTours({int offset = 0}) async {
     try {
       List<Tour> list = [];
       for (final Tour tour in iTourList) {
@@ -561,7 +547,7 @@ class MockTourRepository implements ITourRepository {
       weekdays: mapToWeekdayList(weekdays),
       description: description,
       address: address,
-      kinds: kinds,
+      kinds: [],
       excursionList: excursionList as List<AudioExcursion>,
     );
     iTourList.add(tour);

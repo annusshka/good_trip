@@ -28,9 +28,7 @@ class ExcursionRepository implements IExcursionRepository {
     int offset = 0,
   }) async {
     try {
-      final userId = await loadUserId();
       final response = await service.getExcursionsByCity(
-        userId: userId,
         city: city,
         offset: offset,
       );
@@ -86,11 +84,7 @@ class ExcursionRepository implements IExcursionRepository {
     int offset = 0,
   }) async {
     try {
-      final userId = await loadUserId();
-      final response = await service.getCreatedExcursionsByUser(
-        offset: offset,
-        userId: userId,
-      );
+      final response = await service.getCreatedExcursionsByUser(offset: offset);
       return mapDtoToAudioExcursionList(response);
     } on DioException catch (error) {
       throw TourError(
@@ -107,13 +101,10 @@ class ExcursionRepository implements IExcursionRepository {
   @override
   Future<void> likeTour({
     required String id,
+    required bool isLiked,
   }) async {
     try {
-      final userId = await loadUserId();
-      await service.likeExcursion(
-        userId: userId,
-        tourId: id,
-      );
+      await service.likeExcursion(excursionId: id, isLiked: isLiked);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
@@ -129,11 +120,7 @@ class ExcursionRepository implements IExcursionRepository {
   @override
   Future<List<AudioExcursion>> getFavoriteExcursionList({int offset = 0}) async {
     try {
-      final userId = await loadUserId();
-      final response = await service.getLikedExcursionsByUser(
-        userId: userId,
-        offset: offset,
-      );
+      final response = await service.getLikedExcursionsByUser(offset: offset);
       return mapDtoToAudioExcursionList(response);
     } on DioException catch (error) {
       throw TourError(
@@ -152,29 +139,10 @@ class ExcursionRepository implements IExcursionRepository {
     required String id,
   }) async {
     try {
-      await service.deleteExcursion(
-        tourId: id,
-      );
+      await service.deleteExcursion(tourId: id);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
-        message: error.response?.data['message'] ?? '',
-        errorText: error.response?.data['errorText'] ?? '',
-        statusCode: error.response?.statusCode,
-      );
-    } on Exception catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  @override
-  Future<List<TourKind>> getExcursionTypes() async {
-    try {
-      //int userId = await AuthRepository.loadUserId();
-      return await service.getExcursionTypes();
-    } on DioException catch (error) {
-      throw TourError(
-        name: 'GetTouTypes',
         message: error.response?.data['message'] ?? '',
         errorText: error.response?.data['errorText'] ?? '',
         statusCode: error.response?.statusCode,
@@ -189,12 +157,10 @@ class ExcursionRepository implements IExcursionRepository {
     required AudioExcursion audioExcursion,
   }) async {
     try {
-      final userId = await loadUserId();
       final MultipartFile imageFile = await MultipartFile.fromFile(audioExcursion.imageUrl!);
       final MultipartFile audioFile = await MultipartFile.fromFile(audioExcursion.audioUrl);
       //MultipartFile imageFile = MultipartFile.fromBytes(await photo!.readAsBytes());
       await service.createExcursion(
-        userId: userId,
         excursion: audioExcursion,
         audioFile: audioFile,
         imageFile: imageFile,
@@ -208,17 +174,6 @@ class ExcursionRepository implements IExcursionRepository {
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
-    }
-  }
-
-  Future<String> loadUserId() async {
-    final id = await _storage.read(
-      key: 'user_id',
-    );
-    if (id != null) {
-      return id;
-    } else {
-      throw SecureStorageNotFoundException();
     }
   }
 }

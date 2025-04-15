@@ -8,28 +8,28 @@ part 'audio_excursion_dto.g.dart';
 
 @JsonSerializable()
 class AudioExcursionDto {
-  final String id;
+  final int id;
   final String name;
-  final String? imageUrl;
+  final String? imagePath;
   final AddressDto address;
   final List<Weekday>? weekdays;
   final String? description;
   final List<String> kinds;
-  final bool isLiked;
+  final bool liked;
   final String? deeplinkUrl;
-  final String audioUrl;
+  final String audioPath;
 
   AudioExcursionDto({
     required this.id,
     required this.name,
-    required this.imageUrl,
+    required this.imagePath,
     required this.address,
     required this.weekdays,
     required this.description,
     required this.kinds,
-    required this.isLiked,
+    required this.liked,
     required this.deeplinkUrl,
-    required this.audioUrl,
+    required this.audioPath,
   });
 
   factory AudioExcursionDto.fromJson(Map<String, dynamic> json) =>

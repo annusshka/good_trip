@@ -9,9 +9,8 @@ part 'excursion_service.g.dart';
 abstract class ExcursionService {
   factory ExcursionService(Dio dio, {String baseUrl}) = _ExcursionService;
 
-  @GET('${Urls.excursionsByCity}/{user_id}')
+  @GET(Urls.excursionsByCity)
   Future<List<AudioExcursionDto>> getExcursionsByCity({
-    @Path('user_id') required String userId,
     @Query('city') required String city,
     @Query('offset') required int offset,
   });
@@ -21,32 +20,29 @@ abstract class ExcursionService {
     @Query('offset') required int offset,
   });
 
-  @GET('${Urls.audioExcursion}/{user_id}')
+  @GET(Urls.createdExcursion)
   Future<List<AudioExcursionDto>> getCreatedExcursionsByUser({
-    @Path('user_id') required String userId,
     @Query('offset') required int offset,
   });
 
-  @GET(Urls.audioExcursion)
+  @GET(Urls.createdExcursion)
   Future<List<AudioExcursionDto>> getCreatedExcursionsByAdmin({
     @Query('offset') required int offset,
   });
 
   @PUT(Urls.likeExcursion)
   Future<void> likeExcursion({
-    @Query('user_id') required String userId,
-    @Query('tour_id') required String tourId,
+    @Query('excursion_id') required String excursionId,
+    @Query('is_liked') required bool isLiked,
   });
 
-  @GET('${Urls.likeExcursion}/{user_id}')
+  @GET(Urls.likeExcursion)
   Future<List<AudioExcursionDto>> getLikedExcursionsByUser({
-    @Path('user_id') required String userId,
     @Query('offset') required int offset,
   });
 
-  @POST('${Urls.createExcursion}/{user_id}')
+  @POST(Urls.createExcursion)
   Future<void> createExcursion({
-    @Path('user_id') required String userId,
     @Body() required AudioExcursion excursion,
     @Body() required MultipartFile audioFile,
     @Body() required MultipartFile imageFile,

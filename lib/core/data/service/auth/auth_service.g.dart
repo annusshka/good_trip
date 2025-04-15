@@ -19,7 +19,7 @@ class _AuthService implements AuthService {
   String? baseUrl;
 
   @override
-  Future<UserDto> getUserById({required String userId}) async {
+  Future<UserDto> getUserById() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -32,7 +32,7 @@ class _AuthService implements AuthService {
     )
             .compose(
               _dio.options,
-              '/auth/users/${userId}',
+              '/user',
               queryParameters: queryParameters,
               data: _data,
             )

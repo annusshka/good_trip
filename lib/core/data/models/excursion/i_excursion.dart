@@ -20,26 +20,33 @@ abstract class IExcursion {
   final IAddress address;
   final List<Weekday>? weekdays;
   final String? description;
-  final List<String> kinds;
+  final List<TourType> kinds;
   bool isLiked;
   final String? deeplinkUrl;
 
   String getWeekdays() {
-    return weekdays != null
-        ? "${weekdays?.map((el) => el.displayTitle).join(', ')}"
-        : 'Любой день';
+    return weekdays != null ? "${weekdays?.map((el) => el.displayTitle).join(', ')}" : 'Любой день';
   }
 
   String getKinds() {
-    return kinds.join(', ');
+    List<String> tourTypes = [];
+    for (final TourType type in kinds) {
+      tourTypes.add(type.displayText);
+    }
+    return tourTypes.join(', ');
   }
 
   String getAddressDetails() {
-    return (address.street != null ? '${address.street}' : '') +
-        (address.house != null ? ', ${address.house}' : '');
+    final street = address.street ?? '';
+    final house = address.house ?? '';
+    if (street.isEmpty && house.isEmpty) return '${address.country}, ${address.city}';
+    if (street.isEmpty && house.isNotEmpty) return house;
+    if (street.isNotEmpty && house.isEmpty) return street;
+    return '$street, $house';
   }
 
   String getAddressRegion() {
+    if ((address.street ?? '').isEmpty && (address.house ?? '').isEmpty) return '';
     return '${address.country}, ${address.city}';
   }
 }

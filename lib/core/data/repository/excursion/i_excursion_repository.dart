@@ -10,27 +10,15 @@ abstract class IExcursionRepository {
 
   Future<List<AudioExcursion>> getCreatedExcursionList({int offset = 0});
 
-  Future<List<AudioExcursion>> getCreatedExcursionListByUserId({
-    int offset = 0,
-  });
+  Future<List<AudioExcursion>> getCreatedExcursionListByUserId({int offset = 0});
 
   Future<List<AudioExcursion>> getCreatedExcursionListByAdmin({int offset = 0});
 
-  Future<void> likeTour({
-    required String id,
-  });
+  Future<void> likeTour({required String id, required bool isLiked});
 
-  Future<List<AudioExcursion>> getFavoriteExcursionList({
-    int offset = 0,
-  });
+  Future<List<AudioExcursion>> getFavoriteExcursionList({int offset = 0});
 
-  Future<void> deleteExcursion({
-    required String id,
-  });
+  Future<void> deleteExcursion({required String id});
 
-  Future<List<TourKind>> getExcursionTypes();
-
-  Future<void> saveExcursion({
-    required AudioExcursion audioExcursion,
-  });
+  Future<void> saveExcursion({required AudioExcursion audioExcursion});
 }

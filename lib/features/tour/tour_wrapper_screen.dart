@@ -5,6 +5,7 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/audio_excursion/audio_excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
+import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
 import 'package:good_trip/di/set_up_locator.dart';
 
 import 'presentation/bloc/viewed_excursions/viewed_excursions.dart';
@@ -26,6 +27,12 @@ class TourWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
           lazy: false,
           create: (_) => ExcursionBloc(
             excursionRepository: getIt.get<IExcursionRepository>(),
+          ),
+        ),
+        BlocProvider<TourBloc>(
+          lazy: false,
+          create: (_) => TourBloc(
+            tourRepository: getIt.get<ITourRepository>(),
           ),
         ),
         BlocProvider<ExcursionListBloc>(

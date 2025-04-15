@@ -29,7 +29,7 @@ class AccountScreen extends StatelessWidget {
             children: [
               const ProfileSettingsList(
                 title: 'Поддержка',
-                elementList: ['Связаться с поддержкой', 'Privacy policy'],
+                elementList: ['Связаться с поддержкой'],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

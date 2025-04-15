@@ -24,17 +24,6 @@ class TourRepository implements ITourRepository {
     ),
   }) : _storage = storage;
 
-  Future<String> loadUserId() async {
-    final id = await _storage.read(
-      key: 'user_id',
-    );
-    if (id != null) {
-      return id;
-    } else {
-      throw SecureStorageNotFoundException();
-    }
-  }
-
   @override
   Future<List<Tour>> getTours({
     required String city,
@@ -43,8 +32,7 @@ class TourRepository implements ITourRepository {
     int offset = 0,
   }) async {
     try {
-      String userId = await loadUserId();
-      final response = await service.getToursByCity(city: city, offset: offset, userId: userId);
+      final response = await service.getToursByCity(city: city, offset: offset);
       return mapDtoToTours(response);
     } on DioException catch (error) {
       throw TourError(
@@ -91,14 +79,11 @@ class TourRepository implements ITourRepository {
 
   @override
   Future<List<Tour>> getCreatedToursByUserId({
-    required int userId,
     int offset = 0,
   }) async {
     try {
-      //int userId = await AuthRepository.loadUserId();
       final response = await service.getCreatedToursByUser(
         offset: offset,
-        userId: userId.toString(),
       );
       return mapDtoToTours(response);
     } on DioException catch (error) {
@@ -114,14 +99,13 @@ class TourRepository implements ITourRepository {
 
   @override
   Future<void> likeTour({
-    required int userId,
     required String id,
+    required bool isLiked,
   }) async {
     try {
-      //int userId = await AuthRepository.loadUserId();
       await service.likeTour(
-        userId: userId.toString(),
         tourId: id,
+        isLiked: isLiked,
       );
     } on DioException catch (error) {
       throw TourError(
@@ -135,11 +119,9 @@ class TourRepository implements ITourRepository {
   }
 
   @override
-  Future<List<Tour>> getFavoriteTours(
-      {required int userId, int offset = 0}) async {
+  Future<List<Tour>> getFavoriteTours({int offset = 0}) async {
     try {
       final response = await service.getLikedToursByUser(
-        userId: userId.toString(),
         offset: offset,
       );
       return mapDtoToTours(response);
@@ -159,7 +141,6 @@ class TourRepository implements ITourRepository {
     required String id,
   }) async {
     try {
-      //int userId = await AuthRepository.loadUserId();
       await service.deleteTour(
         tourId: id,
       );

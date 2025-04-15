@@ -26,8 +26,12 @@ class LikeButton extends StatelessWidget {
       ),
       onTap: () {
         excursion.isLiked = !excursion.isLiked;
-        BlocProvider.of<ExcursionBloc>(context)
-            .add(ExcursionLikeRequested(id: excursion.id));
+        BlocProvider.of<ExcursionBloc>(context).add(
+          ExcursionLikeRequested(
+            id: excursion.id,
+            isLiked: excursion.isLiked,
+          ),
+        );
       },
     );
   }

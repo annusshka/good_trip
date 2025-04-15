@@ -23,9 +23,7 @@ class AuthRepository extends IAuthRepository {
   @override
   Future<User> loadUser() async {
     try {
-      final id = await loadUserId();
-      if (id == null) assert(id == null, 'user_id is null');
-      final response = await service.getUserById(userId: id.toString());
+      final response = await service.getUserById();
       return mapDtoToUser(response);
     } on DioException catch (error) {
       throw AuthError(

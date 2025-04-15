@@ -32,7 +32,7 @@ class _AccountListService implements AccountListService {
     )
             .compose(
               _dio.options,
-              '/auth/admin/users',
+              '/admin/users',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -60,7 +60,7 @@ class _AccountListService implements AccountListService {
     )
         .compose(
           _dio.options,
-          '/auth/admin/user/{account_id}',
+          '/admin/user/{account_id}',
           queryParameters: queryParameters,
           data: _data,
         )

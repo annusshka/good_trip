@@ -23,16 +23,10 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     );
   }
 
-  Future<void> _requestTourLike(
-      TourLikeRequested event, Emitter<TourState> emit) async {
+  Future<void> _requestTourLike(TourLikeRequested event, Emitter<TourState> emit) async {
     emit(TourLoadInProgress());
     try {
-      /// TODO: add user data layer
-      final userId = 1;
-      await tourRepository.likeTour(
-        userId: userId,
-        id: event.id,
-      );
+      await tourRepository.likeTour(id: event.id, isLiked: event.isLiked);
       Map<String, String> attributesMap = {'tour_id': event.id};
       AppMetrica.reportEventWithMap('tour_like', attributesMap);
       emit(TourLikedSuccess());
@@ -46,8 +40,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     }
   }
 
-  Future<void> _requestTourSave(
-      TourSaveRequested event, Emitter<TourState> emit) async {
+  Future<void> _requestTourSave(TourSaveRequested event, Emitter<TourState> emit) async {
     emit(TourLoadInProgress());
     try {
       //await excursionRepository.saveExcursion(event.tour);
@@ -62,8 +55,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     }
   }
 
-  Future<void> _requestTourList(
-      TourListRequested event, Emitter<TourState> emit) async {
+  Future<void> _requestTourList(TourListRequested event, Emitter<TourState> emit) async {
     emit(TourLoadInProgress());
     try {
       final List<Tour> tourList = await tourRepository.getTours(

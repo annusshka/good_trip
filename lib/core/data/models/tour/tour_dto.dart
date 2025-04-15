@@ -5,26 +5,26 @@ part 'tour_dto.g.dart';
 
 @JsonSerializable()
 class TourDto {
-  final String id;
+  final int id;
   final String name;
-  final String? imageUrl;
+  final String? imagePath;
   final AddressDto address;
   final List<Weekday>? weekdays;
   final String? description;
   final List<String> kinds;
-  final bool isLiked;
+  final bool liked;
   final String? deeplinkUrl;
   final List<AudioExcursionDto> excursionList;
 
   TourDto({
     required this.id,
     required this.name,
-    this.imageUrl,
+    this.imagePath,
     required this.address,
     this.weekdays,
     this.description,
     required this.kinds,
-    this.isLiked = false,
+    this.liked = false,
     this.deeplinkUrl,
     required this.excursionList,
   });

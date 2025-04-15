@@ -21,25 +21,16 @@ class TourCreateScreen extends StatefulWidget {
 class _TourCreateScreenState extends State<TourCreateScreen> {
   final _formKey = GlobalKey<FormState>();
   final _tourNameController = TextEditingController();
-  final _countryController = TextEditingController();
-  final _cityController = TextEditingController();
-  final _streetController = TextEditingController();
-  final _houseController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
   late List<DayInWeek> weekdays;
   late String? imagePath;
   late File? imageFile;
-  late String? audioPath;
-  late File? audioFile;
-  late List<String> kindList;
+  late List<TourType> kindList;
+
   @override
   void dispose() {
     _tourNameController.dispose();
-    _countryController.dispose();
-    _cityController.dispose();
-    _streetController.dispose();
-    _houseController.dispose();
     _descriptionController.dispose();
     _dateController.dispose();
     super.dispose();
@@ -138,218 +129,9 @@ class _TourCreateScreenState extends State<TourCreateScreen> {
                   height: 10,
                 ),
                 KindsMultiSelect(
-                  onKindsSelected: (List<String> kinds) {
+                  onKindsSelected: (List<TourType> kinds) {
                     kindList = kinds;
                   },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.streetAddress,
-                  controller: _countryController,
-                  textCapitalization: TextCapitalization.words,
-                  cursorColor: AppColors.gray,
-                  cursorErrorColor: AppColors.red,
-                  cursorRadius: const Radius.circular(3.0),
-                  decoration: InputDecoration(
-                    hintText: 'Страна',
-                    hintStyle: AppTextTheme.semiBold18.copyWith(
-                      color: AppColors.lightGray,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    errorStyle: AppTextTheme.semiBold10,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  style: AppTextTheme.semiBold18.copyWith(
-                    color: AppColors.gray,
-                  ),
-                  validator: (value) {
-                    return value != null && value.length < 2
-                        ? 'Введите страну'
-                        : null;
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.streetAddress,
-                  controller: _cityController,
-                  textCapitalization: TextCapitalization.words,
-                  cursorColor: AppColors.gray,
-                  cursorErrorColor: AppColors.red,
-                  cursorRadius: const Radius.circular(3.0),
-                  decoration: InputDecoration(
-                    hintText: 'Город',
-                    hintStyle: AppTextTheme.semiBold18.copyWith(
-                      color: AppColors.lightGray,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    errorStyle: AppTextTheme.semiBold10,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  style: AppTextTheme.semiBold18.copyWith(
-                    color: AppColors.gray,
-                  ),
-                  validator: (value) {
-                    return value != null && value.length < 2
-                        ? 'Введите город'
-                        : null;
-                  },
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.streetAddress,
-                  controller: _streetController,
-                  textCapitalization: TextCapitalization.words,
-                  cursorColor: AppColors.gray,
-                  cursorErrorColor: AppColors.red,
-                  cursorRadius: const Radius.circular(3.0),
-                  decoration: InputDecoration(
-                    hintText: 'Улица',
-                    hintStyle: AppTextTheme.semiBold18.copyWith(
-                      color: AppColors.lightGray,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    errorStyle: AppTextTheme.semiBold10,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  style: AppTextTheme.semiBold18.copyWith(
-                    color: AppColors.gray,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  keyboardType: const TextInputType.numberWithOptions(),
-                  controller: _houseController,
-                  cursorColor: AppColors.gray,
-                  cursorErrorColor: AppColors.red,
-                  cursorRadius: const Radius.circular(3.0),
-                  decoration: InputDecoration(
-                    hintText: 'Дом',
-                    hintStyle: AppTextTheme.semiBold18.copyWith(
-                      color: AppColors.lightGray,
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        width: 1.0,
-                        color: AppColors.lightGray,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: AppColors.red,
-                        width: 2.0,
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    errorStyle: AppTextTheme.semiBold10,
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  style: AppTextTheme.semiBold18.copyWith(
-                    color: AppColors.gray,
-                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -432,12 +214,6 @@ class _TourCreateScreenState extends State<TourCreateScreen> {
                             TourCreateExcursionRoute(
                               name: _tourNameController.value.text,
                               description: _descriptionController.value.text,
-                              address: Address(
-                                country: _countryController.value.text,
-                                city: _cityController.value.text,
-                                street: _streetController.value.text,
-                                house: _houseController.value.text,
-                              ),
                               kinds: kindList,
                               weekdays: weekdays,
                               imagePath: imagePath ?? '',

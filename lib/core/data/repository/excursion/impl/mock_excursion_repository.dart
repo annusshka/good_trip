@@ -23,9 +23,9 @@ class MockExcursionRepository implements IExcursionRepository {
         house: '1',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -55,9 +55,9 @@ class MockExcursionRepository implements IExcursionRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -88,9 +88,9 @@ class MockExcursionRepository implements IExcursionRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -121,9 +121,9 @@ class MockExcursionRepository implements IExcursionRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -154,9 +154,9 @@ class MockExcursionRepository implements IExcursionRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -187,9 +187,9 @@ class MockExcursionRepository implements IExcursionRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -219,9 +219,9 @@ class MockExcursionRepository implements IExcursionRepository {
         city: 'Москва',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -252,9 +252,9 @@ class MockExcursionRepository implements IExcursionRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -285,9 +285,9 @@ class MockExcursionRepository implements IExcursionRepository {
         street: 'Московский пр-кт',
       ),
       kinds: [
-        TourType.archaeology.displayText,
-        TourType.amusements.displayText,
-        TourType.cultural.displayText,
+        TourType.archaeology,
+        TourType.amusements,
+        TourType.cultural,
       ],
       weekdays: [Weekday.monday, Weekday.friday],
       description: 'Что вас ожидает\nСамое-самое в Воронеже\nВы увидите главные '
@@ -379,6 +379,7 @@ class MockExcursionRepository implements IExcursionRepository {
   @override
   Future<void> likeTour({
     required String id,
+    required bool isLiked,
   }) async {
     try {
       final _id = int.tryParse(id);

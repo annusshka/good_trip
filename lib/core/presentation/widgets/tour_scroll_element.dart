@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
@@ -24,7 +26,9 @@ class TourScrollElement extends StatelessWidget {
       width: 150,
       child: InkWell(
         onTap: () {
-          //onTapAction != null ? onTapAction!(tour) : context.router.push(ExcursionRoute(excursion: tour));
+          context.router.push(
+            TourRoute(tour: tour),
+          );
         },
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +73,7 @@ class TourScrollElement extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        tour.kinds[0],
+                        tour.kinds[0].displayText,
                         style: AppTextTheme.medium10.copyWith(
                           color: AppColors.lightGray,
                         ),

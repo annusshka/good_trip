@@ -110,15 +110,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     MapRoute.name: (routeData) {
+      final args = routeData.argsAs<MapRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const MapScreen(),
-      );
-    },
-    MapWrapperRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: WrappedRoute(child: const MapWrapperScreen()),
+        child: MapScreen(
+          key: args.key,
+          mapPoints: args.mapPoints,
+          initialZoom: args.initialZoom,
+        ),
       );
     },
     NavBarAdminRoute.name: (routeData) {
@@ -159,7 +158,6 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           name: args.name,
           description: args.description,
-          address: args.address,
           kinds: args.kinds,
           weekdays: args.weekdays,
           imagePath: args.imagePath,
@@ -446,30 +444,44 @@ class HomeWrapperRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [MapScreen]
-class MapRoute extends PageRouteInfo<void> {
-  const MapRoute({List<PageRouteInfo>? children})
-      : super(
+class MapRoute extends PageRouteInfo<MapRouteArgs> {
+  MapRoute({
+    Key? key,
+    required List<Point?> mapPoints,
+    double initialZoom = 15.0,
+    List<PageRouteInfo>? children,
+  }) : super(
           MapRoute.name,
+          args: MapRouteArgs(
+            key: key,
+            mapPoints: mapPoints,
+            initialZoom: initialZoom,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'MapRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<MapRouteArgs> page = PageInfo<MapRouteArgs>(name);
 }
 
-/// generated route for
-/// [MapWrapperScreen]
-class MapWrapperRoute extends PageRouteInfo<void> {
-  const MapWrapperRoute({List<PageRouteInfo>? children})
-      : super(
-          MapWrapperRoute.name,
-          initialChildren: children,
-        );
+class MapRouteArgs {
+  const MapRouteArgs({
+    this.key,
+    required this.mapPoints,
+    this.initialZoom = 15.0,
+  });
 
-  static const String name = 'MapWrapperRoute';
+  final Key? key;
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  final List<Point?> mapPoints;
+
+  final double initialZoom;
+
+  @override
+  String toString() {
+    return 'MapRouteArgs{key: $key, mapPoints: $mapPoints, initialZoom: $initialZoom}';
+  }
 }
 
 /// generated route for
@@ -550,8 +562,7 @@ class TourCreateExcursionRoute
     Key? key,
     required String name,
     required String description,
-    required Address address,
-    required List<String> kinds,
+    required List<TourType> kinds,
     required List<DayInWeek> weekdays,
     required String imagePath,
     required File? imageFile,
@@ -562,7 +573,6 @@ class TourCreateExcursionRoute
             key: key,
             name: name,
             description: description,
-            address: address,
             kinds: kinds,
             weekdays: weekdays,
             imagePath: imagePath,
@@ -582,7 +592,6 @@ class TourCreateExcursionRouteArgs {
     this.key,
     required this.name,
     required this.description,
-    required this.address,
     required this.kinds,
     required this.weekdays,
     required this.imagePath,
@@ -595,9 +604,7 @@ class TourCreateExcursionRouteArgs {
 
   final String description;
 
-  final Address address;
-
-  final List<String> kinds;
+  final List<TourType> kinds;
 
   final List<DayInWeek> weekdays;
 
@@ -607,7 +614,7 @@ class TourCreateExcursionRouteArgs {
 
   @override
   String toString() {
-    return 'TourCreateExcursionRouteArgs{key: $key, name: $name, description: $description, address: $address, kinds: $kinds, weekdays: $weekdays, imagePath: $imagePath, imageFile: $imageFile}';
+    return 'TourCreateExcursionRouteArgs{key: $key, name: $name, description: $description, kinds: $kinds, weekdays: $weekdays, imagePath: $imagePath, imageFile: $imageFile}';
   }
 }
 

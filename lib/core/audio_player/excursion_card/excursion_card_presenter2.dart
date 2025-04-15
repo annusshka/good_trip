@@ -1,11 +1,12 @@
 import 'package:audio_service/audio_service.dart';
+import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
 import 'package:good_trip/core/audio_player/data/position_data.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ExcursionCardPresenter2 {
   final int index;
-  final AudioPlayerHandlerImpl2 audioPlayerHandler;
+  final AudioPlayerHandler audioPlayerHandler;
 
   ExcursionCardPresenter2({
     required this.index,

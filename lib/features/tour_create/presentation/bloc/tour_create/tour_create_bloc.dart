@@ -1,6 +1,7 @@
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/models/enum/enum.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/widgets/create_elements/create_elements.dart';
 import 'package:good_trip/core/theme/strings.dart';
@@ -36,12 +37,17 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
               errorMsg: 'Empty param in tour create request.'),
         );
       } else {
+        List<String> kinds = [];
+        for (TourType type in event.kinds) {
+          kinds.add(type.displayEnglishText);
+        }
+
         await tourRepository.saveTour(
           name: event.name,
           imagePath: event.imagePath,
           weekdays: event.weekdays,
           description: event.description,
-          kinds: event.kinds,
+          kinds: kinds,
           address: event.address,
           imageFile: event.imageFile,
           excursionList: event.excursionList,

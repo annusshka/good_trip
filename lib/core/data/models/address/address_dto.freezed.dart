@@ -20,12 +20,13 @@ AddressDto _$AddressDtoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AddressDto {
-  Point? get coordinates => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
+  double? get lon => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
   String? get road => throw _privateConstructorUsedError;
   String? get street => throw _privateConstructorUsedError;
-  String? get houseNumber => throw _privateConstructorUsedError;
+  String? get house => throw _privateConstructorUsedError;
 
   /// Serializes this AddressDto to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,14 +45,13 @@ abstract class $AddressDtoCopyWith<$Res> {
       _$AddressDtoCopyWithImpl<$Res, AddressDto>;
   @useResult
   $Res call(
-      {Point? coordinates,
+      {double? lat,
+      double? lon,
       String? country,
       String? city,
       String? road,
       String? street,
-      String? houseNumber});
-
-  $PointCopyWith<$Res>? get coordinates;
+      String? house});
 }
 
 /// @nodoc
@@ -69,18 +69,23 @@ class _$AddressDtoCopyWithImpl<$Res, $Val extends AddressDto>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? coordinates = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
     Object? country = freezed,
     Object? city = freezed,
     Object? road = freezed,
     Object? street = freezed,
-    Object? houseNumber = freezed,
+    Object? house = freezed,
   }) {
     return _then(_value.copyWith(
-      coordinates: freezed == coordinates
-          ? _value.coordinates
-          : coordinates // ignore: cast_nullable_to_non_nullable
-              as Point?,
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: freezed == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
       country: freezed == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -97,25 +102,11 @@ class _$AddressDtoCopyWithImpl<$Res, $Val extends AddressDto>
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String?,
-      houseNumber: freezed == houseNumber
-          ? _value.houseNumber
-          : houseNumber // ignore: cast_nullable_to_non_nullable
+      house: freezed == house
+          ? _value.house
+          : house // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
-  }
-
-  /// Create a copy of AddressDto
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $PointCopyWith<$Res>? get coordinates {
-    if (_value.coordinates == null) {
-      return null;
-    }
-
-    return $PointCopyWith<$Res>(_value.coordinates!, (value) {
-      return _then(_value.copyWith(coordinates: value) as $Val);
-    });
   }
 }
 
@@ -128,15 +119,13 @@ abstract class _$$AddressDtoImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Point? coordinates,
+      {double? lat,
+      double? lon,
       String? country,
       String? city,
       String? road,
       String? street,
-      String? houseNumber});
-
-  @override
-  $PointCopyWith<$Res>? get coordinates;
+      String? house});
 }
 
 /// @nodoc
@@ -152,18 +141,23 @@ class __$$AddressDtoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? coordinates = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
     Object? country = freezed,
     Object? city = freezed,
     Object? road = freezed,
     Object? street = freezed,
-    Object? houseNumber = freezed,
+    Object? house = freezed,
   }) {
     return _then(_$AddressDtoImpl(
-      coordinates: freezed == coordinates
-          ? _value.coordinates
-          : coordinates // ignore: cast_nullable_to_non_nullable
-              as Point?,
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: freezed == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
       country: freezed == country
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
@@ -180,9 +174,9 @@ class __$$AddressDtoImplCopyWithImpl<$Res>
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String?,
-      houseNumber: freezed == houseNumber
-          ? _value.houseNumber
-          : houseNumber // ignore: cast_nullable_to_non_nullable
+      house: freezed == house
+          ? _value.house
+          : house // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -192,19 +186,22 @@ class __$$AddressDtoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AddressDtoImpl extends _AddressDto {
   const _$AddressDtoImpl(
-      {this.coordinates,
+      {this.lat,
+      this.lon,
       this.country,
       this.city,
       this.road,
       this.street,
-      this.houseNumber})
+      this.house})
       : super._();
 
   factory _$AddressDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressDtoImplFromJson(json);
 
   @override
-  final Point? coordinates;
+  final double? lat;
+  @override
+  final double? lon;
   @override
   final String? country;
   @override
@@ -214,11 +211,11 @@ class _$AddressDtoImpl extends _AddressDto {
   @override
   final String? street;
   @override
-  final String? houseNumber;
+  final String? house;
 
   @override
   String toString() {
-    return 'AddressDto(coordinates: $coordinates, country: $country, city: $city, road: $road, street: $street, houseNumber: $houseNumber)';
+    return 'AddressDto(lat: $lat, lon: $lon, country: $country, city: $city, road: $road, street: $street, house: $house)';
   }
 
   @override
@@ -226,20 +223,19 @@ class _$AddressDtoImpl extends _AddressDto {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddressDtoImpl &&
-            (identical(other.coordinates, coordinates) ||
-                other.coordinates == coordinates) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.road, road) || other.road == road) &&
             (identical(other.street, street) || other.street == street) &&
-            (identical(other.houseNumber, houseNumber) ||
-                other.houseNumber == houseNumber));
+            (identical(other.house, house) || other.house == house));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, coordinates, country, city, road, street, houseNumber);
+  int get hashCode =>
+      Object.hash(runtimeType, lat, lon, country, city, road, street, house);
 
   /// Create a copy of AddressDto
   /// with the given fields replaced by the non-null parameter values.
@@ -259,19 +255,22 @@ class _$AddressDtoImpl extends _AddressDto {
 
 abstract class _AddressDto extends AddressDto {
   const factory _AddressDto(
-      {final Point? coordinates,
+      {final double? lat,
+      final double? lon,
       final String? country,
       final String? city,
       final String? road,
       final String? street,
-      final String? houseNumber}) = _$AddressDtoImpl;
+      final String? house}) = _$AddressDtoImpl;
   const _AddressDto._() : super._();
 
   factory _AddressDto.fromJson(Map<String, dynamic> json) =
       _$AddressDtoImpl.fromJson;
 
   @override
-  Point? get coordinates;
+  double? get lat;
+  @override
+  double? get lon;
   @override
   String? get country;
   @override
@@ -281,7 +280,7 @@ abstract class _AddressDto extends AddressDto {
   @override
   String? get street;
   @override
-  String? get houseNumber;
+  String? get house;
 
   /// Create a copy of AddressDto
   /// with the given fields replaced by the non-null parameter values.

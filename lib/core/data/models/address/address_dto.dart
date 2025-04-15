@@ -9,12 +9,13 @@ class AddressDto with _$AddressDto {
   const AddressDto._();
 
   const factory AddressDto({
-    final Point? coordinates,
+    final double? lat,
+    final double? lon,
     final String? country,
     final String? city,
     final String? road,
     final String? street,
-    final String? houseNumber,
+    final String? house,
   }) = _AddressDto;
 
   factory AddressDto.fromJson(Map<String, Object?> json) =>

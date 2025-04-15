@@ -8,32 +8,32 @@ part of 'audio_excursion_dto.dart';
 
 AudioExcursionDto _$AudioExcursionDtoFromJson(Map<String, dynamic> json) =>
     AudioExcursionDto(
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
-      imageUrl: json['imageUrl'] as String?,
+      imagePath: json['imagePath'] as String?,
       address: AddressDto.fromJson(json['address'] as Map<String, dynamic>),
       weekdays: (json['weekdays'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$WeekdayEnumMap, e))
           .toList(),
       description: json['description'] as String?,
       kinds: (json['kinds'] as List<dynamic>).map((e) => e as String).toList(),
-      isLiked: json['isLiked'] as bool,
+      liked: json['liked'] as bool,
       deeplinkUrl: json['deeplinkUrl'] as String?,
-      audioUrl: json['audioUrl'] as String,
+      audioPath: json['audioPath'] as String,
     );
 
 Map<String, dynamic> _$AudioExcursionDtoToJson(AudioExcursionDto instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'imageUrl': instance.imageUrl,
+      'imagePath': instance.imagePath,
       'address': instance.address,
       'weekdays': instance.weekdays?.map((e) => _$WeekdayEnumMap[e]!).toList(),
       'description': instance.description,
       'kinds': instance.kinds,
-      'isLiked': instance.isLiked,
+      'liked': instance.liked,
       'deeplinkUrl': instance.deeplinkUrl,
-      'audioUrl': instance.audioUrl,
+      'audioPath': instance.audioPath,
     };
 
 const _$WeekdayEnumMap = {

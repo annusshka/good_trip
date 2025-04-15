@@ -5,13 +5,9 @@ abstract class IAuthRepository {
 
   Future<int?> loadUserId();
 
-  Future<User> register({
-    required AuthRequest authRequest,
-  });
+  Future<User> register({required AuthRequest authRequest});
 
   Future<void> logout();
 
-  Future<User> login({
-    required LoginRequest loginRequest,
-  });
+  Future<User> login({required LoginRequest loginRequest});
 }

@@ -13,10 +13,8 @@ part 'auth_service.g.dart';
 abstract class AuthService {
   factory AuthService(Dio dio, {String baseUrl}) = _AuthService;
 
-  @GET('${Urls.user}/{user_id}')
-  Future<UserDto> getUserById({
-    @Path('user_id') required String userId,
-  });
+  @GET(Urls.user)
+  Future<UserDto> getUserById();
 
   @POST(Urls.refresh)
   Future<RefreshToken> refreshToken({

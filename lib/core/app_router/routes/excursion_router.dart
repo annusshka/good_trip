@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/app_router/routes/map_router.dart';
 
 abstract class ExcursionRoutes {
   static final routes = AutoRoute(
@@ -10,7 +9,9 @@ abstract class ExcursionRoutes {
         page: ExcursionRoute.page,
         initial: true,
       ),
-      MapRoutes.routes,
+      AutoRoute(
+        page: MapRoute.page,
+      ),
     ],
   );
 }

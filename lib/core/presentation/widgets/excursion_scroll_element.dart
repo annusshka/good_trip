@@ -71,7 +71,7 @@ class ExcursionScrollElement extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        excursion.kinds[0],
+                        excursion.kinds[0].displayText,
                         style: AppTextTheme.medium10.copyWith(
                           color: AppColors.lightGray,
                         ),

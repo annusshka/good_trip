@@ -9,9 +9,8 @@ part 'tour_service.g.dart';
 abstract class TourService {
   factory TourService(Dio dio, {String baseUrl}) = _TourService;
 
-  @GET('${Urls.toursByCity}/{user_id}')
+  @GET(Urls.toursByCity)
   Future<List<TourDto>> getToursByCity({
-    @Path('user_id') required String userId,
     @Query('city') required String city,
     @Query('offset') required int offset,
   });
@@ -21,9 +20,8 @@ abstract class TourService {
     @Query('offset') required int offset,
   });
 
-  @GET('${Urls.audioTour}/{user_id}')
+  @GET(Urls.createdTour)
   Future<List<TourDto>> getCreatedToursByUser({
-    @Path('user_id') required String userId,
     @Query('offset') required int offset,
   });
 
@@ -34,19 +32,17 @@ abstract class TourService {
 
   @PUT(Urls.likeTour)
   Future<void> likeTour({
-    @Query('user_id') required String userId,
     @Query('tour_id') required String tourId,
+    @Query('is_liked') required bool isLiked,
   });
 
-  @GET('${Urls.likeTour}/{user_id}')
+  @GET(Urls.likeTour)
   Future<List<TourDto>> getLikedToursByUser({
-    @Path('user_id') required String userId,
     @Query('offset') required int offset,
   });
 
-  @POST('${Urls.createTour}/{user_id}')
+  @POST(Urls.createTour)
   Future<void> createTour({
-    @Path('user_id') required String userId,
     @Body() required Tour tour,
   });
 

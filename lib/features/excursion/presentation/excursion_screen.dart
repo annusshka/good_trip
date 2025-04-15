@@ -9,7 +9,7 @@ import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.d
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/features/map/presentation/widgets/map_widget.dart';
+import 'package:good_trip/features/map/map_screen.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'widgets/widgets.dart';
@@ -124,8 +124,9 @@ class ExcursionScreen extends StatelessWidget {
                   height: 150.0,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                    child: MapWidget(
-                      latLng: LatLng(coord.lat, coord.lon),
+                    child: MapScreen(
+                      mapPoints: [coord],
+                      showAppBar: false,
                     ),
                   ),
                 ),
@@ -134,7 +135,12 @@ class ExcursionScreen extends StatelessWidget {
                     const Spacer(),
                     InkWell(
                       onTap: () {
-                        AutoRouter.of(context).push(const MapRoute());
+                        AutoRouter.of(context).push(
+                          MapRoute(
+                            mapPoints: [coord],
+                            initialZoom: 5.0,
+                          ),
+                        );
                       },
                       child: Text(
                         'Смотреть на карте',

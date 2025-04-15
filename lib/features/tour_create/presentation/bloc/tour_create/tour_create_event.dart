@@ -17,7 +17,7 @@ class TourCreateRequested extends TourCreateEvent {
   final String imagePath;
   final List<DayInWeek> weekdays;
   final String description;
-  final List<String> kinds;
+  final List<TourType> kinds;
   final Address address;
   final List<AudioExcursion> excursionList;
   final File? imageFile;

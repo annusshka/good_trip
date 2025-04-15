@@ -13,22 +13,16 @@ abstract class ITourRepository {
 
   Future<List<Tour>> getCreatedTours({int offset = 0});
 
-  Future<List<Tour>> getCreatedToursByUserId({
-    required int userId,
-    int offset = 0,
-  });
+  Future<List<Tour>> getCreatedToursByUserId({int offset = 0});
 
   Future<List<Tour>> getCreatedToursByAdmin({int offset = 0});
 
   Future<void> likeTour({
-    required int userId,
     required String id,
+    required bool isLiked,
   });
 
-  Future<List<Tour>> getFavoriteTours({
-    required int userId,
-    int offset = 0,
-  });
+  Future<List<Tour>> getFavoriteTours({int offset = 0});
 
   Future<void> saveTour({
     required String name,
@@ -41,13 +35,9 @@ abstract class ITourRepository {
     required List<IAudioExcursion> excursionList,
   });
 
-  Future<void> deleteTour({
-    required String id,
-  });
+  Future<void> deleteTour({required String id});
 
-  Future<int> getViewedExcursionCount({
-    required String tourId,
-  });
+  Future<int> getViewedExcursionCount({required String tourId});
 
   Future<void> viewExcursions({
     required String tourId,
