@@ -91,14 +91,12 @@ class JwtInterceptor extends Interceptor {
   Future<dynamic> onError(
       DioException err, ErrorInterceptorHandler handler) async {
     final response = err.response;
-    if (response != null && response.statusCode == 401) {
-      String? jwt;
-      if (await hasRefreshJwt()) {
-        jwt = await readRefreshJwt();
-      }
+    if (response != null && response.statusCode == 403 && err.requestOptions.path != '$baseUrl/auth/refresh') {
+      String? jwt = await readRefreshJwt();
 
       if (jwt != null && jwt.isNotEmpty) {
-        if (await refreshToken()) {
+        final isRefreshed = await refreshToken();
+        if (isRefreshed) {
           final jwt = await readUserJwt();
           err.requestOptions.headers['Authorization'] = 'Bearer $jwt';
           return handler.resolve(await _retry(err.requestOptions));

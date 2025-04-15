@@ -7,7 +7,7 @@ part of 'tour_dto.dart';
 // **************************************************************************
 
 TourDto _$TourDtoFromJson(Map<String, dynamic> json) => TourDto(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String,
       imagePath: json['imagePath'] as String?,
       address: AddressDto.fromJson(json['address'] as Map<String, dynamic>),

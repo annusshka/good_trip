@@ -1,7 +1,9 @@
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/data/mapper/mapper_export.dart';
 import 'package:good_trip/core/data/models/enum/enum.dart';
+import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/widgets/create_elements/create_elements.dart';
 import 'package:good_trip/core/theme/strings.dart';
@@ -23,8 +25,7 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
     );
   }
 
-  Future<void> _tourCreateRequested(
-      TourCreateRequested event, Emitter<TourCreateState> emit) async {
+  Future<void> _tourCreateRequested(TourCreateRequested event, Emitter<TourCreateState> emit) async {
     emit(TourCreateInProgress());
     try {
       if (event.imageFile == null ||
@@ -33,25 +34,26 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
           event.weekdays.isEmpty ||
           event.excursionList.isEmpty) {
         emit(
-          const TourCreateFailure(
-              errorMsg: 'Empty param in tour create request.'),
+          const TourCreateFailure(errorMsg: 'Empty param in tour create request.'),
         );
       } else {
         List<String> kinds = [];
-        for (TourType type in event.kinds) {
+        for (final TourType type in event.kinds) {
           kinds.add(type.displayEnglishText);
         }
+        final imageName = event.imagePath.split('/').last;
 
-        await tourRepository.saveTour(
+        final tour = TourDto(
           name: event.name,
-          imagePath: event.imagePath,
-          weekdays: event.weekdays,
+          imagePath: imageName,
+          weekdays: mapToWeekdayList(event.weekdays),
           description: event.description,
           kinds: kinds,
-          address: event.address,
-          imageFile: event.imageFile,
-          excursionList: event.excursionList,
+          address: mapAddressToDto(event.address),
+          excursionList: mapAudioExcursionListToDto(event.excursionList),
         );
+
+        await tourRepository.saveTour(tour: tour, imagePath: event.imagePath);
         AppMetrica.reportEvent('save_tour_created');
         emit(TourCreatedSuccess());
       }
@@ -111,14 +113,12 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
     // }
   }
 
-  Future<void> _tourRemoveRequested(
-      CreatedTourRemoveRequested event, Emitter<TourCreateState> emit) async {
+  Future<void> _tourRemoveRequested(CreatedTourRemoveRequested event, Emitter<TourCreateState> emit) async {
     emit(TourCreateInProgress());
     try {
       await tourRepository.deleteTour(id: event.tourId);
       AppMetrica.reportEvent('remove_tour_created');
       emit(TourCreatedSuccess());
-      await _showChangeNotification(event.context, changesSuccess);
     } catch (e) {
       emit(const TourCreateFailure(errorMsg: 'Error in tour create request.'));
       AppMetrica.reportErrorWithGroup(
@@ -126,17 +126,6 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
         message: e.toString(),
         errorDescription: AppMetricaErrorDescription(StackTrace.current),
       );
-      await _showChangeNotification(event.context, changesFail);
     }
-  }
-
-  Future<void> _showChangeNotification(context, String text) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AppNotification(text: text);
-      },
-    );
   }
 }

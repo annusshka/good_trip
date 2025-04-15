@@ -6,6 +6,7 @@ import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion
 import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
 import 'package:good_trip/di/set_up_locator.dart';
 import 'package:good_trip/features/excursion_create_list/presentation/bloc/excursion_create.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
 
 @RoutePage()
 class ExcursionCreateListWrapperScreen extends StatelessWidget
@@ -41,6 +42,12 @@ class ExcursionCreateListWrapperScreen extends StatelessWidget
           lazy: false,
           create: (_) => ExcursionCreateBloc(
             excursionRepository: getIt.get<IExcursionRepository>(),
+          ),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (_) => TourCreateBloc(
+            tourRepository: getIt.get<ITourRepository>(),
           ),
         ),
       ],

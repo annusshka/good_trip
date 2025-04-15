@@ -11,6 +11,8 @@ class TourCreateInitial extends TourCreateState {}
 
 class TourCreateInProgress extends TourCreateState {}
 
+class TourRemoveInProgress extends TourCreateState {}
+
 class TourCreatedSuccess extends TourCreateState {}
 
 class TourRemovedSuccess extends TourCreateState {}
@@ -19,6 +21,15 @@ class TourCreateFailure extends TourCreateState {
   final String errorMsg;
 
   const TourCreateFailure({required this.errorMsg});
+
+  @override
+  List<Object> get props => [errorMsg];
+}
+
+class TourRemoveFailure extends TourCreateState {
+  final String errorMsg;
+
+  const TourRemoveFailure({required this.errorMsg});
 
   @override
   List<Object> get props => [errorMsg];

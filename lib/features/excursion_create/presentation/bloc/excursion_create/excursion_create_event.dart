@@ -71,11 +71,9 @@ class ExcursionUpdateKindsRequested extends ExcursionCreateEvent {}
 class ExcursionUpdateWeekdaysRequested extends ExcursionCreateEvent {}
 
 class CreatedExcursionRemoveRequested extends ExcursionCreateEvent {
-  final BuildContext context;
-  final String tourId;
+  final String excursionId;
 
   const CreatedExcursionRemoveRequested({
-    required this.context,
-    required this.tourId,
+    required this.excursionId,
   });
 }

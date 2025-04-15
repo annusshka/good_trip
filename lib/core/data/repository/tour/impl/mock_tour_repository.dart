@@ -531,25 +531,37 @@ class MockTourRepository implements ITourRepository {
 
   @override
   Future<void> saveTour({
-    required String name,
-    required String imagePath,
-    required List<DayInWeek> weekdays,
-    required String description,
-    required List<String> kinds,
-    required Address address,
-    required File? imageFile,
-    required List<IAudioExcursion> excursionList,
+    required TourDto tour,
+    required String? imagePath,
+    // required String name,
+    // required String imagePath,
+    // required List<DayInWeek> weekdays,
+    // required String description,
+    // required List<String> kinds,
+    // required Address address,
+    // required File? imageFile,
+    // required List<IAudioExcursion> excursionList,
   }) async {
-    final tour = Tour(
+    // final tour = Tour(
+    //   id: (iTourList.length + 1).toString(),
+    //   name: name,
+    //   imageUrl: iTourList[0].imageUrl,
+    //   weekdays: mapToWeekdayList(weekdays),
+    //   description: description,
+    //   address: address,
+    //   kinds: [],
+    //   excursionList: excursionList as List<AudioExcursion>,
+    // );
+    final tour1 = Tour(
       id: (iTourList.length + 1).toString(),
-      name: name,
+      name: tour.name,
       imageUrl: iTourList[0].imageUrl,
-      weekdays: mapToWeekdayList(weekdays),
-      description: description,
-      address: address,
-      kinds: [],
-      excursionList: excursionList as List<AudioExcursion>,
+      weekdays: tour.weekdays,
+      description: tour.description,
+      address: mapDtoToAddress(tour.address),
+      kinds: mapToTourType(tour.kinds),
+      excursionList: mapDtoToAudioExcursionList(tour.excursionList),
     );
-    iTourList.add(tour);
+    iTourList.add(tour1);
   }
 }

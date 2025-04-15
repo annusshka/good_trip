@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/data/mapper/tour_mapper.dart';
@@ -139,7 +141,7 @@ class ExcursionRepository implements IExcursionRepository {
     required String id,
   }) async {
     try {
-      await service.deleteExcursion(tourId: id);
+      await service.deleteExcursion(excursionId: id);
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
@@ -154,17 +156,15 @@ class ExcursionRepository implements IExcursionRepository {
 
   @override
   Future<void> saveExcursion({
-    required AudioExcursion audioExcursion,
+    required AudioExcursionDto audioExcursion,
+    required String? imagePath,
+    required String? audioPath,
   }) async {
     try {
-      final MultipartFile imageFile = await MultipartFile.fromFile(audioExcursion.imageUrl!);
-      final MultipartFile audioFile = await MultipartFile.fromFile(audioExcursion.audioUrl);
-      //MultipartFile imageFile = MultipartFile.fromBytes(await photo!.readAsBytes());
-      await service.createExcursion(
-        excursion: audioExcursion,
-        audioFile: audioFile,
-        imageFile: imageFile,
-      );
+      final File imageFile = File(imagePath ?? '');
+      final File audioFile = File(audioPath ?? '');
+      final int excursionId = await service.createExcursion(excursion: audioExcursion);
+      final int excursionId2 = await service.createExcursionFiles(excursionId: excursionId, image: imageFile, audio: audioFile);
     } on DioException catch (error) {
       throw TourError(
         name: 'SaveExcursion',

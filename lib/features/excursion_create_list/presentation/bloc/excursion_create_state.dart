@@ -11,6 +11,8 @@ class ExcursionCreateInitial extends ExcursionCreateState {}
 
 class ExcursionCreateInProgress extends ExcursionCreateState {}
 
+class ExcursionRemoveInProgress extends ExcursionCreateState {}
+
 class ExcursionCreatedSuccess extends ExcursionCreateState {}
 
 class ExcursionRemovedSuccess extends ExcursionCreateState {}
@@ -19,6 +21,15 @@ class ExcursionCreateFailure extends ExcursionCreateState {
   final String errorMsg;
 
   const ExcursionCreateFailure({required this.errorMsg});
+
+  @override
+  List<Object> get props => [errorMsg];
+}
+
+class ExcursionRemoveFailure extends ExcursionCreateState {
+  final String errorMsg;
+
+  const ExcursionRemoveFailure({required this.errorMsg});
 
   @override
   List<Object> get props => [errorMsg];

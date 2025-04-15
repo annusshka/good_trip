@@ -12,6 +12,8 @@ class TourInitial extends TourState {}
 
 class TourLoadInProgress extends TourState {}
 
+class TourLikeInProgress extends TourState {}
+
 class TourLoadSuccess extends TourState {}
 
 class TourLikedSuccess extends TourState {}

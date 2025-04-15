@@ -460,7 +460,9 @@ class MockExcursionRepository implements IExcursionRepository {
 
   @override
   Future<void> saveExcursion({
-    required AudioExcursion audioExcursion,
+    required AudioExcursionDto audioExcursion,
+    required String? imagePath,
+    required String? audioPath,
   }) async {
     // TODO: implement saveExcursion
     throw UnimplementedError();

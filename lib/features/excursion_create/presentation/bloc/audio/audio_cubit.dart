@@ -10,7 +10,7 @@ import 'audio_state.dart';
 class AudioCubit extends Cubit<AudioState> {
   AudioCubit() : super(const AudioState(audioPath: null, audio: null));
 
-  void handleAudioFromFiles() async {
+  Future<void> handleAudioFromFiles() async {
     try {
       FilePickerResult? audioFileResult = await FilePicker.platform.pickFiles(
         type: FileType.custom,

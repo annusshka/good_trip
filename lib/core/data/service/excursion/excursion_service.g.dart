@@ -209,24 +209,20 @@ class _ExcursionService implements ExcursionService {
   }
 
   @override
-  Future<void> createExcursion({
-    required AudioExcursion excursion,
-    required MultipartFile audioFile,
-    required MultipartFile imageFile,
-  }) async {
+  Future<int> createExcursion({required AudioExcursionDto excursion}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(excursion.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(Options(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/audioexcursion/create/full',
+          '/audioexcursion/create',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -235,12 +231,63 @@ class _ExcursionService implements ExcursionService {
           _dio.options.baseUrl,
           baseUrl,
         ))));
+    final value = _result.data!;
+    return value;
   }
 
   @override
-  Future<void> deleteExcursion({required String tourId}) async {
+  Future<int> createExcursionFiles({
+    required int excursionId,
+    required File image,
+    required File audio,
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'excursion_id',
+      excursionId.toString(),
+    ));
+    _data.files.add(MapEntry(
+      'image',
+      MultipartFile.fromFileSync(
+        image.path,
+        filename: image.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    _data.files.add(MapEntry(
+      'audio',
+      MultipartFile.fromFileSync(
+        audio.path,
+        filename: audio.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          '/audioexcursion/create/files',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<void> deleteExcursion({required String excursionId}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'excursion_id': excursionId};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
@@ -250,7 +297,7 @@ class _ExcursionService implements ExcursionService {
     )
         .compose(
           _dio.options,
-          '/audioexcursion/${tourId}',
+          '/audioexcursion',
           queryParameters: queryParameters,
           data: _data,
         )

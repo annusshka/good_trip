@@ -24,7 +24,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
   }
 
   Future<void> _requestTourLike(TourLikeRequested event, Emitter<TourState> emit) async {
-    emit(TourLoadInProgress());
+    emit(TourLikeInProgress());
     try {
       await tourRepository.likeTour(id: event.id, isLiked: event.isLiked);
       Map<String, String> attributesMap = {'tour_id': event.id};

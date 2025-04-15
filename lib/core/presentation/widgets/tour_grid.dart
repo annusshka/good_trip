@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 
-class ExcursionGrid extends StatelessWidget {
-  final List<IExcursion> excursionList;
-  const ExcursionGrid({super.key, required this.excursionList});
+class TourGrid extends StatelessWidget {
+  final List<ITour> tourList;
+
+  const TourGrid({super.key, required this.tourList});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
       child: GridView.builder(
-        itemCount: excursionList.length,
-        gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, mainAxisSpacing: 15, crossAxisSpacing: 7,
+        itemCount: tourList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 15,
+          crossAxisSpacing: 7,
         ),
         itemBuilder: (context, index) {
-          return ExcursionScrollElement(excursion: excursionList[index]);
+          return TourScrollElement(
+            tour: tourList[index],
+          );
         },
       ),
     );

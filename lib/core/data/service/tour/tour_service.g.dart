@@ -200,20 +200,20 @@ class _TourService implements TourService {
   }
 
   @override
-  Future<void> createTour({required Tour tour}) async {
+  Future<int> createTour({required TourDto tour}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(tour.toJson());
-    await _dio.fetch<void>(_setStreamType<void>(Options(
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
         .compose(
           _dio.options,
-          '/audiotours/create/full',
+          '/audiotours/create',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -222,12 +222,55 @@ class _TourService implements TourService {
           _dio.options.baseUrl,
           baseUrl,
         ))));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<int> createTourFiles({
+    required int tourId,
+    required File image,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'tour_id',
+      tourId.toString(),
+    ));
+    _data.files.add(MapEntry(
+      'image',
+      MultipartFile.fromFileSync(
+        image.path,
+        filename: image.path.split(Platform.pathSeparator).last,
+      ),
+    ));
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          '/audiotours/create/files',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
+    return value;
   }
 
   @override
   Future<void> deleteTour({required String tourId}) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'tour_id': tourId};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     await _dio.fetch<void>(_setStreamType<void>(Options(
@@ -237,7 +280,7 @@ class _TourService implements TourService {
     )
         .compose(
           _dio.options,
-          '/audiotours/${tourId}',
+          '/audiotours',
           queryParameters: queryParameters,
           data: _data,
         )

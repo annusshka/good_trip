@@ -5,12 +5,12 @@ import 'package:day_picker/day_picker.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/audio_player/excursion_card/excursion_card.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/features/tour/presentation/widgets/excursion_card.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/create_excursion_list/create_excursion_list_cubit.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/create_excursion_list/create_excursion_list_state.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
@@ -36,8 +36,7 @@ class TourCreateExcursionScreen extends StatefulWidget {
   final List<DayInWeek> weekdays;
 
   @override
-  State<TourCreateExcursionScreen> createState() =>
-      _TourCreateExcursionScreenState();
+  State<TourCreateExcursionScreen> createState() => _TourCreateExcursionScreenState();
 }
 
 class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
@@ -69,8 +68,7 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
               horizontal: 16.0,
               //vertical: 8.0,
             ),
-            child:
-                BlocBuilder<CreateExcursionListCubit, CreateExcursionListState>(
+            child: BlocBuilder<CreateExcursionListCubit, CreateExcursionListState>(
               bloc: cubit,
               builder: (context2, state) {
                 return Column(
@@ -81,13 +79,9 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         final Color actualColor =
-                            index < state.excursionList.length
-                                ? AppColors.pink
-                                : AppColors.lightGray;
+                            index < state.excursionList.length ? AppColors.pink : AppColors.lightGray;
                         final Color actualColor2 =
-                            index <= state.excursionList.length
-                                ? AppColors.pink
-                                : AppColors.lightGray;
+                            index <= state.excursionList.length ? AppColors.pink : AppColors.lightGray;
 
                         return SizedBox(
                           height: 178.0,
@@ -118,8 +112,7 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                                         child: Text(
                                           '${index + 1}',
                                           textAlign: TextAlign.center,
-                                          style:
-                                              AppTextTheme.semiBold15.copyWith(
+                                          style: AppTextTheme.semiBold15.copyWith(
                                             color: AppColors.white,
                                           ),
                                         ),
@@ -142,7 +135,8 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                               Expanded(
                                 child: index != state.excursionList.length
                                     ? ExcursionCard(
-                                        excursion: state.excursionList[index],
+                                        audioExcursion: state.excursionList[index],
+                                        index: index,
                                       )
                                     : AddExcursionCard(
                                         onTapAction: (newExcursion) {
@@ -165,12 +159,31 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                         color: AppColors.pink,
                         width: double.infinity,
                         height: height * 0.08,
-                        child: BlocBuilder<TourCreateBloc, TourCreateState>(
+                        child: BlocConsumer<TourCreateBloc, TourCreateState>(
+                          listener: (context3, tourCreateState2) async {
+                            if (tourCreateState2 is TourCreatedSuccess) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Ваш тур успешно создан'),
+                                ),
+                              );
+                              await context.router.maybePop();
+                              await context.router.maybePop();
+                            }
+                            if (tourCreateState2 is TourCreateFailure) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Ошибка при создании тура'),
+                                ),
+                              );
+                            }
+                          },
                           builder: (context1, tourCreateState) {
-                            if (state is TourCreatedSuccess) {
-                              BlocProvider.of<TourCreateListBloc>(context1)
-                                  .add(const TourCreateListRequested());
-                              context.router.maybePop();
+                            if (tourCreateState is TourCreateInProgress) {
+                              return TextButton(
+                                onPressed: () {},
+                                child: const CircularProgressIndicator(),
+                              );
                             }
                             return TextButton(
                               onPressed: () {
@@ -187,8 +200,6 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                                       excursionList: state.excursionList,
                                     ),
                                   );
-                                  context.router.back();
-                                  context.router.back();
                                 }
                               },
                               child: Text(

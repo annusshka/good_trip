@@ -32,7 +32,7 @@ class AppNotification extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: () {
-            AutoRouter.of(context).maybePop();
+            context.router.maybePop();
           },
           child: Text(
             'Ок',

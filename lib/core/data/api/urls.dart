@@ -13,14 +13,16 @@ abstract class Urls {
   static const createdExcursion = '/audioexcursion/created';
   static const excursionsByCity = '/audioexcursion/city';
   static const audioExcursion = '/audioexcursion';
-  static const createExcursion = '/audioexcursion/create/full';
+  static const createExcursion = '/audioexcursion/create';
+  static const createExcursionFiles = '/audioexcursion/create/files';
   static const excursionTypes = '/auth/excursions/types';
 
   static const likeTour = '/audiotours/like';
   static const createdTour = '/audiotours/created';
   static const toursByCity = '/audiotours/city';
   static const audioTour = '/audiotours';
-  static const createTour = '/audiotours/create/full';
+  static const createTour = '/audiotours/create';
+  static const createTourFiles = '/audiotours/create/files';
 
   static const welcome = '/auth/welcome';
 }

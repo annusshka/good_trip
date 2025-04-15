@@ -100,10 +100,7 @@ class HomeScreen extends StatelessWidget {
                 showSearch(
                   context: context,
                   delegate: MySearchDelegate(
-                    (query) => BlocProvider.of<WeatherBloc>(context)
-                      ..add(
-                        WeatherRequested(city: query),
-                      ),
+                    (query) => BlocProvider.of<WeatherBloc>(context)..add(WeatherRequested(city: query)),
                   ),
                 );
               },

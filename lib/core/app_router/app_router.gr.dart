@@ -117,6 +117,8 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           mapPoints: args.mapPoints,
           initialZoom: args.initialZoom,
+          pointSelect: args.pointSelect,
+          showAppBar: args.showAppBar,
         ),
       );
     },
@@ -449,6 +451,8 @@ class MapRoute extends PageRouteInfo<MapRouteArgs> {
     Key? key,
     required List<Point?> mapPoints,
     double initialZoom = 15.0,
+    dynamic Function(Point)? pointSelect,
+    bool showAppBar = true,
     List<PageRouteInfo>? children,
   }) : super(
           MapRoute.name,
@@ -456,6 +460,8 @@ class MapRoute extends PageRouteInfo<MapRouteArgs> {
             key: key,
             mapPoints: mapPoints,
             initialZoom: initialZoom,
+            pointSelect: pointSelect,
+            showAppBar: showAppBar,
           ),
           initialChildren: children,
         );
@@ -470,6 +476,8 @@ class MapRouteArgs {
     this.key,
     required this.mapPoints,
     this.initialZoom = 15.0,
+    this.pointSelect,
+    this.showAppBar = true,
   });
 
   final Key? key;
@@ -478,9 +486,13 @@ class MapRouteArgs {
 
   final double initialZoom;
 
+  final dynamic Function(Point)? pointSelect;
+
+  final bool showAppBar;
+
   @override
   String toString() {
-    return 'MapRouteArgs{key: $key, mapPoints: $mapPoints, initialZoom: $initialZoom}';
+    return 'MapRouteArgs{key: $key, mapPoints: $mapPoints, initialZoom: $initialZoom, pointSelect: $pointSelect, showAppBar: $showAppBar}';
   }
 }
 

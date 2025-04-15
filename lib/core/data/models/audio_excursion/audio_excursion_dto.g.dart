@@ -8,7 +8,7 @@ part of 'audio_excursion_dto.dart';
 
 AudioExcursionDto _$AudioExcursionDtoFromJson(Map<String, dynamic> json) =>
     AudioExcursionDto(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String,
       imagePath: json['imagePath'] as String?,
       address: AddressDto.fromJson(json['address'] as Map<String, dynamic>),
@@ -17,7 +17,7 @@ AudioExcursionDto _$AudioExcursionDtoFromJson(Map<String, dynamic> json) =>
           .toList(),
       description: json['description'] as String?,
       kinds: (json['kinds'] as List<dynamic>).map((e) => e as String).toList(),
-      liked: json['liked'] as bool,
+      liked: json['liked'] as bool? ?? false,
       deeplinkUrl: json['deeplinkUrl'] as String?,
       audioPath: json['audioPath'] as String,
     );

@@ -37,8 +37,8 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetAudioTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -53,8 +53,8 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -69,8 +69,8 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -89,8 +89,8 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -110,8 +110,8 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -128,8 +128,8 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetFavoriteTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -147,8 +147,8 @@ class TourRepository implements ITourRepository {
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     } on Exception catch (e) {
       throw Exception(e.toString());
@@ -176,16 +176,32 @@ class TourRepository implements ITourRepository {
 
   @override
   Future<void> saveTour({
-    required String name,
-    required String imagePath,
-    required List<DayInWeek> weekdays,
-    required String description,
-    required List<String> kinds,
-    required Address address,
-    required File? imageFile,
-    required List<IAudioExcursion> excursionList,
-  }) {
-    // TODO: implement saveTour
-    throw UnimplementedError();
+    required TourDto tour,
+    required String? imagePath,
+    // required String name,
+    // required String imagePath,
+    // required List<DayInWeek> weekdays,
+    // required String description,
+    // required List<String> kinds,
+    // required Address address,
+    // required File? imageFile,
+    // required List<IAudioExcursion> excursionList,
+  }) async {
+    try {
+      //final MultipartFile file = await MultipartFile.fromFile(tour.imagePath ?? '');
+      //final MultipartFile file = MultipartFile.fromBytes(await imageFile!.readAsBytes());
+      final File imageFile = File(imagePath ?? '');
+      final int tourId = await service.createTour(tour: tour);
+      final int tourId2 = await service.createTourFiles(tourId: tourId, image: imageFile);
+    } on DioException catch (error) {
+      throw TourError(
+        name: 'SaveExcursion',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
+        statusCode: error.response?.statusCode,
+      );
+    } on Exception catch (e) {
+      throw Exception(e.toString());
+    }
   }
 }

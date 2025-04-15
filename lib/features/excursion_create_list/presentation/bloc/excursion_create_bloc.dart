@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -71,14 +72,18 @@ class ExcursionCreateBloc extends Bloc<ExcursionCreateEvent, ExcursionCreateStat
 
   Future<void> _excursionRemoveRequested(
       CreatedExcursionRemoveRequested event, Emitter<ExcursionCreateState> emit) async {
-    emit(ExcursionCreateInProgress());
+    emit(ExcursionRemoveInProgress());
     try {
       await excursionRepository.deleteExcursion(id: event.tourId);
-      emit(ExcursionCreatedSuccess());
-      _showChangeNotification(event.context, changesSuccess);
-    } catch (_) {
-      emit(const ExcursionCreateFailure(errorMsg: 'Error in tour create request.'));
-      _showChangeNotification(event.context, changesFail);
+      AppMetrica.reportEvent('excursion_deleted ${event.tourId}');
+      emit(ExcursionRemovedSuccess());
+    } catch (e) {
+      emit(const ExcursionRemoveFailure(errorMsg: 'Error in tour create request.'));
+      AppMetrica.reportErrorWithGroup(
+        'TourCreatedRemove level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
     }
   }
 

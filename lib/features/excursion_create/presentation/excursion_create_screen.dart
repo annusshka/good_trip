@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:day_picker/day_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
@@ -31,7 +32,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
   final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
   late List<DayInWeek> weekdays;
-  late Point point;
+  Point? point;
   late String? imagePath;
   late File? imageFile;
   late String? audioPath;
@@ -375,6 +376,31 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     ),
                   ),
                 ),
+                Row(
+                  children: [
+                    const Spacer(),
+                    InkWell(
+                      onTap: () {
+                        AutoRouter.of(context).push(
+                          MapRoute(
+                            mapPoints: [point],
+                            pointSelect: (Point actualPoint) {
+                              point = actualPoint;
+                            },
+                            initialZoom: 10.0,
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Смотреть на карте',
+                        textAlign: TextAlign.right,
+                        style: AppTextTheme.medium14.copyWith(
+                          color: AppColors.lightGray,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -392,6 +418,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                   cursorColor: AppColors.gray,
                   cursorErrorColor: AppColors.red,
                   cursorRadius: const Radius.circular(3.0),
+                  maxLines: null,
                   decoration: InputDecoration(
                     hintText: 'Описание',
                     hintStyle: AppTextTheme.semiBold18.copyWith(
@@ -446,10 +473,34 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     color: AppColors.pink,
                     width: double.infinity,
                     height: height * 0.08,
-                    child: BlocBuilder<ExcursionCreateBloc, ExcursionCreateState>(
-                      builder: (context, state) {
+                    child: BlocConsumer<ExcursionCreateBloc, ExcursionCreateState>(
+                      listener: (context, state) {
                         if (state is ExcursionCreatedSuccess) {
-                          BlocProvider.of<ExcursionCreateListBloc>(context).add(const ExcursionCreateListRequested());
+                          //BlocProvider.of<ExcursionCreateListBloc>(context).add(const ExcursionCreateListRequested());
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Ваша экскурсия успешно создана'),
+                            ),
+                          );
+                          context.router.maybePop();
+                        }
+                        if (state is ExcursionCreateFailure) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Ошибка при создании экскурсии.\nПопробуйте ещё раз или повторите позднее.'),
+                            ),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is ExcursionCreateInProgress) {
+                          return TextButton(
+                            onPressed: () {},
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          );
                         }
                         return TextButton(
                           onPressed: () {

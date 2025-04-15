@@ -5,7 +5,7 @@ part 'tour_dto.g.dart';
 
 @JsonSerializable()
 class TourDto {
-  final int id;
+  final int? id;
   final String name;
   final String? imagePath;
   final AddressDto address;
@@ -17,7 +17,7 @@ class TourDto {
   final List<AudioExcursionDto> excursionList;
 
   TourDto({
-    required this.id,
+    this.id,
     required this.name,
     this.imagePath,
     required this.address,

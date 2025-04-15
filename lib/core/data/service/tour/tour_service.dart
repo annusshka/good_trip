@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/api/urls.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -42,12 +44,19 @@ abstract class TourService {
   });
 
   @POST(Urls.createTour)
-  Future<void> createTour({
-    @Body() required Tour tour,
+  Future<int> createTour({
+    @Body() required TourDto tour,
   });
 
-  @DELETE('${Urls.audioTour}/{tour_id}')
+  @POST(Urls.createTourFiles)
+  @MultiPart()
+  Future<int> createTourFiles({
+    @Part(name: 'tour_id') required int tourId,
+    @Part(name: 'image') required File image,
+  });
+
+  @DELETE(Urls.audioTour)
   Future<void> deleteTour({
-    @Path('tour_id') required String tourId,
+    @Query('tour_id') required String tourId,
   });
 }

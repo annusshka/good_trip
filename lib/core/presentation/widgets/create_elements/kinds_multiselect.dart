@@ -16,11 +16,8 @@ class KindsMultiSelect extends StatefulWidget {
 }
 
 class _KindsMultiSelectState extends State<KindsMultiSelect> {
-  List<String> get dropdownItems {
-    List<String> menuItems = [];
-    for (final TourType value in TourType.values) {
-      menuItems.add(value.displayText);
-    }
+  List<TourType> get dropdownItems {
+    List<TourType> menuItems = TourType.values;
     return menuItems;
   }
 
@@ -41,7 +38,7 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
             borderRadius: BorderRadius.circular(16),
           ),
           child: DropdownButtonHideUnderline(
-            child: DropdownButton2<String>(
+            child: DropdownButton2<TourType>(
               isExpanded: true,
               hint: Text(
                 'Категория',
@@ -84,7 +81,7 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
                               const SizedBox(width: 16),
                               Expanded(
                                 child: Text(
-                                  item,
+                                  item.displayText,
                                   style: AppTextTheme.semiBold18.copyWith(
                                     color: AppColors.gray,
                                   ),
@@ -98,7 +95,7 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
                   ),
                 );
               }).toList(),
-              value: state.kindList.isEmpty ? null : state.kindList.last.displayText,
+              value: state.kindList.isEmpty ? null : state.kindList.last,
               onChanged: (_) {},
               selectedItemBuilder: (context) {
                 return dropdownItems.map(
@@ -106,7 +103,7 @@ class _KindsMultiSelectState extends State<KindsMultiSelect> {
                     return Container(
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
-                        state.kindList.join(', '),
+                        state.kindList.map((e) => e.displayText).join(', '),
                         style: AppTextTheme.semiBold18.copyWith(
                           color: AppColors.gray,
                           overflow: TextOverflow.ellipsis,

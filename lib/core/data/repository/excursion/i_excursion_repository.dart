@@ -20,5 +20,9 @@ abstract class IExcursionRepository {
 
   Future<void> deleteExcursion({required String id});
 
-  Future<void> saveExcursion({required AudioExcursion audioExcursion});
+  Future<void> saveExcursion({
+    required AudioExcursionDto audioExcursion,
+    required String? imagePath,
+    required String? audioPath
+  });
 }

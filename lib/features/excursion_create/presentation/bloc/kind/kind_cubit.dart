@@ -8,14 +8,13 @@ import 'kind_state.dart';
 class KindCubit extends Cubit<KindState> {
   KindCubit() : super(const KindState(kindList: []));
 
-  Future<void> selectKinds(String kind) async {
+  Future<void> selectKinds(TourType kind) async {
     try {
       List<TourType> kinds = List.from(state.kindList);
-      final actualType = TourType.values.byName(kind);
-      if (kinds.contains(actualType)) {
-        kinds.remove(actualType);
+      if (kinds.contains(kind)) {
+        kinds.remove(kind);
       } else {
-        kinds.add(actualType);
+        kinds.add(kind);
       }
       Map<String, String> attributesMap = {'kinds': kinds.toString()};
       AppMetrica.reportEventWithMap('select_kind', attributesMap);

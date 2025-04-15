@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:good_trip/core/data/api/urls.dart';
 import 'package:good_trip/core/data/models/models.dart';
@@ -42,15 +44,21 @@ abstract class ExcursionService {
   });
 
   @POST(Urls.createExcursion)
-  Future<void> createExcursion({
-    @Body() required AudioExcursion excursion,
-    @Body() required MultipartFile audioFile,
-    @Body() required MultipartFile imageFile,
+  Future<int> createExcursion({
+    @Body() required AudioExcursionDto excursion,
   });
 
-  @DELETE('${Urls.audioExcursion}/{tour_id}')
+  @POST(Urls.createExcursionFiles)
+  @MultiPart()
+  Future<int> createExcursionFiles({
+    @Part(name: 'excursion_id') required int excursionId,
+    @Part(name: 'image') required File image,
+    @Part(name: 'audio') required File audio,
+  });
+
+  @DELETE(Urls.audioExcursion)
   Future<void> deleteExcursion({
-    @Path('tour_id') required String tourId,
+    @Query('excursion_id') required String excursionId,
   });
 
   @GET(Urls.excursionTypes)

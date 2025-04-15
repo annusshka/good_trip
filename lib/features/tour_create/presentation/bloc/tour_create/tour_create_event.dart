@@ -35,11 +35,9 @@ class TourCreateRequested extends TourCreateEvent {
 }
 
 class CreatedTourRemoveRequested extends TourCreateEvent {
-  final BuildContext context;
   final String tourId;
 
   const CreatedTourRemoveRequested({
-    required this.context,
     required this.tourId,
   });
 }

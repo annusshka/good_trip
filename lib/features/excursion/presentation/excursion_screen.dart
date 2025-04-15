@@ -10,7 +10,6 @@ import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/map/map_screen.dart';
-import 'package:latlong2/latlong.dart';
 
 import 'widgets/widgets.dart';
 
@@ -64,18 +63,20 @@ class ExcursionScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Stack(
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20), // Image border
-                      child: ExcursionPhoto(
-                        photoUrl: excursion.imageUrl,
-                        icon: Icons.camera_alt,
-                        size: height * 0.1,
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20), // Image border
+                        child: ExcursionPhoto(
+                          photoUrl: excursion.imageUrl,
+                          icon: Icons.camera_alt,
+                          size: height * 0.1,
+                        ),
                       ),
                     ),
                     Container(
                       alignment: Alignment.topLeft,
                       child: const BackIconButton(
-                        color: Colors.white,
+                        color: AppColors.pink,
                         iconSize: 24,
                       ),
                     ),
@@ -87,6 +88,7 @@ class ExcursionScreen extends StatelessWidget {
                           return LikeButton(
                             iconSize: 24,
                             excursion: excursion,
+                            iconColor: AppColors.pink,
                           );
                         }),
                       ),
@@ -182,7 +184,7 @@ class ExcursionScreen extends StatelessWidget {
                 if (state is ExcursionListLoadSuccess && state.excursionList.isNotEmpty) {
                   return SizedBox(
                     height: height * 0.35,
-                    child: ExcursionScrollList(tourList: state.excursionList, title: 'Вам понравилось'),
+                    child: ExcursionScrollList(tourList: state.excursionList, title: 'Смотрите также'),
                   );
                 }
                 return const Center();

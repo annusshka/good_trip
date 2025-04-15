@@ -71,14 +71,15 @@ class TourScrollElement extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Text(
-                        tour.kinds[0].displayText,
-                        style: AppTextTheme.medium10.copyWith(
-                          color: AppColors.lightGray,
+                    if (tour.kinds.isNotEmpty)
+                      Expanded(
+                        child: Text(
+                          tour.kinds[0].displayText,
+                          style: AppTextTheme.medium10.copyWith(
+                            color: AppColors.lightGray,
+                          ),
                         ),
                       ),
-                    ),
                     Expanded(
                       flex: 4,
                       child: Text(

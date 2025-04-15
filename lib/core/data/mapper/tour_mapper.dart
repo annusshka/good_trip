@@ -149,7 +149,7 @@ Tour mapDtoToTour(TourDto dto) {
   return Tour(
     id: dto.id.toString(),
     name: dto.name,
-    imageUrl: dto.imagePath,
+    imageUrl: '$baseBDUrl/${dto.imagePath}',
     address: mapDtoToAddress(dto.address),
     weekdays: dto.weekdays,
     description: dto.description,
@@ -164,7 +164,7 @@ TourDto mapTourToDto(Tour tour) {
   return TourDto(
     id: int.tryParse(tour.id) ?? 0,
     name: tour.name,
-    imagePath: tour.imageUrl,
+    imagePath: tour.imageUrl?.replaceFirst('$baseBDUrl/', ''),
     address: mapAddressToDto(tour.address),
     weekdays: tour.weekdays,
     description: tour.description,

@@ -8,7 +8,7 @@ part 'audio_excursion_dto.g.dart';
 
 @JsonSerializable()
 class AudioExcursionDto {
-  final int id;
+  final int? id;
   final String name;
   final String? imagePath;
   final AddressDto address;
@@ -20,15 +20,15 @@ class AudioExcursionDto {
   final String audioPath;
 
   AudioExcursionDto({
-    required this.id,
+    this.id,
     required this.name,
     required this.imagePath,
     required this.address,
     required this.weekdays,
     required this.description,
     required this.kinds,
-    required this.liked,
-    required this.deeplinkUrl,
+    this.liked = false,
+    this.deeplinkUrl,
     required this.audioPath,
   });
 

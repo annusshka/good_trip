@@ -72,7 +72,7 @@ abstract class Locator {
 
   @singleton
   IExcursionRepository excursionRepository(ExcursionService service) {
-    return MockExcursionRepository(service: service);
+    return ExcursionRepository(service: service);
   }
 
   @singleton
@@ -82,7 +82,7 @@ abstract class Locator {
 
   @singleton
   ITourRepository tourRepository(TourService service) {
-    return MockTourRepository(service: service);
+    return TourRepository(service: service);
   }
 
   @singleton
@@ -103,7 +103,7 @@ abstract class Locator {
 
   @singleton
   IAuthRepository authRepository(AuthService service) {
-    return MockAuthRepository(service: service);
+    return AuthRepository(service: service);
   }
 
   @singleton
@@ -113,7 +113,7 @@ abstract class Locator {
 
   @singleton
   IAccountListRepository accountListRepository(AccountListService service) {
-    return MockAccountListRepository(service: service);
+    return AccountListRepository(service: service);
   }
 
   @singleton
