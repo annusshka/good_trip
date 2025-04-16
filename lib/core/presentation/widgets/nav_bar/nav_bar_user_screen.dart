@@ -4,13 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
-import 'package:good_trip/core/presentation/bloc/auth/auth_bloc.dart';
-import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
-import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
+import 'package:good_trip/core/presentation/bloc/favourite_tour/favourite_tour_cubit.dart';
 import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_element.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/di/set_up_locator.dart';
-import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
+import 'package:good_trip/features/excursion_create_list/presentation/bloc/excursion_create_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 @RoutePage()
@@ -65,11 +64,19 @@ class NavBarUserScreen extends StatelessWidget implements AutoRouteWrapper {
             weatherRepository: getIt.get<IWeatherRepository>(),
           )..add(const WeatherCurrentPositionRequested()),
         ),
-        BlocProvider<ExcursionBloc>(
+        BlocProvider<FavoriteExcursionListBloc>(
           lazy: false,
-          create: (_) => ExcursionBloc(
-            excursionRepository: getIt.get<IExcursionRepository>(),
-          ),
+          create: (_) => FavoriteExcursionListBloc(excursionRepository: getIt.get<IExcursionRepository>())
+            ..add(const FavoriteExcursionListRequested()),
+        ),
+        // BlocProvider<FavoriteTourListBloc>(
+        //   lazy: false,
+        //   create: (_) => FavoriteTourListBloc(tourRepository: getIt.get<ITourRepository>())
+        //     ..add(const FavoriteTourListRequested()),
+        // ),
+        BlocProvider<FavouriteTourCubit>(
+          lazy: false,
+          create: (_) => FavouriteTourCubit(tourRepository: getIt.get<ITourRepository>())..favouriteTourListRequested(),
         ),
         BlocProvider<ExcursionCreateBloc>(
           lazy: false,

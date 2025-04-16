@@ -1,24 +1,22 @@
 import 'package:equatable/equatable.dart';
 import 'package:good_trip/core/data/models/models.dart';
 
-abstract class TourState extends Equatable {
-  const TourState();
+abstract class TourListState extends Equatable {
+  const TourListState();
 
   @override
   List<Object> get props => [];
 }
 
-class TourInitial extends TourState {}
+class TourListInitial extends TourListState {}
 
-class TourLoadInProgress extends TourState {}
+class TourListLoadInProgress extends TourListState {}
 
-class TourLikeInProgress extends TourState {}
+class TourLikeInProgress extends TourListState {}
 
-class TourLoadSuccess extends TourState {}
+class TourLikedSuccess extends TourListState {}
 
-class TourLikedSuccess extends TourState {}
-
-class TourListLoadSuccess extends TourState {
+class TourListLoadSuccess extends TourListState {
   final List<Tour> tourList;
 
   const TourListLoadSuccess({required this.tourList});
@@ -27,7 +25,7 @@ class TourListLoadSuccess extends TourState {
   List<Object> get props => [tourList];
 }
 
-class TourListLoadFailure extends TourState {
+class TourListLoadFailure extends TourListState {
   final String errorMsg;
 
   const TourListLoadFailure({required this.errorMsg});

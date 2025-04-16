@@ -5,14 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/location_info.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/audio_excursion/audio_excursion.dart';
-import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
-import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
-import 'package:good_trip/core/presentation/bloc/weather/weather.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
 
 import 'widgets/geolocation.dart';
 
@@ -34,14 +30,37 @@ class HomeScreen extends StatelessWidget {
                   lat: state.weather.lat,
                 ),
               );
-              BlocProvider.of<AudioExcursionBloc>(context).add(
-                AudioExcursionRequested(
+              BlocProvider.of<AudioExcursionListBloc>(context).add(
+                AudioExcursionListRequested(
                   city: state.weather.cityName,
                   lon: state.weather.lon,
                   lat: state.weather.lat,
                 ),
               );
-              BlocProvider.of<TourBloc>(context).add(
+              BlocProvider.of<TourListBloc>(context).add(
+                TourListRequested(
+                  city: state.weather.cityName,
+                  lon: state.weather.lon,
+                  lat: state.weather.lat,
+                ),
+              );
+            }
+            if (state is WeatherLoadFailure) {
+              BlocProvider.of<ExcursionListBloc>(context).add(
+                ExcursionListRequested(
+                  city: state.weather.cityName,
+                  lon: state.weather.lon,
+                  lat: state.weather.lat,
+                ),
+              );
+              BlocProvider.of<AudioExcursionListBloc>(context).add(
+                AudioExcursionListRequested(
+                  city: state.weather.cityName,
+                  lon: state.weather.lon,
+                  lat: state.weather.lat,
+                ),
+              );
+              BlocProvider.of<TourListBloc>(context).add(
                 TourListRequested(
                   city: state.weather.cityName,
                   lon: state.weather.lon,
@@ -51,13 +70,13 @@ class HomeScreen extends StatelessWidget {
             }
           },
         ),
-        BlocListener<ExcursionCreateBloc, ExcursionCreateState>(listener: (context, state) {
-          if (state is ExcursionCreatedSuccess) {
-            BlocProvider.of<AudioExcursionBloc>(context).add(
-              const AudioExcursionRequested(),
-            );
-          }
-        }),
+        // BlocListener<ExcursionCreateBloc, ExcursionCreateState>(listener: (context, state) {
+        //   if (state is ExcursionCreatedSuccess) {
+        //     BlocProvider.of<AudioExcursionListBloc>(context).add(
+        //       const AudioExcursionListRequested(),
+        //     );
+        //   }
+        // }),
       ],
       child: Scaffold(
         backgroundColor: AppColors.white,
@@ -185,14 +204,14 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 15,
-                      child: BlocBuilder<AudioExcursionBloc, AudioExcursionState>(
+                      child: BlocBuilder<AudioExcursionListBloc, AudioExcursionListState>(
                         builder: (context, state) {
-                          if (state is AudioExcursionLoadInProgress) {
+                          if (state is AudioExcursionListLoadInProgress) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
-                          if (state is AudioExcursionLoadSuccess) {
+                          if (state is AudioExcursionListLoadSuccess) {
                             if (state.tourList.isEmpty) {
                               return const EmptyList();
                             }
@@ -210,7 +229,7 @@ class HomeScreen extends StatelessWidget {
                               },
                             );
                           }
-                          if (state is AudioExcursionLoadFailure) {
+                          if (state is AudioExcursionListLoadFailure) {
                             return const Center(
                               child: Text('Произошла ошибка при загрузке'),
                             );
@@ -242,9 +261,9 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 15,
-                      child: BlocBuilder<TourBloc, TourState>(
+                      child: BlocBuilder<TourListBloc, TourListState>(
                         builder: (context, state) {
-                          if (state is TourLoadInProgress) {
+                          if (state is TourListLoadInProgress) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );

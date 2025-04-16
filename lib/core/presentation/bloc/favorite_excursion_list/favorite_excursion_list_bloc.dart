@@ -28,15 +28,15 @@ class FavoriteExcursionListBloc extends Bloc<FavoriteExcursionListEvent, Favorit
           await excursionRepository.getFavoriteExcursionList(
         offset: event.offset,
       );
-      AppMetrica.reportEvent('favourites_open');
+      AppMetrica.reportEvent('favourites_excursion_open');
       emit(FavoriteExcursionListLoadedSuccess(excursionList: excursionList));
     } catch (e) {
       emit(
         const FavoriteExcursionListLoadFailure(
-            errorMsg: 'Error in favoriteList request.'),
+            errorMsg: 'Error in favoriteExcursionList request.'),
       );
       AppMetrica.reportErrorWithGroup(
-        'FavouriteList level',
+        'FavouriteExcursionList level',
         message: e.toString(),
         errorDescription: AppMetricaErrorDescription(StackTrace.current),
       );

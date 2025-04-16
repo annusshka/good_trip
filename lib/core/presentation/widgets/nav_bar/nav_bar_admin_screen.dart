@@ -5,6 +5,7 @@ import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
+import 'package:good_trip/core/presentation/bloc/favourite_tour/favourite_tour_cubit.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/di/set_up_locator.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -66,6 +67,10 @@ class NavBarAdminScreen extends StatelessWidget implements AutoRouteWrapper {
           create: (_) => ExcursionCreateListBloc(
             excursionRepository: getIt.get<IExcursionRepository>(),
           ),
+        ),
+        BlocProvider<FavouriteTourCubit>(
+          lazy: false,
+          create: (_) => FavouriteTourCubit(tourRepository: getIt.get<ITourRepository>())..favouriteTourListRequested(),
         ),
       ],
       child: this,

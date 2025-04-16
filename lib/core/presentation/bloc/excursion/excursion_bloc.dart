@@ -14,9 +14,6 @@ class ExcursionBloc extends Bloc<ExcursionEvent, ExcursionState> {
         if (event is ExcursionLikeRequested) {
           await _requestExcursionLike(event, emit);
         }
-        if (event is ExcursionSaveRequested) {
-          await _requestExcursionSave(event, emit);
-        }
       },
     );
   }
@@ -29,23 +26,7 @@ class ExcursionBloc extends Bloc<ExcursionEvent, ExcursionState> {
       AppMetrica.reportEvent('excursion_like');
       emit(ExcursionLikedSuccess());
     } catch (e) {
-      emit(ExcursionListLoadFailure(errorMsg: e.toString()));
-      AppMetrica.reportErrorWithGroup(
-        'Excursion level',
-        message: e.toString(),
-        errorDescription: AppMetricaErrorDescription(StackTrace.current),
-      );
-    }
-  }
-
-  Future<void> _requestExcursionSave(
-      ExcursionSaveRequested event, Emitter<ExcursionState> emit) async {
-    emit(ExcursionLoadInProgress());
-    try {
-      //await excursionRepository.saveExcursion(event.tour);
-      emit(ExcursionLoadSuccess());
-    } catch (e) {
-      emit(ExcursionListLoadFailure(errorMsg: e.toString()));
+      emit(ExcursionLoadFailure(errorMsg: e.toString()));
       AppMetrica.reportErrorWithGroup(
         'Excursion level',
         message: e.toString(),

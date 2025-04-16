@@ -4,18 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 
-import 'tour.dart';
+import 'tour_list.dart';
 
-class TourBloc extends Bloc<TourEvent, TourState> {
+class TourListBloc extends Bloc<TourListEvent, TourListState> {
   final ITourRepository tourRepository;
 
-  TourBloc({required this.tourRepository}) : super(TourInitial()) {
-    on<TourEvent>(
+  TourListBloc({required this.tourRepository}) : super(TourListInitial()) {
+    on<TourListEvent>(
       (event, emit) async {
         if (event is TourLikeRequested) {
           await _requestTourLike(event, emit);
-        } else if (event is TourSaveRequested) {
-          await _requestTourSave(event, emit);
         } else if (event is TourListRequested) {
           await _requestTourList(event, emit);
         }
@@ -23,7 +21,7 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     );
   }
 
-  Future<void> _requestTourLike(TourLikeRequested event, Emitter<TourState> emit) async {
+  Future<void> _requestTourLike(TourLikeRequested event, Emitter<TourListState> emit) async {
     emit(TourLikeInProgress());
     try {
       await tourRepository.likeTour(id: event.id, isLiked: event.isLiked);
@@ -40,23 +38,8 @@ class TourBloc extends Bloc<TourEvent, TourState> {
     }
   }
 
-  Future<void> _requestTourSave(TourSaveRequested event, Emitter<TourState> emit) async {
-    emit(TourLoadInProgress());
-    try {
-      //await excursionRepository.saveExcursion(event.tour);
-      emit(TourLoadSuccess());
-    } catch (e) {
-      emit(TourListLoadFailure(errorMsg: e.toString()));
-      AppMetrica.reportErrorWithGroup(
-        'Tour level',
-        message: e.toString(),
-        errorDescription: AppMetricaErrorDescription(StackTrace.current),
-      );
-    }
-  }
-
-  Future<void> _requestTourList(TourListRequested event, Emitter<TourState> emit) async {
-    emit(TourLoadInProgress());
+  Future<void> _requestTourList(TourListRequested event, Emitter<TourListState> emit) async {
+    emit(TourListLoadInProgress());
     try {
       final List<Tour> tourList = await tourRepository.getTours(
         city: event.city,

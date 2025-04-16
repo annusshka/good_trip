@@ -73,7 +73,12 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       _getCurrentPosition();
     } catch (e) {
       debugPrint(e.toString());
-      emit(const WeatherLoadFailure(errorMsg: 'Error in weather request.'));
+      final actualLocation = LocationInfo(
+        cityName: 'Москва',
+        lon: 37.6172999,
+        lat: 55.755826,
+      );
+      emit(WeatherLoadFailure(errorMsg: 'Error in weather request.', weather: actualLocation));
       AppMetrica.reportErrorWithGroup(
         'Localization level',
         message: e.toString(),

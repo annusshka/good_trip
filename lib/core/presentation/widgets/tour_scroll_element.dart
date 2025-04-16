@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
+import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/excursion_photo.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -51,12 +51,14 @@ class TourScrollElement extends StatelessWidget {
                         Container(
                           alignment: Alignment.topRight,
                           padding: const EdgeInsets.all(8.0),
-                          child: BlocBuilder<ExcursionBloc, ExcursionState>(builder: (context, state) {
-                            return TourLikeButton(
-                              iconSize: 24,
-                              tour: tour,
-                            );
-                          }),
+                          child: BlocBuilder<TourListBloc, TourListState>(
+                            builder: (context, state) {
+                              return TourLikeButton(
+                                iconSize: 24,
+                                tour: tour,
+                              );
+                            },
+                          ),
                         ),
                     ],
                   ),

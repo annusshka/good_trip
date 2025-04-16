@@ -53,11 +53,10 @@ class JwtInterceptor extends Interceptor {
     await _storage.deleteAll();
   }
 
-  Future<bool> refreshToken() async {
+  Future<bool> refreshToken(String refreshToken) async {
     try {
-      final refreshToken = await _storage.read(key: 'refreshToken');
-      final response = await _dio
-          .post('$baseUrl/auth/refresh', data: {'refreshToken': refreshToken});
+      _dio.options.headers['Authorization'] = 'Bearer $refreshToken';
+      final response = await _dio.post('$baseUrl/auth/refresh');
       if (response.statusCode == 200 || response.statusCode == 201) {
         await saveUserJwt(response.data.jwt);
         await saveUserJwtR(response.data.refreshJwt);
@@ -68,8 +67,8 @@ class JwtInterceptor extends Interceptor {
     } on DioException catch (error) {
       throw AuthError(
         name: 'RefreshTokenError',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'],
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     }
   }
@@ -95,7 +94,7 @@ class JwtInterceptor extends Interceptor {
       String? jwt = await readRefreshJwt();
 
       if (jwt != null && jwt.isNotEmpty) {
-        final isRefreshed = await refreshToken();
+        final isRefreshed = await refreshToken(jwt);
         if (isRefreshed) {
           final jwt = await readUserJwt();
           err.requestOptions.headers['Authorization'] = 'Bearer $jwt';

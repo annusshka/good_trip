@@ -18,5 +18,3 @@ class ExcursionListCreateByActualUserRequested extends ExcursionCreateListEvent 
 
   const ExcursionListCreateByActualUserRequested({this.offset = 0});
 }
-
-class ShowNotificationRequested extends ExcursionCreateListEvent {}

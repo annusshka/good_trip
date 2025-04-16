@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 
-import 'audio_excursion.dart';
+import 'audio_excursion_list.dart';
 
-class AudioExcursionBloc extends Bloc<AudioExcursionEvent, AudioExcursionState> {
+class AudioExcursionListBloc extends Bloc<AudioExcursionListEvent, AudioExcursionListState> {
   final IExcursionRepository excursionRepository;
 
-  AudioExcursionBloc({required this.excursionRepository}) : super(AudioExcursionInitial()) {
-    on<AudioExcursionEvent>(
+  AudioExcursionListBloc({required this.excursionRepository}) : super(AudioExcursionListInitial()) {
+    on<AudioExcursionListEvent>(
       (event, emit) async {
-        if (event is AudioExcursionRequested) {
+        if (event is AudioExcursionListRequested) {
           await _requestExcursionList(event, emit);
         }
       },
@@ -20,8 +20,8 @@ class AudioExcursionBloc extends Bloc<AudioExcursionEvent, AudioExcursionState> 
   }
 
   Future<void> _requestExcursionList(
-      AudioExcursionRequested event, Emitter<AudioExcursionState> emit) async {
-    emit(AudioExcursionLoadInProgress());
+      AudioExcursionListRequested event, Emitter<AudioExcursionListState> emit) async {
+    emit(AudioExcursionListLoadInProgress());
     try {
       final List<AudioExcursion> tourList = await excursionRepository.getAudioExcursions(
         city: event.city,
@@ -29,9 +29,9 @@ class AudioExcursionBloc extends Bloc<AudioExcursionEvent, AudioExcursionState> 
         lat: event.lat,
         offset: event.offset,
       );
-      emit(AudioExcursionLoadSuccess(tourList: tourList));
+      emit(AudioExcursionListLoadSuccess(tourList: tourList));
     } catch (e) {
-      emit(AudioExcursionLoadFailure(errorMsg: e.toString()));
+      emit(AudioExcursionListLoadFailure(errorMsg: e.toString()));
       AppMetrica.reportErrorWithGroup(
         'AudioExcursion level',
         message: e.toString(),

@@ -15,10 +15,10 @@ class ExcursionLoadSuccess extends ExcursionState {}
 
 class ExcursionLikedSuccess extends ExcursionState {}
 
-class ExcursionListLoadFailure extends ExcursionState {
+class ExcursionLoadFailure extends ExcursionState {
   final String errorMsg;
 
-  const ExcursionListLoadFailure({required this.errorMsg});
+  const ExcursionLoadFailure({required this.errorMsg});
 
   @override
   List<Object> get props => [errorMsg];

@@ -30,7 +30,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         listener: (context, state) {
           if (state is WelcomeInfoAlreadySeen) {
             BlocProvider.of<AuthBloc>(context)..add(AuthLoadUserEvent());
-            context.router.replace(const HomeRoute());
+            context.router.replace(const SignInRoute());
+            // context.router.replace(const HomeRoute());
           } else if (state is FirstRun) {
             context.router.replace(const SignInRoute());
           }

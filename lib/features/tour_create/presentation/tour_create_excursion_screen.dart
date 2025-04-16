@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/audio_player/excursion_card/excursion_card.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
@@ -182,7 +181,7 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                             if (tourCreateState is TourCreateInProgress) {
                               return TextButton(
                                 onPressed: () {},
-                                child: const CircularProgressIndicator(),
+                                child: const CircularProgressIndicator(color: AppColors.white,),
                               );
                             }
                             return TextButton(

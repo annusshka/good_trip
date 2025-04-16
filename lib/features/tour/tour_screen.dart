@@ -5,7 +5,7 @@ import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
-import 'package:good_trip/core/presentation/bloc/tour/tour.dart';
+import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
@@ -59,7 +59,7 @@ class TourScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.topRight,
                       padding: const EdgeInsets.all(8.0),
-                      child: BlocBuilder<TourBloc, TourState>(
+                      child: BlocBuilder<TourListBloc, TourListState>(
                         builder: (context, state) {
                           return TourLikeButton(
                             iconSize: 24.0,

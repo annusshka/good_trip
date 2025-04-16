@@ -24,8 +24,8 @@ class WeatherRepository implements IWeatherRepository {
     } on DioException catch (error) {
       throw WeatherError(
         name: 'FetchCurrentWeatherError',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
+        message: error.response?.data?['message'] ?? '',
+        errorText: error.response?.data?['errorText'] ?? '',
       );
     }
   }

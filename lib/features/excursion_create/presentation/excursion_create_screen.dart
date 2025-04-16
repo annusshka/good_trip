@@ -4,9 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:day_picker/day_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/create_elements/create_elements.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -375,31 +373,6 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                       showAppBar: false,
                     ),
                   ),
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    InkWell(
-                      onTap: () {
-                        AutoRouter.of(context).push(
-                          MapRoute(
-                            mapPoints: [point],
-                            pointSelect: (Point actualPoint) {
-                              point = actualPoint;
-                            },
-                            initialZoom: 10.0,
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Смотреть на карте',
-                        textAlign: TextAlign.right,
-                        style: AppTextTheme.medium14.copyWith(
-                          color: AppColors.lightGray,
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
                 const SizedBox(
                   height: 10,
