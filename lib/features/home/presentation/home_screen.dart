@@ -9,6 +9,7 @@ import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import 'widgets/geolocation.dart';
 
@@ -70,13 +71,6 @@ class HomeScreen extends StatelessWidget {
             }
           },
         ),
-        // BlocListener<ExcursionCreateBloc, ExcursionCreateState>(listener: (context, state) {
-        //   if (state is ExcursionCreatedSuccess) {
-        //     BlocProvider.of<AudioExcursionListBloc>(context).add(
-        //       const AudioExcursionListRequested(),
-        //     );
-        //   }
-        // }),
       ],
       child: Scaffold(
         backgroundColor: AppColors.white,
@@ -94,12 +88,10 @@ class HomeScreen extends StatelessWidget {
                   locationInfo: state.weather,
                 );
               } else if (state is WeatherLoadInProgress) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return const GeolocationLoading();
               } else if (state is WeatherLoadFailure) {
                 return Geolocation(
-                  locationInfo: state.weather ?? LocationInfo.undefined(),
+                  locationInfo: state.weather,
                 );
               } else {
                 return Geolocation(
@@ -149,11 +141,6 @@ class HomeScreen extends StatelessWidget {
                       flex: 15,
                       child: BlocBuilder<ExcursionListBloc, ExcursionListState>(
                         builder: (context, state) {
-                          if (state is ExcursionListLoadInProgress) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
                           if (state is ExcursionListLoadSuccess) {
                             if (state.excursionList.isEmpty) {
                               return const EmptyList();
@@ -177,7 +164,7 @@ class HomeScreen extends StatelessWidget {
                               child: Text('Произошла ошибка при загрузке'),
                             );
                           }
-                          return const Center();
+                          return const EmptyListWidget();
                         },
                       ),
                     ),
@@ -206,11 +193,6 @@ class HomeScreen extends StatelessWidget {
                       flex: 15,
                       child: BlocBuilder<AudioExcursionListBloc, AudioExcursionListState>(
                         builder: (context, state) {
-                          if (state is AudioExcursionListLoadInProgress) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
                           if (state is AudioExcursionListLoadSuccess) {
                             if (state.tourList.isEmpty) {
                               return const EmptyList();
@@ -234,7 +216,7 @@ class HomeScreen extends StatelessWidget {
                               child: Text('Произошла ошибка при загрузке'),
                             );
                           }
-                          return const Center();
+                          return const EmptyListWidget();
                         },
                       ),
                     ),
@@ -263,11 +245,6 @@ class HomeScreen extends StatelessWidget {
                       flex: 15,
                       child: BlocBuilder<TourListBloc, TourListState>(
                         builder: (context, state) {
-                          if (state is TourListLoadInProgress) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
                           if (state is TourListLoadSuccess) {
                             if (state.tourList.isEmpty) {
                               return const EmptyList();
@@ -275,9 +252,7 @@ class HomeScreen extends StatelessWidget {
                             return ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount: state.tourList.length,
-                              separatorBuilder: (BuildContext context, _) => const SizedBox(
-                                width: 10,
-                              ),
+                              separatorBuilder: (BuildContext context, _) => const SizedBox(width: 10),
                               itemBuilder: (context, i) {
                                 final tour = state.tourList[i];
                                 return TourScrollElement(
@@ -291,7 +266,7 @@ class HomeScreen extends StatelessWidget {
                               child: Text('Произошла ошибка при загрузке'),
                             );
                           }
-                          return const Center();
+                          return const EmptyListWidget();
                         },
                       ),
                     ),
@@ -300,6 +275,75 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class EmptyListWidget extends StatelessWidget {
+  const EmptyListWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Skeletonizer(
+      enabled: true,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: 7,
+        itemBuilder: (context, index) {
+          return SizedBox(
+            height: 248,
+            width: 150,
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Center(
+                    child: Bone(
+                      width: 150.0,
+                      height: 110,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  SizedBox(
+                    height: 80,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '${TourType.interesting_places}',
+                            maxLines: 1,
+                            style: AppTextTheme.medium10.copyWith(
+                              color: AppColors.lightGray,
+                            ),
+                          ),
+                        ),
+                        const Expanded(
+                          flex: 4,
+                          child: Text(
+                            'Название экскурсии Название экскурсии Название экскурсии Название экскурсии',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTextTheme.semiBold18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const SizedBox(
+          width: 10,
         ),
       ),
     );

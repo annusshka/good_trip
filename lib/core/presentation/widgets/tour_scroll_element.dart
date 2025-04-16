@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/excursion_photo.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -47,19 +45,14 @@ class TourScrollElement extends StatelessWidget {
                         icon: tour is Excursion ? Icons.photo_camera : Icons.headphones_rounded,
                         size: 50,
                       ),
-                      if (tour is! Excursion)
-                        Container(
-                          alignment: Alignment.topRight,
-                          padding: const EdgeInsets.all(8.0),
-                          child: BlocBuilder<TourListBloc, TourListState>(
-                            builder: (context, state) {
-                              return TourLikeButton(
-                                iconSize: 24,
-                                tour: tour,
-                              );
-                            },
-                          ),
+                      Container(
+                        alignment: Alignment.topRight,
+                        padding: const EdgeInsets.all(8.0),
+                        child: TourLikeButton(
+                          iconSize: 24,
+                          tour: tour,
                         ),
+                      ),
                     ],
                   ),
                 ),
@@ -85,7 +78,7 @@ class TourScrollElement extends StatelessWidget {
                     Expanded(
                       flex: 4,
                       child: Text(
-                        tour.name,
+                        tour.name.isNotEmpty ? tour.name : 'Тур ${tour.id}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextTheme.semiBold18,

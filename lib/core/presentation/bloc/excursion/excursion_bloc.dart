@@ -22,7 +22,7 @@ class ExcursionBloc extends Bloc<ExcursionEvent, ExcursionState> {
       ExcursionLikeRequested event, Emitter<ExcursionState> emit) async {
     emit(ExcursionLoadInProgress());
     try {
-      await excursionRepository.likeTour(id: event.id, isLiked: event.isLiked);
+      await excursionRepository.likeAudioExcursion(id: event.id, isLiked: event.isLiked);
       AppMetrica.reportEvent('excursion_like');
       emit(ExcursionLikedSuccess());
     } catch (e) {

@@ -24,4 +24,26 @@ class FavouriteTourCubit extends Cubit<FavouriteTourState> {
       );
     }
   }
+
+  Future<bool> likeTour({required Tour tour, required bool isLiked, required List<Tour>? tourList}) async {
+    try {
+      await tourRepository.likeTour(id: tour.id, isLiked: isLiked);
+      Map<String, String> attributesMap = {'tour_id': tour.id};
+      AppMetrica.reportEventWithMap('tour_like', attributesMap);
+      if (isLiked) {
+        tourList?.add(tour);
+      } else {
+        tourList?.remove(tour);
+      }
+      emit(FavouriteTourState(favouriteTourList: tourList));
+      return true;
+    } catch (e) {
+      AppMetrica.reportErrorWithGroup(
+        'Tour level',
+        message: e.toString(),
+        errorDescription: AppMetricaErrorDescription(StackTrace.current),
+      );
+      return false;
+    }
+  }
 }

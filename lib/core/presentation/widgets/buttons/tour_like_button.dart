@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 
 class TourLikeButton extends StatelessWidget {
@@ -18,19 +18,32 @@ class TourLikeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Icon(
-        tour.isLiked ? Icons.favorite : Icons.favorite_border,
-        size: iconSize,
-        color: iconColor,
-      ),
-      onTap: () {
-        tour.isLiked = !tour.isLiked;
-        BlocProvider.of<TourListBloc>(context).add(
-          TourLikeRequested(
-            id: tour.id,
-            isLiked: tour.isLiked,
+    final favouriteTourCubit = context.read<FavouriteTourCubit>();
+
+    return BlocBuilder<FavouriteTourCubit, FavouriteTourState>(
+      bloc: favouriteTourCubit,
+      builder: (context, state) {
+        return InkWell(
+          child: Icon(
+            tour.isLiked ? Icons.favorite : Icons.favorite_border,
+            size: iconSize,
+            color: iconColor,
           ),
+          onTap: () async {
+            tour.isLiked = !tour.isLiked;
+            final successLiked = await favouriteTourCubit.likeTour(
+              tour: tour as Tour,
+              isLiked: tour.isLiked,
+              tourList: state.favouriteTourList,
+            );
+            if (!successLiked) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Ошибка добавления в избранное'),
+                ),
+              );
+            }
+          },
         );
       },
     );

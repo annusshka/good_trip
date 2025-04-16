@@ -5,11 +5,9 @@ import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart';
 import 'package:good_trip/core/presentation/bloc/bloc.dart';
-import 'package:good_trip/core/presentation/bloc/favourite_tour/favourite_tour_cubit.dart';
 import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_element.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/di/set_up_locator.dart';
-import 'package:good_trip/features/excursion_create_list/presentation/bloc/excursion_create_bloc.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 @RoutePage()
@@ -64,31 +62,17 @@ class NavBarUserScreen extends StatelessWidget implements AutoRouteWrapper {
             weatherRepository: getIt.get<IWeatherRepository>(),
           )..add(const WeatherCurrentPositionRequested()),
         ),
-        BlocProvider<FavoriteExcursionListBloc>(
+        BlocProvider<FavouriteExcursionCubit>(
           lazy: false,
-          create: (_) => FavoriteExcursionListBloc(excursionRepository: getIt.get<IExcursionRepository>())
-            ..add(const FavoriteExcursionListRequested()),
+          create: (_) => FavouriteExcursionCubit(
+            excursionRepository: getIt.get<IExcursionRepository>(),
+          )..favouriteAudioExcursionsRequested(),
         ),
-        // BlocProvider<FavoriteTourListBloc>(
-        //   lazy: false,
-        //   create: (_) => FavoriteTourListBloc(tourRepository: getIt.get<ITourRepository>())
-        //     ..add(const FavoriteTourListRequested()),
-        // ),
         BlocProvider<FavouriteTourCubit>(
           lazy: false,
-          create: (_) => FavouriteTourCubit(tourRepository: getIt.get<ITourRepository>())..favouriteTourListRequested(),
-        ),
-        BlocProvider<ExcursionCreateBloc>(
-          lazy: false,
-          create: (_) => ExcursionCreateBloc(
-            excursionRepository: getIt.get<IExcursionRepository>(),
-          ),
-        ),
-        BlocProvider<AuthBloc>(
-          lazy: false,
-          create: (_) => AuthBloc(
-            authRepository: getIt.get<IAuthRepository>(),
-          ),
+          create: (_) => FavouriteTourCubit(
+            tourRepository: getIt.get<ITourRepository>(),
+          )..favouriteTourListRequested(),
         ),
       ],
       child: this,

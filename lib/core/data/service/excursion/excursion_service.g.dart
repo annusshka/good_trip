@@ -236,10 +236,9 @@ class _ExcursionService implements ExcursionService {
   }
 
   @override
-  Future<int> createExcursionFiles({
+  Future<int> createExcursionImage({
     required int excursionId,
     required File image,
-    required File audio,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -256,6 +255,40 @@ class _ExcursionService implements ExcursionService {
         filename: image.path.split(Platform.pathSeparator).last,
       ),
     ));
+    final _result = await _dio.fetch<int>(_setStreamType<int>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          '/audioexcursion/create/image',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<int> createExcursionAudio({
+    required int excursionId,
+    required File audio,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'excursion_id',
+      excursionId.toString(),
+    ));
     _data.files.add(MapEntry(
       'audio',
       MultipartFile.fromFileSync(
@@ -271,7 +304,7 @@ class _ExcursionService implements ExcursionService {
     )
         .compose(
           _dio.options,
-          '/audioexcursion/create/files',
+          '/audioexcursion/create/audio',
           queryParameters: queryParameters,
           data: _data,
         )

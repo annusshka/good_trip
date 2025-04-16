@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/data/mapper/tour_mapper.dart';
-import 'package:good_trip/core/data/models/exception/secure_storage_exception.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -101,7 +100,7 @@ class ExcursionRepository implements IExcursionRepository {
   }
 
   @override
-  Future<void> likeTour({
+  Future<void> likeAudioExcursion({
     required String id,
     required bool isLiked,
   }) async {
@@ -164,7 +163,8 @@ class ExcursionRepository implements IExcursionRepository {
       final File imageFile = File(imagePath ?? '');
       final File audioFile = File(audioPath ?? '');
       final int excursionId = await service.createExcursion(excursion: audioExcursion);
-      final int excursionId2 = await service.createExcursionFiles(excursionId: excursionId, image: imageFile, audio: audioFile);
+      final int excursionId2 = await service.createExcursionImage(excursionId: excursionId, image: imageFile);
+      final int excursionId3 = await service.createExcursionAudio(excursionId: excursionId, audio: audioFile);
     } on DioException catch (error) {
       throw TourError(
         name: 'SaveExcursion',

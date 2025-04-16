@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 
 class LikeButton extends StatelessWidget {
@@ -18,19 +18,32 @@ class LikeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Icon(
-        excursion.isLiked ? Icons.favorite : Icons.favorite_border,
-        size: iconSize,
-        color: iconColor,
-      ),
-      onTap: () {
-        excursion.isLiked = !excursion.isLiked;
-        BlocProvider.of<ExcursionBloc>(context).add(
-          ExcursionLikeRequested(
-            id: excursion.id,
-            isLiked: excursion.isLiked,
+    final favouriteAudioExcursionCubit = context.read<FavouriteExcursionCubit>();
+
+    return BlocBuilder<FavouriteExcursionCubit, FavouriteExcursionState>(
+      bloc: favouriteAudioExcursionCubit,
+      builder: (context, state) {
+        return InkWell(
+          child: Icon(
+            excursion.isLiked ? Icons.favorite : Icons.favorite_border,
+            size: iconSize,
+            color: iconColor,
           ),
+          onTap: () async {
+            excursion.isLiked = !excursion.isLiked;
+            final successLiked = await favouriteAudioExcursionCubit.likeAudioExcursion(
+              isLiked: excursion.isLiked,
+              excursion: excursion as AudioExcursion,
+              excursionList: state.favouriteAudioExcursionList,
+            );
+            if (!successLiked) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Ошибка добавления в избранное'),
+                ),
+              );
+            }
+          },
         );
       },
     );

@@ -14,7 +14,8 @@ abstract class Urls {
   static const excursionsByCity = '/audioexcursion/city';
   static const audioExcursion = '/audioexcursion';
   static const createExcursion = '/audioexcursion/create';
-  static const createExcursionFiles = '/audioexcursion/create/files';
+  static const createExcursionImage = '/audioexcursion/create/image';
+  static const createExcursionAudio = '/audioexcursion/create/audio';
   static const excursionTypes = '/auth/excursions/types';
 
   static const likeTour = '/audiotours/like';

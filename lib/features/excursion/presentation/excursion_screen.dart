@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/excursion_audio/excursion_audio.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -84,13 +83,11 @@ class ExcursionScreen extends StatelessWidget {
                       Container(
                         alignment: Alignment.topRight,
                         padding: const EdgeInsets.all(8.0),
-                        child: BlocBuilder<ExcursionBloc, ExcursionState>(builder: (context, state) {
-                          return LikeButton(
-                            iconSize: 24,
-                            excursion: excursion,
-                            iconColor: AppColors.pink,
-                          );
-                        }),
+                        child: LikeButton(
+                          iconSize: 24,
+                          excursion: excursion,
+                          iconColor: AppColors.pink,
+                        ),
                       ),
                   ],
                 ),

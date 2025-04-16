@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_list/excursion_list.dart';
-import 'package:good_trip/core/presentation/bloc/tour_list/tour_list.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
@@ -59,29 +59,9 @@ class TourScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.topRight,
                       padding: const EdgeInsets.all(8.0),
-                      child: BlocBuilder<TourListBloc, TourListState>(
-                        builder: (context, state) {
-                          return TourLikeButton(
-                            iconSize: 24.0,
-                            tour: tour,
-                          );
-                          // return InkWell(
-                          //   child: Icon(
-                          //     tour.isLiked ? Icons.favorite : Icons.favorite_border,
-                          //     size: 24,
-                          //     color: AppColors.white,
-                          //   ),
-                          //   onTap: () {
-                          //     tour.isLiked = !tour.isLiked;
-                          //     BlocProvider.of<TourBloc>(context).add(
-                          //       TourLikeRequested(
-                          //         id: tour.id,
-                          //         isLiked: tour.isLiked,
-                          //       ),
-                          //     );
-                          //   },
-                          // );
-                        },
+                      child: TourLikeButton(
+                        iconSize: 24.0,
+                        tour: tour,
                       ),
                     ),
                   ],

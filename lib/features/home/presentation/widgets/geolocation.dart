@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class Geolocation extends StatefulWidget {
   final LocationInfo locationInfo;
@@ -56,3 +57,46 @@ class _GeolocationState extends State<Geolocation> {
     );
   }
 }
+
+class GeolocationLoading extends StatelessWidget {
+  const GeolocationLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Skeletonizer(
+      enabled: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            height: 30,
+            width: 100,
+            child: Text(
+              'Текущий Город',
+              style: AppTextTheme.semiBold20,
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Bone.circle(size: 20,),
+              const SizedBox(width: 5.0,),
+              SizedBox(
+                height: 20,
+                width: 50,
+                child: Text(
+                  '15°C',
+                  style: AppTextTheme.semiBold16.copyWith(
+                    color: AppColors.darkGray,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+

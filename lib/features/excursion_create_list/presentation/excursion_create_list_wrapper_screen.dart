@@ -5,7 +5,7 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
 import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
 import 'package:good_trip/di/set_up_locator.dart';
-import 'package:good_trip/features/excursion_create_list/presentation/bloc/excursion_create.dart';
+import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
 
 @RoutePage()

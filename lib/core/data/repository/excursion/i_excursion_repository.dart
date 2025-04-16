@@ -14,7 +14,7 @@ abstract class IExcursionRepository {
 
   Future<List<AudioExcursion>> getCreatedExcursionListByAdmin({int offset = 0});
 
-  Future<void> likeTour({required String id, required bool isLiked});
+  Future<void> likeAudioExcursion({required String id, required bool isLiked});
 
   Future<List<AudioExcursion>> getFavoriteExcursionList({int offset = 0});
 

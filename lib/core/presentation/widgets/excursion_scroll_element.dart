@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/data/models/models.dart';
-import 'package:good_trip/core/presentation/bloc/excursion/excursion.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/excursion_photo.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -49,12 +47,10 @@ class ExcursionScrollElement extends StatelessWidget {
                         Container(
                           alignment: Alignment.topRight,
                           padding: const EdgeInsets.all(8.0),
-                          child: BlocBuilder<ExcursionBloc, ExcursionState>(builder: (context, state) {
-                            return LikeButton(
-                              iconSize: 24,
-                              excursion: excursion,
-                            );
-                          }),
+                          child: LikeButton(
+                            iconSize: 24,
+                            excursion: excursion,
+                          ),
                         ),
                     ],
                   ),
@@ -80,7 +76,7 @@ class ExcursionScrollElement extends StatelessWidget {
                     Expanded(
                       flex: 4,
                       child: Text(
-                        excursion.name,
+                        excursion.name.isNotEmpty ? excursion.name : 'Экскурсия ${excursion.id}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextTheme.semiBold18,

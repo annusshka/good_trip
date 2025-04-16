@@ -377,7 +377,7 @@ class MockExcursionRepository implements IExcursionRepository {
   }
 
   @override
-  Future<void> likeTour({
+  Future<void> likeAudioExcursion({
     required String id,
     required bool isLiked,
   }) async {
@@ -427,26 +427,6 @@ class MockExcursionRepository implements IExcursionRepository {
           if (audioTour.id == id) iTourList.remove(audioTour);
         }
       }
-    } on DioException catch (error) {
-      throw TourError(
-        name: 'GetCreatedTourList',
-        message: error.response?.data['message'],
-        errorText: error.response?.data['errorText'] ?? '',
-      );
-    } on Exception catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  @override
-  Future<List<TourKind>> getExcursionTypes() async {
-    try {
-      List<TourKind> menuItems = [];
-      for (final TourType value in TourType.values) {
-        final TourKind tourKind = TourKind(name: value.name, translation: value.displayText);
-        menuItems.add(tourKind);
-      }
-      return menuItems;
     } on DioException catch (error) {
       throw TourError(
         name: 'GetCreatedTourList',

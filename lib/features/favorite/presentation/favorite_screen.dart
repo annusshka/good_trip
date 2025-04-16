@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/presentation/bloc/bloc.dart';
-import 'package:good_trip/core/presentation/bloc/favourite_tour/favourite_tour_cubit.dart';
-import 'package:good_trip/core/presentation/bloc/favourite_tour/favourite_tour_state.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
@@ -54,10 +52,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> with SingleTickerProvid
                 ),
                 tabs: [
                   const Tab(
-                    text: 'Понравившиеся экскурсии',
+                    text: 'Экскурсии',
                   ),
                   const Tab(
-                    text: 'Понравившиеся туры',
+                    text: 'Туры',
                   ),
                 ],
               )
@@ -67,29 +65,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> with SingleTickerProvid
         body: TabBarView(
           controller: _tabController,
           children: [
-            BlocListener<ExcursionBloc, ExcursionState>(
-              listener: (context, state) {
-                if (state is ExcursionLikedSuccess) {
-                  BlocProvider.of<FavoriteExcursionListBloc>(context).add(const FavoriteExcursionListRequested());
+            BlocBuilder<FavouriteExcursionCubit, FavouriteExcursionState>(
+              bloc: context.read<FavouriteExcursionCubit>(),
+              builder: (context, state) {
+                final excursionList = state.favouriteAudioExcursionList;
+                if (excursionList == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (excursionList.isEmpty) {
+                  return const EmptyFavourites();
+                } else {
+                  return ExcursionGrid(excursionList: excursionList);
                 }
               },
-              child: BlocBuilder<FavoriteExcursionListBloc, FavoriteExcursionListState>(
-                builder: (context, state) {
-                  if (state is FavoriteExcursionListLoadedSuccess) {
-                    if (state.excursionList.isEmpty) {
-                      return const EmptyFavourites();
-                    }
-                    return ExcursionGrid(
-                      excursionList: state.excursionList,
-                    );
-                  } else if (state is FavoriteExcursionListLoadInProgress) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
             ),
             BlocBuilder<FavouriteTourCubit, FavouriteTourState>(
               bloc: context.read<FavouriteTourCubit>(),
@@ -106,31 +95,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> with SingleTickerProvid
                 }
               },
             ),
-
-            // BlocListener<TourListBloc, TourListState>(
-            //   listener: (context, state) {
-            //     if (state is TourLikedSuccess) {
-            //       BlocProvider.of<FavoriteTourListBloc>(context).add(const FavoriteTourListRequested());
-            //     }
-            //   },
-            //   child: BlocBuilder<FavoriteTourListBloc, FavoriteTourListState>(
-            //     builder: (context, state) {
-            //       if (state is FavoriteTourListLoadedSuccess) {
-            //         if (state.tourList?.isEmpty ?? true) {
-            //           return const EmptyFavourites();
-            //         }
-            //         return TourGrid(
-            //           tourList: state.tourList,
-            //         );
-            //       } else if (state is FavoriteExcursionListLoadInProgress) {
-            //         return const Center(
-            //           child: CircularProgressIndicator(),
-            //         );
-            //       }
-            //       return const SizedBox.shrink();
-            //     },
-            //   ),
-            // ),
           ],
         ),
       ),

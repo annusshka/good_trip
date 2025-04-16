@@ -48,11 +48,17 @@ abstract class ExcursionService {
     @Body() required AudioExcursionDto excursion,
   });
 
-  @POST(Urls.createExcursionFiles)
+  @POST(Urls.createExcursionImage)
   @MultiPart()
-  Future<int> createExcursionFiles({
+  Future<int> createExcursionImage({
     @Part(name: 'excursion_id') required int excursionId,
     @Part(name: 'image') required File image,
+  });
+
+  @POST(Urls.createExcursionAudio)
+  @MultiPart()
+  Future<int> createExcursionAudio({
+    @Part(name: 'excursion_id') required int excursionId,
     @Part(name: 'audio') required File audio,
   });
 

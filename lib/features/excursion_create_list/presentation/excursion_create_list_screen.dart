@@ -2,8 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/presentation/bloc/excursion_create_list/excursion_create_list.dart';
-import 'package:good_trip/core/presentation/bloc/tour_create_list/tour_create_list.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
 import 'package:good_trip/features/excursion_create/presentation/bloc/excursion_create.dart';
@@ -82,7 +81,9 @@ class _ExcursionCreateListScreenState extends State<ExcursionCreateListScreen> w
             BlocListener<TourCreateBloc, TourCreateState>(
               listener: (BuildContext context, TourCreateState state) {
                 if (state is TourCreatedSuccess || state is TourRemovedSuccess) {
-                  BlocProvider.of<TourCreateListBloc>(context).add(const ToursCreateByActualUserRequested());
+                  BlocProvider.of<TourCreateListBloc>(context).add(
+                    const ToursCreateByActualUserRequested(),
+                  );
                 }
               },
               child: const TourList(),
