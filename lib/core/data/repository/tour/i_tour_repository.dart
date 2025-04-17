@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:day_picker/day_picker.dart';
 import 'package:good_trip/core/data/models/models.dart';
 
 abstract class ITourRepository {
@@ -27,14 +24,6 @@ abstract class ITourRepository {
   Future<void> saveTour({
     required TourDto tour,
     required String? imagePath,
-    // required String name,
-    // required String imagePath,
-    // required List<DayInWeek> weekdays,
-    // required String description,
-    // required List<String> kinds,
-    // required Address address,
-    // required File? imageFile,
-    // required List<IAudioExcursion> excursionList,
   });
 
   Future<void> deleteTour({required String id});

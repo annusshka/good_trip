@@ -1,11 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/audio_player/data/handler/queue_state2.dart';
-import 'package:good_trip/core/audio_player/data/queue_state.dart';
 import 'package:good_trip/core/audio_player/excursion_card/excursion_card.dart';
-import 'package:good_trip/core/audio_player/excursion_list/excursion_list_presenter.dart';
-import 'package:good_trip/core/audio_player/excursion_list/excursion_list_presenter2.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
@@ -25,6 +21,8 @@ class ExcursionListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context_) {
+    final viewedExcursionsCubit = context_.read<ViewedExcursionsCubit>();
+
     return ListView.builder(
       padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
@@ -99,12 +97,10 @@ class ExcursionListView extends StatelessWidget {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    BlocProvider.of<ViewedExcursionsBloc>(context).add(
-                      ViewExcursionRequested(
-                        tourId: tourId,
-                        excursionCount: index + 1,
-                        actualCount: actualCount,
-                      ),
+                    viewedExcursionsCubit.requestViewExcursion(
+                      tourId: tourId,
+                      excursionCount: index + 1,
+                      actualCount: actualCount,
                     );
                   },
                   child: ExcursionCard(

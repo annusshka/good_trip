@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:day_picker/day_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:good_trip/core/data/mapper/tour_mapper.dart';
-import 'package:good_trip/core/data/models/exception/secure_storage_exception.dart';
 import 'package:good_trip/core/data/models/exception/tour_error.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -178,18 +176,8 @@ class TourRepository implements ITourRepository {
   Future<void> saveTour({
     required TourDto tour,
     required String? imagePath,
-    // required String name,
-    // required String imagePath,
-    // required List<DayInWeek> weekdays,
-    // required String description,
-    // required List<String> kinds,
-    // required Address address,
-    // required File? imageFile,
-    // required List<IAudioExcursion> excursionList,
   }) async {
     try {
-      //final MultipartFile file = await MultipartFile.fromFile(tour.imagePath ?? '');
-      //final MultipartFile file = MultipartFile.fromBytes(await imageFile!.readAsBytes());
       final File imageFile = File(imagePath ?? '');
       final int tourId = await service.createTour(tour: tour);
       final int tourId2 = await service.createTourFiles(tourId: tourId, image: imageFile);

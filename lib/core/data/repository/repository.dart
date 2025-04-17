@@ -5,3 +5,6 @@ export 'auth/impl/auth_repository.dart';
 export 'excursion/i_excursion_repository.dart';
 export 'excursion/impl/excursion_repository.dart';
 export 'tour/i_tour_repository.dart';
+export 'tour/impl/tour_repository.dart';
+export 'weather/i_weather_repository.dart';
+export 'weather/impl/weather_repository.dart';

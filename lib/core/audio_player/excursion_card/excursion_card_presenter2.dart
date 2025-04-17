@@ -1,6 +1,5 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
 import 'package:good_trip/core/audio_player/data/position_data.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -18,19 +17,15 @@ class ExcursionCardPresenter2 {
   late final BehaviorSubject<PlaybackState> playbackState = BehaviorSubject();
 
   Stream<Duration> get bufferedPositionStream =>
-      audioPlayerHandler.playbackState
-          .map((state) => state.bufferedPosition)
-          .distinct();
+      audioPlayerHandler.playbackState.map((state) => state.bufferedPosition).distinct();
 
-  Stream<Duration?> get durationStream =>
-      mediaItem.map((item) => item?.duration).distinct();
+  Stream<Duration?> get durationStream => mediaItem.map((item) => item?.duration).distinct();
 
-  Stream<PositionData> get positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+  Stream<PositionData> get positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         AudioService.position,
         bufferedPositionStream,
         durationStream,
-            (position, bufferedPosition, duration) => PositionData(
+        (position, bufferedPosition, duration) => PositionData(
           position,
           bufferedPosition,
           duration ?? Duration.zero,
@@ -39,7 +34,8 @@ class ExcursionCardPresenter2 {
 
   Future<void> init() async {
     audioPlayerHandler.currentIndex.listen((actualIndex) async {
-      if (audioPlayerHandler.actualAlbum.valueOrNull == audioPlayerHandler.loadedAlbum.valueOrNull) {
+      final actualAlbum = audioPlayerHandler.actualAlbum.valueOrNull;
+      if (actualAlbum == audioPlayerHandler.loadedAlbum.valueOrNull) {
         isActualAudio.add(index == actualIndex);
       }
     });

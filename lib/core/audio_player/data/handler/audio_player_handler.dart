@@ -13,7 +13,7 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
   final BehaviorSubject<String> loadedAlbum = BehaviorSubject.seeded('');
 
   final AudioPlayer player;
-  final actualPlaylist = ConcatenatingAudioSource(children: []);
+  final actualPlaylist = ConcatenatingAudioSource(children: [], useLazyPreparation: false);
 
   late final StreamSubscription _playbackEventSubscription;
   late final StreamSubscription _shuffleModeEnabledSubscription;
@@ -50,6 +50,7 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
       if (state == ProcessingState.completed) {
         stop();
         player.seek(Duration.zero, index: 0);
+        logPlaylistState();
       }
     });
 
@@ -96,7 +97,9 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
     await updateQueue(loadedPlaylist.valueOrNull ?? []);
     actualAlbum.add(loadedAlbum.valueOrNull ?? '');
     try {
-      await player.setAudioSource(actualPlaylist, initialIndex: initialIndex);
+      logPlaylistState();
+      await player.setAudioSource(actualPlaylist, initialIndex: initialIndex ?? 0);
+      logPlaylistState();
     } on PlayerException catch (e) {
       debugPrint('Error loading audio source: $e');
     }
@@ -130,8 +133,22 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
 
   @override
   Future<void> updateQueue(List<MediaItem> queue) async {
-    await actualPlaylist.clear();
-    await actualPlaylist.addAll(_itemsToSources(queue));
+    logPlaylistState();
+    if (actualPlaylist.children.isNotEmpty) {
+      try {
+        actualPlaylist.children.clear();
+      } catch (_) {
+        actualPlaylist.addAll([]);
+      } finally {
+        actualPlaylist.children.addAll(_itemsToSources(queue));
+      }
+    } else {
+      await actualPlaylist.addAll(_itemsToSources(queue));
+    }
+  }
+
+  void logPlaylistState() {
+    debugPrint('actualPlaylist state: ${actualPlaylist.toString()}');
   }
 
   @override
@@ -175,12 +192,12 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
   }
 
   void clearQueue() {
+    logPlaylistState();
     mediaItemMap.valueOrNull?.clear();
     actualPlaylist.clear();
     queue.valueOrNull?.removeRange(0, queue.valueOrNull?.length ?? 0);
   }
 
-  /// Broadcasts the current state to all clients.
   void _broadcastState(PlaybackEvent event) {
     final playing = player.playing;
     playbackState.add(

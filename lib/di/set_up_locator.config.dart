@@ -15,8 +15,6 @@ import 'package:good_trip/core/app_router/app_router.dart' as _i416;
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart'
     as _i392;
 import 'package:good_trip/core/data/repository/repository.dart' as _i73;
-import 'package:good_trip/core/data/repository/weather/i_weather_repository.dart'
-    as _i658;
 import 'package:good_trip/core/data/service/service.dart' as _i505;
 import 'package:good_trip/di/locator.dart' as _i906;
 import 'package:good_trip/features/account_list/data/repository/i_account_list_repository.dart'
@@ -47,7 +45,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i505.WeatherService>(() => locator.weatherService());
     gh.singleton<_i505.ApiTourService>(() => locator.apiTourService());
     gh.singleton<_i501.AudioPlayer>(() => locator.audioPlayer());
-    gh.singleton<_i658.IWeatherRepository>(
+    gh.singleton<_i73.IWeatherRepository>(
         () => locator.weatherRepository(gh<_i505.WeatherService>()));
     gh.singleton<_i505.ExcursionService>(
         () => locator.excursionService(gh<_i361.Dio>()));

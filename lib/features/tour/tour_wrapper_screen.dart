@@ -5,11 +5,11 @@ import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/di/set_up_locator.dart';
 
-import 'presentation/bloc/viewed_excursions/viewed_excursions.dart';
-
 @RoutePage()
 class TourWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
-  const TourWrapperScreen({super.key});
+  const TourWrapperScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +44,6 @@ class TourWrapperScreen extends StatelessWidget implements AutoRouteWrapper {
           lazy: false,
           create: (_) => AudioExcursionListBloc(
             excursionRepository: getIt.get<IExcursionRepository>(),
-          ),
-        ),
-        BlocProvider<ViewedExcursionsBloc>(
-          lazy: false,
-          create: (_) => ViewedExcursionsBloc(
-            tourRepository: getIt.get<ITourRepository>(),
           ),
         ),
       ],

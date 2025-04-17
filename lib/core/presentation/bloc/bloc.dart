@@ -1,4 +1,5 @@
 export 'audio_excursion_list/audio_excursion_list.dart';
+export 'audio_list/audio_list.dart';
 export 'auth/auth.dart';
 export 'excursion/excursion.dart';
 export 'excursion_create_list/excursion_create_list.dart';

@@ -1,6 +1,5 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
 import 'package:good_trip/core/audio_player/data/position_data.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:just_audio/just_audio.dart';
@@ -22,23 +21,19 @@ class ExcursionAudioPresenter2 {
   });
 
   final BehaviorSubject<bool> isActualAudio = BehaviorSubject.seeded(false);
-  late final BehaviorSubject<MediaItem?> mediaItem = BehaviorSubject();
-  late final BehaviorSubject<PlaybackState> playbackState = BehaviorSubject();
+  final BehaviorSubject<MediaItem?> mediaItem = BehaviorSubject();
+  final BehaviorSubject<PlaybackState> playbackState = BehaviorSubject();
 
   Stream<Duration> get bufferedPositionStream =>
-      audioPlayerHandler.playbackState
-          .map((state) => state.bufferedPosition)
-          .distinct();
+      audioPlayerHandler.playbackState.map((state) => state.bufferedPosition).distinct();
 
-  Stream<Duration?> get durationStream =>
-      mediaItem.map((item) => item?.duration).distinct();
+  Stream<Duration?> get durationStream => mediaItem.map((item) => item?.duration).distinct();
 
-  Stream<PositionData> get positionDataStream =>
-      Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
+  Stream<PositionData> get positionDataStream => Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         AudioService.position,
         bufferedPositionStream,
         durationStream,
-            (position, bufferedPosition, duration) => PositionData(
+        (position, bufferedPosition, duration) => PositionData(
           position,
           bufferedPosition,
           duration ?? Duration.zero,
@@ -47,10 +42,11 @@ class ExcursionAudioPresenter2 {
 
   Future<void> init() async {
     final MediaItem item = await excursionsToMediaItems(excursion);
+    mediaItem.add(item);
     audioPlayerHandler.loadPlaylist([item], tourName ?? excursion.name);
 
     audioPlayerHandler.loadedPlaylist.listen((loadedPlayList) {
-      mediaItem.add(loadedPlayList[0]);
+      mediaItem.add(loadedPlayList[index ?? 0]);
       final _actualAlbum = audioPlayerHandler.actualAlbum.valueOrNull ?? '';
       if (_actualAlbum == (tourName ?? excursion.name)) {
         isActualAudio.add(true);
@@ -58,9 +54,7 @@ class ExcursionAudioPresenter2 {
     });
   }
 
-  Future<MediaItem> excursionsToMediaItems(
-      AudioExcursion excursion,
-      ) async {
+  Future<MediaItem> excursionsToMediaItems(AudioExcursion excursion) async {
     final audioDuration = await audioPlayer.setUrl(excursion.audioUrl);
     return MediaItem(
       id: excursion.audioUrl,
@@ -73,7 +67,7 @@ class ExcursionAudioPresenter2 {
 
   Future<void> playNewAudio() async {
     isActualAudio.add(true);
-    await audioPlayerHandler.playNewAudio(0);
+    await audioPlayerHandler.playNewAudio(index ?? 0);
   }
 
   void pause() {

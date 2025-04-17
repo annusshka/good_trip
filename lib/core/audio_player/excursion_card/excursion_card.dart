@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
-import 'package:good_trip/core/audio_player/data/handler/audio_player_handler_impl2.dart';
-import 'package:good_trip/core/audio_player/excursion_card/excursion_card_presenter.dart';
 import 'package:good_trip/core/audio_player/excursion_card/excursion_card_presenter2.dart';
 import 'package:good_trip/core/audio_player/excursion_card/excursion_card_view.dart';
 import 'package:good_trip/core/data/models/models.dart';

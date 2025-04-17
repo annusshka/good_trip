@@ -5,7 +5,7 @@ import 'package:good_trip/core/data/api/api_key.dart';
 import 'package:good_trip/core/data/interceptor/jwt_interceptor.dart';
 
 Dio configDio() {
-  const timeout = Duration(minutes: 1);
+  const timeout = Duration(minutes: 3);
 
   final dio = Dio();
 

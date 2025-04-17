@@ -17,6 +17,8 @@ class ExcursionCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final weekdays = excursion.getWeekdays();
+
     return Container(
       height: 154.0,
       decoration: BoxDecoration(
@@ -74,7 +76,7 @@ class ExcursionCardView extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              excursion.getWeekdays(),
+                              weekdays.isNotEmpty ? weekdays : 'Любой день',
                               textAlign: TextAlign.left,
                               style: AppTextTheme.semiBold12,
                             ),
