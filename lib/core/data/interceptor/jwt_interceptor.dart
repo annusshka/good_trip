@@ -19,11 +19,6 @@ class JwtInterceptor extends Interceptor {
   final Dio _dio;
 
   final FlutterSecureStorage _storage;
-  //
-  // Future<void> initTokens() async {
-  //   final jwt = await readUserJwt();
-  //   final refreshJwt = await readRefreshJwt();
-  // }
 
   Future<String?> readUserJwt() async {
     return await _storage.read(key: 'jwt');
@@ -57,19 +52,17 @@ class JwtInterceptor extends Interceptor {
     try {
       _dio.options.headers['Authorization'] = 'Bearer $refreshToken';
       final response = await _dio.post('$baseUrl/auth/refresh');
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        await saveUserJwt(response.data.jwt);
-        await saveUserJwtR(response.data.refreshJwt);
+      if (response.statusCode == 200 || response.statusCode == 201 || response.statusCode == 202) {
+        final jwt = response.data['token'];
+        final refreshJwt = response.data['refreshToken'];
+        await saveUserJwt(jwt);
+        await saveUserJwtR(refreshJwt);
         return true;
       } else {
         return false;
       }
-    } on DioException catch (error) {
-      throw AuthError(
-        name: 'RefreshTokenError',
-        message: error.response?.data?['message'],
-        errorText: error.response?.data?['errorText'] ?? '',
-      );
+    } catch (_) {
+      return false;
     }
   }
 
@@ -87,8 +80,7 @@ class JwtInterceptor extends Interceptor {
   }
 
   @override
-  Future<dynamic> onError(
-      DioException err, ErrorInterceptorHandler handler) async {
+  Future<dynamic> onError(DioException err, ErrorInterceptorHandler handler) async {
     final response = err.response;
     if (response != null && response.statusCode == 403 && err.requestOptions.path != '$baseUrl/auth/refresh') {
       String? jwt = await readRefreshJwt();
@@ -98,13 +90,14 @@ class JwtInterceptor extends Interceptor {
         if (isRefreshed) {
           final jwt = await readUserJwt();
           err.requestOptions.headers['Authorization'] = 'Bearer $jwt';
+          err.requestOptions.baseUrl = '';
           return handler.resolve(await _retry(err.requestOptions));
         } else {
-          return handler.next(err);
+          return handler.reject(err);
         }
       }
     }
-    return handler.next(err);
+    return handler.reject(err);
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {

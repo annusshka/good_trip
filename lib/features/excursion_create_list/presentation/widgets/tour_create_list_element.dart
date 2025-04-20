@@ -84,50 +84,56 @@ class TourCreateListElement extends StatelessWidget {
               ),
               Flexible(
                 flex: 3,
-                child: BlocConsumer<TourCreateBloc, TourCreateState>(
-                    listener: (context1, state1) {
-                      if (state1 is TourRemovedSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(changesSuccess),
-                          ),
-                        );
-                      }
-                      if (state1 is TourRemoveFailure) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(changesFail),
-                          ),
-                        );
-                      }
-                    },
-                    builder: (context, state) {
-                      return Container(
-                        padding: EdgeInsets.only(top: height * 0.02),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            width: double.infinity,
-                            color: AppColors.pink,
-                            child: TextButton(
-                              onPressed: () {
-                                BlocProvider.of<TourCreateBloc>(context).add(
-                                  CreatedTourRemoveRequested(
-                                    tourId: tour.id,
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                'Удалить',
-                                style: AppTextTheme.semiBold15.copyWith(
-                                  color: AppColors.white,
-                                ),
+                child: BlocConsumer<TourCreateBloc, TourCreateState>(listener: (context1, state1) {
+                  if (state1 is TourRemovedSuccess) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: AppColors.pink,
+                        content: Text(
+                          changesSuccess,
+                          style: TextStyle(color: AppColors.white),
+                        ),
+                      ),
+                    );
+                  }
+                  if (state1 is TourRemoveFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: AppColors.pink,
+                        content: Text(
+                          changesFail,
+                          style: TextStyle(color: AppColors.white),
+                        ),
+                      ),
+                    );
+                  }
+                }, builder: (context, state) {
+                  return Container(
+                    padding: EdgeInsets.only(top: height * 0.02),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        width: double.infinity,
+                        color: AppColors.pink,
+                        child: TextButton(
+                          onPressed: () {
+                            BlocProvider.of<TourCreateBloc>(context).add(
+                              CreatedTourRemoveRequested(
+                                tourId: tour.id,
                               ),
+                            );
+                          },
+                          child: Text(
+                            'Удалить',
+                            style: AppTextTheme.semiBold15.copyWith(
+                              color: AppColors.white,
                             ),
                           ),
                         ),
-                      );
-                    }),
+                      ),
+                    ),
+                  );
+                }),
               ),
             ],
           ),

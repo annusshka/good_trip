@@ -8,6 +8,7 @@ import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/presentation/widgets/nav_bar/nav_bar_element.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/di/set_up_locator.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 @RoutePage()
@@ -73,6 +74,12 @@ class NavBarUserScreen extends StatelessWidget implements AutoRouteWrapper {
           create: (_) => FavouriteTourCubit(
             tourRepository: getIt.get<ITourRepository>(),
           )..favouriteTourListRequested(),
+        ),
+        BlocProvider<TourCreateBloc>(
+          lazy: false,
+          create: (_) => TourCreateBloc(
+            tourRepository: getIt.get<ITourRepository>(),
+          ),
         ),
       ],
       child: this,

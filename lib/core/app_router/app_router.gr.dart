@@ -168,6 +168,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    TourCreateExcursionWrapperRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const TourCreateExcursionWrapperScreen()),
+      );
+    },
     TourCreateRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -634,6 +640,20 @@ class TourCreateExcursionRouteArgs {
   String toString() {
     return 'TourCreateExcursionRouteArgs{key: $key, name: $name, description: $description, kinds: $kinds, weekdays: $weekdays, imagePath: $imagePath, imageFile: $imageFile}';
   }
+}
+
+/// generated route for
+/// [TourCreateExcursionWrapperScreen]
+class TourCreateExcursionWrapperRoute extends PageRouteInfo<void> {
+  const TourCreateExcursionWrapperRoute({List<PageRouteInfo>? children})
+      : super(
+          TourCreateExcursionWrapperRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TourCreateExcursionWrapperRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

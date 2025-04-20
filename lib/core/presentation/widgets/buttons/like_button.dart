@@ -39,7 +39,11 @@ class LikeButton extends StatelessWidget {
             if (!successLiked) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Ошибка добавления в избранное'),
+                  backgroundColor: AppColors.pink,
+                  content: Text(
+                    'Ошибка добавления в избранное',
+                    style: TextStyle(color: AppColors.white),
+                  ),
                 ),
               );
             }

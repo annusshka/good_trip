@@ -31,6 +31,10 @@ class AuthRepository extends IAuthRepository {
         message: error.response?.data['message'],
         errorText: error.response?.data['errorText'] ?? '',
       );
+    } catch (_) {
+      throw AuthError(
+        name: 'LoadUserError',
+      );
     }
   }
 

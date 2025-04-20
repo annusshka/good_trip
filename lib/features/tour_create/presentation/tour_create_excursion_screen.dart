@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/audio_player/excursion_list/widgets/widgets.dart';
 import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
+import 'package:good_trip/features/excursion_create_list/presentation/widgets/excursion_list.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/create_excursion_list/create_excursion_list.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
 import 'package:good_trip/features/tour_create/presentation/widgets/add_excursion_card.dart';
+import 'package:good_trip/features/tour_create/presentation/widgets/excursion_card_list.dart';
 
 @RoutePage()
 class TourCreateExcursionScreen extends StatefulWidget {
@@ -71,86 +74,15 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
               builder: (context2, state) {
                 return Column(
                   children: [
-                    ListView.builder(
-                      padding: EdgeInsets.zero,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final Color actualColor =
-                            index < state.excursionList.length ? AppColors.pink : AppColors.lightGray;
-                        final Color actualColor2 =
-                            index <= state.excursionList.length ? AppColors.pink : AppColors.lightGray;
-
-                        return SizedBox(
-                          height: 178.0,
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 30,
-                                child: Column(
-                                  children: [
-                                    if (index != 0)
-                                      Expanded(
-                                        child: DottedLine(
-                                          direction: Axis.vertical,
-                                          dashColor: actualColor2,
-                                        ),
-                                      )
-                                    else
-                                      const SizedBox(height: 75),
-                                    const SizedBox(height: 5),
-                                    Container(
-                                      height: 20,
-                                      width: 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: actualColor,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '${index + 1}',
-                                          textAlign: TextAlign.center,
-                                          style: AppTextTheme.semiBold15.copyWith(
-                                            color: AppColors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 5),
-                                    if (index != state.excursionList.length)
-                                      Expanded(
-                                        child: DottedLine(
-                                          direction: Axis.vertical,
-                                          dashColor: actualColor,
-                                        ),
-                                      )
-                                    else
-                                      const SizedBox(height: 73),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 10.0),
-                              Expanded(
-                                child: index != state.excursionList.length
-                                    ? ExcursionCardView(
-                                        excursion: state.excursionList[index],
-                                        index: index,
-                                        tourName: 'new_${widget.name}',
-                                      )
-                                    : AddExcursionCard(
-                                        onTapAction: (newExcursion) {
-                                          cubit.createExcursionList(
-                                            newExcursion as AudioExcursion,
-                                          );
-                                          context.router.maybePop();
-                                        },
-                                      ),
-                              ),
-                            ],
-                          ),
+                    ExcursionCardList(
+                      excursionList: state.excursionList,
+                      tourName: 'new_${widget.name}',
+                      onTapAction: (newExcursion) {
+                        cubit.createExcursionList(
+                          newExcursion as AudioExcursion,
                         );
+                        context.router.maybePop();
                       },
-                      itemCount: state.excursionList.length + 1,
                     ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(16),
@@ -163,7 +95,11 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                             if (tourCreateState2 is TourCreatedSuccess) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Ваш тур успешно создан'),
+                                  backgroundColor: AppColors.pink,
+                                  content: Text(
+                                    'Ваш тур успешно создан',
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
                                 ),
                               );
                               await context.router.maybePop();
@@ -172,7 +108,11 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                             if (tourCreateState2 is TourCreateFailure) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Ошибка при создании тура'),
+                                  backgroundColor: AppColors.pink,
+                                  content: Text(
+                                    'Ошибка при создании тура',
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
                                 ),
                               );
                             }

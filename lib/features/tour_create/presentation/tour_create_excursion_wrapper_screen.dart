@@ -8,9 +8,9 @@ import 'package:good_trip/features/tour_create/presentation/bloc/create_excursio
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
 
 @RoutePage()
-class TourCreateWrapperScreen extends StatelessWidget
+class TourCreateExcursionWrapperScreen extends StatelessWidget
     implements AutoRouteWrapper {
-  const TourCreateWrapperScreen({super.key});
+  const TourCreateExcursionWrapperScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

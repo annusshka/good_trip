@@ -23,10 +23,10 @@ class _TourCreateScreenState extends State<TourCreateScreen> {
   final _tourNameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
-  late List<DayInWeek> weekdays;
-  late String? imagePath;
-  late File? imageFile;
-  late List<TourType> kindList;
+  List<DayInWeek>? weekdays;
+  String? imagePath;
+  File? imageFile;
+  List<TourType>? kindList;
 
   @override
   void dispose() {
@@ -214,8 +214,8 @@ class _TourCreateScreenState extends State<TourCreateScreen> {
                             TourCreateExcursionRoute(
                               name: _tourNameController.value.text,
                               description: _descriptionController.value.text,
-                              kinds: kindList,
-                              weekdays: weekdays,
+                              kinds: kindList ?? [],
+                              weekdays: weekdays ?? [],
                               imagePath: imagePath ?? '',
                               imageFile: imageFile,
                             ),

@@ -68,26 +68,8 @@ class _ExcursionCreateListScreenState extends State<ExcursionCreateListScreen> w
         body: TabBarView(
           controller: _tabController,
           children: [
-            BlocListener<ExcursionCreateBloc, ExcursionCreateState>(
-              listener: (BuildContext context, ExcursionCreateState state) {
-                if (state is ExcursionCreatedSuccess || state is ExcursionRemovedSuccess) {
-                  BlocProvider.of<ExcursionCreateListBloc>(context).add(
-                    const ExcursionListCreateByActualUserRequested(),
-                  );
-                }
-              },
-              child: const ExcursionList(),
-            ),
-            BlocListener<TourCreateBloc, TourCreateState>(
-              listener: (BuildContext context, TourCreateState state) {
-                if (state is TourCreatedSuccess || state is TourRemovedSuccess) {
-                  BlocProvider.of<TourCreateListBloc>(context).add(
-                    const ToursCreateByActualUserRequested(),
-                  );
-                }
-              },
-              child: const TourList(),
-            ),
+            const ExcursionList(),
+            const TourList(),
           ],
         ),
         floatingActionButton: FloatingActionButton(

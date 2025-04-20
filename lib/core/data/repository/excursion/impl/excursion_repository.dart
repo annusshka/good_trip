@@ -159,12 +159,11 @@ class ExcursionRepository implements IExcursionRepository {
     required String? imagePath,
     required String? audioPath,
   }) async {
+    int? excursionId;
     try {
       final File imageFile = File(imagePath ?? '');
-      final File audioFile = File(audioPath ?? '');
-      final int excursionId = await service.createExcursion(excursion: audioExcursion);
+      excursionId = await service.createExcursion(excursion: audioExcursion);
       final int excursionId2 = await service.createExcursionImage(excursionId: excursionId, image: imageFile);
-      final int excursionId3 = await service.createExcursionAudio(excursionId: excursionId, audio: audioFile);
     } on DioException catch (error) {
       throw TourError(
         name: 'SaveExcursion',
@@ -175,5 +174,10 @@ class ExcursionRepository implements IExcursionRepository {
     } on Exception catch (e) {
       throw Exception(e.toString());
     }
+
+    try {
+      final File audioFile = File(audioPath ?? '');
+      final int excursionId3 = await service.createExcursionAudio(excursionId: excursionId, audio: audioFile);
+    } catch (_) {}
   }
 }

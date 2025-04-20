@@ -9,7 +9,12 @@ abstract class TourCreateRoutes {
       AutoRoute(
         page: TourCreateRoute.page,
         children: [
-          AutoRoute(page: TourCreateExcursionRoute.page),
+          AutoRoute(
+            page: TourCreateExcursionWrapperRoute.page,
+            children: [
+              AutoRoute(page: TourCreateExcursionRoute.page),
+            ],
+          ),
         ],
       ),
       AutoRoute(page: TourCreateExcursionRoute.page),

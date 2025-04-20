@@ -57,8 +57,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
               context.router.replace(const NavBarUserRoute());
             }
             if (state is AuthErrorState) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.error)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: AppColors.pink,
+                  content: Text(
+                    state.error,
+                    style: const TextStyle(color: AppColors.white),
+                  ),
+                ),
+              );
             }
           },
           builder: (context, state) {
@@ -136,8 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               errorStyle: AppTextTheme.semiBold10,
                             ),
-                            autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             style: AppTextTheme.semiBold18.copyWith(
                               color: AppColors.gray,
                             ),
@@ -191,8 +197,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               errorStyle: AppTextTheme.semiBold10,
                             ),
-                            autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             style: AppTextTheme.semiBold18.copyWith(
                               color: AppColors.gray,
                             ),
@@ -246,16 +251,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               errorStyle: AppTextTheme.semiBold10,
                             ),
-                            autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             style: AppTextTheme.semiBold18.copyWith(
                               color: AppColors.gray,
                             ),
                             validator: (value) {
-                              return value != null &&
-                                  !EmailValidator.validate(value)
-                                  ? 'Неправильный email'
-                                  : null;
+                              return value != null && !EmailValidator.validate(value) ? 'Неправильный email' : null;
                             },
                           ),
                           const SizedBox(
@@ -302,15 +303,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               errorStyle: AppTextTheme.semiBold10,
                             ),
-                            autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             style: AppTextTheme.semiBold18.copyWith(
                               color: AppColors.gray,
                             ),
                             validator: (value) {
-                              return value == null
-                                  ? 'Введите номер телефона'
-                                  : null;
+                              return value == null ? 'Введите номер телефона' : null;
                             },
                           ),
                           const SizedBox(
@@ -331,9 +329,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               suffixIcon: GestureDetector(
                                 onTap: _toggleVisibility,
                                 child: Icon(
-                                  _showPassword
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
+                                  _showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                                   color: AppColors.darkGray,
                                 ),
                               ),
@@ -367,15 +363,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               errorStyle: AppTextTheme.semiBold10,
                             ),
-                            autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             style: AppTextTheme.semiBold18.copyWith(
                               color: AppColors.gray,
                             ),
                             validator: (value) {
-                              return value != null && value.length < 6
-                                  ? 'Введите минимум 6 символов'
-                                  : null;
+                              return value != null && value.length < 6 ? 'Введите минимум 6 символов' : null;
                             },
                           ),
                           const SizedBox(
@@ -389,8 +382,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: TextButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    _authenticateWithEmailAndPassword(
-                                        context);
+                                    _authenticateWithEmailAndPassword(context);
                                   }
                                 },
                                 child: Text(
@@ -416,8 +408,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  context.router
-                                      .popAndPush(const SignInRoute());
+                                  context.router.popAndPush(const SignInRoute());
                                 },
                                 child: Text(
                                   'Войти',

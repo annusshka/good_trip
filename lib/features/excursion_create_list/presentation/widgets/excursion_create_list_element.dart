@@ -90,14 +90,22 @@ class ExcursionCreateListElement extends StatelessWidget {
                     if (state is ExcursionRemovedSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text(changesSuccess),
+                          backgroundColor: AppColors.pink,
+                          content: Text(
+                            changesSuccess,
+                            style: TextStyle(color: AppColors.white),
+                          ),
                         ),
                       );
                     }
                     if (state is ExcursionRemoveFailure) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text(changesFail),
+                          backgroundColor: AppColors.pink,
+                          content: Text(
+                            changesFail,
+                            style: TextStyle(color: AppColors.white),
+                          ),
                         ),
                       );
                     }

@@ -2,7 +2,6 @@ import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/mapper/mapper_export.dart';
-import 'package:good_trip/core/data/models/enum/enum.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
@@ -28,8 +27,6 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
     try {
       if (event.imageFile == null ||
           event.imagePath.isEmpty ||
-          event.kinds.isEmpty ||
-          event.weekdays.isEmpty ||
           event.excursionList.isEmpty) {
         emit(
           const TourCreateFailure(errorMsg: 'Empty param in tour create request.'),
@@ -44,9 +41,9 @@ class TourCreateBloc extends Bloc<TourCreateEvent, TourCreateState> {
         final tour = TourDto(
           name: event.name,
           imagePath: imageName,
-          weekdays: mapToWeekdayList(event.weekdays),
+          weekdays: mapToWeekdayList(event.weekdays) ?? [],
           description: event.description,
-          kinds: kinds,
+          kinds: kinds ?? [],
           address: mapAddressToDto(event.address),
           excursionList: mapAudioExcursionListToDto(event.excursionList),
         );

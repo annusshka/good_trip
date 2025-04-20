@@ -32,6 +32,7 @@ import 'package:good_trip/features/splashscreen/presentation/splash_screen.dart'
 import 'package:good_trip/features/tour/tour_screen.dart';
 import 'package:good_trip/features/tour/tour_wrapper_screen.dart';
 import 'package:good_trip/features/tour_create/presentation/tour_create_excursion_screen.dart';
+import 'package:good_trip/features/tour_create/presentation/tour_create_excursion_wrapper_screen.dart';
 import 'package:good_trip/features/tour_create/presentation/tour_create_screen.dart';
 import 'package:good_trip/features/tour_create/presentation/tour_create_wrapper_screen.dart';
 import 'package:good_trip/features/welcome/welcome_screen.dart';

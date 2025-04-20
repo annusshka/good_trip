@@ -54,7 +54,11 @@ class _SignInScreenState extends State<SignInScreen> {
             if (state is AuthErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(state.error),
+                  backgroundColor: AppColors.pink,
+                  content: Text(
+                    state.error,
+                    style: const TextStyle(color: AppColors.white),
+                  ),
                 ),
               );
             }
@@ -160,9 +164,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               suffixIcon: GestureDetector(
                                 onTap: _toggleVisibility,
                                 child: Icon(
-                                  _showPassword
-                                      ? Icons.visibility_outlined
-                                      : Icons.visibility_off_outlined,
+                                  _showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
                                   color: AppColors.darkGray,
                                 ),
                               ),

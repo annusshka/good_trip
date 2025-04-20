@@ -29,11 +29,11 @@ class ExcursionCreateBloc extends Bloc<ExcursionCreateEvent, ExcursionCreateStat
       } else {
         final imageName = event.imagePath.split('/').last;
         final audioName = event.audioPath.split('/').last;
-        final weekDays = event.weekdays.map((e) => Weekday.values.firstWhere((el) => el.name == e.dayKey)).toList();
+        final weekDays = event.weekdays?.map((e) => Weekday.values.firstWhere((el) => el.name == e.dayKey)).toList();
         final AudioExcursionDto audioExcursion = AudioExcursionDto(
           name: event.name,
           imagePath: imageName,
-          weekdays: weekDays,
+          weekdays: weekDays ?? [],
           description: event.description,
           kinds: mapFromTourType(event.kinds),
           address: mapAddressToDto(event.address),

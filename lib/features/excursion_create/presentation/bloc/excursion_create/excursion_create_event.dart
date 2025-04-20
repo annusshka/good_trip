@@ -15,7 +15,7 @@ abstract class ExcursionCreateEvent extends Equatable {
 class ExcursionCreateRequested extends ExcursionCreateEvent {
   final String name;
   final String imagePath;
-  final List<DayInWeek> weekdays;
+  final List<DayInWeek>? weekdays;
   final String description;
   final List<TourType> kinds;
   final Address address;

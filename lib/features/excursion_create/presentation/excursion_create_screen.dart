@@ -5,6 +5,7 @@ import 'package:day_picker/day_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/data/models/models.dart';
+import 'package:good_trip/core/presentation/bloc/bloc.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/presentation/widgets/create_elements/create_elements.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -29,7 +30,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
   final _houseController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _dateController = TextEditingController();
-  late List<DayInWeek> weekdays;
+  List<DayInWeek>? weekdays;
   Point? point;
   late String? imagePath;
   late File? imageFile;
@@ -449,19 +450,28 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                     child: BlocConsumer<ExcursionCreateBloc, ExcursionCreateState>(
                       listener: (context, state) {
                         if (state is ExcursionCreatedSuccess) {
-                          //BlocProvider.of<ExcursionCreateListBloc>(context).add(const ExcursionCreateListRequested());
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Ваша экскурсия успешно создана'),
+                              backgroundColor: AppColors.pink,
+                              content: Text(
+                                'Ваша экскурсия успешно создана',
+                                style: TextStyle(color: AppColors.white),
+                              ),
                             ),
+                          );
+                          BlocProvider.of<ExcursionCreateListBloc>(context).add(
+                            const ExcursionListCreateByActualUserRequested(),
                           );
                           context.router.maybePop();
                         }
                         if (state is ExcursionCreateFailure) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content:
-                                  Text('Ошибка при создании экскурсии.\nПопробуйте ещё раз или повторите позднее.'),
+                              backgroundColor: AppColors.pink,
+                              content: Text(
+                                'Ошибка при создании экскурсии.\nПопробуйте ещё раз или повторите позднее.',
+                                style: TextStyle(color: AppColors.white),
+                              ),
                             ),
                           );
                         }
@@ -478,7 +488,7 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                         return TextButton(
                           onPressed: () {
                             final currentState = _formKey.currentState;
-                            if (currentState != null && currentState.validate()) {
+                            if (currentState != null && currentState.validate() && point != null) {
                               BlocProvider.of<ExcursionCreateBloc>(context).add(
                                 ExcursionCreateRequested(
                                   name: _tourNameController.value.text,
@@ -496,6 +506,26 @@ class _ExcursionCreateScreenState extends State<ExcursionCreateScreen> {
                                   audioPath: audioPath ?? '',
                                   imageFile: imageFile,
                                   audioFile: audioFile,
+                                ),
+                              );
+                            } else if (point == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: AppColors.pink,
+                                  content: Text(
+                                    'Необходимо выбрать точку на карте',
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  backgroundColor: AppColors.pink,
+                                  content: Text(
+                                    'Проверьте заполненность обязательных полей',
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
                                 ),
                               );
                             }
