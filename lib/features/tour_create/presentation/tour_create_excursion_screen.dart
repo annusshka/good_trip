@@ -5,13 +5,12 @@ import 'package:day_picker/day_picker.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/audio_player/excursion_card/excursion_card.dart';
+import 'package:good_trip/core/audio_player/excursion_list/widgets/widgets.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/buttons/buttons.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
-import 'package:good_trip/features/tour_create/presentation/bloc/create_excursion_list/create_excursion_list_cubit.dart';
-import 'package:good_trip/features/tour_create/presentation/bloc/create_excursion_list/create_excursion_list_state.dart';
+import 'package:good_trip/features/tour_create/presentation/bloc/create_excursion_list/create_excursion_list.dart';
 import 'package:good_trip/features/tour_create/presentation/bloc/tour_create/tour_create.dart';
 import 'package:good_trip/features/tour_create/presentation/widgets/add_excursion_card.dart';
 
@@ -133,9 +132,10 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                               const SizedBox(width: 10.0),
                               Expanded(
                                 child: index != state.excursionList.length
-                                    ? ExcursionCard(
-                                        audioExcursion: state.excursionList[index],
+                                    ? ExcursionCardView(
+                                        excursion: state.excursionList[index],
                                         index: index,
+                                        tourName: 'new_${widget.name}',
                                       )
                                     : AddExcursionCard(
                                         onTapAction: (newExcursion) {
@@ -181,7 +181,9 @@ class _TourCreateExcursionScreenState extends State<TourCreateExcursionScreen> {
                             if (tourCreateState is TourCreateInProgress) {
                               return TextButton(
                                 onPressed: () {},
-                                child: const CircularProgressIndicator(color: AppColors.white,),
+                                child: const CircularProgressIndicator(
+                                  color: AppColors.white,
+                                ),
                               );
                             }
                             return TextButton(

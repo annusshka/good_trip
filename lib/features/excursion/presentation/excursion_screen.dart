@@ -14,9 +14,10 @@ import 'widgets/widgets.dart';
 
 @RoutePage()
 class ExcursionScreen extends StatelessWidget {
-  const ExcursionScreen({super.key, required this.excursion});
+  const ExcursionScreen({super.key, required this.excursion, this.tourName});
 
   final IExcursion excursion;
+  final String? tourName;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class ExcursionScreen extends StatelessWidget {
                   children: [
                     Center(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20), // Image border
+                        borderRadius: BorderRadius.circular(20),
                         child: ExcursionPhoto(
                           photoUrl: excursion.imageUrl,
                           icon: Icons.camera_alt,
@@ -172,7 +173,7 @@ class ExcursionScreen extends StatelessWidget {
                 ),
                 ExcursionAudio(
                   audioExcursion: excursion as AudioExcursion,
-                  index: 0,
+                  tourName: tourName,
                 ),
               ],
               const SizedBox(height: 15),

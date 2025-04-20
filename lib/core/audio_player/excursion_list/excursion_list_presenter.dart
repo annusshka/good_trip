@@ -6,12 +6,12 @@ import 'package:good_trip/core/data/models/models.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
 
-class ExcursionAudioPresenter {
+class ExcursionListPresenter {
   final String loadedAlbum;
   final List<AudioExcursion> excursionList;
   final AudioPlayerHandler audioPlayerHandler;
 
-  ExcursionAudioPresenter({
+  ExcursionListPresenter({
     required this.loadedAlbum,
     required this.excursionList,
     required this.audioPlayerHandler,
@@ -53,27 +53,39 @@ class ExcursionAudioPresenter {
   Future<List<MediaItem>> excursionsToMediaItems(List<AudioExcursion> excursions, String tourName) async {
     List<MediaItem> items = [];
     for (final AudioExcursion excursion in excursions) {
-      final audioDuration = await AudioPlayer().setUrl(excursion.audioUrl);
-      final item = MediaItem(
-        id: excursion.audioUrl,
-        title: excursion.name,
-        album: tourName,
-        duration: audioDuration,
-        artUri: Uri.tryParse(excursion.imageUrl ?? ''),
-      );
-      items.add(item);
+      try {
+        final audioDuration = await AudioPlayer().setUrl(excursion.audioUrl);
+        final item = MediaItem(
+          id: excursion.audioUrl,
+          title: excursion.name,
+          album: tourName,
+          duration: audioDuration,
+          artUri: Uri.tryParse(excursion.imageUrl ?? ''),
+        );
+        items.add(item);
+      } catch (_) {
+        final item = MediaItem(
+          id: '',
+          title: excursion.name,
+          album: tourName,
+          duration: Duration.zero,
+          artUri: Uri.tryParse(excursion.imageUrl ?? ''),
+        );
+        items.add(item);
+      }
     }
     return items;
   }
 
-  Future<void> startNewPlaylist() async {
+  Future<void> startNewPlaylist(int index) async {
     isActualPlaylist.add(true);
     final mediaItemList = mediaItems.valueOrNull ?? [];
     await audioPlayerHandler.startNewPlaylist(
       loadedPlaylist: mediaItemList,
       loadedAlbum: loadedAlbum,
-      initialIndex: 0,
+      initialIndex: index,
     );
+    actualIndex.add(index);
   }
 
   Future<void> playNewAudio(int index) async {

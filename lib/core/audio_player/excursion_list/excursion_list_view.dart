@@ -1,7 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:good_trip/core/audio_player/excursion_card/excursion_card.dart';
+import 'package:good_trip/core/audio_player/excursion_list/widgets/widgets.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
 import 'package:good_trip/core/theme/app_text_theme.dart';
@@ -10,14 +10,12 @@ import 'package:good_trip/features/tour/presentation/bloc/viewed_excursions/view
 class ExcursionListView extends StatelessWidget {
   const ExcursionListView({
     super.key,
-    required this.excursionList,
     required this.viewedExcursionCount,
-    required this.tourId,
+    required this.tour,
   });
 
-  final List<IExcursion> excursionList;
   final int viewedExcursionCount;
-  final String tourId;
+  final Tour tour;
 
   @override
   Widget build(BuildContext context_) {
@@ -29,16 +27,19 @@ class ExcursionListView extends StatelessWidget {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         late final Color actualColor;
-        late final Color actualColor2;
+        late final Color actualColorDot;
+        late final Color actualColorDot2;
         late final int actualCount;
 
         if (index < viewedExcursionCount) {
           actualColor = AppColors.pink;
-          actualColor2 = AppColors.pink;
+          actualColorDot = AppColors.pink;
+          actualColorDot2 = AppColors.pink;
           actualCount = viewedExcursionCount;
         } else {
           actualColor = AppColors.lightGray;
-          actualColor2 = index == viewedExcursionCount ? AppColors.pink : AppColors.lightGray;
+          actualColorDot2 = AppColors.lightGray;
+          actualColorDot = index == viewedExcursionCount ? AppColors.pink : AppColors.lightGray;
           actualCount = 0;
         }
 
@@ -56,7 +57,7 @@ class ExcursionListView extends StatelessWidget {
                       child: index != 0
                           ? DottedLine(
                               direction: Axis.vertical,
-                              dashColor: actualColor2,
+                              dashColor: actualColorDot,
                             )
                           : null,
                     ),
@@ -81,10 +82,10 @@ class ExcursionListView extends StatelessWidget {
                     const Spacer(),
                     SizedBox(
                       height: 75,
-                      child: index != excursionList.length - 1
+                      child: index != tour.excursionList.length - 1
                           ? DottedLine(
                               direction: Axis.vertical,
-                              dashColor: actualColor2,
+                              dashColor: actualColorDot2,
                             )
                           : null,
                     ),
@@ -98,14 +99,15 @@ class ExcursionListView extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     viewedExcursionsCubit.requestViewExcursion(
-                      tourId: tourId,
+                      tourId: tour.id,
                       excursionCount: index + 1,
                       actualCount: actualCount,
                     );
                   },
-                  child: ExcursionCard(
-                    audioExcursion: excursionList[index] as AudioExcursion,
+                  child: ExcursionCardView(
+                    excursion: tour.excursionList[index],
                     index: index,
+                    tourName: '${tour.id}_${tour.name}',
                   ),
                 ),
               ),
@@ -113,7 +115,7 @@ class ExcursionListView extends StatelessWidget {
           ),
         );
       },
-      itemCount: excursionList.length,
+      itemCount: tour.excursionList.length,
     );
   }
 }

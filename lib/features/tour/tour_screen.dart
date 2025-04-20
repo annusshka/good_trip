@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
 import 'package:good_trip/core/audio_player/data/handler/audio_player_handler.dart';
+import 'package:good_trip/core/audio_player/excursion_list/excursion_list.dart';
 import 'package:good_trip/core/audio_player/excursion_list/excursion_list_view.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/data/repository/repository.dart';
@@ -29,13 +30,6 @@ class TourScreen extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AudioListCubit>(
-          lazy: false,
-          create: (_) => AudioListCubit(
-            audioPlayerHandler: getIt.get<AudioPlayerHandler>(),
-            audioPlayer: getIt.get<AudioPlayer>(),
-          )..init(excursionList: tour.excursionList, tourName: tour.name),
-        ),
         BlocProvider<ViewedExcursionsCubit>(
           lazy: false,
           create: (_) => ViewedExcursionsCubit(
@@ -62,17 +56,19 @@ class TourScreen extends StatelessWidget {
                   width: double.infinity,
                   child: Stack(
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20), // Image border
-                        child: ExcursionPhoto(
-                          photoUrl: tour.imageUrl,
-                          icon: Icons.camera_alt,
-                          size: height * 0.1,
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: ExcursionPhoto(
+                            photoUrl: tour.imageUrl,
+                            icon: Icons.camera_alt,
+                            size: height * 0.1,
+                          ),
                         ),
                       ),
                       Container(
                         alignment: Alignment.topLeft,
-                        child: const BackIconButton(color: Colors.white, iconSize: 24),
+                        child: const BackIconButton(color: AppColors.pink, iconSize: 24),
                       ),
                       Container(
                         alignment: Alignment.topRight,
@@ -80,6 +76,7 @@ class TourScreen extends StatelessWidget {
                         child: TourLikeButton(
                           iconSize: 24.0,
                           tour: tour,
+                          iconColor: AppColors.pink,
                         ),
                       ),
                     ],
@@ -156,10 +153,9 @@ class TourScreen extends StatelessWidget {
                   ),
                   BlocBuilder<ViewedExcursionsCubit, ViewedExcursionsState>(
                     builder: (context, state) {
-                      return ExcursionListView(
-                        excursionList: tour.excursionList,
+                      return ExcursionList(
                         viewedExcursionCount: state.excursionCount,
-                        tourId: tour.id,
+                        tour: tour as Tour,
                       );
                     },
                   ),

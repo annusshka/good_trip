@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:good_trip/core/app_router/app_router.dart';
-import 'package:good_trip/core/audio_player/excursion_card/widgets/audio_container.dart';
+import 'package:good_trip/core/audio_player/excursion_list/widgets/widgets.dart';
 import 'package:good_trip/core/data/models/models.dart';
 import 'package:good_trip/core/presentation/widgets/widgets.dart';
 import 'package:good_trip/core/theme/app_colors.dart';
@@ -11,9 +11,13 @@ class ExcursionCardView extends StatelessWidget {
   const ExcursionCardView({
     super.key,
     required this.excursion,
+    required this.index,
+    this.tourName,
   });
 
   final AudioExcursion excursion;
+  final int index;
+  final String? tourName;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +46,16 @@ class ExcursionCardView extends StatelessWidget {
                   topLeft: Radius.circular(10.0),
                   topRight: Radius.circular(10.0),
                 ),
-                child: ExcursionPhoto(
-                  photoUrl: excursion.imageUrl,
-                  icon: Icons.camera_alt,
-                  size: 30.0,
-                  boxFit: BoxFit.fitWidth,
+                child: Image.network(
+                  excursion.imageUrl ?? '',
+                  fit: BoxFit.fitWidth,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey,
+                      alignment: Alignment.center,
+                      child: const Icon(Icons.camera_alt, size: 30.0,),
+                    );
+                  },
                 ),
               ),
             ),
@@ -85,7 +94,10 @@ class ExcursionCardView extends StatelessWidget {
                               padding: const EdgeInsets.only(right: 6.0),
                               child: InkWell(
                                 onTap: () => context.router.push(
-                                  ExcursionRoute(excursion: excursion),
+                                  ExcursionRoute(
+                                    excursion: excursion,
+                                    tourName: tourName,
+                                  ),
                                 ),
                                 child: Text(
                                   'Подробнее...',
@@ -100,7 +112,9 @@ class ExcursionCardView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const AudioContainer(),
+                    AudioContainer(
+                      index: index,
+                    ),
                   ],
                 ),
               ),

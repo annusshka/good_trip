@@ -76,6 +76,7 @@ abstract class _$AppRouter extends RootStackRouter {
         child: ExcursionScreen(
           key: args.key,
           excursion: args.excursion,
+          tourName: args.tourName,
         ),
       );
     },
@@ -342,12 +343,14 @@ class ExcursionRoute extends PageRouteInfo<ExcursionRouteArgs> {
   ExcursionRoute({
     Key? key,
     required IExcursion excursion,
+    String? tourName,
     List<PageRouteInfo>? children,
   }) : super(
           ExcursionRoute.name,
           args: ExcursionRouteArgs(
             key: key,
             excursion: excursion,
+            tourName: tourName,
           ),
           initialChildren: children,
         );
@@ -362,15 +365,18 @@ class ExcursionRouteArgs {
   const ExcursionRouteArgs({
     this.key,
     required this.excursion,
+    this.tourName,
   });
 
   final Key? key;
 
   final IExcursion excursion;
 
+  final String? tourName;
+
   @override
   String toString() {
-    return 'ExcursionRouteArgs{key: $key, excursion: $excursion}';
+    return 'ExcursionRouteArgs{key: $key, excursion: $excursion, tourName: $tourName}';
   }
 }
 

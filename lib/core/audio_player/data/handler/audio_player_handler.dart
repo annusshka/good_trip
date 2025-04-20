@@ -8,9 +8,7 @@ import 'package:rxdart/rxdart.dart';
 
 class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements AudioHandler {
   final BehaviorSubject<Map<AudioSource, MediaItem>> mediaItemMap = BehaviorSubject.seeded({});
-  final BehaviorSubject<List<MediaItem>> loadedPlaylist = BehaviorSubject.seeded(<MediaItem>[]);
   final BehaviorSubject<String> actualAlbum = BehaviorSubject.seeded('');
-  final BehaviorSubject<String> loadedAlbum = BehaviorSubject.seeded('');
 
   final AudioPlayer player;
   final actualPlaylist = ConcatenatingAudioSource(children: [], useLazyPreparation: false);
@@ -24,8 +22,7 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
   /// Поток актуальной последовательности аудиозаписей из just_audio
   Stream<List<IndexedAudioSource>> get effectiveSequence => player.sequenceStream.map((sequence) => sequence ?? []);
 
-  Stream<int?> get currentIndex =>
-      actualAlbum.valueOrNull == loadedAlbum.valueOrNull ? player.currentIndexStream : const Stream.empty();
+  Stream<int?> get currentIndex => player.currentIndexStream;
 
   AudioPlayerHandler({
     required this.player,
@@ -50,7 +47,6 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
       if (state == ProcessingState.completed) {
         stop();
         player.seek(Duration.zero, index: 0);
-        logPlaylistState();
       }
     });
 
@@ -85,33 +81,23 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
 
   List<AudioSource> _itemsToSources(List<MediaItem> mediaItems) => mediaItems.map(_itemToSource).toList();
 
-  void loadPlaylist(
-    List<MediaItem> excursions,
-    String album,
-  ) {
-    loadedPlaylist.add(excursions);
-    loadedAlbum.add(album);
-  }
-
-  Future<void> startNewPlaylist({int? initialIndex}) async {
-    await updateQueue(loadedPlaylist.valueOrNull ?? []);
-    actualAlbum.add(loadedAlbum.valueOrNull ?? '');
+  Future<void> startNewPlaylist({
+    required List<MediaItem> loadedPlaylist,
+    required String loadedAlbum,
+    int? initialIndex,
+  }) async {
+    await updateQueue(loadedPlaylist);
+    actualAlbum.add(loadedAlbum);
     try {
-      logPlaylistState();
       await player.setAudioSource(actualPlaylist, initialIndex: initialIndex ?? 0);
-      logPlaylistState();
+      skipToQueueItem(initialIndex ?? 0);
+      play();
     } on PlayerException catch (e) {
       debugPrint('Error loading audio source: $e');
     }
   }
 
   Future<void> playNewAudio(int index) async {
-    final _actualAlbum = actualAlbum.valueOrNull ?? '';
-    final _loadedAlbum = loadedAlbum.valueOrNull ?? '';
-
-    if (!(_actualAlbum.isNotEmpty && _actualAlbum == _loadedAlbum)) {
-      await startNewPlaylist();
-    }
     skipToQueueItem(index);
     play();
   }
@@ -133,14 +119,13 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
 
   @override
   Future<void> updateQueue(List<MediaItem> queue) async {
-    logPlaylistState();
     if (actualPlaylist.children.isNotEmpty) {
       try {
-        actualPlaylist.children.clear();
+        clearQueue();
       } catch (_) {
         actualPlaylist.addAll([]);
       } finally {
-        actualPlaylist.children.addAll(_itemsToSources(queue));
+        actualPlaylist.addAll(_itemsToSources(queue));
       }
     } else {
       await actualPlaylist.addAll(_itemsToSources(queue));
@@ -192,7 +177,6 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
   }
 
   void clearQueue() {
-    logPlaylistState();
     mediaItemMap.valueOrNull?.clear();
     actualPlaylist.clear();
     queue.valueOrNull?.removeRange(0, queue.valueOrNull?.length ?? 0);
@@ -232,9 +216,7 @@ class AudioPlayerHandler extends BaseAudioHandler with SeekHandler implements Au
   void dispose() {
     mediaItemMap.close();
     queue.close();
-    loadedPlaylist.close();
     actualAlbum.close();
-    loadedAlbum.close();
 
     _playbackEventSubscription.cancel();
     _shuffleModeEnabledSubscription.cancel();
