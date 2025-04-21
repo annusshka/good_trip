@@ -22,7 +22,7 @@ class MockWelcomeInfoRepository extends IWelcomeInfoRepository {
     if (isFirstRun) {
       return await [
         const WelcomeInfo(
-          text: 'Добро пожаловать в GoodTrip',
+          text: 'Добро пожаловать в UnknownPlace',
           subtext: 'Откройте для себя очарование этого мира. '
               'Познакомьтесь с культурой, ландшафтами и наследием. '
               'Ваш идеальный путеводитель.',
