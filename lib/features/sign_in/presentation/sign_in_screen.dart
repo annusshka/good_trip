@@ -47,9 +47,10 @@ class _SignInScreenState extends State<SignInScreen> {
             if (state is AuthenticatedState) {
               if (state.user.role == AccessLevel.USER) {
                 context.router.replace(const NavBarUserRoute());
-              } else if (state.user.role == AccessLevel.ADMIN) {
-                context.router.replace(const NavBarAdminRoute());
               }
+              // else if (state.user.role == AccessLevel.ADMIN) {
+              //   context.router.replace(const NavBarAdminRoute());
+              // }
             }
             if (state is AuthErrorState) {
               ScaffoldMessenger.of(context).showSnackBar(
